@@ -24,4 +24,5 @@ Route::get('/about', function () {
 Route::get('/index', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
+Route::get('/form', 'PagesController@form');
 
