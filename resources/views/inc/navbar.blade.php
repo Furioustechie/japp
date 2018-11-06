@@ -22,6 +22,15 @@
         <li class="nav-item">
           <a class="nav-link" href="/form">Form</a>
         </li> 
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li> 
+          <li class="nav-item">
+              <a class="nav-link" href="/appealForm">AppealForm</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" href="/appeals">Appeals</a>
+              </li> 
       </ul>
     </div> 
   </nav>

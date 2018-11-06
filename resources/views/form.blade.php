@@ -47,6 +47,13 @@
                                 <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                                 <div class="invalid-feedback">Example invalid custom file feedback</div>
                               </div>
+                            </br>
+                              <div class="progress">
+                                    <div class="progress-bar progress-bar-stripped active" style="width:80%">
+                                        80% completed
+                                    </div>
+                              </div>
+
                         <div class="form-group">
                           <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
@@ -55,10 +62,55 @@
                             </label>
                           </div>
                         </div>
-                        <button class="btn btn-primary" type="submit">Submit form</button>
+                        <button class="btn btn-primary" type="submit" id=submit>Submit form</button>
                       </form>
 
         </div>
       </div>
     
 @endsection
+ <script type="text/javascript">
+$(document).ready(function() {
+
+$('form').on('submit', function(event) {
+
+    event.preventDefault();
+
+    var formData = new FormData($('form')[0]);
+
+    $.ajax({
+        xhr : function() {
+            var xhr = new window.XMLHttpRequest();
+
+            xhr.upload.addEventListener('progress', function(e) {
+
+                if (e.lengthComputable) {
+
+                    console.log('Bytes Loaded: ' + e.loaded);
+                    console.log('Total Size: ' + e.total);
+                    console.log('Percentage Uploaded: ' + (e.loaded / e.total))
+
+                    var percent = Math.round((e.loaded / e.total) * 100);
+
+                    $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+
+                }
+
+            });
+
+            return xhr;
+        },
+        type : 'POST',
+        url : '/form',
+        data : formData,
+        processData : false,
+        contentType : false,
+        success : function() {
+            alert('File uploaded!');
+        }
+    });
+
+});
+
+});
+    </script>

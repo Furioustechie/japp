@@ -25,4 +25,8 @@ Route::get('/index', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/form', 'PagesController@form');
+Route::get('/dashboard', 'PagesController@dashboard');
+Route::get('/appealForm', 'PagesController@appealForm');
+
+Route::resource('appeals', 'AppealsController');
 

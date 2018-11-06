@@ -18,4 +18,10 @@ class PagesController extends Controller
     public function form(){
         return view('form');
     }
+    public function dashboard(){
+        return view('dashboard');
+    }
+    public function appealForm(){
+        return view('appealForm');
+    }
 }
