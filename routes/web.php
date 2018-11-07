@@ -28,5 +28,9 @@ Route::get('/form', 'PagesController@form');
 Route::get('/dashboard', 'PagesController@dashboard');
 Route::get('/appealForm', 'PagesController@appealForm');
 
-Route::resource('appeals', 'AppealsController');
+ Route::resource('appeals', 'AppealsController');
+
+//Route::get('appeals/create', 'AppealsController@create');
+//Route::post('appeals/store', 'AppealsController@store');
+
 

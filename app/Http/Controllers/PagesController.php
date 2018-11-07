@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Appeal;
 
 class PagesController extends Controller
 {
@@ -19,7 +20,9 @@ class PagesController extends Controller
         return view('form');
     }
     public function dashboard(){
-        return view('dashboard');
+        $appeals = Appeal::all();
+        return view ('dashboard')->with('appeals',$appeals);
+        
     }
     public function appealForm(){
         return view('appealForm');

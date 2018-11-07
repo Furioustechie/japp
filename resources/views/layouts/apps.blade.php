@@ -522,40 +522,81 @@
                   <p class="card-category">New employees on 15th September, 2016</p>
                 </div>
                 <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Salary</th>
-                      <th>Country</th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                        <td>Niger</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                        <td>Curaçao</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td>Netherlands</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td>Korea, South</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <table class="table">
+                        <thead class=" text-primary">
+                          <th>
+                            ID
+                          </th>
+                          <th>
+                            Case No
+                          </th>
+                          <th>
+                            Sentence Type
+                          </th>
+                          <th>
+                            Prison Name
+                          </th>
+                          <th>
+                            Appealed On
+                          </th>
+                          <th>
+                           Command
+                           </th>
+                        </thead>
+                        <tbody>
+                                  @if(count($appeals) > 1)
+                                  @foreach($appeals as $appeal)
+                          <tr>
+                            <td>{{$appeal->id}}</td>
+                            <td>{{$appeal->caseno}}</td>
+                            <td>{{$appeal->sentencetype}}</td>
+                            <td>{{$appeal->prisonname}}</td>
+                            <td>{{$appeal->created_at}}</td>
+                            <td class="td-actions text-center">
+                                          <button type="button" rel="tooltip" title="Show Details" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appeal->id}}">
+                                            <i class="material-icons">edit</i>
+                                          </button>
+                                          <!-- Modal -->
+<div class="modal fade" id="{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Appeal Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-body text-left">
+            <div class="md-form mb-12">
+            <label for="id" class="form-control validate">ID : {{$appeal->id}}</label><br>
+            <label for="caseno" class="form-control validate">Case No : {{$appeal->caseno}}</label>
+            <label for="sentencetype" class="btn btn-success  col-md-6">Sentence Type </label><span class = "label label-default  col-md-6">{{$appeal->sentencetype}}</span><br><br>
+            <label class="btn btn-success  col-md-6">Prison Name </label><span class = "label label-default col-md-6">{{$appeal->prisonname}}</span><br><br>
+            <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$appeal->created_at}}</span><br><br>      
+            
+          </div>
+       
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+                                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                                            <i class="material-icons">close</i>
+                                          </button>
+                                        </td>
+                          </tr>
+                          @endforeach
+                                  @else
+                                  <p>Nothing Found</p>
+                                  @endif
+                        </tbody>
+                      </table>
                 </div>
               </div>
             </div>

@@ -17,6 +17,7 @@ class AppealsController extends Controller
     {
         $appeals = Appeal::all();
         return view ('appeals.index')->with('appeals',$appeals);
+        
     }
 
     /**
@@ -27,6 +28,7 @@ class AppealsController extends Controller
     public function create()
     {
         //
+        return view('appeals.appealForm');
     }
 
     /**
@@ -38,6 +40,9 @@ class AppealsController extends Controller
     public function store(Request $request)
     {
         //
+        
+        //return 123;
+        dd($request);
     }
 
     /**

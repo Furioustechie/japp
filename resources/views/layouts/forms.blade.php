@@ -92,7 +92,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">User Profile</a>
+            <a class="navbar-brand" href="#pablo">Prisoner's Profile</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -158,12 +158,39 @@
                   <p class="card-category">Complete your application</p>
                 </div>
                 <div class="card-body">
-                  <form>
+                <form action="{{url('appeals')}}" method="POST" enctype="multipart/form-data">
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Prisoner's No</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="Gender" class="bmd-label-floating">Gender</label>
+                                <select class="browser-default custom-select">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Third Gender</option>
+                                    </select>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                  <label class="bmd-label-floating">Case Type</label>
+                                  <select class="browser-default custom-select">
+                                      <option selected>Open this select menu</option>
+                                      <option value="1">GR Case</option>
+                                      <option value="2">Non-GR Case</option>
+                                     </select>
+                                </div>
+                              </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Case No(AutoFill)</label>
-                          <input type="text" class="form-control" Disabled>
+                          <label for="caseno" class="bmd-label-floating">Case No</label>
+                          <input type="text" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -199,6 +226,12 @@
                               </select>
                         </div>
                       </div>
+                      <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Conviction Date</label>
+                            <input type="date" class="form-control">
+                          </div>
+                        </div>
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Sharok NO</label>
@@ -256,13 +289,10 @@
                         </div>
 
                       </div>
-                    </div>
-                        
-                        
-                
-
-               <!-- End Section -->
-                <br>
+                    </div><br>
+                     <!-- End Section -->
+                     {{ csrf_field() }}
+                     
                          <button type="submit" class="btn btn-primary pull-right">SUBMIT APPLICATION</button>
                     <div class="clearfix"></div>
                   </form>

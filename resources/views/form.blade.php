@@ -47,7 +47,7 @@
                                 <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                                 <div class="invalid-feedback">Example invalid custom file feedback</div>
                               </div>
-                            </br>
+                            <br>
                               <div class="progress">
                                     <div class="progress-bar progress-bar-stripped active" style="width:80%">
                                         80% completed
