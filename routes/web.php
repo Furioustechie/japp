@@ -29,6 +29,7 @@ Route::get('/dashboard', 'PagesController@dashboard');
 Route::get('/appealForm', 'PagesController@appealForm');
 
  Route::resource('appeals', 'AppealsController');
+ Route::post('appeals/update/{id}', 'AppealsController@update');
 
 //Route::get('appeals/create', 'AppealsController@create');
 //Route::post('appeals/store', 'AppealsController@store');

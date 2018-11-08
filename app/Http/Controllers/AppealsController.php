@@ -52,6 +52,15 @@ class AppealsController extends Controller
         $appeals = new Appeal;
 
         $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        
+
+
+
+
         $appeals->save();
         return redirect('appeals/create')->with('success','Application Submitted');
     }
@@ -78,6 +87,9 @@ class AppealsController extends Controller
     public function edit($id)
     {
         //
+        // $appeal = Appeal::find($id);
+        // return view ('appeals.edit')->with('appeal',$appeal);
+
     }
 
     /**
@@ -89,8 +101,30 @@ class AppealsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      //  dd('update');
         //
+        $this->validate($request,[
+
+        
+            'rejectgrant' => 'required'
+
+        ]);
+        $appeals = Appeal::find($id);
+
+       // $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        // $appeals->caseno = $request->input('caseno');
+        $appeals->remarks = $request->input('rejectgrant');
+        
+
+
+
+        $appeals->save();
+        return redirect('appeals')->with('success','Application Updated');
     }
+    
 
     /**
      * Remove the specified resource from storage.
