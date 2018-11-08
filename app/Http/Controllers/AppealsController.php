@@ -42,7 +42,18 @@ class AppealsController extends Controller
         //
         
         //return 123;
-        dd($request);
+        //dd($request);
+        $this->validate($request,[
+
+            'prisonerno' => 'required',
+            'caseno' => 'required'
+
+        ]);
+        $appeals = new Appeal;
+
+        $appeals->caseno = $request->input('caseno');
+        $appeals->save();
+        return redirect('appeals/create')->with('success','Application Submitted');
     }
 
     /**

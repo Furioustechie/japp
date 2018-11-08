@@ -22,6 +22,7 @@
 
 <body class="">
         @include('inc.navbar')
+        @include('inc.messages')
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -163,13 +164,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                               <label class="bmd-label-floating">Prisoner's No</label>
-                              <input type="text" class="form-control">
+                              <input type="text" name="prisonerno" class="form-control">
                             </div>
                           </div>
                           <div class="col-md-12">
                               <div class="form-group">
                                 <label for="Gender" class="bmd-label-floating">Gender</label>
-                                <select class="browser-default custom-select">
+                                <select class="browser-default custom-select" name="gender">
                                     <option selected>Open this select menu</option>
                                     <option value="1">Male</option>
                                     <option value="2">Female</option>
@@ -180,7 +181,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                   <label class="bmd-label-floating">Case Type</label>
-                                  <select class="browser-default custom-select">
+                                  <select class="browser-default custom-select" name="casetype">
                                       <option selected>Open this select menu</option>
                                       <option value="1">GR Case</option>
                                       <option value="2">Non-GR Case</option>
@@ -190,19 +191,19 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="caseno" class="bmd-label-floating">Case No</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="caseno" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Sentencing Court</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="sentencingcourt" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="exampleSelect1" class="bmd-label-floating">Sentence Type</label>
-                            <select class="form-control" id="exampleSelect1">
+                            <select class="form-control" name="sentencetype" id="exampleSelect1">
                               <option>Please Select ...</option>
                               <option>Life Sentence</option>
                               <option>Death Sentence</option>
@@ -217,7 +218,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                             <label class="bmd-label-floating">Prison Name</label>
-                            <select class="browser-default custom-select">
+                            <select class="browser-default custom-select" name="prisonname">
                                 <option selected>Open this select menu</option>
                                 <option value="1">Chittagong Jail</option>
                                 <option value="3">Barisal Jail</option>
@@ -229,13 +230,13 @@
                       <div class="col-md-12">
                           <div class="form-group">
                             <label class="bmd-label-floating">Conviction Date</label>
-                            <input type="date" class="form-control">
+                            <input type="date" name="convictiondate" class="form-control">
                           </div>
                         </div>
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Sharok NO</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="sharokno" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -243,7 +244,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Appealed To</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="appealedto" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -254,7 +255,7 @@
                           <label>Remarks</label>
                           <div class="form-group">
                             <label class="bmd-label-floating"> Some rough texs for dummmy</label>
-                            <textarea class="form-control" rows="5"></textarea>
+                            <textarea class="form-control" rows="5" name="remarks" ></textarea>
                           </div>
                         </div>
                       </div>
@@ -263,7 +264,7 @@
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox" value="" checked>
                           <span class="form-check-sign">
-                            <span class="check"></span>
+                            <span class="check" name="check"></span>
                           </span>
                           <h5>Attached CC From Sentencing Court</h5>
                         </label>
@@ -293,7 +294,7 @@
                      <!-- End Section -->
                      {{ csrf_field() }}
                      
-                         <button type="submit" class="btn btn-primary pull-right">SUBMIT APPLICATION</button>
+                         <button type="submit" class="btn btn-primary pull-right" name="submit" value="submit">SUBMIT APPLICATION</button>
                     <div class="clearfix"></div>
                   </form>
                  
