@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Appeal;
+use DB;
 
 
 class AppealsController extends Controller
@@ -56,9 +57,6 @@ class AppealsController extends Controller
         // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
-        
-
-
 
 
         $appeals->save();

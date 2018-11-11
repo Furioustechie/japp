@@ -224,7 +224,7 @@
                                   <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$appeal->created_at}}</span><br><br>
                                   <div class="form-check">
                                     <label class="form-check-label">
-                                      <input class="form-check-input" type="checkbox" value="" unchecked>
+                                      <input class="form-check-input" type="checkbox" value="" id="check1" unchecked >
                                       <span class="form-check-sign">
                                         <span class="check" name="check"></span>
                                       </span>
@@ -462,3 +462,15 @@
 </body>
 
 </html>
+
+<script>
+  $(function(){
+    $('#check1').click(function() {
+        if($(this).is(':checked'))
+            alert('Checked! Confirming that CC Reached at Court');
+        else
+            alert('Unchecked!! Write your remarks below');
+    });
+  });
+    
+  </script>

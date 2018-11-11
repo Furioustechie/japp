@@ -146,6 +146,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        App\Providers\dynamiclist::class,
+        App\Providers\prisonlist::class,
 
         /*
          * Package Service Providers...

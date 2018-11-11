@@ -219,11 +219,14 @@
                         <div class="form-group">
                             <label class="bmd-label-floating">Prison Name</label>
                             <select class="browser-default custom-select" name="prisonname">
-                                <option selected>Open this select menu</option>
-                                <option value="1">Chittagong Jail</option>
-                                <option value="3">Barisal Jail</option>
-                                <option value="2">Dhaka Jail</option>
-                                <option value="3">Khulna Jail</option>
+                                <option>Please Select..</option>
+                                    @foreach ($pname as $data)
+
+                                    {{-- <option value="0">Open this select menu</option>
+                                     --}}
+                                     
+                                  <option value="{{$data->id}}">{{$data->name}} </option>
+                                      @endforeach
                               </select>
                         </div>
                       </div>
@@ -262,7 +265,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <input class="form-check-input" type="checkbox" value="" name="options" checked>
                           <span class="form-check-sign">
                             <span class="check" name="check"></span>
                           </span>
