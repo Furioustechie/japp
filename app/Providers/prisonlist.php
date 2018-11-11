@@ -19,6 +19,7 @@ class prisonlist extends ServiceProvider
             $view->with('pname', Prison::all());
 
         });
+       
         Schema::defaultStringLength(191);
 
     }

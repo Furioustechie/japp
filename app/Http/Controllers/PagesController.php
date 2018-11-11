@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Appeal;
+use DB;
 
 class PagesController extends Controller
 {
@@ -21,7 +22,15 @@ class PagesController extends Controller
     }
     public function dashboard(){
         $appeals = Appeal::all();
-        return view ('dashboard')->with('appeals',$appeals);
+
+        $wordlist = Appeal::where('id', '>', 0)->get();
+        $wordCount = $wordlist->count();
+
+        $wordlist1 = Appeal::where('options', '=', '1')->get();
+        $wordCount1 = $wordlist1->count();
+        //echo  $wordCount;
+        //exit;
+        return view ('dashboard', ['count' => $wordCount,'count1' => $wordCount1 ])->with('appeals',$appeals);
         
     }
     public function appealForm(){

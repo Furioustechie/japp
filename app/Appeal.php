@@ -8,5 +8,6 @@ class Appeal extends Model
 {
     //Tabkle name
     protected $table = 'appeals';
-    
+   
+   
 }

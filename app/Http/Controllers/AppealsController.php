@@ -40,28 +40,51 @@ class AppealsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        
-        //return 123;
-        //dd($request);
-        $this->validate($request,[
+                                    //
+                                //dd($request->all());
+                                $validatedData = $request->validate([
+                                    //'prisonerno' => 'required',
+                                    'caseno' => 'required',
+                                    'file_app' => 'mimes:jpeg,png,jpg,pdf|nullable|max:1999'
+                            ]);
+                            // handle file upload
 
-            'prisonerno' => 'required',
-            'caseno' => 'required'
+                            if($request->hasFile('file_app')){
+                                //get filename with the extention
+                                $filenameWithExt = $request->file('file_app')->getClientOriginalName();
+                                $filenameWithExt1 = $request->file('file_bj')->getClientOriginalName();
+                                //Get Just ext
+                                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                                $filename1 = pathinfo($filenameWithExt1, PATHINFO_FILENAME);
+                                //Get just extension
+                                $extension = $request->file('file_app')->getClientOriginalExtension();
+                                $extension1 = $request->file('file_bj')->getClientOriginalExtension();
+                                //File To Store
+                                $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                                $fileNameToStore1 = $filename1.'_'.time().'.'.$extension1;
+                                //upload Image
+                                $path = $request->file('file_app')->storeAs('public/jail_app', $fileNameToStore);
+                                $path1 = $request->file('file_bj')->storeAs('public/bj_app', $fileNameToStore1);
+                            }
+                            
+                            else {
+                                $fileNameToStore = 'noimage.jpg';
+                            }
+                            //Create Insert
+                            $appeal = new Appeal;
+                            //$appeal->prisonerno = $request->input('prisonerno');
+                            $appeal->caseno = $request->input('caseno');
+                            $appeal->gender = $request->get('gender');
 
-        ]);
-        $appeals = new Appeal;
-
-        $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
+                            $appeal->options = $request->has('options');
+                            //$appeal->checkbox = $checkbox;
+                            $appeal->file_app = $fileNameToStore;
+                            $appeal->file_bj = $fileNameToStore1;
+                            $appeal->save();
 
 
-        $appeals->save();
-        return redirect('appeals/create')->with('success','Application Submitted');
-    }
+                            return redirect('/appeals/create')->with('success', 'Application Submitted');
+                     }
 
     /**
      * Display the specified resource.
@@ -72,6 +95,7 @@ class AppealsController extends Controller
     public function show($id)
     {
         $appeal = Appeal::find($id);
+        
         return view ('appeals.show')->with('appeal',$appeal);
 
     }
@@ -101,12 +125,20 @@ class AppealsController extends Controller
     {
       //  dd('update');
         //
-        $this->validate($request,[
+        if($request->hasFile('file_bj')){
 
+            //
+            $validatedData = $request->validate([
+                //'prisonerno' => 'required',
+                'file_app' => 'mimes:jpeg,png,jpg,pdf|nullable|max:1999'
+       ]);
+        } else{
+
+            $this->validate($request,[
         
-            'rejectgrant' => 'required'
-
-        ]);
+                'rejectgrant' => 'required'
+            ]);
+        }
         $appeals = Appeal::find($id);
 
        // $appeals->caseno = $request->input('caseno');

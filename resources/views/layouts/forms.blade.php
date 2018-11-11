@@ -172,9 +172,9 @@
                                 <label for="Gender" class="bmd-label-floating">Gender</label>
                                 <select class="browser-default custom-select" name="gender">
                                     <option selected>Open this select menu</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
-                                    <option value="3">Third Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                    <option value="TG">Third Gender</option>
                                     </select>
                               </div>
                             </div>
@@ -265,7 +265,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="" name="options" checked>
+                          <input class="form-check-input" type="checkbox"  name="options" checked>
                           <span class="form-check-sign">
                             <span class="check" name="check"></span>
                           </span>
@@ -279,7 +279,7 @@
                         <label class="card-category">ADD APP FORM :</label>
                                     <div class="file-field">
                                     <div class="btn btn-primary btn-sm float-left" >
-                                <input type="file"  name="file">
+                                <input type="file"  name="file_app" >
                             </div><br>
                             
                         </div>
@@ -287,7 +287,7 @@
                         <label class="card-category">ADD BJ FORM :</label>
                                     <div class="file-field">
                                     <div class="btn btn-primary btn-sm float-left" >
-                                <input type="file"  name="file">
+                                <input type="file"  name="file_bj">
                             </div><br>
                             
                         </div>

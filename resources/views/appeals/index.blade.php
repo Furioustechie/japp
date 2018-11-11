@@ -17,6 +17,8 @@
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+
+
 </head>
 
 <body class="">
@@ -176,6 +178,7 @@
                         <th>
                           Appealed On
                         </th>
+                        
                         <th>
                           Remarks
                         </th>
@@ -222,9 +225,16 @@
                                   <label for="sentencetype" class="btn btn-success  col-md-6">Sentence Type </label><span class = "label label-default  col-md-6">{{$appeal->sentencetype}}</span><br><br>
                                   <label class="btn btn-success  col-md-6">Prison Name </label><span class = "label label-default col-md-6">{{$appeal->prisonname}}</span><br><br>
                                   <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$appeal->created_at}}</span><br><br>
+                                  <hr class="style10"> <br>
+                                  <label class="btn btn-info  col-md-4">Attached CC </label><span class = "label label-default col-md-8">{{$appeal->options}}</span><br><br>
+                                  <label class="btn btn-info  col-md-4">Jail Application </label><a href="{{ asset('/storage/jail_app') }}/{{$appeal->file_app}}" target="_blank"> <span class = "label label-default col-md-6">{{$appeal->file_app}}</span></a><br><br>
+                                  <label class="btn btn-info  col-md-4">BJ Application </label><a href="{{ asset('/storage/bj_app') }}/{{$appeal->file_bj}}" target="_blank"> <span class = "label label-default col-md-6">{{$appeal->file_bj}}</span></a><br><br>
                                   <div class="form-check">
                                     <label class="form-check-label">
-                                      <input class="form-check-input" type="checkbox" value="" id="check1" unchecked >
+                                      <input class="form-check-input" type="checkbox" id="check1" value="No" unchecked onclick=" if($(this).is(':checked'))
+                                                                                                                            alert('Checked! Confirming that CC Reached at Court');
+                                                                                                                        else
+                                                                                                                            alert('Unchecked!! Write your remarks below');">
                                       <span class="form-check-sign">
                                         <span class="check" name="check"></span>
                                       </span>
@@ -242,18 +252,18 @@
 
                                   </div>
 
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-{{ csrf_field() }}
-<button type="submit" class="btn btn-primary pull-right" name="submit" value="submit">Save changes</button>
-</div>
-</div>
-</div>
-</form>
-</div>
+                                  </div>
+                                  <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  {{ csrf_field() }}
+                                  <button type="submit" class="btn btn-primary pull-right" name="submit" value="submit">Save changes</button>
+                                  </div>
+                                  </div>
+                                  </div>
+                                  </form>
+                                  </div>
 
-<!-- End Modal -->
+                                  <!-- End Modal -->
                                         <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
                                           <i class="material-icons">close</i>
                                         </button>
@@ -462,15 +472,3 @@
 </body>
 
 </html>
-
-<script>
-  $(function(){
-    $('#check1').click(function() {
-        if($(this).is(':checked'))
-            alert('Checked! Confirming that CC Reached at Court');
-        else
-            alert('Unchecked!! Write your remarks below');
-    });
-  });
-    
-  </script>
