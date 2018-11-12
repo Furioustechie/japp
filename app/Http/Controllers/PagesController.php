@@ -28,9 +28,38 @@ class PagesController extends Controller
 
         $wordlist1 = Appeal::where('options', '=', '1')->get();
         $wordCount1 = $wordlist1->count();
-        //echo  $wordCount;
-        //exit;
-        return view ('dashboard', ['count' => $wordCount,'count1' => $wordCount1 ])->with('appeals',$appeals);
+
+
+        $barlist = DB::table('appeals')
+        ->select('gender')
+        ->groupBy('gender')
+        ->get();
+        //return response()->json($barlist);
+        
+        $barlist1 = DB::table('appeals')
+        ->select(DB::raw('count(*) as total,gender'))
+        ->groupBy('gender')
+        ->get();
+        
+        
+        $gen="";
+        foreach($barlist1 as $bar){
+            $gen.="'".$bar->gender."',";
+        }
+        $gen= substr($gen,0, -1);
+
+        $tot="";
+        foreach($barlist1 as $bar){
+            $tot.="'".$bar->total."',";
+        }
+        $tot= substr($tot,0, -1);
+
+     
+
+       return view ('dashboard', ['count' => $wordCount,'count1' => $wordCount1,'gender' => $gen, 'total' =>$tot])->with('appeals',$appeals);
+       //return view ('dashboard', ['label' => $barlist1])->with('appeals',$appeals);
+      //return view ('dashboard', [$barlist,$barlist1 ])->with('appeals',json_encode($appeals));
+        
         
     }
     public function appealForm(){

@@ -225,7 +225,9 @@
             <div class="col-md-4">
               <div class="card card-chart">
                 <div class="card-header card-header-success">
-                  <div class="ct-chart" id="dailySalesChart"></div>
+                  {{-- <div class="ct-chart" id="dailySalesChart"></div> --}}
+                  <canvas class="ct-chart" id="myChart"></canvas>
+                 
                 </div>
                 <div class="card-body">
                   <h4 class="card-title">This week appeals</h4>
@@ -242,7 +244,7 @@
             <div class="col-md-4">
               <div class="card card-chart">
                 <div class="card-header card-header-warning">
-                  <div class="ct-chart" id="websiteViewsChart"></div>
+                  <div class="ct-chart" id="websiteViewsCharts"></div>
                 </div>
                 <div class="card-body">
                   <h4 class="card-title">Email Subscriptions</h4>
@@ -518,11 +520,12 @@
                 </div>
               </div>
             </div>
+            
             <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
-                  <h4 class="card-title">Employees Stats</h4>
-                  <p class="card-category">New employees on 15th September, 2016</p>
+                  <h4 class="card-title">Appeals Stats</h4>
+                  <p class="card-category">Deatils Of Appeals</p>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -606,6 +609,7 @@
           </div>
         </div>
       </div>
+      
       <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">
@@ -632,6 +636,7 @@
               </li>
             </ul>
           </nav>
+          
           <div class="copyright float-right">
             &copy;
             <script>
@@ -658,6 +663,8 @@
   <script src="../assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+   <!-- Chart JS CDN Library for test chart -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
@@ -665,6 +672,94 @@
 
     });
   </script>
-</body>
-
 </html>
+<?php 
+
+?>
+<script>
+        
+        
+            var ctx = document.getElementById('myChart').getContext('2d');
+                         var chart = new Chart(ctx, {
+                             // The type of chart we want to create
+                             type: 'bar',
+
+                             // The data for our dataset
+                             data: {
+                                 labels: [<?php echo $gender;?>],
+                                 //labels: label,
+                                 datasets: [{
+                                     label: "My First dataset",
+                                     backgroundColor: 'rgb(255, 99, 132)',
+                                     borderColor: 'rgb(255, 99, 132)',
+                                     data: [<?php echo $total;?>],
+                                 }]
+                             },
+
+                             // Configuration options go here
+                             options: {
+                                          scales: {
+                                            xAxes: [{
+                                              time: {
+                                                unit: 'month'
+                                              },
+                                              gridLines: {
+                                                display: false
+                                              },
+                                              ticks: {
+                                                maxTicksLimit: 5
+                                              }
+                                            }],
+                                            yAxes: [{
+                                              ticks: {
+                                                min: 0,
+                                                max: 20,
+                                                maxTicksLimit: 5
+                                              },
+                                              gridLines: {
+                                                display: true
+                                              }
+                                            }],
+                                          },
+                                          legend: {
+                                            display: false
+                                          }
+                                        }
+                         });
+</script>
+<script>
+    $(document).ready(function() {
+      var dataWebsiteViewsChart = {
+        labels: [<?php echo $gender;?>],
+        series: [
+          [<?php echo $total;?>],
+
+        ]
+      };
+      var optionsWebsiteViewsChart = {
+        axisX: {
+          showGrid: false
+        },
+        low: 0,
+        high: 10,
+        chartPadding: {
+          top: 0,
+          right: 5,
+          bottom: 0,
+          left: 0
+        }
+      };
+      var responsiveOptions = [
+        ['screen and (max-width: 640px)', {
+          seriesBarDistance: 2,
+          axisX: {
+            labelInterpolationFnc: function(value) {
+              return value[0];
+            }
+          }
+        }]
+      ];
+      var websiteViewsChart = Chartist.Bar('#websiteViewsCharts', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+      md.startAnimationForBarChart(websiteViewsChart);
+    });
+  </script>
