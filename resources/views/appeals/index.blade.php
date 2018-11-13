@@ -161,31 +161,25 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table">
+				            <table class="table table-hover table-light" id="dataTable" width="100%" cellspacing="0">
                       <thead class=" text-primary">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Case No
-                        </th>
-                        <th>
-                          Sentence Type
-                        </th>
-                        <th>
-                          Prison Name
-                        </th>
-                        <th>
-                          Appealed On
-                        </th>
-                        
-                        <th>
-                          Remarks
-                        </th>
-                        <th>
-                         Command
-                         </th>
+                        <th>ID</th>
+                        <th>Case No</th>
+                        <th>Sentence Type </th>
+                        <th>Prison Name</th>
+                        <th>Appealed On</th>
+                        <th>Remarks</th>
+                        <th>Command</th>
                       </thead>
+					  <tfoot class="text-primary">
+						<th>ID</th>
+                        <th>Case No</th>
+                        <th>Sentence Type </th>
+                        <th>Prison Name</th>
+                        <th>Appealed On</th>
+                        <th>Remarks</th>
+                        <th>Command</th>
+					  </tfoot>
                       <tbody>
                                 @if(count($appeals) > 1)
                                 @foreach($appeals as $appeal)
@@ -196,6 +190,7 @@
                           <td>{{$appeal->prisonname}}</td>
                           <td>{{$appeal->created_at}}</td>
                           <td>{{$appeal->remarks}}</td>
+						  
                           <td class="td-actions text-center">
                             <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appeal->id}}">
                               <i class="material-icons">edit</i>
@@ -463,6 +458,9 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chartist JS -->
   <script src="../assets/js/plugins/chartist.min.js"></script>
+  <!-- Datatables JS -->
+  <script src="../assets/datatables/dataTables.bootstrap4.js"></script>
+   <script src="../assets/datatables/jquery.dataTables.js"></script>
   <!--  Notifications Plugin    -->
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
@@ -471,4 +469,30 @@
   <script src="../assets/demo/demo.js"></script>
 </body>
 
+
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#dataTable tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+ 
+    // DataTable
+    var table = $('#dataTable').DataTable();
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+} );
+</script>
 </html>

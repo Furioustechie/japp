@@ -225,12 +225,12 @@
             <div class="col-md-4">
               <div class="card card-chart">
                 <div class="card-header card-header-success">
-                  {{-- <div class="ct-chart" id="dailySalesChart"></div> --}}
-                  <canvas class="ct-chart" id="myChart"></canvas>
-                 
+                   {{-- <div class="ct-chart" id="dailySalesChart"></div> <hr> --}}
+                  <canvas class="ct-chart" id="myChart"  style="position: relative; height:30vw; width:80vw"></canvas>
+                 <!----   -->
                 </div>
                 <div class="card-body">
-                  <h4 class="card-title">This week appeals</h4>
+                  <h4 class="card-title">This week appeals by Gender</h4>
                   <p class="card-category">
                     <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increased from last week.</p>
                 </div>
@@ -247,8 +247,8 @@
                   <div class="ct-chart" id="websiteViewsCharts"></div>
                 </div>
                 <div class="card-body">
-                  <h4 class="card-title">Email Subscriptions</h4>
-                  <p class="card-category">Last Campaign Performance</p>
+                  <h4 class="card-title">Total Appeals By Sentencing Type</h4>
+                  <p class="card-category">Category :Type Of Sentence</p>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -678,8 +678,9 @@
 ?>
 <script>
         
-        
+      
             var ctx = document.getElementById('myChart').getContext('2d');
+           
                          var chart = new Chart(ctx, {
                              // The type of chart we want to create
                              type: 'bar',
@@ -689,8 +690,8 @@
                                  labels: [<?php echo $gender;?>],
                                  //labels: label,
                                  datasets: [{
-                                     label: "My First dataset",
-                                     backgroundColor: 'rgb(255, 99, 132)',
+                                     label: "#Appeals",
+                                     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
                                      borderColor: 'rgb(255, 99, 132)',
                                      data: [<?php echo $total;?>],
                                  }]
@@ -701,20 +702,22 @@
                                           scales: {
                                             xAxes: [{
                                               time: {
-                                                unit: 'month'
+                                                unit: 'gender'
                                               },
                                               gridLines: {
                                                 display: false
                                               },
                                               ticks: {
+                                                fontColor : "#ffffff ",
                                                 maxTicksLimit: 5
                                               }
                                             }],
                                             yAxes: [{
                                               ticks: {
                                                 min: 0,
-                                                max: 20,
-                                                maxTicksLimit: 5
+                                                max: 15,
+                                                maxTicksLimit: 5,
+                                                fontColor : "#ffffff "
                                               },
                                               gridLines: {
                                                 display: true
@@ -730,9 +733,9 @@
 <script>
     $(document).ready(function() {
       var dataWebsiteViewsChart = {
-        labels: [<?php echo $gender;?>],
+        labels: [<?php echo $sentype;?>],
         series: [
-          [<?php echo $total;?>],
+          [<?php echo $stotal;?>],
 
         ]
       };
@@ -742,6 +745,7 @@
         },
         low: 0,
         high: 10,
+        //horizontalBars: true,
         chartPadding: {
           top: 0,
           right: 5,
@@ -761,5 +765,33 @@
       ];
       var websiteViewsChart = Chartist.Bar('#websiteViewsCharts', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
       md.startAnimationForBarChart(websiteViewsChart);
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      dataDailySalesChart = {
+        labels: [<?php echo $gender;?>],
+        series: [
+          [<?php echo $total;?>],
+        ]
+      };
+
+      optionsDailySalesChart = {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+        }),
+        low: 0,
+        high: 50, // recommend not to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        },
+      }
+
+      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+
+      md.startAnimationForLineChart(dailySalesChart);
     });
   </script>

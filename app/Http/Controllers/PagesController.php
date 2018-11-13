@@ -41,22 +41,45 @@ class PagesController extends Controller
         ->groupBy('gender')
         ->get();
         
-        
+        $sentence = DB::table('appeals')
+        ->select(DB::raw('count(*) as stotal,sentencetype'))
+        ->groupBy('sentencetype')
+        ->get();
+
+        // dd($sentence);
+    
+    
+        //---------------Genderwise data ---------------//
+    
         $gen="";
+        $tot="";
+
         foreach($barlist1 as $bar){
             $gen.="'".$bar->gender."',";
-        }
-        $gen= substr($gen,0, -1);
-
-        $tot="";
-        foreach($barlist1 as $bar){
             $tot.="'".$bar->total."',";
         }
-        $tot= substr($tot,0, -1);
+        
+        $gen= substr($gen,0, -1);
+        $tot= substr($tot,0, -1);        
+
+
+         //---------------SentenceType data ---------------//
+    
+        $st="";
+        foreach($sentence as $sent){
+            $st.="'".$sent->sentencetype."',";
+        }
+        $st= substr($st,0, -1);
+
+        $sttotal="";
+        foreach($sentence as $sent){
+            $sttotal.="'".$sent->stotal."',";
+        }
+        $sttotal= substr($sttotal,0, -1);
 
      
 
-       return view ('dashboard', ['count' => $wordCount,'count1' => $wordCount1,'gender' => $gen, 'total' =>$tot])->with('appeals',$appeals);
+       return view ('dashboard', ['count' => $wordCount,'count1' => $wordCount1,'gender' => $gen, 'total' =>$tot,'sentype' => $st, 'stotal' =>$sttotal])->with('appeals',$appeals);
        //return view ('dashboard', ['label' => $barlist1])->with('appeals',$appeals);
       //return view ('dashboard', [$barlist,$barlist1 ])->with('appeals',json_encode($appeals));
         
