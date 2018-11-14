@@ -546,6 +546,9 @@
                             Appealed On
                           </th>
                           <th>
+                              Certified Copies
+                            </th>
+                          <th>
                            Command
                            </th>
                         </thead>
@@ -558,6 +561,15 @@
                             <td>{{$appeal->sentencetype}}</td>
                             <td>{{$appeal->prisonname}}</td>
                             <td>{{$appeal->created_at}}</td>
+                            
+                                @if($appeal->isgrant == 1)   
+                                <td class="btn btn-success text-center">Yes</td>    
+                                      @else
+                                      <td class="btn btn-warning">No</td>       
+                                              
+                                      @endif
+                              
+                              {{-- {{$appeal->isgrant}}</td> --}}
                             <td class="td-actions text-center">
                                           <button type="button" rel="tooltip" title="Show Details" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appeal->id}}">
                                             <i class="material-icons">edit</i>
@@ -579,7 +591,8 @@
             <label for="caseno" class="form-control validate">Case No : {{$appeal->caseno}}</label>
             <label for="sentencetype" class="btn btn-success  col-md-6">Sentence Type </label><span class = "label label-default  col-md-6">{{$appeal->sentencetype}}</span><br><br>
             <label class="btn btn-success  col-md-6">Prison Name </label><span class = "label label-default col-md-6">{{$appeal->prisonname}}</span><br><br>
-            <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$appeal->created_at}}</span><br><br>      
+            <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$appeal->created_at}}</span><br><br> 
+            <label class="btn btn-success  col-md-6">Certified Copies </label><span class = "label label-default col-md-6">{{$appeal->isgrant}}</span><br><br>     
             
           </div>
        

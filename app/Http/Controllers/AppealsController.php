@@ -146,7 +146,9 @@ class AppealsController extends Controller
         // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
+        //$appeals->isgrant = $request->has('options1');
         $appeals->remarks = $request->input('rejectgrant');
+        $appeals->isgrant = $request->has('options1');
         
 
 
