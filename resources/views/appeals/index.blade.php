@@ -17,7 +17,8 @@
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-
+  <link rel="stylesheet" type="text/css" href="../assets/DataTablesx/datatables.min.css"/>
+  
 
 </head>
 
@@ -467,6 +468,7 @@
   <script src="../assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script type="text/javascript" src="../assets/DataTablesx/datatables.min.js"></script>
 </body>
 
 
@@ -475,7 +477,7 @@ $(document).ready(function() {
     // Setup - add a text input to each footer cell
     $('#dataTable tfoot th').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
     } );
  
     // DataTable
