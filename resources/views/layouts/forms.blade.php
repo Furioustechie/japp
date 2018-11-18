@@ -30,29 +30,29 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+    <div class="logo">
+        <a href="#" class="simple-text logo-normal">
             Jail Appeal
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item active ">
-            <a class="nav-link" href="./user.html">
+          <li class="nav-item ">
+            <a class="nav-link" href="/appeals">
               <i class="material-icons">person</i>
-              <p>Appeal Form</p>
+              <p>Appeal List</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
+          <li class="nav-item active  ">
+            <a class="nav-link" href="/appealForm">
               <i class="material-icons">content_paste</i>
-              <p>Table List</p>
+              <p>Appeal Now</p>
             </a>
           </li>
           <li class="nav-item ">

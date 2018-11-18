@@ -2,21 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Jail Appeal
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- CSS Files -->
-  <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  @include('inc.style')
 </head>
 
 <body class="">
@@ -36,21 +22,21 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="/appeals">
               <i class="material-icons">person</i>
-              <p>User Profile</p>
+              <p>Appeal List</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
+            <a class="nav-link" href="/appealForm">
               <i class="material-icons">content_paste</i>
-              <p>Table List</p>
+              <p>Appeal Now</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -528,7 +514,7 @@
                   <p class="card-category">Deatils Of Appeals</p>
                 </div>
                 <div class="card-body table-responsive">
-                    <table class="table">
+                  <table class="table table-hover table-light" id="dataTable" width="100%" cellspacing="0">
                         <thead class=" text-primary">
                           <th>
                             ID
@@ -552,6 +538,26 @@
                            Command
                            </th>
                         </thead>
+                        <tfoot class="text-primary">
+                            <th>
+                                ID
+                              </th>
+                              <th>
+                                Case No
+                              </th>
+                              <th>
+                                Sentence Type
+                              </th>
+                              <th>
+                                Prison Name
+                              </th>
+                              <th>
+                                Appealed On
+                              </th>
+                              <th>
+                                  Certified Copies
+                                </th>
+                        </tfoot>
                         <tbody>
                                   @if(count($appeals) > 1)
                                   @foreach($appeals as $appeal)
@@ -661,23 +667,7 @@
       </footer>
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
-  <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script src="../assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="../assets/js/plugins/chartist.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-   <!-- Chart JS CDN Library for test chart -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  @include('inc.scriptstyle')
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
@@ -685,6 +675,32 @@
 
     });
   </script>
+
+<script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#dataTable tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#dataTable').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+     
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    } );
+    </script>
 </html>
 <?php 
 
@@ -728,7 +744,7 @@
                                             yAxes: [{
                                               ticks: {
                                                 min: 0,
-                                                max: 15,
+                                                max: 100,
                                                 maxTicksLimit: 5,
                                                 fontColor : "#ffffff "
                                               },
@@ -757,7 +773,7 @@
           showGrid: false
         },
         low: 0,
-        high: 10,
+        high: 80,
         //horizontalBars: true,
         chartPadding: {
           top: 0,
@@ -794,7 +810,7 @@
           tension: 0
         }),
         low: 0,
-        high: 50, // recommend not to set the high sa the biggest value + something for a better look
+        high: 80, // recommend not to set the high sa the biggest value + something for a better look
         chartPadding: {
           top: 0,
           right: 0,
