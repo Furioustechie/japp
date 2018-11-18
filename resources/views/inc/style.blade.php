@@ -16,9 +16,9 @@
   <!-- For DataTablex -->
   <link rel="stylesheet" type="text/css" href="../assets/DataTablesx/datatables.min.css"/>
 
-  <!-- change from Noman-->
-  <!-- change from Noman again-->
+  <!-- everything removed by arif-->
 
+<<<<<<< HEAD
   <!-- I am on Arif Branch-->
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -35,3 +35,5 @@
   <!-- I am on Arif Branch Again-->
  
 >>>>>>> parent of d5ce7fd... change on branch arif
+=======
+>>>>>>> arif
