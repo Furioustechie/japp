@@ -21,6 +21,7 @@
 
   <!-- I am on Arif Branch-->
 <<<<<<< HEAD
+<<<<<<< HEAD
   <!-- I am on redo change from arif-->
 
   <!-- I want to add someting to Arif Branch-->
@@ -30,3 +31,7 @@
  
   <!-- I want to add someting to Arif Branch
    to test the revert thing-->
+=======
+  <!-- I am on Arif Branch Again-->
+ 
+>>>>>>> parent of d5ce7fd... change on branch arif
