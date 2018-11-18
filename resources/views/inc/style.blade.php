@@ -18,12 +18,7 @@
 
   <!-- change from Noman-->
   <!-- change from Noman again-->
-<<<<<<< HEAD
-    <!-- change from Noman-->
-  <!-- change from Noman again-->
-=======
 
   <!-- I am on Arif Branch-->
-  <!-- I am on Arif Branch Again-->
+  <!-- I am on redo change from arif-->
  
->>>>>>> arif
