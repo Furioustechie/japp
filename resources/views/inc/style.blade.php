@@ -16,9 +16,5 @@
   <!-- For DataTablex -->
   <link rel="stylesheet" type="text/css" href="../assets/DataTablesx/datatables.min.css"/>
 
-  <!-- change from Noman-->
-  <!-- change from Noman again-->
+  <!-- everything removed by arif-->
 
-  <!-- I am on Arif Branch-->
-  <!-- I am on Arif Branch Again-->
- 
