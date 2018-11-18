@@ -16,8 +16,10 @@
   <!-- For DataTablex -->
   <link rel="stylesheet" type="text/css" href="../assets/DataTablesx/datatables.min.css"/>
 
-  <!-- everything removed by arif-->
+  <!-- change from Noman-->
+  <!-- change from Noman again-->
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   <!-- I am on Arif Branch-->
 <<<<<<< HEAD
@@ -39,3 +41,8 @@
 >>>>>>> arif
 =======
 >>>>>>> parent of 5a8925b... Revert "change on branch arif"
+=======
+  <!-- I am on Arif Branch-->
+  <!-- I am on Arif Branch Again-->
+ 
+>>>>>>> arif
