@@ -270,19 +270,21 @@
                       <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="nav-item">
                           <a class="nav-link active" href="#profile" data-toggle="tab">
-                            <i class="material-icons">bug_report</i> Reports
-                            <div class="ripple-container"></div>
+
+                            <i class="material-icons">bug_report</i> HC Rejects
+                             <span class="badge badge-pill badge-warning" style="font-size: 15px !important;" >1</span>
+                            <div class="ripple-container"> </div>
                           </a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#messages" data-toggle="tab">
-                            <i class="material-icons">code</i> Website
+                            <i class="material-icons">code</i> Long Time Pending <span class="badge badge-pill badge-danger" style="font-size: 15px !important;">5</span>
                             <div class="ripple-container"></div>
                           </a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#settings" data-toggle="tab">
-                            <i class="material-icons">cloud</i> Server
+                            <i class="material-icons">cloud</i> Upcoming Hearing Date <span class="badge badge-pill badge-info" style="font-size: 15px !important;">6</span>
                             <div class="ripple-container"></div>
                           </a>
                         </li>
