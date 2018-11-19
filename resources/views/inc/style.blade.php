@@ -16,36 +16,4 @@
   <!-- For DataTablex -->
   <link rel="stylesheet" type="text/css" href="../assets/DataTablesx/datatables.min.css"/>
 
-  <!-- change from Noman-->
-  <!-- change from Noman again-->
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <!-- I am on Arif Branch-->
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <!-- I am on redo change from arif-->
-
-  <!-- I want to add someting to Arif Branch-->
-=======
->>>>>>> arif
-  
- 
-  <!-- I want to add someting to Arif Branch
-   to test the revert thing-->
-=======
-  <!-- I am on Arif Branch Again-->
- 
->>>>>>> parent of d5ce7fd... change on branch arif
-=======
->>>>>>> arif
-<<<<<<< HEAD
-=======
->>>>>>> parent of 5a8925b... Revert "change on branch arif"
-=======
-  <!-- I am on Arif Branch-->
-  <!-- I am on Arif Branch Again-->
- 
->>>>>>> arif
-=======
->>>>>>> parent of 430dbaa... lastest change
