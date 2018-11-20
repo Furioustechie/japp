@@ -212,11 +212,11 @@
                                   <label class="btn btn-info  col-md-4">BJ Application </label><a href="{{ asset('/storage/bj_app') }}/{{$appeal->file_bj}}" target="_blank"> <span class = "label label-default col-md-6">{{$appeal->file_bj}}</span></a><br><br>
                                   <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox"  name="options1" checked>
-                                      {{-- <input class="form-check-input" type="checkbox" id="checkgrant" name="checkgrant"  unchecked onclick=" if($(this).is(':checked'))
+                                        {{-- <input class="form-check-input" type="checkbox"  name="options1" checked> --}}
+                                      <input class="form-check-input" type="checkbox" id="checkgrant" name="checkgrant"  unchecked onclick=" if($(this).is(':checked'))
                                                                                                                             alert('Checked! Confirming that CC Reached at Court');
                                                                                                                         else
-                                                                                                                            alert('Unchecked!! Write your remarks below');"> --}}
+                                                                                                                            alert('Unchecked!! Write your remarks below');">
                                       <span class="form-check-sign">
                                         <span class="check" name="check"></span>
                                       </span>

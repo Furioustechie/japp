@@ -295,95 +295,40 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                            </td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div class="card-body table-responsive">
+                        <table class="table table-striped table-bordered" id="dataTablex" width="100%" cellspacing="0" >
+                              <thead class=" text-primary">
+                                
+                                <th>
+                                  Case No
+                                </th>
+                                <th>
+                                  Sentence Type
+                                </th>
+                                </thead>
+                              <tbody>
+                                        @if(count($appeals) > 1)
+                                        @foreach($appeals as $appeal)
+                                        <!-- ToolTip value  -->
+                                        <?php
+                                               $output ="ID :".$appeal->id."&#009;"."Case No :".$appeal->caseno."&#10;"."Sentence Type : ".$appeal->sentencetype ;
+                                          ?>
+                                <tr >
+                                   
+                                  <td>{{$appeal->caseno}}</td>
+                                  <td> <a rel="tooltip"  data-placement="right" title="<?=$output;?>"> {{$appeal->sentencetype}}</a>
+                                    {{-- <a class="btn tooltipped" data-position="bottom" data-tooltip="I am a tooltip">Hover me!</a> --}}
+                                  </td>
+                              
+                                </tr>
+                                
+                                @endforeach
+                                        @else
+                                        <p>Nothing Found</p>
+                                        @endif
+                              </tbody>
+                            </table>
+                      </div>
                     </div>
                     <div class="tab-pane" id="messages">
                       <table class="table">
@@ -703,10 +648,38 @@
         } );
     } );
     </script>
+    <script>
+        $(document).ready(function() {
+            // Setup - add a text input to each footer cell
+            $('#dataTablex tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+            } );
+         
+            // DataTable
+            var table = $('#dataTablex').DataTable();
+         
+            // Apply the search
+            table.columns().every( function () {
+                var that = this;
+         
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        } );
+        </script>
+        
 </html>
 <?php 
 
 ?>
+
+      
 <script>
         
       
@@ -745,10 +718,12 @@
                                             }],
                                             yAxes: [{
                                               ticks: {
-                                                min: 0,
-                                                max: 100,
-                                                maxTicksLimit: 5,
+                                                beginAtZero: true,
+                                                // min: 0,
+                                                // max: 60,
+                                                // maxTicksLimit: 5,
                                                 fontColor : "#ffffff "
+                                                
                                               },
                                               gridLines: {
                                                 display: true
@@ -826,3 +801,8 @@
       md.startAnimationForLineChart(dailySalesChart);
     });
   </script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    Tipped.create('.simple-tooltip');
+  });
+</script>
