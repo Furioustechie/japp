@@ -150,7 +150,7 @@ class AppealsController extends Controller
         $appeals->remarks = $request->input('rejectgrant');
         $appeals->isgrant = $request->has('options1');
         
-
+        
 
 
         $appeals->save();

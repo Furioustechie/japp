@@ -1,4 +1,4 @@
-@extends('layouts.forms')
+@extends('layouts.appeal')
 
 @section('content')
         <H1>This is Dashboard page</H1>
