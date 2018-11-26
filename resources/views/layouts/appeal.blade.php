@@ -4,6 +4,7 @@
 <head>
   @include('inc.style')
   
+  
 </head>
 
 <body class="">
@@ -220,8 +221,8 @@
                                   <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating">Appeal To Court</label>
-                                          <select class="browser-default custom-select" name="appealcourt">
-                                              <option selected>Please Select..</option>
+                                          <select class="browser-default custom-select myselect" id="appealcourt" name="appealcourt[]" multiple="multiple">
+                                              {{-- <option selected>Please Select..</option> --}}
                                               <option value="1">High Court</option>
                                               <option value="2">Supreme Court</option>
                                               <option value="3">Lower Court</option>
@@ -242,6 +243,7 @@
                           <div class="form-group">
                             <label class="bmd-label-floating">Conviction Date</label>
                             <input type="date" name="convictiondate" class="form-control">
+                            <!-- <input type="text" name="convictiondate" class="datepicker">  -->
                           </div>
                         </div>
                                 <div class="col-md-6">
@@ -305,7 +307,37 @@
                                     </div>
                                 </div>
                             </div>
-                       
+                            
+                            <div class="input-group control-group increment fup" id="fileinput_1" >
+                                <input type="file" name="filename[]" class="form-control">
+                                <div class="input-group-btn"> 
+                                  <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
+                                </div>
+                              </div>
+                             
+                              <div class="input-group control-group increment fup" id="fileinput_2" >
+                                  <input type="file" name="filename[]" class="form-control">
+                                  <div class="input-group-btn"> 
+                                    <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
+                                  </div>
+                                </div>
+
+                                <div class="input-group control-group increment fup" id="fileinput_3" >
+                                    <input type="file" name="filename[]" class="form-control">
+                                    <div class="input-group-btn"> 
+                                      <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
+                                    </div>
+                                  </div>
+                              <div class="clone hide" id="fileinput1">
+                                <div class="control-group input-group" style="margin-top:10px">
+                                  <input type="file" name="filename[]" class="form-control">
+                                  <div class="input-group-btn"> 
+                                    <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                  </div>
+                                </div>
+                              </div>
+        
+
                       </div>
                     </div>
                      <!-- End Section -->
@@ -338,6 +370,61 @@
     </div>
   </div>
   @include('inc.scriptstyle')
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      $('.fup').hide();
+
+      $('.myselect').select2({
+        placeholder: 'Select an option'
+      });
+
+      $(".btn-success").click(function(){ 
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+
+      $("body").on("click",".btn-danger",function(){ 
+          $(this).parents(".control-group").remove();
+      });
+
+    });
+
+</script>
+
 </body>
 
 </html>
+<script>
+// $("#fileinput").hide();
+$("#fileinput1").hide();
+// $('#appealcourt').on('click', function () {
+//   console.log(this.val());
+// });
+
+$('#appealcourt').on('change', function () {
+  // console.log();
+  $('.fup').hide();
+ var fupload = $(this).val();
+  $.each(fupload, function( index, value ) {
+    console.log( value );
+    $("#fileinput_"+value).show();
+});
+return false;
+  if(this.value==1){
+    $("#fileinput").show();
+   
+  }else if(this.value==2){
+    $("#fileinput1").show();
+  }else{
+    //
+  }
+    
+});
+
+
+</script>
+
+<script>
+  
+</script>

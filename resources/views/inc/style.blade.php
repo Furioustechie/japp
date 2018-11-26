@@ -15,5 +15,5 @@
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <!-- For DataTablex -->
   <link rel="stylesheet" type="text/css" href="../assets/DataTablesx/datatables.min.css"/>
-
+  <link href="../css/select2.min.css" rel="stylesheet" />
 

@@ -17,3 +17,4 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
  
  <script type="text/javascript" src="../assets/DataTablesx/datatables.min.js"></script>
+ <script src="../js/select2.min.js"></script>
