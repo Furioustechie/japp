@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 use App\District;
+use App\Doctype;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,10 @@ class dynamiclist extends ServiceProvider
     {
         view()->composer('*',function($view){
             $view->with('dname', District::all());
+
+        });
+        view()->composer('*',function($view){
+            $view->with('docname', Doctype::all());
 
         });
         Schema::defaultStringLength(191);

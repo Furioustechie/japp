@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Appeal;
+use App\Doctype;
+use App\Document;
 use DB;
 
 
@@ -42,7 +44,7 @@ class AppealsController extends Controller
     {
                                     //
                                 //dd($request->all());
-                                $validatedData = $request->validate([
+                           /*     $validatedData = $request->validate([
                                     //'prisonerno' => 'required',
                                     //'caseno' => 'required',
                                     'file_app' => 'mimes:jpeg,png,jpg,pdf|nullable|max:1999'
@@ -80,22 +82,23 @@ class AppealsController extends Controller
                             //$appeal->checkbox = $checkbox;
                             $appeal->file_app = $fileNameToStore;
                             $appeal->file_bj = $fileNameToStore1;*/
+                            
                             if($request->hasfile('filename'))
-                                        {
+                            {
+                   
+                               foreach($request->file('filename') as $file)
+                               {
+                                   $name=$file->getClientOriginalName();
+                                   $file->move(public_path().'/files/', $name);  
+                                   $data[] = $name;  
+                               }
+                            }
+                   
+                            $appeal= new Appeal();
+                            $appeal->caseno = $request->input('caseno');
+                            $appeal->file_bj = json_encode($data);
 
-                                            foreach($request->file('filename') as $file)
-                                            {
-                                                $name=$file->getClientOriginalName();
-                                                $file->move(public_path().'/files/', $name);  
-                                                $data[] = $name;  
-                                            }
-                                        }
-                                        
-                                        $appeal= new Appeal();
-                                        $appeal->caseno = $request->input('caseno');
-                                        $appeal->file_bj=json_encode($data);
-
-                                        $appeal->save();
+                            $appeal->save();
 
 
                             return redirect('/appeals/create')->with('success', 'Application Submitted');

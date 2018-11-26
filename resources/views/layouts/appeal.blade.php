@@ -221,8 +221,8 @@
                                   <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating">Appeal To Court</label>
-                                          <select class="browser-default custom-select myselect" id="appealcourt" name="appealcourt[]" multiple="multiple">
-                                              {{-- <option selected>Please Select..</option> --}}
+                                          <select class="browser-default custom-select" name="appealcourt"> 
+                                              <option hidden >Please Select ..</option>
                                               <option value="1">High Court</option>
                                               <option value="2">Supreme Court</option>
                                               <option value="3">Lower Court</option>
@@ -252,14 +252,29 @@
                                       <input  name="dateofappeal" class="form-control" value= <?php echo date("Y-m-d");?> disabled>
                                     </div>
                                   </div>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Sharok No</label>
                           <input type="text" name="sharokno" class="form-control">
                         </div>
                       </div>
+                       <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Documents Name</label>
+                                        <select class="browser-default custom-select myselect" id="doctype" name="doctype[]" multiple="multiple">
+                                            
+                                                @foreach ($docname as $data)
+            
+                                                {{-- <option value="0">Open this select menu</option>
+                                                 --}}
+                                                 
+                                              <option value="{{$data->id}}">{{$data->docname}} </option>
+                                                  @endforeach
+                                          </select>
+                                    </div>
+                                  </div>
                     </div>
-                    
+                   
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
@@ -283,7 +298,7 @@
                       </div>
                      <!-- Input File -->
                      <div class="row">
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                         <label class="card-category">ADD APP FORM :</label>
                                     <div class="file-field">
                                     <div class="btn btn-primary btn-sm float-left" >
@@ -306,16 +321,17 @@
                                     <input type="file"  name="file_letter">
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="input-group control-group increment fup" id="fileinput_1" >
+                            </div> -->
+                            @foreach ($docname as $datas)
+                            <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
                                 <input type="file" name="filename[]" class="form-control">
                                 <div class="input-group-btn"> 
                                   <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
                                 </div>
                               </div>
+                              @endforeach
                              
-                              <div class="input-group control-group increment fup" id="fileinput_2" >
+                              <!-- <div class="input-group control-group increment fup" id="fileinput_2" >
                                   <input type="file" name="filename[]" class="form-control">
                                   <div class="input-group-btn"> 
                                     <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
@@ -335,8 +351,8 @@
                                     <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
                                   </div>
                                 </div>
-                              </div>
-        
+                              </div> -->
+       
 
                       </div>
                     </div>
@@ -379,14 +395,15 @@
         placeholder: 'Select an option'
       });
 
-      $(".btn-success").click(function(){ 
-          var html = $(".clone").html();
-          $(".increment").after(html);
-      });
+      // $(".btn-success").click(function(){ 
+      //     var html = $(".clone").html();
+      //     $(".increment").after(html);
+      // });
 
-      $("body").on("click",".btn-danger",function(){ 
-          $(this).parents(".control-group").remove();
-      });
+      // $("body").on("click",".btn-danger",function(){ 
+      //     $(this).parents(".control-group").remove();
+      // });
+    
 
     });
 
@@ -402,7 +419,7 @@ $("#fileinput1").hide();
 //   console.log(this.val());
 // });
 
-$('#appealcourt').on('change', function () {
+$('#doctype').on('change', function () {
   // console.log();
   $('.fup').hide();
  var fupload = $(this).val();
