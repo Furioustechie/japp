@@ -171,21 +171,21 @@
                                     </select>
                               </div>
                             </div>
+                             <!-- Dropdown data from Prison model and Prisonlist Providers -->
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Prison Name</label>
                                         <select class="browser-default custom-select" name="prisonname">
                                             <option>Please Select..</option>
                                                 @foreach ($pname as $data)
-            
-                                                {{-- <option value="0">Open this select menu</option>
-                                                 --}}
-                                                 
+                                                          
                                               <option value="{{$data->id}}">{{$data->name}} </option>
                                                   @endforeach
                                           </select>
                                     </div>
                                   </div>
+                              <!-- Dropdown Ends for Prison List -->
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="bmd-label-floating">Sentencing Court</label>
@@ -258,21 +258,19 @@
                           <input type="text" name="sharokno" class="form-control">
                         </div>
                       </div>
+                      <!-- Dropdown data from Doctype model and dynamiclist providers -->
                        <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Documents Name</label>
                                         <select class="browser-default custom-select myselect" id="doctype" name="doctype[]" multiple="multiple">
                                             
                                                 @foreach ($docname as $data)
-            
-                                                {{-- <option value="0">Open this select menu</option>
-                                                 --}}
-                                                 
-                                              <option value="{{$data->id}}">{{$data->docname}} </option>
+                                                       <option value="{{$data->id}}">{{$data->docname}} </option>
                                                   @endforeach
                                           </select>
                                     </div>
                                   </div>
+                       <!-- Dropdown End for Documents type -->
                     </div>
                    
                     <div class="row">
@@ -322,6 +320,9 @@
                                     </div>
                                 </div>
                             </div> -->
+
+                           <!-- File Uploader open for DocType -->
+
                             @foreach ($docname as $datas)
                             <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
                                 <input type="file" name="filename[]" class="form-control">

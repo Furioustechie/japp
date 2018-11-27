@@ -42,7 +42,10 @@ class AppealsController extends Controller
      */
     public function store(Request $request)
     {
-                                    //
+        $document= Document::all();
+
+        $data = array(); 
+        //
                                 //dd($request->all());
                            /*     $validatedData = $request->validate([
                                     //'prisonerno' => 'required',
@@ -95,10 +98,14 @@ class AppealsController extends Controller
                             }
                    
                             $appeal= new Appeal();
-                            $appeal->caseno = $request->input('caseno');
-                            $appeal->file_bj = json_encode($data);
+                            $document= new Document();
+                            $doctype= new Doctype();
+                            //$appeal->caseno = $request->input('caseno');
+                            //$appeal->file_bj = json_encode($data);
+                            $document->doctypeid = $request->input('doctype');
+                            $document->filename = $request->input($data);
 
-                            $appeal->save();
+                            $document->save();
 
 
                             return redirect('/appeals/create')->with('success', 'Application Submitted');
