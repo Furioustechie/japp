@@ -9,11 +9,12 @@ class Doctype extends Model
     //
     protected $table = 'doctype';
 
-    public function appeals(){
-        return $this->belongsTo('App\Appeal');
-    }
     
-    public function documents(){
-        return $this->belongsTo('App\Document');
+    public function document(){
+        return $this->hasMnay('App\Document');
     }
+    public function appeal(){
+        return $this->hasMnay('App\Appeal');
+    }
+
 }

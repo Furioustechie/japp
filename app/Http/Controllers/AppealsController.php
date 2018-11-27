@@ -19,6 +19,8 @@ class AppealsController extends Controller
     public function index()
     {
         $appeals = Appeal::all();
+        $document = Document::all();
+        $doctype = Doctype::all();
         return view ('appeals.index')->with('appeals',$appeals);
         
     }
@@ -42,7 +44,10 @@ class AppealsController extends Controller
      */
     public function store(Request $request)
     {
-        $document= Document::all();
+        $document = Document::all();
+        $doctype = Doctype::all();
+       
+        
 
         $data = array(); 
         //
@@ -100,11 +105,16 @@ class AppealsController extends Controller
                             $appeal= new Appeal();
                             $document= new Document();
                             $doctype= new Doctype();
-                            //$appeal->caseno = $request->input('caseno');
-                            //$appeal->file_bj = json_encode($data);
-                            $document->doctypeid = $request->input('doctype');
-                            $document->filename = $request->input($data);
+                            $appeal->caseno = $request->input('caseno');
+                            $document->appealid ='1';
+                            $document->doctypeid = $request->input('doctype[]');
+                            $document->attached = '1';
+                            $appeal->file_bj = json_encode($data);
+                           // $appeal->cc = $request->input('doctype');
+                            $document->filename = implode(', ',$data);
+                            
 
+                            $appeal->save();
                             $document->save();
 
 

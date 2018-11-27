@@ -325,7 +325,7 @@
 
                             @foreach ($docname as $datas)
                             <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
-                                <input type="file" name="filename[]" class="form-control">
+                                <input type="file" id="filename" name="filename[]" class="form-control">
                                 <div class="input-group-btn"> 
                                   <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
                                 </div>
@@ -364,7 +364,7 @@
                      
                          <div class="clearfix"></div>
                   </form>
-                 
+                
                 </div>
               </div>
             </div>
