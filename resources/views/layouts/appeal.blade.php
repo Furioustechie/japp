@@ -151,19 +151,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                               <label class="bmd-label-floating">Prisoner's No</label>
-                              <input type="text" name="prisonerno" class="form-control">
+                              <input type="text" name="prisoner_no" class="form-control">
                             </div>
                           </div>
                           <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="bmd-label-floating">Prisoner's Name</label>
-                                  <input type="text" name="prisonername" class="form-control">
+                                  <input type="text" name="prisoner_name" class="form-control">
                                 </div>
                               </div>
                           <div class="col-md-6">
                               <div class="form-group">
                                 <label for="Gender" class="bmd-label-floating">Gender</label>
-                                <select class="browser-default custom-select" name="gender">
+                                <select class="browser-default custom-select" name="prisoner_gender">
                                     <option selected>Please Select..</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
@@ -175,7 +175,7 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Prison Name</label>
-                                        <select class="browser-default custom-select" name="prisonname">
+                                        <select class="browser-default custom-select" name="prisonid">
                                             <option>Please Select..</option>
                                                 @foreach ($pname as $data)
                                                           

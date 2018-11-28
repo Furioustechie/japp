@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appeal extends Model
 {
-    //Tabkle name
+    //Table name
     protected $table = 'appeals';
     //protected $table = 'newappeals';
     

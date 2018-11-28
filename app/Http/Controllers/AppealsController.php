@@ -18,10 +18,10 @@ class AppealsController extends Controller
      */
     public function index()
     {
-        $appeals = Appeal::all();
+        //$appeals = Appeal::all();
         $document = Document::all();
         $doctype = Doctype::all();
-        return view ('appeals.index')->with('appeals',$appeals);
+        return view ('appeals.appealForm')->with('appeals',$appeals);
         
     }
 
@@ -32,7 +32,7 @@ class AppealsController extends Controller
      */
     public function create()
     {
-        //
+    
         return view('appeals.appealForm');
     }
 
@@ -46,82 +46,90 @@ class AppealsController extends Controller
     {
         $document = Document::all();
         $doctype = Doctype::all();
-       
-        
-
+             
         $data = array(); 
-        //
-                                //dd($request->all());
-                           /*     $validatedData = $request->validate([
-                                    //'prisonerno' => 'required',
-                                    //'caseno' => 'required',
-                                    'file_app' => 'mimes:jpeg,png,jpg,pdf|nullable|max:1999'
+        $dtype = array();
+             
+                        $nextId = DB::table('newappeals')->max('id');
+                        $nextId1 = DB::table('newappeals')->max('id')+1; //Increment ID for documents table
+                        $files = $request->file('filename');
+                        if($request->hasFile('filename'))
+                        {
+                            $data=array(); 
+                            foreach ($files as $file) {
+                            $name=$file->getClientOriginalName();
+                                $file->move(public_path().'/files/', $name);  
+                            $data[] = $name;
+                            }
+                        }
+                
+                        $appeal= new Appeal();
+                        $document= new Document();
+                        $doctype= new Doctype();
+                        $appeal->caseno = $request->input('caseno');
+                        
+                        // array to save doctype and filname
+
+                        $typeid = $request->input('doctype'); //doctype ID
+                        $result = array();
+                        $values = array($typeid, $data);
+                        
+                        foreach($typeid as $index => $key) {
+                            $t = array();
+                            foreach($values as $value) {
+                                $t[] = $value[$index];
+                            }
+                            $result[$key]  = $t;
+                        }
+                        
+          
+                        
+                        // end of doctype
+                        //Prisoner Table Data Insertion Block
+                        DB::table('prisoner')->insert([
+                        ['prisoner_no' => $request->input('prisoner_no'), 
+                        'prisoner_name' => $request->input('prisoner_name'), 
+                        'prisoner_gender' => $request->input('prisoner_gender'), 
+                            'created_at' => date('Y-m-d h:s:i'),
+                            'updated_at' => date('Y-m-d h:s:i')]
+                        ]);
+                        // Cases Table Data Insertion Block
+                        $prisonerNxtId = DB::table('prisoner')->max('id');
+                        DB::table('cases')->insert([
+                            ['caseno' => $request->input('prisoner_no'), 
+                                'created_at' => date('Y-m-d h:s:i'),
+                                'updated_at' => date('Y-m-d h:s:i')]
+                        ]);
+                        // NewAppeals Table Data Insertion Block
+                        $casesNxtId = DB::table('cases')->max('id');
+                        DB::table('newappeals')->insert([
+                            ['prisonid' => $request->input('prisonid'), 
+                            'prisonerid' => $prisonerNxtId, 
+                            'courtid' => $request->input('sentencingcourt'), 
+                            'caseid' => $casesNxtId, 
+                            'offenceid' => $request->input('offencetype'),
+                            'sentenceid' => $request->input('sentencetype'), 
+                            'resultsid' => 1,
+                            'created_at' => date('Y-m-d h:s:i'),
+                            'updated_at' => date('Y-m-d h:s:i')]
+                        ]);
+                        // Documents Table Data Insertion Block
+                        foreach($result as $r){
+                            DB::table('documents')->insert([
+                                ['appealid' => $nextId1, 
+                                'doctypeid' => $r[0], 
+                                'attached' => '1', 
+                                'filename' => $r[1],
+                                'created_at' => date('Y-m-d h:s:i'),
+                                'updated_at' => date('Y-m-d h:s:i')]
                             ]);
-                            // handle file upload
+                        }
+                        
+                        //$appeal->save();  Eloquant Insert
+                         return redirect('appealForm')->with('success', 'Application Submitted');
+                    }
 
-                            /*if($request->hasFile('file_app')){
-                                //get filename with the extention
-                                $filenameWithExt = $request->file('file_app')->getClientOriginalName();
-                                $filenameWithExt1 = $request->file('file_bj')->getClientOriginalName();
-                                //Get Just ext
-                                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                                $filename1 = pathinfo($filenameWithExt1, PATHINFO_FILENAME);
-                                //Get just extension
-                                $extension = $request->file('file_app')->getClientOriginalExtension();
-                                $extension1 = $request->file('file_bj')->getClientOriginalExtension();
-                                //File To Store
-                                $fileNameToStore = $filename.'_'.time().'.'.$extension;
-                                $fileNameToStore1 = $filename1.'_'.time().'.'.$extension1;
-                                //upload Image
-                                $path = $request->file('file_app')->storeAs('public/jail_app', $fileNameToStore);
-                                $path1 = $request->file('file_bj')->storeAs('public/bj_app', $fileNameToStore1);
-                            }
-                            
-                            else {
-                                $fileNameToStore = 'noimage.jpg';
-                            }
-                            //Create Insert
-                            $appeal = new Appeal;
-                            //$appeal->prisonerno = $request->input('prisonerno');
-                            $appeal->caseno = $request->input('caseno');
-                            $appeal->gender = $request->get('gender');
-
-                            $appeal->options = $request->has('options');
-                            //$appeal->checkbox = $checkbox;
-                            $appeal->file_app = $fileNameToStore;
-                            $appeal->file_bj = $fileNameToStore1;*/
-                            
-                            if($request->hasfile('filename'))
-                            {
-                   
-                               foreach($request->file('filename') as $file)
-                               {
-                                   $name=$file->getClientOriginalName();
-                                   $file->move(public_path().'/files/', $name);  
-                                   $data[] = $name;  
-                               }
-                            }
-                   
-                            $appeal= new Appeal();
-                            $document= new Document();
-                            $doctype= new Doctype();
-                            $appeal->caseno = $request->input('caseno');
-                            $document->appealid ='1';
-                            $document->doctypeid = $request->input('doctype[]');
-                            $document->attached = '1';
-                            $appeal->file_bj = json_encode($data);
-                           // $appeal->cc = $request->input('doctype');
-                            $document->filename = implode(', ',$data);
-                            
-
-                            $appeal->save();
-                            $document->save();
-
-
-                            return redirect('/appeals/create')->with('success', 'Application Submitted');
-                     }
-
-    /**
+            /**
      * Display the specified resource.
      *
      * @param  int  $id
