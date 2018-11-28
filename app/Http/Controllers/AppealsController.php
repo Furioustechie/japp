@@ -18,10 +18,10 @@ class AppealsController extends Controller
      */
     public function index()
     {
-        //$appeals = Appeal::all();
-        $document = Document::all();
-        $doctype = Doctype::all();
-        return view ('appeals.appealForm')->with('appeals',$appeals);
+        $appeals = Appeal::all();
+        //$document = Document::all();
+        //$doctype = Doctype::all();
+        return view ('appeals.index')->with('appeals',$appeals);
         
     }
 
@@ -80,11 +80,8 @@ class AppealsController extends Controller
                                 $t[] = $value[$index];
                             }
                             $result[$key]  = $t;
-                        }
-                        
-          
-                        
-                        // end of doctype
+                        }// end of doctype
+
                         //Prisoner Table Data Insertion Block
                         DB::table('prisoner')->insert([
                         ['prisoner_no' => $request->input('prisoner_no'), 
@@ -94,14 +91,14 @@ class AppealsController extends Controller
                             'updated_at' => date('Y-m-d h:s:i')]
                         ]);
                         // Cases Table Data Insertion Block
-                        $prisonerNxtId = DB::table('prisoner')->max('id');
+                        $prisonerNxtId = DB::table('prisoner')->max('id'); // For PRISONER Tables Prisonerid Column
                         DB::table('cases')->insert([
                             ['caseno' => $request->input('prisoner_no'), 
                                 'created_at' => date('Y-m-d h:s:i'),
                                 'updated_at' => date('Y-m-d h:s:i')]
                         ]);
                         // NewAppeals Table Data Insertion Block
-                        $casesNxtId = DB::table('cases')->max('id');
+                        $casesNxtId = DB::table('cases')->max('id'); // For NEWAPPEALS Tables caseid Column
                         DB::table('newappeals')->insert([
                             ['prisonid' => $request->input('prisonid'), 
                             'prisonerid' => $prisonerNxtId, 
@@ -114,7 +111,7 @@ class AppealsController extends Controller
                             'updated_at' => date('Y-m-d h:s:i')]
                         ]);
                         // Documents Table Data Insertion Block
-                        foreach($result as $r){
+                        foreach($result as $r){                     //Loop for Doctype and Filename Column
                             DB::table('documents')->insert([
                                 ['appealid' => $nextId1, 
                                 'doctypeid' => $r[0], 

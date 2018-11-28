@@ -21,14 +21,14 @@ Route::get('/about', function () {
 });});
 
 */
-Route::get('/index', 'PagesController@index');
+Route::get('/index', 'PagesController@index');//AppealList->index method
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/form', 'PagesController@form');
-Route::get('/dashboard', 'PagesController@dashboard');
-Route::get('/appealForm', 'PagesController@appealForm');
+Route::get('/dashboard', 'PagesController@dashboard');// pagesController->dashboard method
+Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsController->create method->appealForm
 
- Route::resource('appeals', 'AppealsController');
+ Route::resource('appeals', 'AppealsController'); //For Appeal Data Insert Update Delete and Retrieve 
  Route::post('appeals/update/{id}', 'AppealsController@update');
 
 //Route::get('appeals/create', 'AppealsController@create');

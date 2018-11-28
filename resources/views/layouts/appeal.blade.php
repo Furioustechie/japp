@@ -8,10 +8,10 @@
 </head>
 
 <body class="">
-        @include('inc.navbar')
+        <!-- @include('inc.navbar') -->
         @include('inc.messages')
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -42,12 +42,19 @@
               <p>Appeal Now</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
-            </a>
-          </li>
+        
+         <!-- Dropdown -->
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="DropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">library_books</i>Settings</a>
+       
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="DropdownMenuLink">
+                  <a class="dropdown-item" href="#">Add New Prison Name</a>
+                  <a class="dropdown-item" href="#">Add New Sentence Name</a>
+                  <a class="dropdown-item" href="#">Add New Court Name</a>
+                  <a class="dropdown-item" href="#">Add New Offence Name</a>
+                  <a class="dropdown-item" href="#">Another One</a>
+        </div>
+      </li>
           <li class="nav-item ">
             <a class="nav-link" href="./icons.html">
               <i class="material-icons">bubble_chart</i>
@@ -139,9 +146,9 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8">
-              <div class="card">
-                <div class="card-header card-header-primary">
+            <div class="col-md-8 offset-sm-2">
+              <div class="card" >
+                <div class="card-header card-header-primary" >
                   <h4 class="card-title">Application Form</h4>
                   <p class="card-category">Complete your application</p>
                 </div>
