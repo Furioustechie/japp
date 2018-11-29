@@ -120,10 +120,12 @@ class AppealsController extends Controller
                                 'created_at' => date('Y-m-d h:s:i'),
                                 'updated_at' => date('Y-m-d h:s:i')]
                             ]);
-                        }
+                            
+                            }
+                        //     
                         
                         //$appeal->save();  Eloquant Insert
-                         return redirect('appealForm')->with('success', 'Application Submitted');
+                         return redirect('appealForm')->with('success', 'Application Submitted'); //submit application
                     }
 
             /**
@@ -208,4 +210,20 @@ class AppealsController extends Controller
     {
         //
     }
+   
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

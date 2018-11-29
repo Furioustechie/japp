@@ -8,7 +8,7 @@
 </head>
 
 <body class="">
-        <!-- @include('inc.navbar') -->
+         {{-- @include('inc.navbar') --}}
         @include('inc.messages')
   <div class="wrapper ">
     <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -24,7 +24,7 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item  ">
+          <li class="nav-item">
             <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
@@ -36,25 +36,27 @@
               <p>Appeal List</p>
             </a>
           </li>
-          <li class="nav-item active  ">
+          <li class="nav-item active">
             <a class="nav-link" href="/appealForm">
               <i class="material-icons">content_paste</i>
               <p>Appeal Now</p>
             </a>
           </li>
+          
         
          <!-- Dropdown -->
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="DropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">library_books</i>Settings</a>
-       
         <div class="dropdown-menu dropdown-primary" aria-labelledby="DropdownMenuLink">
-                  <a class="dropdown-item" href="#">Add New Prison Name</a>
-                  <a class="dropdown-item" href="#">Add New Sentence Name</a>
-                  <a class="dropdown-item" href="#">Add New Court Name</a>
-                  <a class="dropdown-item" href="#">Add New Offence Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPrisonForm">Add New Prison Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSentenceForm">Add New Sentence Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCourtForm">Add New Court Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalOffenceForm">Add New Offence Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalStatusForm">Add New Status</a>
                   <a class="dropdown-item" href="#">Another One</a>
         </div>
       </li>
+      
           <li class="nav-item ">
             <a class="nav-link" href="./icons.html">
               <i class="material-icons">bubble_chart</i>
@@ -73,13 +75,7 @@
               <p>Notifications</p>
             </a>
           </li>
-          <!-- <li class="nav-item active-pro ">
-                <a class="nav-link" href="./upgrade.html">
-                    <i class="material-icons">unarchive</i>
-                    <p>Upgrade to PRO</p>
-                </a>
-            </li> -->
-        </ul>
+          </ul>
       </div>
     </div>
     <div class="main-panel">
@@ -334,7 +330,7 @@
                             <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
                                 <input type="file" id="filename" name="filename[]" class="form-control">
                                 <div class="input-group-btn"> 
-                                  <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
+                                  <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Browse</button>
                                 </div>
                               </div>
                               @endforeach
@@ -360,9 +356,9 @@
                                   </div>
                                 </div>
                               </div> -->
-       
-
-                      </div>
+                              
+                            
+                           </div>
                     </div>
                      <!-- End Section -->
                      {{ csrf_field() }}
@@ -375,7 +371,12 @@
                 </div>
               </div>
             </div>
-          
+            <form action="appeals/offence" method="POST" enctype="multipart/form-data" id="modalsFrom">
+              {{ csrf_field() }}
+            @include('inc.modals')
+            </form>
+            </div>
+          </div>
           </div>
         </div>
       </div>

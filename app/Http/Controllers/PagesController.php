@@ -86,6 +86,7 @@ class PagesController extends Controller
         
     }
     public function appealForm(){
+        
         return view('appealForm');
     }
 }

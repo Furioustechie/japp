@@ -210,6 +210,11 @@
                                   <label class="btn btn-info  col-md-4">Attached CC </label><span class = "label label-default col-md-8">{{$appeal->options}}</span><br><br>
                                   <label class="btn btn-info  col-md-4">Jail Application </label><a href="{{ asset('/storage/jail_app') }}/{{$appeal->file_app}}" target="_blank"> <span class = "label label-default col-md-6">{{$appeal->file_app}}</span></a><br><br>
                                   <label class="btn btn-info  col-md-4">BJ Application </label><a href="{{ asset('/storage/bj_app') }}/{{$appeal->file_bj}}" target="_blank"> <span class = "label label-default col-md-6">{{$appeal->file_bj}}</span></a><br><br>
+                                  <div class="md-form mb-5">
+                                      <label data-error="wrong" data-success="right" for="inputAge">Prison</label>
+                                      <input type="text" id="inputAge" value={!!$appeal->prisonname!!} class="form-control validate">
+                                    
+                                  </div>
                                   <div class="form-check">
                                     <label class="form-check-label">
                                         {{-- <input class="form-check-input" type="checkbox"  name="options1" checked> --}}
