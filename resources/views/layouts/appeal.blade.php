@@ -3,8 +3,12 @@
 
 <head>
   @include('inc.style')
-  
-  
+
+
+<script>
+
+</script>
+
 </head>
 
 <body class="">
@@ -287,6 +291,17 @@
                         </div>
                       </div>
                     </div>
+                    <!-- Tracking progress -->
+                    <ol class="etapier">
+                        <li class="done"><a href="">App. Submitted</a></li>
+                        <li class="done"><a href="">BJ Form Attached</a></li>
+                        <li class="todo"><a href="">CC Not Found</a></li>
+                        <li class="todo"><a href="">Review in Progress</a></li>
+                        <li class="todo"><a href="">Appeal Resolved</a></li>
+                    </ol>
+                  
+
+                    <!-- boleto__wrapper -->
                     <div class="form-check">
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox"  name="options" checked>
@@ -295,9 +310,13 @@
                           </span>
                           <h5>Attached CC/Acknowledgement Letter</h5>
                         </label>
-                       
                       </div>
+                      
+                    
                      <!-- Input File -->
+
+
+
                      <div class="row">
                         <!-- <div class="col-md-4">
                         <label class="card-category">ADD APP FORM :</label>
@@ -333,31 +352,8 @@
                                   <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Browse</button>
                                 </div>
                               </div>
-                              @endforeach
-                             
-                              <!-- <div class="input-group control-group increment fup" id="fileinput_2" >
-                                  <input type="file" name="filename[]" class="form-control">
-                                  <div class="input-group-btn"> 
-                                    <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
-                                  </div>
-                                </div>
-
-                                <div class="input-group control-group increment fup" id="fileinput_3" >
-                                    <input type="file" name="filename[]" class="form-control">
-                                    <div class="input-group-btn"> 
-                                      <button class="btn btn-success" type="button" ><i class="glyphicon glyphicon-plus"></i>Add</button>
-                                    </div>
-                                  </div>
-                              <div class="clone hide" id="fileinput1">
-                                <div class="control-group input-group" style="margin-top:10px">
-                                  <input type="file" name="filename[]" class="form-control">
-                                  <div class="input-group-btn"> 
-                                    <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
-                                  </div>
-                                </div>
-                              </div> -->
+                              @endforeach  
                               
-                            
                            </div>
                     </div>
                      <!-- End Section -->
@@ -373,13 +369,15 @@
             </div>
             <form action="appeals/offence" method="POST" enctype="multipart/form-data" id="modalsFrom">
               {{ csrf_field() }}
-            @include('inc.modals')
+              @include('inc.modals')
             </form>
             </div>
+            
           </div>
           </div>
         </div>
       </div>
+     
       <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">

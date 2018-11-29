@@ -154,7 +154,7 @@
                         <th>Sentence Type </th>
                         <th>Prison Name</th>
                         <th>Appealed On</th>
-                        <th>Remarks</th>
+                        <th>Status</th>
                         <th>Command</th>
                       </thead>
 					  <tfoot class="text-primary">
@@ -163,7 +163,7 @@
                         <th>Sentence Type </th>
                         <th>Prison Name</th>
                         <th>Appealed On</th>
-                        <th>Remarks</th>
+                        <th>Status</th>
                         <th>Command</th>
 					  </tfoot>
                       <tbody>
@@ -175,7 +175,21 @@
                           <td>{{$appeal->sentencetype}}</td>
                           <td>{{$appeal->prisonname}}</td>
                           <td>{{$appeal->created_at}}</td>
-                          <td>{{$appeal->remarks}}</td>
+                          <td>
+                          <ol class="etapier">
+                        <li class="done"><a href="">App. Submitted</a></li>
+                        <li class="done"><a href="">BJ Form Attached</a></li>
+                        @if($appeal->isgrant == 1)   
+                        <li class="done"><a href="">CC Found</a></li>    
+                                      @else
+                                      <li class="todo"><a href="">CC Not Found</a></li>       
+                                              
+                                      @endif
+                        
+                        <li class="todo"><a href="">Review in Progress</a></li>
+                        <li class="todo"><a href="">Appeal Resolved</a></li>
+                    </ol>  
+                          </td>
 						  
                           <td class="td-actions text-center">
                             <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appeal->id}}">

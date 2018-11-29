@@ -16,4 +16,7 @@
   <!-- For DataTablex -->
   <link rel="stylesheet" type="text/css" href="../assets/DataTablesx/datatables.min.css"/>
   <link href="../css/select2.min.css" rel="stylesheet" />
+  <link href="../css/progress-tracker.css" rel="stylesheet" />
+  <link href="../css/progress-tracker.scss" rel="stylesheet" />
+  <link  rel="stylesheet" type="text/css" href="../css/tracker.css"  />
 
