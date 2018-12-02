@@ -4,10 +4,11 @@
 <form action="" method="POST" name="offenceForm">
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">Add New Offence Name</h4>
+    <div class="modal-header text-center" style="background-color:#00bcd4;">
+      <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Offence Name</h4>
       
     </div>
+    <br>
     <div class="col-md-12 ">
         <div class="form-group">
           <label for="district_name" class="bmd-label-floating text-success ">Offence Name</label>
@@ -32,10 +33,11 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">Add New Prison Name</h4>
+    <div class="modal-header text-center" style="background-color:#00bcd4;">
+      <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Prison Name</h4>
      
     </div>
+    <br>
     <div class="col-md-12 ">
         
       <!--Dropdown for District Name primary-->
@@ -74,11 +76,11 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">Add New Sentence Name</h4>
+    <div class="modal-header text-center" style="background-color:#00bcd4;">
+      <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Sentence Name</h4>
      
     </div>
-    
+    <br>
     <div class="col-md-12 ">
         <div class="form-group">
           <label for="sentence_name" class="bmd-label-floating text-success ">Sentence Name</label>
@@ -105,10 +107,11 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">Add New Court Name</h4>
+    <div class="modal-header text-center" style="background-color:#00bcd4;">
+      <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Court Name</h4>
      
     </div>
+    <br>
     <div class="col-md-12 ">
          <!--Dropdown for District Name primary-->
       <div class="form-group">
@@ -147,11 +150,11 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">Add New Status</h4>
+    <div class="modal-header text-center" style="background-color:#00bcd4;">
+      <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Status</h4>
      
     </div>
-    
+    <br>
     <div class="col-md-12 ">
         <div class="form-group">
           <label for="sentence_name" class="bmd-label-floating text-success ">New Status</label>

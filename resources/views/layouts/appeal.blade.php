@@ -292,13 +292,13 @@
                       </div>
                     </div>
                     <!-- Tracking progress -->
-                    <ol class="etapier">
+                    {{-- <ol class="etapier">
                         <li class="done"><a href="">App. Submitted</a></li>
                         <li class="done"><a href="">BJ Form Attached</a></li>
                         <li class="todo"><a href="">CC Not Found</a></li>
                         <li class="todo"><a href="">Review in Progress</a></li>
                         <li class="todo"><a href="">Appeal Resolved</a></li>
-                    </ol>
+                    </ol> --}}
                   
 
                     <!-- boleto__wrapper -->
