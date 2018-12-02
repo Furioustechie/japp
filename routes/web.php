@@ -39,6 +39,7 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
 
  Route::post('/appealForm', 'PagesController@appealForm');
 
+ Route::get('/editsettings', 'SettingsController@edit_settings');// pagesController->dashboard method
 //Route::get('appeals/create', 'AppealsController@create');
 //Route::post('appeals/store', 'AppealsController@store');
 
