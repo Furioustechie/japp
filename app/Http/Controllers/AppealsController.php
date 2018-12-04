@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Appeal;
 use App\Doctype;
 use App\Document;
+use App\Application;
 use DB;
 
 
@@ -136,10 +137,21 @@ class AppealsController extends Controller
      */
     public function show($id)
     {
-        $appeal = Appeal::find($id);
         
-        return view ('appeals.show')->with('appeal',$appeal);
 
+        $appeals = DB::select('SELECT na.id, p.name, prn.prisoner_name, co.name as court_name, of.name as offence_name
+        FROM 
+            newappeals na, prisons p, prisoner prn, courts co, offences of, sentences se 
+        WHERE 
+        na.id = p.id AND
+        na.id = prn.id AND
+        na.id = co.id');
+        // echo "<pre>";
+        // print_r($appeals);
+    
+        // exit;
+        //return view ('/dashboard')->with('newappeals',$appeals);
+        //return view ('dashboard', ['appealDetails' => $appeals])->with('newappeals',$appeals);
     }
 
     /**
@@ -210,6 +222,8 @@ class AppealsController extends Controller
     {
         //
     }
+   
+   
    
     
 

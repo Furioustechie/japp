@@ -296,7 +296,6 @@
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
                       <div class="card-body table-responsive">
-                        @if(count($appeals) > 0)
                         <table class="table table-striped table-bordered" id="dataTablex" width="100%" cellspacing="0" >
                               <thead class=" text-primary">
                                 
@@ -308,7 +307,7 @@
                                 </th>
                                 </thead>
                               <tbody>
-                                       
+                                        @if(count($appeals) > 0)
                                         @foreach($appeals as $appeal)
                                         <!-- ToolTip value  -->
                                         <?php
@@ -324,12 +323,11 @@
                                 </tr>
                                 
                                 @endforeach
-                                        
-                              </tbody>
-                            </table>
-                            @else
+                                        @else
                                         <p>Nothing Found</p>
                                         @endif
+                              </tbody>
+                            </table>
                       </div>
                     </div>
                     <div class="tab-pane" id="messages">
@@ -476,20 +474,20 @@
                   <table class="table table-hover table-light" id="dataTable" width="100%" cellspacing="0">
                         <thead class=" text-primary">
                           <th>ID</th>
+                          <th>Case No</th>
+                          <th>Sentence Type</th>
                           <th>Prison Name</th>
-                          <th>Prisoner Name</th>
-                          <th>Court Name</th>
-                          <th>Offence Name</th>
-                          {{-- <th>Certified Copies</th> --}}
+                          <th>Appealed On</th>
+                          <th>Certified Copies</th>
                           <th>Command</th>
                         </thead>
                         <tfoot class="text-primary">
-                          <th>ID</th>
-                          <th>Prison Name</th>
-                          <th>Prisoner Name</th>
-                          <th>Court Name</th>
-                          <th>Offence Name</th>
-                              {{-- <th>Certified Copies</th> --}}
+                              <th>ID</th>
+                              <th>Case No</th>
+                              <th>Sentence Type</th>
+                              <th>Prison Name</th>
+                              <th>Appealed On</th>
+                              <th>Certified Copies</th>
                         </tfoot>
                         <tbody>
                                   @if(count($appealDetails) > 0)
@@ -662,8 +660,6 @@
             } );
         } );
         </script>
-
-        
         
 </html>
 <?php 

@@ -158,7 +158,7 @@
                         <th>Command</th>
                       </thead>
 					  <tfoot class="text-primary">
-						<th>ID</th>
+					            	<th>ID</th>
                         <th>Case No</th>
                         <th>Sentence Type </th>
                         <th>Prison Name</th>
@@ -177,17 +177,17 @@
                           <td>{{$appeal->created_at}}</td>
                           <td>
                           <ol class="etapier">
-                        <li class="done"><a href="">App. Submitted</a></li>
-                        <li class="done"><a href="">BJ Form Attached</a></li>
+                        <li class="done" data-toggle="tooltip" data-placement="top" title="App.Submitted"><a href="" >App. Submitted</a></li>
+                        <li class="done" data-toggle="tooltip" data-placement="top" title="BJ Form Attached"><a href="">BJ Form Attached</a></li>
                         @if($appeal->isgrant == 1)   
-                        <li class="done"><a href="">CC Found</a></li>    
+                        <li class="done" data-toggle="tooltip" data-placement="top" title="CC Found"><a href="">CC Found</a></li>    
                                       @else
-                                      <li class="todo"><a href="">CC Not Found</a></li>       
+                                      <li class="todo" data-toggle="tooltip" data-placement="top" title="CC Found"><a href="">CC Not Found</a></li>       
                                               
                                       @endif
                         
-                        <li class="todo"><a href="">Review in Progress</a></li>
-                        <li class="todo"><a href="">Appeal Resolved</a></li>
+                        <li class="todo" data-toggle="tooltip" data-placement="top" title="Review in Progress"><a href="">Review in Progress</a></li>
+                        <li class="todo" data-toggle="tooltip" data-placement="top" title="Appeal Resolved"><a href="">Appeal Resolved</a></li>
                     </ol>  
                           </td>
 						  

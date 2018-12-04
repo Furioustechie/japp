@@ -15,4 +15,7 @@ class Document extends Model
     public function appeal(){
         return $this->beongsTo('App\Appeal');
     }
+    public function application(){
+        return $this->beongsTo('App\Application');
+    }
 }

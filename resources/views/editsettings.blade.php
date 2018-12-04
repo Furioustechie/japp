@@ -24,36 +24,44 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item  ">
+          <li class="nav-item">
             <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item  ">
+          <li class="nav-item ">
             <a class="nav-link" href="/appeals">
               <i class="material-icons">person</i>
               <p>Appeal List</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item">
             <a class="nav-link" href="/appealForm">
               <i class="material-icons">content_paste</i>
               <p>Appeal Now</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
+          
+        
+         <!-- Dropdown -->
+         <li> <a class="nav-link" id="DropdownMenuLink" data-toggle="collapse"  aria-expanded="false" data-target="#submenu1"> <i class="material-icons">settings_applications</i>Settings</a>
+          <ul class="collapse primary" id="submenu1" role="menu" aria-labelledby="DropdownMenuLink">
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPrisonForm">Add New Prison Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSentenceForm">Add New Sentence Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCourtForm">Add New Court Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalOffenceForm">Add New Offence Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalStatusForm">Add New Status</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#centralModalSuccess">Another One</a>
+          </ul>
+        </li>
+ 
+      
+          <li class="nav-item active">
+            <a class="nav-link" href="/editsettings">
+              <i class="material-icons">edit</i>
+              <p>Edit Settings</p>
             </a>
-          </li>
-          <li class="nav-item active ">
-                <a class="nav-link" href="/editsettings">
-                  <i class="material-icons">bubble_chart</i>
-                  <p>Edit Settings</p>
-                </a>
-              </li>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./map.html">
@@ -67,13 +75,7 @@
               <p>Notifications</p>
             </a>
           </li>
-          <!-- <li class="nav-item active-pro ">
-                <a class="nav-link" href="./upgrade.html">
-                    <i class="material-icons">unarchive</i>
-                    <p>Upgrade to PRO</p>
-                </a>
-            </li> -->
-        </ul>
+          </ul>
       </div>
     </div>
     <div class="main-panel">
@@ -147,24 +149,71 @@
                   <p class="card-category"> Sentence Name Detials</p>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                        <table class="table table-hover">
-                                <thead class="">
+                    <div class="table-responsive">
+                        <table id="dataTableSentence" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
+                                <thead class="text-primary">
+                                  <th >ID </th>
+                                  <th >Name</th>
+                                  <th class="text-right">Command</th>
                                  
-                                  <th>Name</th>
-                                  <th>Country</th>
-                                  <th>City</th>
-                                  <th>Salary</th>
                                 </thead>
+                                <tfoot class="text-primary">
+                                    <th>ID </th>
+                                    <th>Name</th>
+                                    <th class="text-right">Command</th>
+                                    
+                                </tfoot>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>Niger</td>
-                                    <td>Oud-Turnhout</td>
-                                    <td>$36,738</td>
                                  
+                                      @if(count($sents_name) > 0)
+                                          @foreach ($sents_name as $sentence_data)
+                                <tr>          
+                                  <td>{{$sentence_data->id}}</td>
+                                  <td>{{$sentence_data->sentence_name}}</td>
+                                
+                                  <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#sentence_{{$sentence_data->id}}">
+                                          <i class="material-icons">edit</i>
+                                  <a href="editsettings/sentence_name_destroy/{{$sentence_data->id}}" onclick="confirm('Are you Sure ??');"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                      <i class="material-icons">delete</i></a>
+                                    
+                                  </td>
+                                      <div class="modal fade" id="sentence_{{$sentence_data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelSentence" aria-hidden="true">
+                                         
+                                        <form action="editsettings/update_sentence/{{$sentence_data->id}}" method="POST" enctype="multipart/form-data">
+                                          {{ csrf_field() }}
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header text-center" style="background-color:#00bcd4;">
+                                        <h5 class="modal-title w-100 font-weight-bold" style="color:white">Modify Sentence Name</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Adjust Sentence Name</label>
+                                              <input type="text" name="rename_sentence" value="<?php echo $sentence_data->sentence_name?>" class="form-control" required>
+                                            </div>
+                                          </div>
+                                          
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              <button type="submit" class="btn btn-primary" id="submit" value="submit" name="rename_sentence_submit">Save</button>
+                                            </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                    
+                                    </form>
+                                    </div>
+                                  </tr>
+                                      @endforeach
+                                      @else
+                          <p>Nothing Found</p>
+                          @endif
                                 </tbody>
+                               
                               </table>
                   </div>
                 </div>
@@ -178,31 +227,63 @@
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                              <table class="table table-hover table-light" id="dataTablex" width="100%" cellspacing="0">
+                              <table id="dataTablex" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
                                       <thead class="text-primary">
                                         <th >ID </th>
                                         <th >Name</th>
-                                        <th>Command</th>
+                                        <th class="text-right">Command</th>
                                        
                                       </thead>
                                       <tfoot class="text-primary">
                                           <th>ID </th>
                                           <th>Name</th>
-                                          <th>Command</th>
+                                          <th class="text-right">Command</th>
                                           
                                       </tfoot>
                                       <tbody>
-                                        <tr>
-                                            @if(count($pname) > 1)
+                                       
+                                            @if(count($pname) > 0)
                                                 @foreach ($pname as $data)
-                                                   
+                                      <tr>          
                                         <td>{{$data->id}}</td>
                                         <td>{{$data->name}}</td>
                                       
-                                        <td><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$data->id}}">
+                                        <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#prison_{{$data->id}}">
                                                 <i class="material-icons">edit</i>
-                                        <button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$data->id}}">
-                                            <i class="material-icons">delete</i></td>
+                                        <a href="editsettings/prison_name_destroy/{{$data->id}}" onclick="if (!confirm('Are you sure?')) { return false }""><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                            <i class="material-icons">delete</i></a>
+                                          
+                                        </td>
+                                            <div class="modal fade" id="prison_{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelPrison" aria-hidden="true">
+                                               
+                                              <form action="editsettings/update/{{$data->id}})" method="POST" enctype="multipart/form-data">
+                                                {{ csrf_field() }}
+                                              <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                              <div class="modal-header text-center" style="background-color:#00bcd4;">
+                                              <h5 class="modal-title w-100 font-weight-bold" style="color:white">Modify Prison Name</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                              </button>
+                                              </div>
+
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                    <label class="bmd-label-floating">Adjust Prison Name</label>
+                                                    <input type="text" name="rename_prison" value="<?php echo $data->name?>" class="form-control" required>
+                                                  </div>
+                                                </div>
+                                                
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id="submit" value="submit" name="rename_prison_submit">Save</button>
+                                                  </div>
+                                            </div>
+                                          </div>
+                                          </div>
+                                          
+                                          </form>
+                                          </div>
                                         </tr>
                                             @endforeach
                                             @else
@@ -223,88 +304,229 @@
                           </div>
                           <div class="card-body">
                             <div class="table-responsive">
-                                  <table class="table table-hover">
-                                          <thead class="">
-                                            <th>ID </th>
-                                            <th>Name</th>
-                                            <th>Country</th>
-                                            <th>City</th>
-                                            <th>Salary</th>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                            <td>1</td>
-                                            <td>Dakota Rice</td>
-                                            <td>Niger</td>
-                                            <td>Oud-Turnhout</td>
-                                            <td>$36,738</td>
-                                           
-                                          </tbody>
-                                        </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                            <div class="card">
-                              <div class="card-header card-header-primary">
-                                <h4 class="card-title ">Edit Setting For Status Name</h4>
-                                <p class="card-category"> Status Name Detials</p>
-                              </div>
-                              <div class="card-body">
-                                <div class="table-responsive">
-                                      <table class="table table-hover" >
-                                              <thead class="">
-                                                <th>ID </th>
-                                                <th>Name</th>
-                                                <th>Country</th>
-                                                <th>City</th>
-                                                <th>Salary</th>
-                                              </thead>
-                                              <tbody>
-                                                <tr>
-                                                <td>1</td>
-                                                <td>Dakota Rice</td>
-                                                <td>Niger</td>
-                                                <td>Oud-Turnhout</td>
-                                                <td>$36,738</td>
-                                               
-                                              </tbody>
-                                            </table>
+                                <table id="dataTableCourts" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
+                                    <thead class="text-primary">
+                                      <th >ID </th>
+                                      <th >Name</th>
+                                      <th class="text-right">Command</th>
+                                     
+                                    </thead>
+                                    <tfoot class="text-primary">
+                                        <th>ID </th>
+                                        <th>Name</th>
+                                        <th class="text-right">Command</th>
+                                        
+                                    </tfoot>
+                                    <tbody>
+                                     
+                                          @if(count($courts_name) > 0)
+                                              @foreach ($courts_name as $court_data)
+                                    <tr>          
+                                      <td>{{$court_data->id}}</td>
+                                      <td>{{$court_data->name}}</td>
+                                    
+                                      <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#court_{{$court_data->id}}">
+                                              <i class="material-icons">edit</i>
+                                      <a href="editsettings/court_name_destroy/{{$court_data->id}}" onclick="confirm('Are you Sure ??');"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                          <i class="material-icons">delete</i></a>
+                                        
+                                      </td>
+                                          <div class="modal fade" id="court_{{$court_data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelCourt" aria-hidden="true">
+                                             
+                                            <form action="editsettings/update_court/{{$court_data->id}}" method="POST" enctype="multipart/form-data">
+                                              {{ csrf_field() }}
+                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header text-center" style="background-color:#00bcd4;">
+                                            <h5 class="modal-title w-100 font-weight-bold" style="color:white">Modify Court Name</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                  <label class="bmd-label-floating">Adjust Court Name</label>
+                                                  <input type="text" name="rename_Court" value="<?php echo $court_data->name?>" class="form-control" required>
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                  <button type="submit" class="btn btn-primary" id="submit" value="submit" name="rename_court_submit">Save</button>
+                                                </div>
+                                          </div>
+                                        </div>
+                                        </div>
+                                        
+                                        </form>
+                                        </div>
+                                      </tr>
+                                          @endforeach
+                                          @else
+                              <p>Nothing Found</p>
+                              @endif
+                                    </tbody>
+                                   
+                                  </table>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-12">
-                                <div class="card">
-                                  <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">Edit Setting For Offence Name</h4>
-                                    <p class="card-category"> Offences Name Detials</p>
-                                  </div>
-                                  <div class="card-body">
-                                    <div class="table-responsive">
-                                          <table class="table table-hover">
-                                                  <thead class="">
-                                                    <th>ID </th>
-                                                    <th>Name</th>
-                                                    <th>Country</th>
-                                                    <th>City</th>
-                                                    <th>Salary</th>
-                                                  </thead>
-                                                  <tbody>
-                                                    <tr>
-                                                    <td>1</td>
-                                                    <td>Dakota Rice</td>
-                                                    <td>Niger</td>
-                                                    <td>Oud-Turnhout</td>
-                                                    <td>$36,738</td>
+                          <div class="col-md-6">
+                              <div class="card">
+                                <div class="card-header card-header-primary">
+                                  <h4 class="card-title ">Edit Setting For Offence Name</h4>
+                                  <p class="card-category"> Offence Name Detials</p>
+                                </div>
+                                <div class="card-body">
+                                  <div class="table-responsive">
+                                      <table id="dataTableOffence" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
+                                          <thead class="text-primary">
+                                            <th >ID </th>
+                                            <th >Name</th>
+                                            <th class="text-right">Command</th>
+                                           
+                                          </thead>
+                                          <tfoot class="text-primary">
+                                              <th>ID </th>
+                                              <th>Name</th>
+                                              <th class="text-right">Command</th>
+                                              
+                                          </tfoot>
+                                          <tbody>
+                                           
+                                                @if(count($offence_name) > 0)
+                                                    @foreach ($offence_name as $offence_data)
+                                          <tr>          
+                                            <td>{{$offence_data->id}}</td>
+                                            <td>{{$offence_data->name}}</td>
+                                          
+                                            <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#offence_{{$offence_data->id}}">
+                                                    <i class="material-icons">edit</i>
+                                            <a href="editsettings/offence_name_destroy/{{$offence_data->id}}" onclick="confirm('Are you Sure ??');"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                                <i class="material-icons">delete</i></a>
+                                              
+                                            </td>
+                                                <div class="modal fade" id="offence_{{$offence_data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelOffence" aria-hidden="true">
                                                    
-                                                  </tbody>
-                                                </table>
+                                                  <form action="editsettings/update_offence/{{$offence_data->id}}" method="POST" enctype="multipart/form-data">
+                                                    {{ csrf_field() }}
+                                                  <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                  <div class="modal-header text-center" style="background-color:#00bcd4;">
+                                                  <h5 class="modal-title w-100 font-weight-bold" style="color:white">Modify Offence Name</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                  </div>
+      
+                                                  <div class="col-md-12">
+                                                      <div class="form-group">
+                                                        <label class="bmd-label-floating">Adjust Offence Name</label>
+                                                        <input type="text" name="rename_offence" value="<?php echo $offence_data->name?>" class="form-control" required>
+                                                      </div>
+                                                    </div>
+                                                    
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" id="submit" value="submit" name="rename_offence_submit">Save</button>
+                                                      </div>
+                                                </div>
+                                              </div>
+                                              </div>
+                                              
+                                              </form>
+                                              </div>
+                                            </tr>
+                                                @endforeach
+                                                @else
+                                    <p>Nothing Found</p>
+                                    @endif
+                                          </tbody>
+                                         
+                                        </table>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                                <div class="col-md-12">
+                                  <div class="card">
+                                    <div class="card-header card-header-primary">
+                                      <h4 class="card-title ">Edit Setting For Status Name</h4>
+                                      <p class="card-category"> Status Detials</p>
+                                    </div>
+                                    <div class="card-body">
+                                      <div class="table-responsive">
+                                          <table id="dataTableStatus" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
+                                              <thead class="text-primary">
+                                                <th >ID </th>
+                                                <th >Name</th>
+                                                <th class="text-right">Command</th>
+                                               
+                                              </thead>
+                                              <tfoot class="text-primary">
+                                                  <th>ID </th>
+                                                  <th>Name</th>
+                                                  <th class="text-right">Command</th>
+                                                  
+                                              </tfoot>
+                                              <tbody>
+                                               
+                                                    @if(count($status_name) > 0)
+                                                        @foreach ($status_name as $status_data)
+                                              <tr>          
+                                                <td>{{$status_data->id}}</td>
+                                                <td>{{$status_data->status_name}}</td>
+                                              
+                                                <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#status_{{$status_data->id}}">
+                                                        <i class="material-icons">edit</i>
+                                                <a href="editsettings/offence_name_destroy/{{$status_data->id}}" onclick="confirm('Are you Sure ??');"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                                    <i class="material-icons">delete</i></a>
+                                                  
+                                                </td>
+                                                    <div class="modal fade" id="status_{{$status_data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelOffence" aria-hidden="true">
+                                                       
+                                                      <form action="editsettings/update_status/{{$status_data->id}}" method="POST" enctype="multipart/form-data">
+                                                        {{ csrf_field() }}
+                                                      <div class="modal-dialog" role="document">
+                                                      <div class="modal-content">
+                                                      <div class="modal-header text-center" style="background-color:#00bcd4;">
+                                                      <h5 class="modal-title w-100 font-weight-bold" style="color:white">Modify Status Name</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                      </div>
+          
+                                                      <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <label class="bmd-label-floating">Adjust Status Name</label>
+                                                            <input type="text" name="rename_status" value="<?php echo $status_data->status_name?>" class="form-control" required>
+                                                          </div>
+                                                        </div>
+                                                        
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary" id="submit" value="submit" name="rename_status_submit">Save</button>
+                                                          </div>
+                                                    </div>
+                                                  </div>
+                                                  </div>
+                                                  
+                                                  </form>
+                                                  </div>
+                                                </tr>
+                                                    @endforeach
+                                                    @else
+                                        <p>Nothing Found</p>
+                                        @endif
+                                              </tbody>
+                                             
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
           </div>
         </div>
       </div>
@@ -317,7 +539,7 @@
             &copy;
             <script>
               document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
+            </script>, made with <i class="material-icons">favorite</i> by FuriousTechie (RoL)
             {{-- <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web. --}}
           </div>
         </div>
@@ -355,4 +577,136 @@ $(document).ready(function() {
 } );
 </script>
 
+<script>
+$('#dataTablex').dataTable( {
+  "pageLength": 5
+} );
+  </script>
+
+
+<script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#dataTableSentence tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#dataTableSentence').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+     
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    } );
+    </script>
+    <script>
+    $('#dataTableSentence').dataTable( {
+      "pageLength": 5
+    } );
+      </script>
+
+
+<script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#dataTableCourts tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#dataTableCourts').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+     
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    } );
+    </script>
+    <script>
+    $('#dataTableCourts').dataTable( {
+      "pageLength": 5
+    } );
+      </script>
+
+
+<script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#dataTableOffence tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#dataTableOffence').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+     
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    } );
+    </script>
+    <script>
+    $('#dataTableOffence').dataTable( {
+      "pageLength": 5
+    } );
+      </script>
+
+<script>
+  $(document).ready(function() {
+      // Setup - add a text input to each footer cell
+      $('#dataTableStatus tfoot th').each( function () {
+          var title = $(this).text();
+          $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+      } );
+   
+      // DataTable
+      var table = $('#dataTableStatus').DataTable();
+   
+      // Apply the search
+      table.columns().every( function () {
+          var that = this;
+   
+          $( 'input', this.footer() ).on( 'keyup change', function () {
+              if ( that.search() !== this.value ) {
+                  that
+                      .search( this.value )
+                      .draw();
+              }
+          } );
+      } );
+  } );
+  </script>
+  <script>
+  $('#dataTableStatus').dataTable( {
+    "pageLength": 5
+  } );
+    </script>
 </html>

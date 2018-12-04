@@ -32,14 +32,29 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
  Route::post('appeals/update/{id}', 'AppealsController@update');
  Route::post('appeals/modals', 'SettingsController@modals');
 
- Route::post('appeals/offence', 'SettingsController@offence');
- Route::post('appeals/add_prisonname', 'SettingsController@add_prisonname');
- Route::post('appeals/add_courtname', 'SettingsController@add_courtname');
- Route::post('appeals/add_status', 'SettingsController@add_status');
+ Route::post('appeals/offence', 'SettingsController@offence'); //Add Offence Name
+ Route::post('appeals/add_prisonname', 'SettingsController@add_prisonname'); // Add Prison Name
+ Route::post('appeals/add_courtname', 'SettingsController@add_courtname'); //Add Courts Name
+ Route::post('appeals/add_status', 'SettingsController@add_status'); // Add Status
 
  Route::post('/appealForm', 'PagesController@appealForm');
 
- Route::get('/editsettings', 'SettingsController@edit_settings');// pagesController->dashboard method
+ Route::get('/editsettings', 'SettingsController@edit_settings');// Load Update setings page
+ Route::post('/editsettings/update/{id}', 'SettingsController@update');  // Update Prison Name
+ Route::get('/editsettings/prison_name_destroy/{id}', 'SettingsController@prison_name_destroy'); //Delete Prison Name
+
+ Route::post('/editsettings/update_sentence/{id}', 'SettingsController@update_sentence');  // Update Sentence Name
+ Route::get('/editsettings/sentence_name_destroy/{id}', 'SettingsController@sentence_name_destroy'); //Delete Sentence Name
+
+ Route::post('/editsettings/update_court/{id}', 'SettingsController@update_court');  // Update Courts Name
+ Route::get('/editsettings/court_name_destroy/{id}', 'SettingsController@court_name_destroy'); //Delete Courts Name
+
+ Route::post('/editsettings/update_offence/{id}', 'SettingsController@update_offence');  // Update Offence Name
+ Route::get('/editsettings/offence_name_destroy/{id}', 'SettingsController@offence_name_destroy'); //Delete Offence Name
+
+ Route::post('/editsettings/update_status/{id}', 'SettingsController@update_status');  // Update Status Name
+ Route::get('/editsettings/status_name_destroy/{id}', 'SettingsController@status_name_destroy'); //Delete Status Name
+
 //Route::get('appeals/create', 'AppealsController@create');
 //Route::post('appeals/store', 'AppealsController@store');
 

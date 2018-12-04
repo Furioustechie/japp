@@ -15,7 +15,7 @@
          {{-- @include('inc.navbar') --}}
         @include('inc.messages')
   <div class="wrapper ">
-    <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -49,21 +49,21 @@
           
         
          <!-- Dropdown -->
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="DropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">library_books</i>Settings</a>
-        <div class="dropdown-menu dropdown-primary" aria-labelledby="DropdownMenuLink">
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPrisonForm">Add New Prison Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSentenceForm">Add New Sentence Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCourtForm">Add New Court Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalOffenceForm">Add New Offence Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalStatusForm">Add New Status</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-        </div>
-      </li>
+         <li> <a class="nav-link" id="DropdownMenuLink" data-toggle="collapse"  aria-expanded="false" data-target="#submenu1"> <i class="material-icons">settings_applications</i>Settings</a>
+          <ul class="collapse primary" id="submenu1" role="menu" aria-labelledby="DropdownMenuLink">
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPrisonForm">Add New Prison Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSentenceForm">Add New Sentence Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCourtForm">Add New Court Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalOffenceForm">Add New Offence Name</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalStatusForm">Add New Status</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#centralModalSuccess">Another One</a>
+          </ul>
+        </li>
+ 
       
           <li class="nav-item ">
             <a class="nav-link" href="/editsettings">
-              <i class="material-icons">bubble_chart</i>
+              <i class="material-icons">edit</i>
               <p>Edit Settings</p>
             </a>
           </li>
@@ -115,7 +115,7 @@
                 </a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
                   <span class="notification">5</span>
                   <p class="d-lg-none d-md-block">

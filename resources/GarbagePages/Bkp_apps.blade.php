@@ -4,7 +4,7 @@
 <head>
   @include('inc.style')
 </head>
-<?php $appealtest=''?>
+
 <body class="">
         @include('inc.navbar')
   <div class="wrapper ">
@@ -296,7 +296,6 @@
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
                       <div class="card-body table-responsive">
-                        @if(count($appeals) > 0)
                         <table class="table table-striped table-bordered" id="dataTablex" width="100%" cellspacing="0" >
                               <thead class=" text-primary">
                                 
@@ -308,7 +307,7 @@
                                 </th>
                                 </thead>
                               <tbody>
-                                       
+                                        @if(count($appeals) > 1)
                                         @foreach($appeals as $appeal)
                                         <!-- ToolTip value  -->
                                         <?php
@@ -324,12 +323,11 @@
                                 </tr>
                                 
                                 @endforeach
-                                        
-                              </tbody>
-                            </table>
-                            @else
+                                        @else
                                         <p>Nothing Found</p>
                                         @endif
+                              </tbody>
+                            </table>
                       </div>
                     </div>
                     <div class="tab-pane" id="messages">
@@ -455,17 +453,7 @@
                 </div>
               </div>
             </div>
-<?php
-//echo "<pre>"; print_r($appealDetails);
-  $appealDetails = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name as court_name
-  FROM newappeals na
-  INNER JOIN prisons ON na.prisonid = prisons.id
-	INNER JOIN offences ON na.offenceid  = offences.id
-	INNER JOIN courts ON na.courtid  = courts.id
-	INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
-?>
-   <!-----Block for All Application Deatils ------->
-
+            
             <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
@@ -475,46 +463,72 @@
                 <div class="card-body table-responsive">
                   <table class="table table-hover table-light" id="dataTable" width="100%" cellspacing="0">
                         <thead class=" text-primary">
-                          <th>ID</th>
-                          <th>Prison Name</th>
-                          <th>Prisoner Name</th>
-                          <th>Court Name</th>
-                          <th>Offence Name</th>
-                          {{-- <th>Certified Copies</th> --}}
-                          <th>Command</th>
+                          <th>
+                            ID
+                          </th>
+                          <th>
+                            Case No
+                          </th>
+                          <th>
+                            Sentence Type
+                          </th>
+                          <th>
+                            Prison Name
+                          </th>
+                          <th>
+                            Appealed On
+                          </th>
+                          <th>
+                              Certified Copies
+                            </th>
+                          <th>
+                           Command
+                           </th>
                         </thead>
                         <tfoot class="text-primary">
-                          <th>ID</th>
-                          <th>Prison Name</th>
-                          <th>Prisoner Name</th>
-                          <th>Court Name</th>
-                          <th>Offence Name</th>
-                              {{-- <th>Certified Copies</th> --}}
+                            <th>
+                                ID
+                              </th>
+                              <th>
+                                Case No
+                              </th>
+                              <th>
+                                Sentence Type
+                              </th>
+                              <th>
+                                Prison Name
+                              </th>
+                              <th>
+                                Appealed On
+                              </th>
+                              <th>
+                                  Certified Copies
+                                </th>
                         </tfoot>
                         <tbody>
-                                  @if(count($appealDetails) > 0)
-                                  @foreach($appealDetails as $get_appeals)
+                                  @if(count($appeals) > 1)
+                                  @foreach($appeals as $appeal)
                           <tr>
-                            <td>{{$get_appeals->id}}</td>
-                            <td>{{$get_appeals->name}}</td>
-                            <td>{{$get_appeals->prisoner_name}}</td>
-                            <td>{{$get_appeals->court_name}}</td>
-                            <td>{{$get_appeals->offence_name}}</td>
+                            <td>{{$appeal->id}}</td>
+                            <td>{{$appeal->caseno}}</td>
+                            <td>{{$appeal->sentencetype}}</td>
+                            <td>{{$appeal->prisonname}}</td>
+                            <td>{{$appeal->created_at}}</td>
                             
-                                {{-- @if($appeals->prcy == 1)   
-                                <td class="btn btn-success text-center">Agree</td>    
+                                @if($appeal->isgrant == 1)   
+                                <td class="btn btn-success text-center">Yes</td>    
                                       @else
-                                      <td class="btn btn-warning">Not Agree</td>       
+                                      <td class="btn btn-warning">No</td>       
                                               
-                                      @endif --}}
+                                      @endif
                               
                               {{-- {{$appeal->isgrant}}</td> --}}
                             <td class="td-actions text-center">
-                                          <button type="button" rel="tooltip" title="Show Details" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$get_appeals->id}}">
+                                          <button type="button" rel="tooltip" title="Show Details" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appeal->id}}">
                                             <i class="material-icons">edit</i>
                                           </button>
-                          <!--Modal Initialized-->
-                                                          <div class="modal fade" id="{{$get_appeals->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <!-- Modal -->
+                                                          <div class="modal fade" id="{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                               <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                   <div class="modal-header">
@@ -526,12 +540,12 @@
                                                                   
                                                                   <div class="modal-body text-left">
                                                                       <div class="md-form mb-12">
-                                                                      <label for="id" class="form-control validate">ID : {{$get_appeals->id}}</label><br>
-                                                                      <label for="caseno" class="form-control validate">Case No : {{$get_appeals->name}}</label>
-                                                                      <label for="sentencetype" class="btn btn-success  col-md-6">Sentence Type </label><span class = "label label-default  col-md-6">{{$get_appeals->prisoner_name}}</span><br><br>
-                                                                      <label class="btn btn-success  col-md-6">Prison Name </label><span class = "label label-default col-md-6">{{$get_appeals->court_name}}</span><br><br>
-                                                                      <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$get_appeals->offence_name}}</span><br><br> 
-                                                                      {{-- <label class="btn btn-success  col-md-6">Certified Copies </label><span class = "label label-default col-md-6">{{$appeal->privacy}}</span><br><br>      --}}
+                                                                      <label for="id" class="form-control validate">ID : {{$appeal->id}}</label><br>
+                                                                      <label for="caseno" class="form-control validate">Case No : {{$appeal->caseno}}</label>
+                                                                      <label for="sentencetype" class="btn btn-success  col-md-6">Sentence Type </label><span class = "label label-default  col-md-6">{{$appeal->sentencetype}}</span><br><br>
+                                                                      <label class="btn btn-success  col-md-6">Prison Name </label><span class = "label label-default col-md-6">{{$appeal->prisonname}}</span><br><br>
+                                                                      <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$appeal->created_at}}</span><br><br> 
+                                                                      <label class="btn btn-success  col-md-6">Certified Copies </label><span class = "label label-default col-md-6">{{$appeal->isgrant}}</span><br><br>     
                                                                       
                                                                     </div>
                                                                 
@@ -543,7 +557,7 @@
                                                                 </div>
                                                               </div>
                                                             </div>
-                           <!-- End Modal -->
+  <!-- End Modal -->
                                           <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
                                             <i class="material-icons">close</i>
                                           </button>
@@ -558,9 +572,6 @@
                 </div>
               </div>
             </div>
-
-     <!-----End Of Block for All Application Deatils ------->
-
           </div>
         </div>
       </div>
@@ -662,8 +673,6 @@
             } );
         } );
         </script>
-
-        
         
 </html>
 <?php 
