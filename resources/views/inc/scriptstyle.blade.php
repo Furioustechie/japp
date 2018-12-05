@@ -18,6 +18,7 @@
  
  <script type="text/javascript" src="../assets/DataTablesx/datatables.min.js"></script>
  <script src="../js/select2.min.js"></script>
+ <script src="/dist/js/fs-modal.min.js"></script>
  <script>
  // Add your javascript here
 $(function() {
