@@ -208,55 +208,79 @@ class SettingsController extends Controller
     // ------------------------Prison Name  Delete ------------------>
     public function prison_name_destroy($id)
     {
+     
         // echo $id;  
         // DB::table('prisons')->where('id',$id)->delete();
+        try { 
+            // the code goes here
             $delete_pname = Prison::find($id);
             $delete_pname->delete();
             return redirect('/editsettings')->with('success','Prison Name Deleted Successdully');
+
+        } catch (\Exception $e) { 
+            // if an exception happened in the try block above 
+            return redirect('/editsettings')->with('error','Selected Prison Name is Being Used and Can Not Be Deleted Now!!');
+            
+         
+        }
+           
+           
+           
     }
     // ------------------------Sentence Name  Delete ------------------>
     public function sentence_name_destroy($id)
     {
-        // echo $id;  
+        // echo $id; 
+        try {
          DB::table('sentences')->where('id',$id)->delete();
         
             // $delete_sentenceName = Sentence::find($id);
             // $delete_sentenceName->delete();
             return redirect('/editsettings')->with('success','Sentence Name Deleted Successdully');
-        
+        } catch (\Exception $e) { 
+            // if an exception happened in the try block above 
+            return redirect('/editsettings')->with('error','Selected Sentence Name is Being Used and Can Not Be Deleted Now!!');
+        }
     }
     // ------------------------Courts Name  Delete ------------------>
     public function court_name_destroy($id)
     {
         // echo $id;  
+        try {
          DB::table('courts')->where('id',$id)->delete();
-        
-            // $delete_sentenceName = Sentence::find($id);
-            // $delete_sentenceName->delete();
-            return redirect('/editsettings')->with('success','Courts Name Deleted Successdully');
-        
+      
+           return redirect('/editsettings')->with('success','Courts Name Deleted Successdully');
+        } catch (\Exception $e) { 
+            // if an exception happened in the try block above 
+            return redirect('/editsettings')->with('error','Selected Sentence Name is Being Used and Can Not Be Deleted Now!!');
+        } 
     }
     // ------------------------Offence Name  Delete ------------------>
     public function offence_name_destroy($id)
     {
         // echo $id;  
+        try {
          DB::table('offences')->where('id',$id)->delete();
         
-            // $delete_sentenceName = Sentence::find($id);
-            // $delete_sentenceName->delete();
             return redirect('/editsettings')->with('success','Offence Name Deleted Successdully');
-        
+        } catch (\Exception $e) { 
+            // if an exception happened in the try block above 
+            return redirect('/editsettings')->with('error','Offence Courts Name is Being Used and Can Not Be Deleted Now!!');
+        }
     }
     // ------------------------Status Name  Delete ------------------>
     public function status_name_destroy($id)
     {
+        
+        
         // echo $id;  
+        try {
          DB::table('status')->where('id',$id)->delete();
-        
-            // $delete_sentenceName = Sentence::find($id);
-            // $delete_sentenceName->delete();
             return redirect('/editsettings')->with('success','Status Deleted Successdully');
-        
+        } catch (\Exception $e) { 
+            // if an exception happened in the try block above 
+            return redirect('/editsettings')->with('error','Status Courts Name is Being Used and Can Not Be Deleted Now!!');
+        }
     }
     // ------------------------Sentence Name  Added ------------------>
     public function modals(Request $request)

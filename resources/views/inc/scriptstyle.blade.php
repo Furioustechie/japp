@@ -18,3 +18,15 @@
  
  <script type="text/javascript" src="../assets/DataTablesx/datatables.min.js"></script>
  <script src="../js/select2.min.js"></script>
+ <script>
+ // Add your javascript here
+$(function() {
+  $("ul.nav li").on("click", function() {
+    //remove all pre-existing active classes
+    $("nav li").removeClass("active");
+    //add the active class to the link we clicked
+    $(this).addClass("active");
+  });
+  
+});
+  </script>

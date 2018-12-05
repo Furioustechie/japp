@@ -79,13 +79,13 @@ class PagesController extends Controller
         }
         $sttotal= substr($sttotal,0, -1);
 
-        // $all_appeals = DB::select('SELECT na.id, p.name, prn.prisoner_name, co.name as court_name, of.name as offence_name
-        // FROM 
-        //     newappeals na, prisons p, prisoner prn, courts co, offences of, sentences se 
-        // WHERE 
-        // na.id = p.id AND
-        // na.id = prn.id AND
-        // na.id = co.id');
+        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name as court_name
+        FROM newappeals na
+        INNER JOIN prisons ON na.prisonid = prisons.id
+          INNER JOIN offences ON na.offenceid  = offences.id
+          INNER JOIN courts ON na.courtid  = courts.id
+          INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
+
 
         $send['count']=$wordCount;
         $send['count1']=$wordCount1;
@@ -93,7 +93,7 @@ class PagesController extends Controller
         $send['total']=$tot;
         $send['sentype']=$st;
         $send['stotal']=$sttotal;
-       // $send['appealDetails']=$all_appeals;
+        $send['appealStatus']=$appStat;
         $send['appeals'] = $appeals;
 
         // echo "<pre>";

@@ -20,56 +20,7 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="/dashboard">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="/appeals">
-              <i class="material-icons">person</i>
-              <p>Appeal List</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="/appealForm">
-              <i class="material-icons">content_paste</i>
-              <p>Appeal Now</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <!-- <li class="nav-item active-pro ">
-                <a class="nav-link" href="./upgrade.html">
-                    <i class="material-icons">unarchive</i>
-                    <p>Upgrade to PRO</p>
-                </a>
-            </li> -->
-        </ul>
+          @include('inc.sidenav')
       </div>
     </div>
     <div class="main-panel">
@@ -455,15 +406,7 @@
                 </div>
               </div>
             </div>
-<?php
-//echo "<pre>"; print_r($appealDetails);
-  $appealDetails = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name as court_name
-  FROM newappeals na
-  INNER JOIN prisons ON na.prisonid = prisons.id
-	INNER JOIN offences ON na.offenceid  = offences.id
-	INNER JOIN courts ON na.courtid  = courts.id
-	INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
-?>
+
    <!-----Block for All Application Deatils ------->
 
             <div class="col-lg-6 col-md-12">
@@ -492,14 +435,14 @@
                               {{-- <th>Certified Copies</th> --}}
                         </tfoot>
                         <tbody>
-                                  @if(count($appealDetails) > 0)
-                                  @foreach($appealDetails as $get_appeals)
+                                  @if(count($appealStatus) > 0)
+                                  @foreach($appealStatus as $appstats)
                           <tr>
-                            <td>{{$get_appeals->id}}</td>
-                            <td>{{$get_appeals->name}}</td>
-                            <td>{{$get_appeals->prisoner_name}}</td>
-                            <td>{{$get_appeals->court_name}}</td>
-                            <td>{{$get_appeals->offence_name}}</td>
+                            <td>{{$appstats->id}}</td>
+                            <td>{{$appstats->name}}</td>
+                            <td>{{$appstats->prisoner_name}}</td>
+                            <td>{{$appstats->court_name}}</td>
+                            <td>{{$appstats->offence_name}}</td>
                             
                                 {{-- @if($appeals->prcy == 1)   
                                 <td class="btn btn-success text-center">Agree</td>    
@@ -510,11 +453,11 @@
                               
                               {{-- {{$appeal->isgrant}}</td> --}}
                             <td class="td-actions text-center">
-                                          <button type="button" rel="tooltip" title="Show Details" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$get_appeals->id}}">
+                                          <button type="button" rel="tooltip" title="Show Details" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appstats->id}}">
                                             <i class="material-icons">edit</i>
                                           </button>
                           <!--Modal Initialized-->
-                                                          <div class="modal fade" id="{{$get_appeals->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                          <div class="modal fade" id="{{$appstats->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                               <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                   <div class="modal-header">
@@ -526,11 +469,11 @@
                                                                   
                                                                   <div class="modal-body text-left">
                                                                       <div class="md-form mb-12">
-                                                                      <label for="id" class="form-control validate">ID : {{$get_appeals->id}}</label><br>
-                                                                      <label for="caseno" class="form-control validate">Case No : {{$get_appeals->name}}</label>
-                                                                      <label for="sentencetype" class="btn btn-success  col-md-6">Sentence Type </label><span class = "label label-default  col-md-6">{{$get_appeals->prisoner_name}}</span><br><br>
-                                                                      <label class="btn btn-success  col-md-6">Prison Name </label><span class = "label label-default col-md-6">{{$get_appeals->court_name}}</span><br><br>
-                                                                      <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$get_appeals->offence_name}}</span><br><br> 
+                                                                      <label for="id" class="form-control validate">ID : {{$appstats->id}}</label><br>
+                                                                      <label for="caseno" class="form-control validate">Case No : {{$appstats->name}}</label>
+                                                                      <label for="sentencetype" class="btn btn-success  col-md-6">Sentence Type </label><span class = "label label-default  col-md-6">{{$appstats->prisoner_name}}</span><br><br>
+                                                                      <label class="btn btn-success  col-md-6">Prison Name </label><span class = "label label-default col-md-6">{{$appstats->court_name}}</span><br><br>
+                                                                      <label class="btn btn-success  col-md-6">Appealed On </label><span class = "label label-default col-md-6">{{$appstats->offence_name}}</span><br><br> 
                                                                       {{-- <label class="btn btn-success  col-md-6">Certified Copies </label><span class = "label label-default col-md-6">{{$appeal->privacy}}</span><br><br>      --}}
                                                                       
                                                                     </div>
