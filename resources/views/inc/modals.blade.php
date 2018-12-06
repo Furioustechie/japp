@@ -1,7 +1,7 @@
 <!-- Modal For Offence Name Entry -->
 
 <div class="modal fade" id="modalOffenceForm" tabindex="-1" role="dialog" aria-labelledby="myModalOffence" aria-hidden="true" >
-<form action="" method="POST" name="offenceForm">
+<form action="/editsettings/offence" method="POST" name="offenceForm">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -30,7 +30,7 @@
 <!-- Modal For Prion Name Entry -->
 <div class="modal fade" id="modalPrisonForm" tabindex="-1" role="dialog" aria-labelledby="myModalPrison"
 aria-hidden="true" >
-<form action="appeals/add_prisonname" method="POST">
+<form action="/editsettings/add_prisonname" method="POST">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -73,7 +73,7 @@ aria-hidden="true" >
 <!-- Modal For Sentence Name Entry -->
 <div class="modal fade" id="modalSentenceForm" tabindex="-1" role="dialog" aria-labelledby="myModalSentence"
 aria-hidden="true" >
-<form action="appeals/modals" method="POST">
+<form action="/editsettings/modals" method="POST">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -104,7 +104,7 @@ aria-hidden="true" >
 
 <div class="modal fade" id="modalCourtForm" tabindex="-1" role="dialog" aria-labelledby="myModalCourt"
 aria-hidden="true" >
-<form action="appeals/add_courtname" method="POST">
+<form action="/editsettings/add_courtname" method="POST">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -147,7 +147,7 @@ aria-hidden="true" >
 <!-- Modal For Staus Name Entry -->
 <div class="modal fade" id="modalStatusForm" tabindex="-1" role="dialog" aria-labelledby="myModalStatus"
 aria-hidden="true" >
-<form action="appeals/add_status" method="POST">
+<form action="/editsettings/add_status" method="POST">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
