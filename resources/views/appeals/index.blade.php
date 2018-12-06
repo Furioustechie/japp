@@ -10,7 +10,7 @@
 <body class="">
  @include('inc.navbar')
  @include('inc.messages')
-  <div class="wrapper ">
+ <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -23,7 +23,59 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-          @include('inc.sidenav')
+          <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard">
+            <i class="material-icons">dashboard</i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="/appeals">
+            <i class="material-icons">person</i>
+            <p>Appeal List</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/appealForm">
+            <i class="material-icons">content_paste</i>
+            <p>Appeal Now</p>
+          </a>
+        </li>
+        
+      
+       <!-- Dropdown -->
+       <li> <a class="nav-link" href="#" id="DropdownMenuLink" data-toggle="collapse"  aria-expanded="false" data-target="#submenu1"> <i class="material-icons">settings_applications</i>Settings</a>
+        <ul class="collapse primary" id="submenu1" role="menu" aria-labelledby="DropdownMenuLink">
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPrisonForm">Add New Prison Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSentenceForm">Add New Sentence Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCourtForm">Add New Court Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalOffenceForm">Add New Offence Name</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalStatusForm">Add New Status</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#centralModalSuccess">Another One</a>
+        </ul>
+      </li>
+
+    
+        <li class="nav-item ">
+          <a class="nav-link" href="/editsettings">
+            <i class="material-icons">edit</i>
+            <p>Edit Settings</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="./map.html">
+            <i class="material-icons">location_ons</i>
+            <p>Maps</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="./notifications.html">
+            <i class="material-icons">notifications</i>
+            <p>Notifications</p>
+          </a>
+        </li>
+        </ul>
       </div>
     </div>
     <div class="main-panel">

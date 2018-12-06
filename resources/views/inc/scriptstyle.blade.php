@@ -21,13 +21,13 @@
  <script src="/dist/js/fs-modal.min.js"></script>
  <script>
  // Add your javascript here
-$(function() {
-  $("ul.nav li").on("click", function() {
-    //remove all pre-existing active classes
-    $("nav li").removeClass("active");
-    //add the active class to the link we clicked
-    $(this).addClass("active");
-  });
+// $(function() {
+//   $("ul.nav li").on("click", function() {
+//     //remove all pre-existing active classes
+//     $("nav li").removeClass("active");
+//     //add the active class to the link we clicked
+//     $(this).addClass("active");
+//   });
   
-});
+// });
   </script>
