@@ -31,7 +31,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Table List</a>
+            <a class="navbar-brand" href="#pablo">All Settings</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -121,8 +121,7 @@
                                   <td>{{$sentence_data->sentence_name}}</td>
                                 
                                   <td class="text-right">
-                                      {{-- <a class="" href="#" data-toggle="modal" data-target="#modalPrisonForm"></a><i class="material-icons">add</i> --}}
-                                      <a href="#" data-toggle="modal" data-target="#modalPrisonForm"><i class="material-icons">add</i></a>
+                                     
                                       <button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#sentence_{{$sentence_data->id}}"><i class="material-icons">edit</i>
                                       <a href="editsettings/sentence_name_destroy/{{$sentence_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" ><i class="material-icons">delete</i></a>
                                       
