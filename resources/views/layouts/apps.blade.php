@@ -15,9 +15,9 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="#" class="simple-text logo-normal">
-            Jail Appeal
-        </a>
+        <a href="#" class="simple-text logo-normal"><img src="assets/img/jail_app.png">Jail Appeal</a> 
+        
+          
       </div>
       <div class="sidebar-wrapper">
           @include('inc.sidenav')
@@ -509,40 +509,7 @@
       </div>
       
       <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="#">
-                    Jail Appeal
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
+        @include('inc.footer')
       </footer>
     </div>
   </div>

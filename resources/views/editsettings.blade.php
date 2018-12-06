@@ -18,9 +18,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo" >
-        <a href="#" class="simple-text logo-normal " >
-            Jail Appeal
-        </a>
+        <a href="#" class="simple-text logo-normal " ><img src="assets/img/jail_app.png">Jail Appeal</a> 
       </div>
       <div class="sidebar-wrapper">
       <ul class="nav">
@@ -83,7 +81,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Table List</a>
+            <a class="navbar-brand" href="#pablo">All Settings</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -148,6 +146,7 @@
                   <h4 class="card-title ">Edit Settings For Sentence Name</h4>
                   <p class="card-category"> Sentence Name Detials</p>
                 </div>
+                <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalSentenceForm"><i class="material-icons">add</i>Add New Sentence Name</button>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="dataTableSentence" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
@@ -171,13 +170,14 @@
                                   <td>{{$sentence_data->id}}</td>
                                   <td>{{$sentence_data->sentence_name}}</td>
                                 
-                                  <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#sentence_{{$sentence_data->id}}">
-                                          <i class="material-icons">edit</i>
-                                  <a href="editsettings/sentence_name_destroy/{{$sentence_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
-                                      <i class="material-icons">delete</i></a>
+                                  <td class="text-right">
+                                     
+                                      <button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#sentence_{{$sentence_data->id}}"><i class="material-icons">edit</i>
+                                      <a href="editsettings/sentence_name_destroy/{{$sentence_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" ><i class="material-icons">delete</i></a>
+                                      
                                     
                                   </td>
-                                      <div class="modal fade" id="sentence_{{$sentence_data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelSentence" aria-hidden="true">
+                                      <div class="modal fade" id="sentence_{{$sentence_data->id}}" tabindex="-1"  role="dialog" aria-labelledby="ModalLabelSentence" aria-hidden="true" >
                                          
                                         <form action="editsettings/update_sentence/{{$sentence_data->id}}" method="POST" enctype="multipart/form-data">
                                           {{ csrf_field() }}
@@ -225,6 +225,7 @@
                         <h4 class="card-title ">Edit Setting For Prison Name</h4>
                         <p class="card-category"> Prison Name Detials</p>
                       </div>
+                      <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalPrisonForm"><i class="material-icons">add</i>Add New Prison Name</button>
                       <div class="card-body">
                         <div class="table-responsive">
                               <table id="dataTablex" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
@@ -302,6 +303,7 @@
                             <h4 class="card-title ">Edit Setting For Courts Name</h4>
                             <p class="card-category"> Court Name Detials</p>
                           </div>
+                          <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalCourtForm"><i class="material-icons">add</i>Add New Court Name</button>
                           <div class="card-body">
                             <div class="table-responsive">
                                 <table id="dataTableCourts" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
@@ -379,6 +381,7 @@
                                   <h4 class="card-title ">Edit Setting For Offence Name</h4>
                                   <p class="card-category"> Offence Name Detials</p>
                                 </div>
+                                <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalOffenceForm"><i class="material-icons">add</i>Add New Offence Name</button>
                                 <div class="card-body">
                                   <div class="table-responsive">
                                       <table id="dataTableOffence" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
@@ -456,6 +459,7 @@
                                       <h4 class="card-title ">Edit Setting For Status Name</h4>
                                       <p class="card-category"> Status Detials</p>
                                     </div>
+                                    <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalStatusForm"><i class="material-icons">add</i>Add New Status Name</button>
                                     <div class="card-body">
                                       <div class="table-responsive">
                                           <table id="dataTableStatus" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
@@ -530,19 +534,9 @@
           </div>
         </div>
       </div>
+      @include('inc.modals')
       <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-        
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by FuriousTechie (RoL)
-            {{-- <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web. --}}
-          </div>
-        </div>
+        @include('inc.footer')
       </footer>
     </div>
   </div>
@@ -709,4 +703,5 @@ $('#dataTablex').dataTable( {
     "pageLength": 5
   } );
     </script>
+
 </html>

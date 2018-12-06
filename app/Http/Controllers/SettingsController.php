@@ -294,9 +294,9 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('appealForm')->with('success','Sentence Added');
+                    return redirect('editsettings')->with('success','Sentence Added');
                         }else{
-                            return redirect('appealForm')->with('error','Already Exists ');
+                            return redirect('editsettings')->with('error','Already Exists ');
                         }
             }
             
@@ -316,11 +316,11 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('appealForm')->with('success','Offence Added');
+                    return redirect('editsettings')->with('success','Offence Added');
             }
            
         else{
-            return redirect('appealForm')->with('error','Already Exists');
+            return redirect('editsettings')->with('error','Already Exists');
         }
         }
 
@@ -342,11 +342,11 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('appealForm')->with('success','Prison Name Added');
+                    return redirect('editsettings')->with('success','Prison Name Added');
             }
            
         else{
-            return redirect('appealForm')->with('error','Already Exists');
+            return redirect('editsettings')->with('error','Already Exists');
         }
         }
 
@@ -367,11 +367,11 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('appealForm')->with('success','Court Name Added');
+                    return redirect('editsettings')->with('success','Court Name Added');
             }
            
         else{
-            return redirect('appealForm')->with('error','Already Exists');
+            return redirect('editsettings')->with('error','Already Exists');
         }
         }
 
@@ -392,11 +392,11 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('appealForm')->with('success','Status Added');
+                    return redirect('editsettings')->with('success','Status Added');
             }
            
         else{
-            return redirect('appealForm')->with('error','Already Exists');
+            return redirect('editsettings')->with('error','Already Exists');
         }
         }
 

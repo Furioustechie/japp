@@ -22,9 +22,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo">
-        <a href="#" class="simple-text logo-normal">
-            Jail Appeal
-        </a>
+        <a href="#" class="simple-text logo-normal"><img src="assets/img/jail_app.png">Jail Appeal</a> 
       </div>
       <div class="sidebar-wrapper">
           @include('inc.sidenav')
@@ -327,16 +325,7 @@
       </div>
      
       <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-           
-          </nav>
-          <div class="copyright float-right">
-          
-           
-           
-          </div>
-        </div>
+          @include('inc.footer')
       </footer>
     </div>
   </div>
