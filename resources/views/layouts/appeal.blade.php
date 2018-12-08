@@ -22,7 +22,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo">
-        <a href="#" class="simple-text logo-normal"><img src="assets/img/jail_app.png">Jail Appeal</a> 
+        <a href="#" class="simple-text logo-normal"><img src="assets/img/logo.png">Jail Appeal</a> 
       </div>
       <div class="sidebar-wrapper">
           @include('inc.sidenav')
