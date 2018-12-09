@@ -152,10 +152,10 @@
                               $appId = $appeal->id;
                               $url = "appeals/update/".$appId; 
                              ?>
-                                  <div class="modal fade modal-fullscreen" id="{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal fade " id="{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <!-- <form action="{{url($url)}}" method="POST" enctype="multipart/form-data">-->
                                       <form action="appeals/update/{{$appeal->id}})" method="POST" enctype="multipart/form-data">
-                                  <div class="modal-dialog" role="document">
+                                  <div class="modal-dialog modal-fullscreen" role="document">
                                   <div class="modal-content">
                                   <div class="modal-header">
                                   <h5 class="modal-title" id="exampleModalLabel">Appeal Details</h5>

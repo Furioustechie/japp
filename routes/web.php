@@ -30,6 +30,7 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
 
  Route::resource('appeals', 'AppealsController'); //For Appeal Data Insert Update Delete and Retrieve 
  Route::post('appeals/update/{id}', 'AppealsController@update');
+ //Route::post('appeals/index', 'AppealsController@show');//index page dataSet
  Route::post('appeals/modals', 'SettingsController@modals');
  Route::post('/editsettings/modals', 'SettingsController@modals');//test
  Route::post('/editsettings/offence', 'SettingsController@offence'); //Add Offence Name

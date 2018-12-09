@@ -84,6 +84,7 @@ class PagesController extends Controller
         INNER JOIN prisons ON na.prisonid = prisons.id
           INNER JOIN offences ON na.offenceid  = offences.id
           INNER JOIN courts ON na.courtid  = courts.id
+          INNER JOIN documents ON na.id = documents.appealid
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
 
 

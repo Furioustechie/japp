@@ -22,7 +22,19 @@ class AppealsController extends Controller
         $appeals = Appeal::all();
         //$document = Document::all();
         //$doctype = Doctype::all();
-        return view ('appeals.index')->with('appeals',$appeals);
+        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, offences.name as offence_name, courts.name as court_name, doctype.docname, documents.filename
+        FROM newappeals na
+        INNER JOIN prisons ON na.prisonid = prisons.id
+          INNER JOIN offences ON na.offenceid  = offences.id
+          INNER JOIN courts ON na.courtid  = courts.id
+          INNER JOIN documents ON na.id = documents.appealid
+          INNER JOIN doctype ON doctype.id = documents.doctypeid
+          INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+          INNER JOIN cases ON cases.id = na.caseid');
+
+$send['appeals']=$appeals;
+$send['appDetails']=$appDetails;
+        return view ('appeals.index',$send)->with('appeals',$appeals);
         return view ('appeals.modals')->with('appeals',$appeals);
         
     }
@@ -140,19 +152,22 @@ class AppealsController extends Controller
     {
         
 
-        $appeals = DB::select('SELECT na.id, p.name, prn.prisoner_name, co.name as court_name, of.name as offence_name
-        FROM 
-            newappeals na, prisons p, prisoner prn, courts co, offences of, sentences se 
-        WHERE 
-        na.id = p.id AND
-        na.id = prn.id AND
-        na.id = co.id');
+        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, offences.name as offence_name, courts.name as court_name, doctype.docname, documents.filename
+        FROM newappeals na
+        INNER JOIN prisons ON na.prisonid = prisons.id
+          INNER JOIN offences ON na.offenceid  = offences.id
+          INNER JOIN courts ON na.courtid  = courts.id
+          INNER JOIN documents ON na.id = documents.appealid
+          INNER JOIN doctype ON doctype.id = documents.doctypeid
+          INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+          INNER JOIN cases ON cases.id = na.caseid');
         // echo "<pre>";
         // print_r($appeals);
     
         // exit;
+       // $send['appDetail']=$appDetails;
         //return view ('/dashboard')->with('newappeals',$appeals);
-        //return view ('dashboard', ['appealDetails' => $appeals])->with('newappeals',$appeals);
+       // return view ('appeals', $appDetails)->with('newappeals',$appeals);
     }
 
     /**
@@ -195,6 +210,7 @@ class AppealsController extends Controller
             ]);
         }
         $appeals = Appeal::find($id);
+       
 
        // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
