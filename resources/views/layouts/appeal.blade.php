@@ -14,6 +14,7 @@
 <body class="">
          {{-- @include('inc.navbar') --}}
         @include('inc.messages')
+        @include('inc.modals')
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
