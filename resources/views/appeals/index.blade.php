@@ -3,13 +3,13 @@
 
 <head>
   @include('inc.style')
-  
-
+ 
 </head>
 
 <body class="">
  @include('inc.navbar')
  @include('inc.messages')
+ @include('inc.modals')
  <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -98,7 +98,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-				            <table class="table table-hover table-light" id="dataTable" width="100%" cellspacing="0">
+				            <table class="table table-hover table-light display nowrap" id="dataTable" width="100%" cellspacing="0">
                       <thead class=" text-primary">
                         <th>ID</th>
                         <th>Case No</th>
@@ -118,7 +118,7 @@
                         <th>Command</th>
 					  </tfoot>
                       <tbody>
-                                @if(count($appeals) > 1)
+                                @if(count($appeals) > 0)
                                 @foreach($appeals as $appeal)
                         <tr>
                           <td>{{$appeal->id}}</td>
@@ -153,7 +153,7 @@
                               $url = "appeals/update/".$appId; 
                              ?>
                                   <div class="modal fade modal-fullscreen" id="{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <!--<form action="{{url($url)}}" method="POST" enctype="multipart/form-data">-->
+                                    <!-- <form action="{{url($url)}}" method="POST" enctype="multipart/form-data">-->
                                       <form action="appeals/update/{{$appeal->id}})" method="POST" enctype="multipart/form-data">
                                   <div class="modal-dialog" role="document">
                                   <div class="modal-content">
@@ -239,127 +239,181 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Country
-                        </th>
-                        <th>
-                          City
-                        </th>
-                        <th>
-                          Salary
-                        </th>
+                      <table id="dataTable_Details" class="display nowrap dtr-inline" style="width:100%">
+                      <thead class="text-primary">
+                          <th>ID</th>
+                          <th>Case No</th>
+                          <th>Sentence Type </th>
+                          <th>Prison Name</th>
+                          <th>Appealed On</th>
+                          <th>View in Detail</th>
                       </thead>
                       <tbody>
+                                             
+                            @if(count($appeals) > 0)
+                            @foreach($appeals as $appeal_stat)
                         <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
-                          </td>
-                          <td>
-                            $36,738
-                          </td>
+                          <td>{{$appeal_stat->id}}</td>
+                          <td>{{$appeal_stat->caseno}}</td>
+                          <td>{{$appeal_stat->sentencetype}}</td>
+                          <td>{{$appeal_stat->prisonname}}</td>
+                          <td>{{$appeal_stat->created_at}}</td>
+                          <td><button type="button" rel="tooltip" title="Details" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#abc_{{$appeal_stat->id}}">
+                              <i class="material-icons">description</i>
+                            </button></td>
+                            <!--Deatils Modal Start -->
+                            <div class="modal fade " id="abc_{{$appeal_stat->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalStatus"
+                            aria-hidden="true" >
+                            <form action="appeals/add_status" method="POST">
+                                {{ csrf_field() }}
+                            <div class="modal-dialog modal-lg" role="document">
+                              <div class="modal-content ">
+                                <div class="modal-header text-center" style="background-color:#00bcd4;">
+                                  <h4 class="modal-title w-100 font-weight-bold" style="color:white">Appeal Status</h4>
+                                 
+                                </div>
+                                <br>
+                                <div class="row"> 
+                                    <span class="col-md-5 offset-sm-1 border border-primary"><legend>Application Details</legend><br>
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                          <label class="label text-success">Prisoner's No :</label>
+                                          <span>{{$appeal_stat->id}}</span>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-10">
+                                          <div class="form-group">
+                                            <label class="label text-success">Prisoner's Name :</label>
+                                            <span> test text .. </span>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                              <label class="label text-success">Gender :</label>
+                                              <span> test text .. </span>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-10">
+                                              <div class="form-group">
+                                                <label class="label text-success">Prison Name :</label>
+                                                <span> test text .. </span>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                  <label class="label text-success">Sentencing Court :</label>
+                                                  <span > test text .. </span>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-10">
+                                                  <div class="form-group">
+                                                    <label class="label text-success">Offence Type :</label>
+                                                    <span> test text .. </span>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="form-group">
+                                                      <label class="label text-success">Sentence Type :</label>
+                                                      <span> test text .. </span>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-10">
+                                                      <div class="form-group">
+                                                        <label class="label text-success">Appealed Court :</label>
+                                                        <span> test text .. </span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                          <label class="label text-success">Case NO :</label>
+                                                          <span> test text .. </span>
+                                                        </div>
+                                                      </div>
+                                                      <div class="col-md-10">
+                                                          <div class="form-group">
+                                                            <label class="label text-success">Date of Appeal :</label>
+                                                            <span> test text .. </span>
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <div class="form-group">
+                                                              <label class="label text-success">Documents Name :</label>
+                                                              <span> test text .. </span>
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-md-10">
+                                                              <div class="form-group">
+                                                                <label class="label text-success">Remarks :</label>
+                                                                <span> test text .. </span>
+                                                              </div>
+                                                            </div>
+                                    </span>
+                                      <span class="col-md-5  border border-primary"><legend>Application Progress</legend><br>
+                                      <div class="col-md-12">
+                                            <div class="form-group">
+                                                
+                                                   <!-- Stepers Wrapper -->
+                                                  
+                                                   <div class="bs-vertical-wizard">
+                                                      <ul>
+                                                          <li class="complete">
+                                                              <a href="#">Application Received<i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
+                            
+                                                          <li class="complete prev-step">
+                                                              <a href="#">Application Marked as Complete <i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
+                                                          <li class="current">
+                                                              <a href="#">Case Docket Received 
+                                                                  <span class="desc">Nothing Found</span>
+                                                              </a>
+                                                          </li>
+                                                          <li>
+                                                              <a href="#">SC LAC Laywer Assigned
+                                                                  <span class="desc">Nothing Found</span>
+                                                              </a>
+                                                          </li>
+                                                          <li class="locked">
+                                                              <a href="#">Upcoming Hearing Date <i class="ico fa fa-lock ico-muted"></i>
+                                                                  <span class="desc">Nothing Found</span>
+                                                              </a>
+                                                          </li>
+                                                          <li class="locked">
+                                                              <a href="#">Results <i class="ico fa fa-lock ico-muted"></i>
+                                                                  <span class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, cumque.</span>
+                                                              </a>
+                                                          </li>
+                                                      </ul>
+                                                  </div>
+                                      <!-- /.Stepers Wrapper -->
+                                                    
+                                            </div>
+                                          </div>
+                                        
+                                        </span>
+                                        </div>
+                            
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Okay!</button>
+                                      </div>
+                                </div>
+                                
+                              </div>
+                            </form>
+                            </div>
+
+
+                             <!--Deatils Modal End -->
+
                         </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td>
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td>
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td>
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td>
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td>
-                            $78,615
-                          </td>
-                        </tr>
+                        @endforeach
+                                @else
+                                <p>Nothing Found</p>
+                                @endif
                       </tbody>
                     </table>
                   </div>
@@ -404,4 +458,31 @@ $(document).ready(function() {
     } );
 } );
 </script>
+
+<script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#dataTable_Details tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#dataTable_Details').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+     
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    } );
+    </script>
 </html>
+dataTable_Details

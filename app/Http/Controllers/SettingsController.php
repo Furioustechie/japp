@@ -57,8 +57,8 @@ class SettingsController extends Controller
     {
         //
 
-       
-        
+        $appealStats = Appeal::all();
+        return view ('appeals.index')->with('appeals',$appealStats);
     }
 
     /**

@@ -23,6 +23,7 @@ class AppealsController extends Controller
         //$document = Document::all();
         //$doctype = Doctype::all();
         return view ('appeals.index')->with('appeals',$appeals);
+        return view ('appeals.modals')->with('appeals',$appeals);
         
     }
 
