@@ -7,6 +7,8 @@ use App\Appeal;
 use App\Doctype;
 use App\Document;
 use App\Application;
+use App\Newappeal;
+use App\Status;
 use DB;
 
 
@@ -22,18 +24,18 @@ class AppealsController extends Controller
         $appeals = Appeal::all();
         //$document = Document::all();
         //$doctype = Doctype::all();
-        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, offences.name as offence_name, courts.name as court_name, doctype.docname, documents.filename
-        FROM newappeals na
-        INNER JOIN prisons ON na.prisonid = prisons.id
-          INNER JOIN offences ON na.offenceid  = offences.id
-          INNER JOIN courts ON na.courtid  = courts.id
-          INNER JOIN documents ON na.id = documents.appealid
-          INNER JOIN doctype ON doctype.id = documents.doctypeid
-          INNER JOIN prisoner ON na.prisonerid  = prisoner.id
-          INNER JOIN cases ON cases.id = na.caseid');
+        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
+                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                  FROM newappeals na
+                                  INNER JOIN prisons ON na.prisonid = prisons.id
+                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN courts ON na.courtid  = courts.id
+                                  INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+                                  INNER JOIN cases ON cases.id = na.caseid');
+          
 
-$send['appeals']=$appeals;
-$send['appDetails']=$appDetails;
+        $send['appeals']=$appeals;
+        $send['appDetails']=$appDetails;
         return view ('appeals.index',$send)->with('appeals',$appeals);
         return view ('appeals.modals')->with('appeals',$appeals);
         
@@ -152,22 +154,7 @@ $send['appDetails']=$appDetails;
     {
         
 
-        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, offences.name as offence_name, courts.name as court_name, doctype.docname, documents.filename
-        FROM newappeals na
-        INNER JOIN prisons ON na.prisonid = prisons.id
-          INNER JOIN offences ON na.offenceid  = offences.id
-          INNER JOIN courts ON na.courtid  = courts.id
-          INNER JOIN documents ON na.id = documents.appealid
-          INNER JOIN doctype ON doctype.id = documents.doctypeid
-          INNER JOIN prisoner ON na.prisonerid  = prisoner.id
-          INNER JOIN cases ON cases.id = na.caseid');
-        // echo "<pre>";
-        // print_r($appeals);
-    
-        // exit;
-       // $send['appDetail']=$appDetails;
-        //return view ('/dashboard')->with('newappeals',$appeals);
-       // return view ('appeals', $appDetails)->with('newappeals',$appeals);
+        //
     }
 
     /**
@@ -191,7 +178,7 @@ $send['appDetails']=$appDetails;
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) //Update AppealStatus Table
     {
       //  dd('update');
         //
@@ -209,23 +196,37 @@ $send['appDetails']=$appDetails;
                 'rejectgrant' => 'required'
             ]);
         }
-        $appeals = Appeal::find($id);
+        $appeals = Newappeal::find($id);
        
-
+        //$applStatus = DB::table('appealstatus'); // For PRISONER Tables Prisonerid Column
+        if ($request->has('courts_submit')) {
+            $has_status_name = DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))->first();
+            if(empty($has_status_name)){
+                 DB::table('appealstatus')->insert([
+                     ['statusid' => $request->input('status_id'), 
+                        'newappeals_id' => $request->input('appeal_id'),
+                         'created_at' => date('Y-m-d h:s:i'),
+                            'updated_at' => date('Y-m-d h:s:i')]
+        ]);
        // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
         // $appeals->caseno = $request->input('caseno');
         //$appeals->isgrant = $request->has('options1');
-        $appeals->remarks = $request->input('rejectgrant');
-        $appeals->isgrant = $request->has('options1');
+       // $appeals->remarks = $request->input('rejectgrant');
+       // $appeals->isgrant = $request->has('options1');
         
+        return redirect('appeals')->with('success','Application Updated Successfully');
+            }
         
+        else{
+            return redirect('appeals')->with('error','Already Exists');
+        }
 
-
-        $appeals->save();
-        return redirect('appeals')->with('success','Application Updated');
+    }
+       // $appeals->save();
+        //return redirect('appeals')->with('success','Application Updated');
     }
     
 

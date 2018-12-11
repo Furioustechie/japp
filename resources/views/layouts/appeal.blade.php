@@ -14,7 +14,7 @@
 <body class="">
          {{-- @include('inc.navbar') --}}
         @include('inc.messages')
-        @include('inc.modals')
+      
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -145,8 +145,11 @@
                                   <label class="bmd-label-floating">Sentencing Court</label>
                                   <select class="browser-default custom-select" name="sentencingcourt">
                                       <option selected>Please Select..</option>
-                                      <option value="1">Lower Court 1</option>
-                                      <option value="2">Lower Court 2</option>
+                                       @foreach ($courts_name as $cdata)
+                                         {{-- <!--@if($cdata->disid == 18)             -->      --}}
+                                      <option value="{{$cdata->id}}">{{$cdata->name_en}} </option>
+                                      {{-- @endif    --}}
+                                      @endforeach
                                      </select>
                                 </div>
                               </div>
@@ -178,8 +181,8 @@
                                           <select class="browser-default custom-select" name="appealcourt"> 
                                               <option hidden >Please Select ..</option>
                                               <option value="1">High Court</option>
-                                              <option value="2">Supreme Court</option>
-                                              <option value="3">Lower Court</option>
+                                              <option value="2">Sentencing Court</option>
+                                              <option value="3">Other Court</option>
                                              </select>
                                         </div>
                                       </div>

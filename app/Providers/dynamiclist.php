@@ -48,6 +48,7 @@ class dynamiclist extends ServiceProvider
             $view->with('appealDetails', Application::all());
 
         });
+        
 
         
      
