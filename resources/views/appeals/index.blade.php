@@ -421,27 +421,40 @@
                                                    <div class="bs-vertical-wizard">
                                                       
                                                       <ul>
-                                                          <?php $i=0; ?>
+                                                       
                                                          @foreach($apStatus as $ap)
-                                                         <?php $i++; echo $i; ?>
+                                                      
                                                          @if($ap->statusid == 1)
                                                           <li class="complete">
                                                               <a href="#">Application Received <i class="ico fa fa-check ico-green"></i>
                                                                   <span class="desc"><?php echo date("Y-m-d");?></span>
                                                               </a>
                                                           </li>
-                                                          <?php // echo $ap->statusid; ?>
+                                                          
                                                          
                                                           @endif
                                                         
-                                                          
-                                                          @endforeach
+                                                          @if($ap->statusid == 2)
                                                           <li class="complete">
-                                                              <a href="#">Application Marked as Complete <i class="ico fa fa-check ico-green"></i>
+                                                              <a href="#">Application marked complete <i class="ico fa fa-check ico-green"></i>
                                                                   <span class="desc"><?php echo date("Y-m-d");?></span>
                                                               </a>
                                                           </li>
-                                                       
+                                                          
+                                                         
+                                                          @endif
+                                                          @if($ap->statusid == 3)
+                                                          <li class="complete">
+                                                              <a href="#">Case Docket Requested <i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
+                                                          
+                                                         
+                                                          @endif
+                                                          
+                                                          @endforeach
+                                                                                                             
                                                           
                                                           <li class="current">
                                                               <a href="#">Case Docket Received 

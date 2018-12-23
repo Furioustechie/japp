@@ -9,6 +9,7 @@ use App\Document;
 use App\Application;
 use App\Newappeal;
 use App\Status;
+use App\Appealstatus;
 use DB;
 
 
@@ -22,6 +23,7 @@ class AppealsController extends Controller
     public function index()
     {
         $appeals = Appeal::all();
+        $test = Appealstatus::all();
         //$document = Document::all();
         //$doctype = Doctype::all();
         $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
@@ -155,6 +157,18 @@ class AppealsController extends Controller
         
 
         //
+        // $test1 = Newappeals::find($id);
+        // $test = Appealstatus::find($id);
+     
+        // $apStatus = DB::table('newappeals')
+        //     ->join('appealstatus', 'newappeals.id', '=', 'appealstatus.newappealsid')
+        //     ->join('status', 'newappeals.id', '=', 'status.statusid')
+        //     ->select('status.status_name', 'appealstatus.statusid')
+        //     ->where('Appealstatus.newappealsid', '=', $test)
+        //     ->get();
+        //     $send['apt']=$apStatus;
+        //     return redirect('appeals',$send)->with('appealstatus',$test);
+
     }
 
     /**
@@ -227,6 +241,22 @@ class AppealsController extends Controller
     }
        // $appeals->save();
         //return redirect('appeals')->with('success','Application Updated');
+        $test1 = Newappeals::find($id);
+        $test = Appealstatus::find($id);
+     
+       
+                    
+                    $apStatus = DB::select('SELECT status.status_name, appealstatus.statusid
+                    FROM newappeals na
+                                                                        
+                    INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
+                    INNER JOIN status ON appealstatus.statusid = status.id
+
+                    WHERE appealstatus.newappeals_id="'.$test1.'"');
+
+            $send['apt']=$apStatus;
+            
+                        return redirect('appeals.index',$send)->with('appealstatus',$test);
     }
     
 

@@ -79,7 +79,7 @@ class PagesController extends Controller
         }
         $sttotal= substr($sttotal,0, -1);
 
-        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name as court_name
+        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name_en as court_name
         FROM newappeals na
         INNER JOIN prisons ON na.prisonid = prisons.id
           INNER JOIN offences ON na.offenceid  = offences.id
