@@ -7,6 +7,7 @@ use App\Sentence;
 use App\Court;
 use App\Offence;
 use App\Status;
+use App\Appealstatus;
 use App\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -46,6 +47,10 @@ class dynamiclist extends ServiceProvider
         });
         view()->composer('*',function($view){
             $view->with('appealDetails', Application::all());
+
+        });
+        view()->composer('*',function($view){
+            $view->with('apd', Appealstatus::all());
 
         });
         

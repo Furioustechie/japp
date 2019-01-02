@@ -36,6 +36,7 @@ class AppealsController extends Controller
                                   INNER JOIN cases ON cases.id = na.caseid');
           
 
+          
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         return view ('appeals.index',$send)->with('appeals',$appeals);
@@ -246,7 +247,7 @@ class AppealsController extends Controller
      
        
                     
-                    $apStatus = DB::select('SELECT status.status_name, appealstatus.statusid
+                    $apStatuses = DB::select('SELECT status.status_name, appealstatus.statusid
                     FROM newappeals na
                                                                         
                     INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
@@ -254,9 +255,13 @@ class AppealsController extends Controller
 
                     WHERE appealstatus.newappeals_id="'.$test1.'"');
 
-            $send['apt']=$apStatus;
+            //$tt1 = Appealstatus::where('statusid','=', $test)->with('status')->first();
+             //$lastStatus = DB::table('newappeals')->max('statusid')->where($test1);
+
+            $send['apt']=$apStatuses;
+            //$send['aptt']=$lastStatus;
             
-                        return redirect('appeals.index',$send)->with('appealstatus',$test);
+                        return redirect('appeals.index',$send)->with('appealstatus',$test,$lastStatus);
     }
     
 

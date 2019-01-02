@@ -250,8 +250,14 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
                                         <select class="browser-default custom-select" name="status_id">
+
+                                        <!-- Custom Query for Option Value -->
+                                         <?php 
+                                        $optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'")');
+                                        ?>
                                             <option>Please Select..</option>
-                                                @foreach ($status_name as $sdata)
+                                          
+                                                @foreach ($optt as $sdata)
                                                           
                                               <option value="{{$sdata->id}}">{{$sdata->status_name}} </option>
                                                   @endforeach
@@ -271,7 +277,7 @@
                                                                                                                             alert('Checked! Confirming that CC Reached at Court');
                                                                                                                         else
                                                                                                                             alert('Unchecked!! Write your remarks below');">
-                                      <span class="form-check-sign">
+                                      <span class="form-check-sign">status_name
                                         <span class="check" name="check"></span>
                                       </span>
                                       <h5 >Application has been granted</h5>
@@ -354,14 +360,22 @@
                                                         WHERE na.id="'.$applId.'"');
                                                        // print_r($ddd);
                                                       
-                              $apStatus = DB::select('SELECT status.status_name, appealstatus.statusid
+                              $appStatus = DB::select('SELECT status.status_name, appealstatus.statusid
                                                       FROM newappeals na
                                                                                                             
                                                       INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
                                                       INNER JOIN status ON appealstatus.statusid = status.id
 
                                                       WHERE na.id="'.$applId.'"');
+
+                              // Custom Query for Displaying Status  
+                              $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$applId.'"),0) AS statusid
+                                   FROM status AS S');
+                              // Custom Query for Max StatusID Status
+                              $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WHERE newappeals_id = "'.$applId.'"');
+
                            ?>
+
                             <form action="appeals/add_status" method="POST">
                                 {{ csrf_field() }}
                             <div class="modal-dialog modal-lg" role="document">
@@ -419,44 +433,87 @@
                                                    <!-- Stepers Wrapper -->
                                                    
                                                    <div class="bs-vertical-wizard">
-                                                      
+                                                   
                                                       <ul>
-                                                       
-                                                         @foreach($apStatus as $ap)
                                                       
-                                                         @if($ap->statusid == 1)
-                                                          <li class="complete">
-                                                              <a href="#">Application Received <i class="ico fa fa-check ico-green"></i>
-                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
-                                                              </a>
-                                                          </li>
-                                                          
-                                                         
-                                                          @endif
+                                                      <!-- @foreach($status_name as $pp)
+                                                          <p>{{$pp->status_name}}</p>
+                                                      @endforeach -->
+                                                         @foreach($apStatus as $ap)
                                                         
-                                                          @if($ap->statusid == 2)
+                                                         @if($ap->statusid == 1)
+                                                         <li class="complete">
+                                                              <a href="#">{{$ap->status_name}} <i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
+                                                         @elseif($ap->statusid == 2)
+                                                         <li class="complete">
+                                                              <a href="#">{{$ap->status_name}} <i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
+                                                   
+                                                        
+                                                          @elseif($ap->statusid == 3)
+                                                          
                                                           <li class="complete">
-                                                              <a href="#">Application marked complete <i class="ico fa fa-check ico-green"></i>
+                                                              <a href="#">{{$ap->status_name}} <i class="ico fa fa-check ico-green"></i>
                                                                   <span class="desc"><?php echo date("Y-m-d");?></span>
                                                               </a>
                                                           </li>
                                                           
+                                                
+                                                          @elseif($ap->statusid == 5)                     
+                                                          <li class="complete">
+                                                              <a href="#">{{$ap->status_name}} <i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
+
+                                                          @elseif($ap->statusid == 6)
+                                                          <li class="complete">
+                                                              <a href="#">{{$ap->status_name}} <i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
+                                                          
+                                                          @elseif($ap->statusid == 7)
+                                                          <li class="complete">
+                                                              <a href="#">{{$ap->status_name}} <i class="ico fa fa-check ico-green"></i>
+                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
+                                                              </a>
+                                                          </li>
                                                          
+                                                          @else
+                                                          <li>
+                                                              <a href="#">{{$ap->status_name}}
+                                                                  <span class="desc">Nothing Found</span>
+                                                              </a>
+                                                          </li>
+                                                          <!-- @foreach($laststate as $ls)
+                                                          {{$ls->laststate}} 
+                                                          @if($ls->laststate == '')
+                                                          <li class="locked">
+                                                              <a href="#">{{$ap->status_name}}<i class="ico fa fa-lock ico-muted"></i>
+                                                                  <span class="desc">Nothing Found</span>
+                                                              </a>
+                                                          </li>
+                                                          @break
+                                                          @elseif($ls->laststate == 7)
+                                                          <li class="current">
+                                                              <a href="#">{{$ap->status_name}}
+                                                                  <span class="desc">Nothing Found</span>
+                                                              </a>
+                                                          </li>
                                                           @endif
-                                                          @if($ap->statusid == 3)
-                                                          <li class="complete">
-                                                              <a href="#">Case Docket Requested <i class="ico fa fa-check ico-green"></i>
-                                                                  <span class="desc"><?php echo date("Y-m-d");?></span>
-                                                              </a>
-                                                          </li>
-                                                          
-                                                         
+                                                          @endforeach -->
                                                           @endif
                                                           
                                                           @endforeach
-                                                                                                             
+                                                       
                                                           
-                                                          <li class="current">
+                                                          <!-- <li class="current">
                                                               <a href="#">Case Docket Received 
                                                                   <span class="desc">Nothing Found</span>
                                                               </a>
@@ -476,7 +533,7 @@
                                                               <a href="#">Results <i class="ico fa fa-lock ico-muted"></i>
                                                                   <span class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, cumque.</span>
                                                               </a>
-                                                          </li>
+                                                          </li> -->
                                                           
                                                       </ul>
                                                     
