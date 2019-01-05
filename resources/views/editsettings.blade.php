@@ -97,6 +97,12 @@
                   <p class="card-category"> Sentence Name Detials</p>
                 </div>
                 <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalSentenceForm"><i class="material-icons">add</i>Add New Sentence Name</button>
+                <div class="text-center">
+<p>Click on Delete Button</p>
+<button type="button" id="delete" class="btn btn-danger">
+  <i class="glyphicon glyphicon-trash"></i> Delete
+</button>
+</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="dataTableSentence" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
@@ -122,9 +128,11 @@
                                 
                                   <td class="text-right">
                                      
-                                      <button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#sentence_{{$sentence_data->id}}"><i class="material-icons">edit</i>
-                                      <a href="editsettings/sentence_name_destroy/{{$sentence_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" ><i class="material-icons">delete</i></a>
-                                      
+                                      <button type="button"  rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#sentence_{{$sentence_data->id}}"><i class="material-icons">edit</i></button>
+                                      <a onclick="archiveFunction()"><button type="button" id="deleted" class="btn btn-danger"><i class="material-icons">delete</i></button></a>
+                                      <button type="button" id="delete" class="btn btn-danger" onclick="archiveFunction()">
+                                        <i class="glyphicon glyphicon-trash"></i> Delete
+                                      </button>
                                     
                                   </td>
                                       <div class="modal fade" id="sentence_{{$sentence_data->id}}" tabindex="-1"  role="dialog" aria-labelledby="ModalLabelSentence" aria-hidden="true" >
@@ -492,6 +500,7 @@
   </div>
   <!-- JavaScripts Styles    -->
   @include('inc.scriptstyle')
+  @include('sweet::alert')
 </body>
 
 
@@ -653,5 +662,55 @@ $('#dataTablex').dataTable( {
     "pageLength": 5
   } );
     </script>
+<script>
+$('#delete').click(function(){
+//e.preventdefault();
+  Swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.value) {
+    Swal(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
+  
+})
+</script>
+<script>
+function archiveFunction(){
+//alert('confirm');
+//$('#delete').click(function(){
+Swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.value) {
+    window.location.href = "editsettings/sentence_name_destroy/{{$sentence_data->id}}";
+    Swal({
+      title:'Deleted!',
+      text:'Your file has been deleted.',
+      type:'success',
+      timer:5000,
+      
+    }) 
+  }
+})
+}
 
+</script>
+<!-- // window.location.href = "editsettings/sentence_name_destroy/{{$sentence_data->id}}"; -->
 </html>

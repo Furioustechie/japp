@@ -19,6 +19,7 @@
   <link href="css/progress-tracker.css" rel="stylesheet" />
   <link href="css/progress-tracker.scss" rel="stylesheet" />
   <link  rel="stylesheet" type="text/css" href="../css/tracker.css"  />
+  <link  rel="stylesheet" type="text/css" href="css/sweetalert2.min.css"  />
   <link href="dist/css/fs-modal.min.css" rel="stylesheet">
 
   <link href="css/vertrack.css" rel="stylesheet" />

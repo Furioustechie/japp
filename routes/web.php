@@ -32,8 +32,8 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
  Route::post('appeals/update/{id}', 'AppealsController@update');
  //Route::get('appeals', 'AppealsController@show');//index page dataSet
  Route::post('appeals/modals', 'SettingsController@modals');
- Route::post('/editsettings/modals', 'SettingsController@modals');//test
- Route::post('/editsettings/offence', 'SettingsController@offence'); //Add Offence Name
+ Route::post('/editsettings/add_sentence', 'SettingsController@add_sentence');//Add Sentence Name
+ Route::post('/editsettings/add_offence', 'SettingsController@add_offence'); //Add Offence Name
  Route::post('/editsettings/add_prisonname', 'SettingsController@add_prisonname'); // Add Prison Name
  Route::post('/editsettings/add_courtname', 'SettingsController@add_courtname'); //Add Courts Name
  Route::post('/editsettings/add_status', 'SettingsController@add_status'); // Add Status

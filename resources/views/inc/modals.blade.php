@@ -1,7 +1,7 @@
 <!-- Modal For Offence Name Entry -->
 
 <div class="modal fade" id="modalOffenceForm" tabindex="-1" role="dialog" aria-labelledby="myModalOffence" aria-hidden="true" >
-<form action="/editsettings/offence" method="POST" name="offenceForm">
+<form action="/editsettings/add_offence" method="POST" name="offenceForm">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -12,7 +12,7 @@
     <br>
     <div class="col-md-12 ">
         <div class="form-group">
-          <label for="district_name" class="bmd-label-floating text-success ">Offence Name</label>
+          <label for="offence_name" class="bmd-label-floating text-success ">Offence Name</label>
           <input type="text" name="offence_name" class="form-control" required>
         </div>
       </div>
@@ -73,7 +73,7 @@ aria-hidden="true" >
 <!-- Modal For Sentence Name Entry -->
 <div class="modal fade" id="modalSentenceForm" tabindex="-1" role="dialog" aria-labelledby="myModalSentence"
 aria-hidden="true" >
-<form action="/editsettings/modals" method="POST">
+<form action="/editsettings/add_sentence" method="POST">
     {{ csrf_field() }}
 <div class="modal-dialog" role="document">
   <div class="modal-content">

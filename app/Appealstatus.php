@@ -8,4 +8,9 @@ class Appealstatus extends Model
 {
     //
     protected $table = 'appealstatus';
+
+
+    public function statuses(){
+        return $this->hasMnay('App\Status');
+    }
 }

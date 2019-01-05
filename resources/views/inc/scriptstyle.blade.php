@@ -18,6 +18,8 @@
  
  <script type="text/javascript" src="../assets/DataTablesx/datatables.min.js"></script>
  <script src="js/select2.min.js"></script>
+ <script src="js/sweetalert2.min.js"></script>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <script src="https://cdn.jsdelivr.net/bootstrap-modal-fullscreen/1.0.3/bootstrap-modal-fullscreen.min.js"></script>
  <script>
  // Add your javascript here

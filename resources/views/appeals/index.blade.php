@@ -7,6 +7,7 @@
 </head>
 
 <body class="">
+swal("Hello world!");
  @include('inc.navbar')
  @include('inc.messages')
  @include('inc.modals')
@@ -173,7 +174,7 @@
                                   <span aria-hidden="true">&times;</span>
                                   </button>
                                   </div>
-
+                      
                                   <div class="modal-body text-left">
                                   <div class="md-form mb-12">
                                       <div class="row">  

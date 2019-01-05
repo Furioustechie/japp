@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// ------------------------Sentence Name  Added ------------------>
+
 use App\Appeal;
 use App\Doctype;
 use App\Document;
@@ -12,6 +12,7 @@ use App\Sentence;
 use App\Court;
 use App\Offence;
 use App\Status;
+use Alert;
 // ------------------------End of Block ------------------>
 use DB;
 class SettingsController extends Controller
@@ -93,12 +94,15 @@ class SettingsController extends Controller
                 if(empty($has_prison_name)){
                         
                              $update_pname->save();
-        
+                            
+                             Alert::success('success','Prison Renamed Successdully');
 
-                             return redirect('/editsettings')->with('success','Prison Renamed Successdully');
+                             return redirect('/editsettings');
+                            //  ->with('success','Prison Renamed Successdully');
     
                         }else{
-                            return redirect('/editsettings')->with('error','Already Exists ');
+                            Alert::error('Error','Prison Name Already Exists');
+                            return redirect('/editsettings');
                         }
                 }
     }
@@ -232,11 +236,15 @@ class SettingsController extends Controller
     {
         // echo $id; 
         try {
+            //Alert::confirm('success','Prison Renamed Successdully');
          DB::table('sentences')->where('id',$id)->delete();
         
             // $delete_sentenceName = Sentence::find($id);
             // $delete_sentenceName->delete();
-            return redirect('/editsettings')->with('success','Sentence Name Deleted Successdully');
+            
+            
+            return redirect('/editsettings');
+            // ->with('success','Sentence Name Deleted Successdully');
         } catch (\Exception $e) { 
             // if an exception happened in the try block above 
             return redirect('/editsettings')->with('error','Selected Sentence Name is Being Used and Can Not Be Deleted Now!!');
@@ -283,7 +291,7 @@ class SettingsController extends Controller
         }
     }
     // ------------------------Sentence Name  Added ------------------>
-    public function modals(Request $request)
+    public function add_sentence(Request $request)
     {
         if ($request->has('sen_submit')) {
             $has_sentence_name = DB::table('sentences')->where('sentence_name', $request->input('sentence_name'))->first();
@@ -303,7 +311,7 @@ class SettingsController extends Controller
             
     }
     // ------------------------Offence Name  Added ------------------>
-    public function offence(Request $request)
+    public function add_offence(Request $request)
     {
        
         if ($request->has('offence_submit')) {
