@@ -25,6 +25,11 @@ class SettingsController extends Controller
     public function index()
     {
         //
+       
+    }
+    public function testpage()
+    {
+        return view('/testpage');
     }
 
     /**
@@ -71,6 +76,7 @@ class SettingsController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
@@ -95,7 +101,7 @@ class SettingsController extends Controller
                         
                              $update_pname->save();
                             
-                             Alert::success('success','Prison Renamed Successdully');
+                             Alert::success('success','Prison Renamed Successfully');
 
                              return redirect('/editsettings');
                             //  ->with('success','Prison Renamed Successdully');
@@ -120,11 +126,13 @@ class SettingsController extends Controller
                         
                              $update_sentence_name->save();
         
+                             Alert::success('success','Sentence Renamed Successdully')->persistent(3000);
 
-                             return redirect('/editsettings')->with('success','Sentence Renamed Successdully');
+                             return redirect('/editsettings');
     
                         }else{
-                            return redirect('/editsettings')->with('error','Already Exists ');
+                            Alert::error('Error','Sentence Name Already Exists');
+                            return redirect('/editsettings');
                         }
                 }
     }
@@ -144,11 +152,12 @@ class SettingsController extends Controller
                          
                               $update_court_name->save();
          
- 
+                              Alert::success('success','Court Name Renamed Successdully');
                               return redirect('/editsettings')->with('success','Court Name Renamed Successdully');
      
                          }else{
-                             return redirect('/editsettings')->with('error','Already Exists ');
+                             Alert::error('Error','Court Name Already Exists');
+                             return redirect('/editsettings');
                          }
                  }
      }
@@ -167,11 +176,12 @@ class SettingsController extends Controller
                          
                               $update_offence_name->save();
          
- 
-                              return redirect('/editsettings')->with('success','Offence Name Renamed Successdully');
+                              Alert::success('success','Offence Name Renamed Successdully');
+                              return redirect('/editsettings');
      
                          }else{
-                             return redirect('/editsettings')->with('error','Already Exists ');
+                             Alert::error('Error','Offence Name Already Exists');
+                             return redirect('/editsettings');
                          }
                  }
      }
@@ -190,11 +200,12 @@ class SettingsController extends Controller
                           
                                $update_status_name->save();
           
-  
+                               Alert::success('success','Status Name Renamed Successdully');
                                return redirect('/editsettings')->with('success','Status Name Renamed Successdully');
       
                           }else{
-                              return redirect('/editsettings')->with('error','Already Exists ');
+                              Alert::error('Error','Status Name Already Exists');
+                              return redirect('/editsettings');
                           }
                   }
       }
@@ -234,7 +245,8 @@ class SettingsController extends Controller
     // ------------------------Sentence Name  Delete ------------------>
     public function sentence_name_destroy($id)
     {
-        // echo $id; 
+        // echo $id;
+        // exit; 
         try {
             //Alert::confirm('success','Prison Renamed Successdully');
          DB::table('sentences')->where('id',$id)->delete();

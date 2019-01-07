@@ -7,8 +7,8 @@
 </head>
 
 <body class="">
-swal("Hello world!");
- @include('inc.navbar')
+
+ {{-- @include('inc.navbar') --}}
  @include('inc.messages')
  @include('inc.modals')
  <div class="wrapper ">

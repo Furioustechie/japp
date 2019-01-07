@@ -4,11 +4,11 @@
 <head>
   @include('inc.style')
   
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
 <body class="">
- {{-- @include('inc.navbar') --}}
+ @include('inc.navbar')
  @include('inc.messages')
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -97,7 +97,12 @@
                   <p class="card-category"> Sentence Name Detials</p>
                 </div>
                 <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalSentenceForm"><i class="material-icons">add</i>Add New Sentence Name</button>
-                
+                <div class="text-center">
+<p>Click on Delete Button</p>
+<button type="button" id="delete" class="btn btn-danger">
+  <i class="glyphicon glyphicon-trash"></i> Delete
+</button>
+</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="dataTableSentence" class="table table-hover table-light table-condensed"  width="100%" cellspacing="0">
@@ -124,8 +129,12 @@
                                   <td class="text-right">
                                      
                                       <button type="button"  rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#sentence_{{$sentence_data->id}}"><i class="material-icons">edit</i></button>
-                                      <a href="#" class="SentenceDelete delete" data-id="{{$sentence_data->id}}" data-token="{{ csrf_token() }}"><i class="material-icons">delete</i></button></a>
-                                    
+                                      <a onclick="archiveFunction()"><button type="button" id="deleted" class="btn btn-danger"><i class="material-icons">delete</i></button></a>
+                                      <button type="submit" id="confirm_delete" class="btn btn-danger" onclick="archiveFunction()">
+                                        <i class="glyphicon glyphicon-trash"></i> Delete
+                                      </button>
+                                      <button class="deleteProduct" data-id="{{$sentence_data->id}}" data-token="{{ csrf_token() }}" >Delete</button>
+                                      <a href="#" class="removeItem delete" data-id="{{$sentence_data->id}}" data-token="{{ csrf_token() }}">remove</a>
                                   </td>
                                       <div class="modal fade" id="sentence_{{$sentence_data->id}}" tabindex="-1"  role="dialog" aria-labelledby="ModalLabelSentence" aria-hidden="true" >
                                          
@@ -201,7 +210,7 @@
                                       
                                         <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#prison_{{$data->id}}">
                                                 <i class="material-icons">edit</i>
-                                        <a href="#" class="PrisonDelete delete" data-id="{{$data->id}}" data-token="{{ csrf_token() }}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                        <a href="editsettings/prison_name_destroy/{{$data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
                                             <i class="material-icons">delete</i></a>
                                           
                                         </td>
@@ -280,7 +289,7 @@
                                           
                                             <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#offence_{{$offence_data->id}}">
                                                     <i class="material-icons">edit</i>
-                                            <a href="#" class="OffenceDelete delete" data-id="{{$offence_data->id}}" data-token="{{ csrf_token() }}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                            <a href="editsettings/offence_name_destroy/{{$offence_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
                                                 <i class="material-icons">delete</i></a>
                                               
                                             </td>
@@ -326,7 +335,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                   <div class="card">
                                     <div class="card-header card-header-primary">
                                       <h4 class="card-title ">Edit Setting For Status Name</h4>
@@ -358,7 +367,7 @@
                                               
                                                 <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#status_{{$status_data->id}}">
                                                         <i class="material-icons">edit</i>
-                                                <a href="#" class="StatusDelete delete" data-id="{{$status_data->id}}" data-token="{{ csrf_token() }}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                                <a href="editsettings/status_name_destroy/{{$status_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
                                                     <i class="material-icons">delete</i></a>
                                                   
                                                 </td>
@@ -404,80 +413,6 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                          <div class="card-header card-header-primary">
-                                            <h4 class="card-title ">Edit Setting For Courts Name</h4>
-                                            <p class="card-category"> Court Name Detials</p>
-                                          </div>
-                                          <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalCourtForm"><i class="material-icons">add</i>Add New Court Name</button>
-                                        <table id="dataTableCourts" class="table table-hover table-light table-condensed" style="width:100%">
-                                                <div class="card-body">
-                                                        <div class="table-responsive">
-                                                <thead class="text-primary">
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Name in English</th>
-                                                            <th>Name in Bangla</th>
-                                                            {{-- <th>Action</th> --}}
-                                                            
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            @if(count($courts_name) > 0)
-                                                            @foreach ($courts_name as $court_data)
-                                                  <tr>          
-                                                    <td>{{$court_data->id}}</td>
-                                                    <td>{{$court_data->name_en}}</td>
-                                                    <td>{{$court_data->name_bn}}</td>
-                                                    {{-- <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#court_{{$court_data->id}}">
-                                                        <i class="material-icons">edit</i>
-                                                <a href="editsettings/court_name_destroy/{{$court_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
-                                                    <i class="material-icons">delete</i></a>
-                                                  
-                                                </td>
-                                                <div class="modal fade" id="court_{{$court_data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelCourt" aria-hidden="true">
-                                             
-                                                    <form action="editsettings/update_court/{{$court_data->id}}" method="POST" enctype="multipart/form-data">
-                                                      {{ csrf_field() }}
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header text-center" style="background-color:#00bcd4;">
-                                                    <h5 class="modal-title w-100 font-weight-bold" style="color:white">Modify Court Name</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    </div>
-        
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                          <label class="bmd-label-floating">Adjust Court Name</label>
-                                                          <input type="text" name="rename_Court" value="<//?php echo $court_data->name?>" class="form-control" required>
-                                                        </div>
-                                                      </div>
-                                                      
-                                                      <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                          <button type="submit" class="btn btn-primary" id="submit" value="submit" name="rename_court_submit">Save</button>
-                                                        </div>
-                                                  </div>
-                                                </div>
-                                                </div>
-                                                
-                                                </form>
-                                                </div> --}}
-                                                   
-                                                        </tr>
-                                                        @endforeach
-                                                      @else
-                                          <p>Nothing Found</p>
-                                          @endif
-                                                    </tbody>
-                                        </table> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
           </div>
         </div>
       </div>
@@ -652,9 +587,211 @@ $('#dataTablex').dataTable( {
     "pageLength": 5
   } );
     </script>
-
 <script>
-   
+$('#delete').click(function(){
+//e.preventdefault();
+  Swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.value) {
+    Swal(
+      'Deleted!',
+      'You won't be able to revert this!',
+      'success'
+    )
+  }
+})
+  
+})
+</script>
+<script>
+function archiveFunction(){
+ 
+//alert('confirm');
+//$('#delete').click(function(){
+Swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.value) {
+    axios.delete('editsettings/sentence_name_destroy/{{$sentence_data->id}}')
+    //window.location.href = "editsettings/sentence_name_destroy/{{$sentence_data->id}}";
+    Swal({
+      title:'Deleted!',
+      text:'You won't be able to revert this!',
+      type:'success',
+      timer:5000,
+      
+    }) 
+  }
+})
+}
+
+</script>
+<script>
+    function archiveFunction1(){
+     
+    //alert('confirm');
+    //$('#delete').click(function(){
+      Swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+})
+    .then((willDelete) => {
+        if (willDelete) {
+            axios.delete('{{$sentence_data->id}}')
+                .then((response) =>  {
+                    swal("Deleted successfully!", {
+                            icon: "success",
+                        });
+                })
+                .catch(() => {
+                    swal("Error!", "Failed to delete!", "error");
+                })
+        }
+    })
+    }
+    
+    </script>
+    <script>
+    $(".deleteProduct").click(function(){
+      Swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((willDelete) => {
+  if (willDelete) {
+    var id = $(this).data("id");
+        var token = $(this).data("token");
+        $.ajax(
+        {
+            url: "editsettings/sentence_name_destroy/"+id,
+            type: 'GET',
+            dataType: "JSON",
+            data: {
+                "id": id,
+                "_method": 'DELETE',
+                "_token": token,
+            },
+            success: function (response)
+            {
+              if(response == true){
+                swal("Deleted successfully!", {
+                            icon: "success",
+                        });
+                        window.location.reload();
+              }
+              
+                        else{
+                          swal("Error!", "Failed to delete!", "error");
+                        }
+                       
+            }
+           
+        });
+
+        
+  }
+})
+       
+    });
+    </script>
+    <script>
+      $('.removeItem1').click(function (event) {
+        
+        
+    if (confirm('Are you sure you want to delete this?')) {
+      var id = $(this).data("id");
+        var token = $(this).data("token");
+        $.ajax({
+          url: "editsettings/sentence_name_destroy/"+id,
+            type: 'GET',
+            dataType: "JSON",
+            data: {
+                "id": id,
+                "_method": 'DELETE',
+                "_token": token,               
+                },
+                success: function ()
+            {
+                console.log("it Work");
+            }
+        });
+        //console.log("It failed");
+        Swal({
+      title:'Deleted!',
+      text:'You won't be able to revert this!',
+      type:'success',
+      timer:5000,
+      
+    }) 
+    }
+});    
+    </script>
+<script>
+    $('.removeItem').click(function (event) {
+          var id = $(this).data("id");
+          var token = $(this).data("token");
+          swal({
+              title: "Are you sure ??",
+              text: "You won't be able to revert this!", 
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+        .then((willDelete) => {
+          if (willDelete) {
+          Swal({
+              title:'Deleted!',
+              text:'Your file has been deleted successfully.',
+              type:'success',
+              timer:5000,
+              
+          }) 
+        $.ajax(
+            {
+              url: "editsettings/sentence_name_destroy/"+id,
+              type: 'GET',
+              dataType: "JSON",
+              data: {
+                    "id": id,
+                    "_method": 'DELETE',
+                    "_token": token,               
+                    }
+            });
+            $(document).ajaxStop(function(){
+                      window.location.reload();
+                    });
+            } else {
+                Swal({
+              title:'Canceled!',
+              text:'Your file is safe.',
+              type:'error',
+              timer:5000,
+              }) 
+            }
+      });
+   });
 </script>
    
 {{-- <!-- // window.location.href = "editsettings/sentence_name_destroy/{{$sentence_data->id}}"; --> --}}
