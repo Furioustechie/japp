@@ -41,9 +41,9 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./map.html">
+          <a class="nav-link" href="testpage">
             <i class="material-icons">location_ons</i>
-            <p>Maps</p>
+            <p>Test Page</p>
           </a>
         </li>
         <li class="nav-item ">
