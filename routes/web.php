@@ -62,4 +62,3 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
 Route::get('appeals/modals', 'SettingsController@view');
 Route::get('/testpage', 'SettingsController@testpage'); //Delete Sentence Name
 
-

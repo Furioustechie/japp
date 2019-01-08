@@ -245,12 +245,19 @@ class SettingsController extends Controller
     // ------------------------Sentence Name  Delete ------------------>
     public function sentence_name_destroy($id)
     {
+<<<<<<< HEAD
         // echo $id;
         // exit; 
+=======
+       // echo $id; exit;
+       Alert::success('Welcome', 'Demo success alert')->persistent("Ok");
+       
+>>>>>>> 249b2eddf58de01b9b2c994258ad9407759a27cb
         try {
             //Alert::confirm('success','Prison Renamed Successdully');
+            //Alert::success('Good job!')->persistent("Delete");
          DB::table('sentences')->where('id',$id)->delete();
-        
+         Alert::success('Good job!')->persistent("Ok");
             // $delete_sentenceName = Sentence::find($id);
             // $delete_sentenceName->delete();
             
