@@ -12,6 +12,7 @@ use App\Sentence;
 use App\Court;
 use App\Offence;
 use App\Status;
+use Datatables;
 use Alert;
 // ------------------------End of Block ------------------>
 use DB;
@@ -31,7 +32,12 @@ class SettingsController extends Controller
     {
         return view('/testpage');
     }
-
+    public function testedit($id)
+    {
+       $edit = DB::table('courts')->where('id', $id)->first();
+        //echo $user->name_en;
+        return view('/testedit')->with('edit',$edit);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -126,7 +132,7 @@ class SettingsController extends Controller
                         
                              $update_sentence_name->save();
         
-                             Alert::success('success','Sentence Renamed Successdully')->persistent(3000);
+                             Alert::success('success','Sentence Renamed Successdully');
 
                              return redirect('/editsettings');
     
@@ -143,11 +149,11 @@ class SettingsController extends Controller
      {
          //
          $update_court_name = Court::find($id);
-         $update_court_name->name = $request->input('rename_Court');
+         $update_court_name->name_en = $request->input('rename_Court');
          $update_court_name->created_at = date('Y-m-d h:i:s');
          $update_court_name->updated_at = date('Y-m-d h:i:s');
              if ($request->has('rename_court_submit')) {
-                 $has_court_name = DB::table('courts')->where('name', $request->input('rename_Court'))->first();
+                 $has_court_name = DB::table('courts')->where('name_en', $request->input('rename_Court'))->first();
                  if(empty($has_court_name)){
                          
                               $update_court_name->save();
@@ -157,7 +163,7 @@ class SettingsController extends Controller
      
                          }else{
                              Alert::error('Error','Court Name Already Exists');
-                             return redirect('/editsettings');
+                             return redirect('/my-datatables');
                          }
                  }
      }
@@ -245,19 +251,12 @@ class SettingsController extends Controller
     // ------------------------Sentence Name  Delete ------------------>
     public function sentence_name_destroy($id)
     {
-<<<<<<< HEAD
         // echo $id;
         // exit; 
-=======
-       // echo $id; exit;
-       Alert::success('Welcome', 'Demo success alert')->persistent("Ok");
-       
->>>>>>> 249b2eddf58de01b9b2c994258ad9407759a27cb
         try {
             //Alert::confirm('success','Prison Renamed Successdully');
-            //Alert::success('Good job!')->persistent("Delete");
          DB::table('sentences')->where('id',$id)->delete();
-         Alert::success('Good job!')->persistent("Ok");
+        
             // $delete_sentenceName = Sentence::find($id);
             // $delete_sentenceName->delete();
             
@@ -273,14 +272,11 @@ class SettingsController extends Controller
     public function court_name_destroy($id)
     {
         // echo $id;  
-        try {
+       
          DB::table('courts')->where('id',$id)->delete();
       
-           return redirect('/editsettings')->with('success','Courts Name Deleted Successdully');
-        } catch (\Exception $e) { 
-            // if an exception happened in the try block above 
-            return redirect('/editsettings')->with('error','Selected Sentence Name is Being Used and Can Not Be Deleted Now!!');
-        } 
+          
+        
     }
     // ------------------------Offence Name  Delete ------------------>
     public function offence_name_destroy($id)
@@ -321,9 +317,11 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('editsettings')->with('success','Sentence Added');
+                    Alert::success('success','Sentence Added Successfully');
+                    return redirect('editsettings');
                         }else{
-                            return redirect('editsettings')->with('error','Already Exists ');
+                            Alert::error('Error','Sentence Name Already Exists');
+                            return redirect('editsettings');
                         }
             }
             

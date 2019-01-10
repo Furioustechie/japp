@@ -139,7 +139,7 @@
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                         </div>
-
+                                        <br>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                               <label class="bmd-label-floating">Adjust Sentence Name</label>
@@ -217,7 +217,7 @@
                                               <span aria-hidden="true">&times;</span>
                                               </button>
                                               </div>
-
+                                              <br>
                                               <div class="col-md-12">
                                                   <div class="form-group">
                                                     <label class="bmd-label-floating">Adjust Prison Name</label>
@@ -296,7 +296,7 @@
                                                   <span aria-hidden="true">&times;</span>
                                                   </button>
                                                   </div>
-      
+                                                  <br>
                                                   <div class="col-md-12">
                                                       <div class="form-group">
                                                         <label class="bmd-label-floating">Adjust Offence Name</label>
@@ -374,7 +374,7 @@
                                                       <span aria-hidden="true">&times;</span>
                                                       </button>
                                                       </div>
-          
+                                                      <br>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
                                                             <label class="bmd-label-floating">Adjust Status Name</label>
@@ -419,7 +419,7 @@
                                                             <th>ID</th>
                                                             <th>Name in English</th>
                                                             <th>Name in Bangla</th>
-                                                            {{-- <th>Action</th> --}}
+                                                            <th>Action</th>
                                                             
                                                         </tr>
                                                     </thead>
@@ -430,14 +430,14 @@
                                                     <td>{{$court_data->id}}</td>
                                                     <td>{{$court_data->name_en}}</td>
                                                     <td>{{$court_data->name_bn}}</td>
-                                                    {{-- <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#court_{{$court_data->id}}">
+                                                    <td class="text-right"><button type="button" rel="tooltip" title="Edit Record" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#court_{{$court_data->id}}">
                                                         <i class="material-icons">edit</i>
-                                                <a href="editsettings/court_name_destroy/{{$court_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
+                                                    <a href="editsettings/court_name_destroy/{{$court_data->id}}" onclick="if(!confirm('Are you Sure to DELETE?')){return false;}"><button type="button" rel="tooltip" title="Delete Record" class="btn btn-primary btn-link btn-sm" >
                                                     <i class="material-icons">delete</i></a>
                                                   
                                                 </td>
+                                                {{--
                                                 <div class="modal fade" id="court_{{$court_data->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabelCourt" aria-hidden="true">
-                                             
                                                     <form action="editsettings/update_court/{{$court_data->id}}" method="POST" enctype="multipart/form-data">
                                                       {{ csrf_field() }}
                                                     <div class="modal-dialog" role="document">
@@ -539,6 +539,7 @@ $('#dataTablex').dataTable( {
      
         // Apply the search
         table.columns().every( function () {
+          
             var that = this;
      
             $( 'input', this.footer() ).on( 'keyup change', function () {
@@ -548,6 +549,7 @@ $('#dataTablex').dataTable( {
                         .draw();
                 }
             } );
+            
         } );
     } );
     </script>

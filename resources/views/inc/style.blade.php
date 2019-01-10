@@ -1,6 +1,7 @@
 <meta charset="utf-8" />
+<meta name="csrf-token" content="{{ csrf_token() }}" />
   
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="{{URL::asset('assets/img/favicon.png')}}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Jail Appeal  v1.0
@@ -10,17 +11,17 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
-  <link href="/assets/css/material-dashboard.min.css?v=2.1.1" rel="stylesheet" />
+  <link href="{{URL::asset('/assets/css/material-dashboard.min.css?v=2.1.1')}}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
+  <link href="{{URL::asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <!-- For DataTablex -->
-  <link rel="stylesheet" type="text/css" href="assets/DataTablesx/datatables.min.css"/>
-  <link href="css/select2.min.css" rel="stylesheet" />
-  <link href="css/progress-tracker.css" rel="stylesheet" />
-  <link type="text/css" ng-href="css/progress-tracker.scss" rel="stylesheet" />
-  <link  rel="stylesheet" type="text/css" href="../css/tracker.css"  />
-  <link  rel="stylesheet" type="text/css" href="css/sweetalert2.min.css"  />
-  <link href="dist/css/fs-modal.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/DataTablesx/datatables.min.css')}}"/>
+  <link href="{{URL::asset('css/select2.min.css')}}" rel="stylesheet" />
+  <link href="{{URL::asset('css/progress-tracker.css')}}" rel="stylesheet" />
+  <link type="text/css" ng-href="{{URL::asset('css/progress-tracker.scss" rel="stylesheet')}}" />
+  <link  rel="stylesheet" type="text/css" href="{{URL::asset('../css/tracker.css')}}" />
+  <link  rel="stylesheet" type="text/css" href="{{URL::asset('css/sweetalert2.min.css')}}"/>
+  <link href="{{URL::asset('dist/css/fs-modal.min.css')}}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <link href="css/vertrack.css" rel="stylesheet" />
+  <link href="{{URL::asset('css/vertrack.css')}}" rel="stylesheet" />
   

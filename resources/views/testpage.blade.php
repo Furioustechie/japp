@@ -90,38 +90,46 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-10">
                         <div class="card">
                           <div class="card-header card-header-primary">
                             <h4 class="card-title ">Edit Setting For Courts Name</h4>
                             <p class="card-category"> Court Name Detials</p>
                           </div>
                           <button type="button" class="btn btn-primary btn-link btn-sm pull-right" data-toggle="modal" data-target="#modalCourtForm"><i class="material-icons">add</i>Add New Court Name</button>
-                        <table id="example" class="table table-hover table-light table-condensed" style="width:100%">
-                                <div class="card-body">
-                                        <div class="table-responsive">
-                                <thead class="text-primary">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            {{-- <th>Action</th> --}}
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                            @if(count($courts_name) > 0)
-                                            @foreach ($courts_name as $court_data)
-                                  <tr>          
-                                    <td>{{$court_data->id}}</td>
-                                    <td>{{$court_data->name_en}}</td>
-                                   
-                                        </tr>
-                                        @endforeach
-                                      @else
-                          <p>Nothing Found</p>
-                          @endif
-                                    </tbody>
-                        </table> 
+                          <table id="example" class="table table-hover table-light table-condensed" style="width:100%">
+                            <div class="card-body">
+                                    <div class="table-responsive">
+                            <thead class="text-primary">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name in English</th>
+                                        <th>Name in Bangla</th>
+                                        <th>Action</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        @if(count($courts_name) > 0)
+                                        @foreach ($courts_name as $court_data)
+                              <tr>          
+                                <td>{{$court_data->id}}</td>
+                                <td>{{$court_data->name_en}}</td>
+                                <td>{{$court_data->name_bn}}</td>
+                                <td class="text-right"><a href="/testedit/{{$court_data->id}}"><i class="material-icons">edit</i></a>
+                                  <a href="#" class="CourtsDelete delete" data-id="{{$court_data->id}}" data-token="{{ csrf_token() }}"><i class="material-icons">delete</i></a>
+                            
+                                  
+                            </td>
+                            
+                               
+                                    </tr>
+                                    @endforeach
+                                  @else
+                      <p>Nothing Found</p>
+                      @endif
+                                </tbody>
+                    </table> 
                     </div>
                 </div>
             </div>
@@ -347,8 +355,13 @@ $('#dataTablex').dataTable( {
    });
 </script>
    <script>
+  
+   </script>
+   <script>
    $(document).ready(function() {
-    $('#example').DataTable();
+    $('#example').DataTable( {
+               "deferRender": true
+    } );
 } );
    </script>
 {{-- <!-- // window.location.href = "editsettings/sentence_name_destroy/{{$sentence_data->id}}"; --> --}}

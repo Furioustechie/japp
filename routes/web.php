@@ -61,4 +61,9 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
 //Route::post('appeals/store', 'AppealsController@store');
 Route::get('appeals/modals', 'SettingsController@view');
 Route::get('/testpage', 'SettingsController@testpage'); //Delete Sentence Name
+Route::get('/testedit/{id}', 'SettingsController@testedit');
+Route::post('/testedit/{id}', 'SettingsController@update_court');  // Update Courts Name
+Route::get('my-datatables/court_name_destroy/{id}', 'SettingsController@court_name_destroy');
+Route::get('my-datatables', 'MyDatatablesController@index');
 
+Route::get('get-data-my-datatables', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
