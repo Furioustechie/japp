@@ -37,7 +37,12 @@ class MyDatatablesController extends Controller
     	return view('datatables');
 
     }
-
+    public function testedit($id)
+    {
+       $edit = DB::table('courts')->where('id', $id)->first();
+        //echo $user->name_en;
+        return view('/datatables')->with('edit',$edit);
+    }
     /**
 
      * Process ajax request.
@@ -57,15 +62,16 @@ class MyDatatablesController extends Controller
         return Datatables::of($uses)
             ->addColumn('action', function ($uses) {
                 return '<a href="#edit-'.$uses->id.'"  <i class="material-icons">add</i></a>'
-                . '<a href="testedit/'.$uses->id.'" <i class="material-icons">edit</i></a>' . 
-                '<a href="#" class="CourtDelete delete" data-id="'.$uses->id.'"> <i class="material-icons">delete</i></a>';
+                .'<a href="testedit/'.$uses->id.'" <i class="material-icons">edit</i></a>'
+                .'<button data-toggle="modal" data-target="#edit-item"  data-id="'.$uses->id.'" class="btn btn-primary edit-item">Edit</button> '
+                .'<a href="#" class="CourtDelete delete" data-id="'.$uses->id.'"><i class="material-icons">delete</i></a>';
               
 
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->rawColumns(['delete' => 'delete','action' => 'action'])
             ->make(true);
-
+            
            
     }
 
@@ -73,3 +79,4 @@ class MyDatatablesController extends Controller
 
 
 ?>
+

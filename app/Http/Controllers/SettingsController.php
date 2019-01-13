@@ -32,12 +32,19 @@ class SettingsController extends Controller
     {
         return view('/testpage');
     }
-    public function testedit($id)
-    {
-       $edit = DB::table('courts')->where('id', $id)->first();
-        //echo $user->name_en;
-        return view('/testedit')->with('edit',$edit);
-    }
+    public function update_test(Request $request, $id) //modifed update function
+     {
+         
+         $update_court_name1 = Court::find($id);
+         $update_court_name1->name_en = $request->input('name_en');
+         $update_court_name1->created_at = date('Y-m-d h:i:s');
+         $update_court_name1->updated_at = date('Y-m-d h:i:s');
+                  
+         $has_prison_name1 = DB::table('courts')->where('name_en', $request->input('name_en'))->first();
+
+         $update_court_name1->save();   
+     }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -118,6 +118,68 @@
             </div>
         </div>
           </div>
+<!-- -->
+<table border='1' id='userTable' style='border-collapse: collapse;'>
+      <thead>
+        <tr>
+        <th>ID</th>
+        <th>Name_en</th>
+        <th>Name_bn</th>
+        <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type='text' id='id'></td>
+          <td><input type='text' id='name_en' ></td>
+          <td><input type='text' id='name_bn' ></td>
+          <td><input type='button' id='adduser' value='Add'></td>
+        </tr>
+      </tbody>
+    </table>
+    
+
+<!-- -->
+          <div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> --}}
+		        <h4 class="modal-title" id="myModalLabel">Edit Item</h4>
+		      </div>
+
+
+		      <div class="modal-body">
+		      		<form data-toggle="validator" action="editsettings/update/" method="put">
+		      			<input type="hidden" name="id" class="edit-id">
+
+
+		      			<div class="form-group">
+							<label class="control-label" for="title">Name_en:</label>
+							<input type="text" name="name_en" class="form-control" data-error="Please enter title." required />
+							<div class="help-block with-errors"></div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="control-label" for="title">Name_bn:</label>
+							<input type="text" name="name_bn" class="form-control" data-error="Please enter description." required></textarea>
+							<div class="help-block with-errors"></div>
+						</div>
+
+
+						<div class="form-group">
+							<button type="submit" name="court_rename_submit" data-dismiss="modal" class="btn btn-success submit-edit">Submit</button>
+						</div>
+          
+
+		      		</form>
+
+
+		      </div>
+		    </div>
+		  </div>
+		</div>
         </div>
       </div>
       
@@ -211,6 +273,80 @@
                       });
                       });
         </script>
+        <script>
+        
+       /* Edit Item */
+                    $("body").on("click",".edit-item",function(){
+
+
+                    var id = $(this).data('id');
+                    var name_en = $(this).parent("td").prev("td").prev("td").text();
+                    var name_bn = $(this).parent("td").prev("td").text();
+
+
+                    $("#edit-item").find("input[name='name_en']").val(name_en);
+                    $("#edit-item").find("input[name='name_bn']").val(name_bn);
+                    $("#edit-item").find(".edit-id").val(id);
+
+
+                    });
+                    /* Updated new Item */
+                    $(".submit-edit").click(function(e){
+
+                    e.preventDefault();
+                    $.ajaxSetup({
+                                          headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            
+                                          }
+                                          });
+                    //var id = $(this).attr('data-id');
+                    //var form_action = $("#edit-item").find("form").attr("action");
+                    var name_en = $("#edit-item").find("input[name='name_en']").val();
+
+
+                    var name_bn = $("#edit-item").find("input[name='name_bn']").val();
+                    var id = $("#edit-item").find(".edit-id").val();
+
+
+                    if(name_en != ''){
+                      $.ajax({
+
+                    url: "my-datatables/update_test/"+id,
+                    type: 'post',
+                    //dataType: "JSON",
+                    data: {
+                        "id":id,
+                        "name_en": name_en,
+                        "name_bn": name_bn,
+                        "_method": 'POST',
+                                    
+                        },
+                        success: function (data) {
+                          
+                            swal("Done!","It was succesfully updated!","success");
+                          },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            swal("Error deleting!", "Name being used", "error");
+                        }
+                    })
+                    .always(function (data) {
+                                          $('#dataTableCourts').DataTable().draw(false);
+                                          });
+                    }else {
+                                          Swal({
+                                          title:'Dismissed!',
+                                          text:'Your record is safe.',
+                                          type:'error',
+                                          timer:5000,
+                                          }) 
+                                          }
+
+
+                    });
+
+
+        </script>
          @stack('scripts')
          @include('inc.scriptstyle')
          @include('sweet::alert')
@@ -226,54 +362,4 @@
   
 {{-- <!-- // window.location.href = "editsettings/sentence_name_destroy/{{$sentence_data->id}}"; --> --}}
 </html>
-{{-- $('#dataTableCourts').on('click', '.btn-delete[data-remote]', function (e) { 
-  var id = $(this).data("id");
-e.preventDefault();
-$.ajaxSetup({
-headers: {
-  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
 
-swal({
-title: "Are you sure ??",
-text: "You won't be able to revert this!", 
-icon: "warning",
-buttons: true,
-dangerMode: true,
-})
-.then((willDelete) => {
-if (willDelete) {
-Swal({
-title:'Deleted!',
-text:'Your file has been deleted successfully.',
-type:'success',
-timer:5000,
-
-}) 
-$.ajax({
-
-url: "mydatatables/dRemove/"+id,
-type: 'GET',
-dataType: "JSON",
-data: {
-    "id": id,
-    "_method": 'DELETE',
-                
-    }
-}).always(function (data) {
-$('#users-table').DataTable().draw(false);
-});
-$(document).ajaxStop(function(){
-      window.location.reload();
-    });
-} else {
-Swal({
-title:'Dismissed!',
-text:'Your file is safe.',
-type:'error',
-timer:5000,
-}) 
-}
-});
-}); --}}
