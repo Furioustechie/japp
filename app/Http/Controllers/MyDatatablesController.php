@@ -14,6 +14,7 @@ use App\Sentence;
 use App\Court;
 use App\Offence;
 use App\Status;
+use DB;
 use Alert;
 
 class MyDatatablesController extends Controller
@@ -73,6 +74,29 @@ class MyDatatablesController extends Controller
             ->make(true);
             
            
+    }
+    public function getPrisonData()
+
+    {
+
+        //return Datatables::of(Court::query())->make(true);
+        //$prisonName = DB::select(['id', 'name']);
+        $prisonName = DB::table('prisons')->select('id', 'name')->get();
+       
+        return Datatables::of($prisonName)
+            ->addColumn('action', function ($prisonName) {
+                return '<a href="#edit-'.$prisonName->id.'"  <i class="material-icons">add</i></a>'
+                
+                .'<button data-toggle="modal" data-target="#edit_prisonName"  data-id="'.$prisonName->id.'" class="btn btn-primary edit_prisonName">Edit</button> '
+                .'<a href="#" class="PrisonDelete delete" data-id="'.$prisonName->id.'"><i class="material-icons">delete</i></a>';
+              
+
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->make(true);
+          
+            
     }
 
 }

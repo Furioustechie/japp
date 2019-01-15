@@ -118,6 +118,37 @@
             </div>
         </div>
           </div>
+
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row">
+                    <div class="col-md-10">
+                            <div class="card">
+                              <div class="card-header card-header-primary">
+                                <h4 class="card-title ">Edit Setting For Prison Name</h4>
+                                <p class="card-category"> Prison Name Detials</p>
+                              </div>
+                              <table id="dataTablePrison" class="table table-hover table-light table-condensed" style="width:100%">
+                                    <div class="card-body">
+                                            <div class="table-responsive">
+                                    <thead class="text-primary">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Action</th>
+                                                
+                                               
+                                                
+                                            </tr>
+                                        </thead>
+                                        
+                                   </table> 
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+              </div>
 <!-- -->
 <table border='1' id='userTable' style='border-collapse: collapse;'>
       <thead>
@@ -347,6 +378,26 @@
 
 
         </script>
+        <script>
+
+          $(function() {
+                  
+                        $('#dataTablePrison').DataTable({
+                  
+                            processing: true,
+                            serverSide: true,
+                            ajax: '{!! route('get.data1') !!}',
+                            columns: [
+                                { data: 'id', name: 'id' },
+                                { data: 'name', name: 'name' },
+                                {data: 'action', name: 'action', orderable: false, searchable: false}
+                            ]
+                  
+                        });
+                  
+                    });
+                              
+                    </script>
          @stack('scripts')
          @include('inc.scriptstyle')
          @include('sweet::alert')

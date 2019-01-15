@@ -68,3 +68,4 @@ Route::post('my-datatables/update_test/{id}', 'SettingsController@update_test');
 Route::get('my-datatables', 'MyDatatablesController@index');
 
 Route::get('get-data-my-datatables', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
+Route::get('get-data-my-datatables1', ['as'=>'get.data1','uses'=>'MyDatatablesController@getPrisonData']);

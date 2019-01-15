@@ -253,14 +253,18 @@
                                         <select class="browser-default custom-select" name="status_id">
 
                                         <!-- Custom Query for Option Value -->
-                                         <?php 
+                                        <?php 
                                         $optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'")');
                                         ?>
                                             <option>Please Select..</option>
-                                          
+                                              <?php $i=1; ?>
                                                 @foreach ($optt as $sdata)
-                                                          
-                                              <option value="{{$sdata->id}}">{{$sdata->status_name}} </option>
+                                                 @if($i++ == 1)        
+                                              <option value="{{$sdata->id}}" >{{$sdata->status_name}}</option>
+                                              @else
+                                              <option disabled value="{{$sdata->id}}" >{{$sdata->status_name}}</option>
+                                              @endif
+
                                                   @endforeach
                                           </select>
                                     </div>
