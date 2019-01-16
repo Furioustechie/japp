@@ -28,6 +28,10 @@ class SettingsController extends Controller
         //
        
     }
+    public function rotate()
+    {
+        return view('/rotate');
+    }
     public function testpage()
     {
         return view('/testpage');
@@ -236,21 +240,21 @@ class SettingsController extends Controller
     // ------------------------Prison Name  Delete ------------------>
     public function prison_name_destroy($id)
     {
-     
+        DB::table('prisons')->where('id',$id)->delete();
         // echo $id;  
         // DB::table('prisons')->where('id',$id)->delete();
-        try { 
-            // the code goes here
-            $delete_pname = Prison::find($id);
-            $delete_pname->delete();
-            return redirect('/editsettings')->with('success','Prison Name Deleted Successdully');
+        // try { 
+        //     // the code goes here
+        //     $delete_pname = Prison::find($id);
+        //     $delete_pname->delete();
+        //     return redirect('/editsettings')->with('success','Prison Name Deleted Successdully');
 
-        } catch (\Exception $e) { 
-            // if an exception happened in the try block above 
-            return redirect('/editsettings')->with('error','Selected Prison Name is Being Used and Can Not Be Deleted Now!!');
+        // } catch (\Exception $e) { 
+        //     // if an exception happened in the try block above 
+        //     return redirect('/editsettings')->with('error','Selected Prison Name is Being Used and Can Not Be Deleted Now!!');
             
          
-        }
+        // }
            
            
            

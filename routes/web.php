@@ -63,9 +63,13 @@ Route::get('appeals/modals', 'SettingsController@view');
 Route::get('/testpage', 'SettingsController@testpage'); //Delete Sentence Name
 Route::get('/testedit/{id}', 'SettingsController@testedit');
 Route::post('/testedit/{id}', 'SettingsController@update_court');  // Update Courts Name
+
 Route::get('my-datatables/court_name_destroy/{id}', 'SettingsController@court_name_destroy');
+Route::get('my-datatables/prison_name_destroy/{id}', 'SettingsController@prison_name_destroy');
 Route::post('my-datatables/update_test/{id}', 'SettingsController@update_test');
 Route::get('my-datatables', 'MyDatatablesController@index');
 
 Route::get('get-data-my-datatables', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
 Route::get('get-data-my-datatables1', ['as'=>'get.data1','uses'=>'MyDatatablesController@getPrisonData']);
+
+Route::get('/rotate', 'SettingsController@rotate');

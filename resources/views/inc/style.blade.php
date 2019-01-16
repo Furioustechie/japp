@@ -25,3 +25,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <link href="{{URL::asset('css/vertrack.css')}}" rel="stylesheet" />
   
+  <!-- <link href="{{URL::asset('css/bootstrap.css')}}" rel="stylesheet" />
+              <link href="{{URL::asset('css/rotating-card.css')}}" rel="stylesheet" />
+              <link href="https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" /> -->

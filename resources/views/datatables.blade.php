@@ -398,6 +398,60 @@
                     });
                               
                     </script>
+                     <script>
+        $('#dataTablePrison').on('click', '.PrisonDelete', function (e) { 
+                        var id = $(this).attr('data-id');
+                       
+                      e.preventDefault();
+                      $.ajaxSetup({
+                      headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        
+                      }
+                      });
+
+                      swal({
+                      title: "Are you sure ??",
+                      text: "You won't be able to revert this!", 
+                      icon: "warning",
+                      buttons: true,
+                      dangerMode: true,
+                      })
+                      .then((willDelete) => {
+                      if (willDelete) {
+                      
+                      $.ajax({
+
+                      url: "my-datatables/prison_name_destroy/"+id,
+                      type: 'GET',
+                      dataType: "HTML",
+                      data: {
+                          "id": id,
+                          "_method": 'DELETE',
+                                      
+                          },
+                          success: function (data) {
+                              swal("Done!","It was succesfully deleted!","success");
+                            },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              swal("Error deleting!", "Name being used", "error");
+                          }
+                      })
+                      .always(function (data) {
+                      $('#dataTablePrison').DataTable().draw(false);
+                      });
+                      
+                      } else {
+                      Swal({
+                      title:'Dismissed!',
+                      text:'Your record is safe.',
+                      type:'error',
+                      timer:5000,
+                      }) 
+                      }
+                      });
+                      });
+        </script>
          @stack('scripts')
          @include('inc.scriptstyle')
          @include('sweet::alert')
