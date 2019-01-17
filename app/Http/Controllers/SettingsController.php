@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 use App\Appeal;
 use App\Doctype;
@@ -12,7 +13,7 @@ use App\Sentence;
 use App\Court;
 use App\Offence;
 use App\Status;
-use Datatables;
+//use Datatables;
 use Alert;
 // ------------------------End of Block ------------------>
 use DB;
@@ -39,15 +40,14 @@ class SettingsController extends Controller
     public function update_test(Request $request, $id) //modifed update function
      {
          
-         $update_court_name1 = Court::find($id);
-         $update_court_name1->name_en = $request->input('name_en');
-         $update_court_name1->created_at = date('Y-m-d h:i:s');
-         $update_court_name1->updated_at = date('Y-m-d h:i:s');
-                  
-         $has_prison_name1 = DB::table('courts')->where('name_en', $request->input('name_en'))->first();
-
-         $update_court_name1->save();   
+       
      }
+     public function update_prison_test(Request $request, $id) //modifed update function
+     {
+         
+         
+     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -95,7 +95,73 @@ class SettingsController extends Controller
         //
         
     }
+    public function getPrisonData()
 
+    {
+        $prisonName = DB::table('prisons')->select('id', 'name')->get();
+        return Datatables::of($prisonName)
+            ->addColumn('action', function ($prisonName) {
+                return '<a href="#" data-toggle="modal" data-target="#edit_prisonName"  data-id="'.$prisonName->id.'" class="edit_prisonName"><i class="material-icons">edit</a> '
+                .'<a href="#" class="PrisonDelete delete" data-id="'.$prisonName->id.'"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->make(true);
+    }
+
+    public function getCourtsData()
+    {
+        $uses = DB::table('courts')->select('id', 'name_en', 'name_bn')->get();
+        return Datatables::of($uses)
+            ->addColumn('action', function ($uses) {
+                return '<a href="#" data-toggle="modal" data-target="#edit_court"  data-id="'.$uses->id.'" class="edit_court"><i class="material-icons">edit</i></a> '
+                .'<a href="#" class="CourtDelete delete" data-id="'.$uses->id.'"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->make(true);
+    }
+
+    public function getSentenceData()
+    {
+        $sentenceName = DB::table('sentences')->select('id', 'sentence_name')->get();
+        return Datatables::of($sentenceName)
+            ->addColumn('action', function ($sentenceName) {
+                return '<a href="#" data-toggle="modal" data-target="#edit_sentence"  data-id="'.$sentenceName->id.'" class="edit_sentences"><i class="material-icons">edit</a> '
+                .'<a href="#" class="SentenceDelete delete" data-id="'.$sentenceName->id.'"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->make(true);
+    }
+
+    public function getOffenceData()
+    {
+        $offenceName = DB::table('offences')->select('id', 'name')->get();
+        return Datatables::of($offenceName)
+            ->addColumn('action', function ($offenceName) {
+                return '<a href="#" data-toggle="modal" data-target="#edit_sentence"  data-id="'.$offenceName->id.'" class="edit_offence"><i class="material-icons">edit</a> '
+                .'<a href="#" class="OffenceDelete delete" data-id="'.$offenceName->id.'"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->make(true);
+    }
+
+    public function getStatusData()
+    {
+        $statusName = DB::table('status')->select('id', 'status_name')->get();
+        return Datatables::of($statusName)
+            ->addColumn('action', function ($statusName) {
+                return '<a href="#" data-toggle="modal" data-target="#edit_status"  data-id="'.$statusName->id.'" class="edit_status"><i class="material-icons">edit</a> '
+                .'<a href="#" class="StatusDelete delete" data-id="'.$statusName->id.'"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->make(true);
+    }
+
+    
     /**
      * Update the specified resource in storage.
      *
@@ -105,29 +171,16 @@ class SettingsController extends Controller
      */
 
     // ------------------------Prison Name Update ------------------>
-    public function update(Request $request, $id) //modifed update function
+    public function update_prison(Request $request, $id) //modifed update function
     {
         //
-        $update_pname = Prison::find($id);
-        $update_pname->name = $request->input('rename_prison');
-        $update_pname->created_at = date('Y-m-d h:i:s');
-        $update_pname->updated_at = date('Y-m-d h:i:s');
-            if ($request->has('rename_prison_submit')) {
-                $has_prison_name = DB::table('prisons')->where('name', $request->input('rename_prison'))->first();
-                if(empty($has_prison_name)){
-                        
-                             $update_pname->save();
-                            
-                             Alert::success('success','Prison Renamed Successfully');
+        $update_prison_name = Prison::find($id);
+         $update_prison_name->name = $request->input('rename_prison');
+         $update_prison_name->created_at = date('Y-m-d h:i:s');
+         $update_prison_name->updated_at = date('Y-m-d h:i:s');
 
-                             return redirect('/editsettings');
-                            //  ->with('success','Prison Renamed Successdully');
-    
-                        }else{
-                            Alert::error('Error','Prison Name Already Exists');
-                            return redirect('/editsettings');
-                        }
-                }
+         $update_prison_name->save();   
+        
     }
     // ------------------------Sentence Name Update ------------------>
     public function update_sentence(Request $request, $id) //modifed update function
@@ -137,21 +190,8 @@ class SettingsController extends Controller
         $update_sentence_name->sentence_name = $request->input('rename_sentence');
         $update_sentence_name->created_at = date('Y-m-d h:i:s');
         $update_sentence_name->updated_at = date('Y-m-d h:i:s');
-            if ($request->has('rename_sentence_submit')) {
-                $has_sentence_name = DB::table('sentences')->where('sentence_name', $request->input('rename_sentence'))->first();
-                if(empty($has_sentence_name)){
-                        
-                             $update_sentence_name->save();
-        
-                             Alert::success('success','Sentence Renamed Successdully');
-
-                             return redirect('/editsettings');
-    
-                        }else{
-                            Alert::error('Error','Sentence Name Already Exists');
-                            return redirect('/editsettings');
-                        }
-                }
+            
+        $update_sentence_name->save();
     }
 
 
@@ -160,23 +200,11 @@ class SettingsController extends Controller
      {
          //
          $update_court_name = Court::find($id);
-         $update_court_name->name_en = $request->input('rename_Court');
+         $update_court_name->name_en = $request->input('name_en');
          $update_court_name->created_at = date('Y-m-d h:i:s');
          $update_court_name->updated_at = date('Y-m-d h:i:s');
-             if ($request->has('rename_court_submit')) {
-                 $has_court_name = DB::table('courts')->where('name_en', $request->input('rename_Court'))->first();
-                 if(empty($has_court_name)){
-                         
-                              $update_court_name->save();
          
-                              Alert::success('success','Court Name Renamed Successdully');
-                              return redirect('/editsettings')->with('success','Court Name Renamed Successdully');
-     
-                         }else{
-                             Alert::error('Error','Court Name Already Exists');
-                             return redirect('/my-datatables');
-                         }
-                 }
+         $update_court_name->save();   
      }
 
      // ------------------------Offence Name Update ------------------>
@@ -187,20 +215,8 @@ class SettingsController extends Controller
          $update_offence_name->name = $request->input('rename_offence');
          $update_offence_name->created_at = date('Y-m-d h:i:s');
          $update_offence_name->updated_at = date('Y-m-d h:i:s');
-             if ($request->has('rename_offence_submit')) {
-                 $has_offence_name = DB::table('offences')->where('name', $request->input('rename_offence'))->first();
-                 if(empty($has_offence_name)){
-                         
-                              $update_offence_name->save();
-         
-                              Alert::success('success','Offence Name Renamed Successdully');
-                              return redirect('/editsettings');
-     
-                         }else{
-                             Alert::error('Error','Offence Name Already Exists');
-                             return redirect('/editsettings');
-                         }
-                 }
+
+         $update_offence_name->save();
      }
 
       // ------------------------Status  Update ------------------>
@@ -211,20 +227,8 @@ class SettingsController extends Controller
           $update_status_name->status_name = $request->input('rename_status');
           $update_status_name->created_at = date('Y-m-d h:i:s');
           $update_status_name->updated_at = date('Y-m-d h:i:s');
-              if ($request->has('rename_status_submit')) {
-                  $has_status_name = DB::table('status')->where('status_name', $request->input('rename_status'))->first();
-                  if(empty($has_status_name)){
-                          
-                               $update_status_name->save();
-          
-                               Alert::success('success','Status Name Renamed Successdully');
-                               return redirect('/editsettings')->with('success','Status Name Renamed Successdully');
-      
-                          }else{
-                              Alert::error('Error','Status Name Already Exists');
-                              return redirect('/editsettings');
-                          }
-                  }
+
+          $update_status_name->save();
       }
     /**
      * Remove the specified resource from storage.
@@ -241,23 +245,6 @@ class SettingsController extends Controller
     public function prison_name_destroy($id)
     {
         DB::table('prisons')->where('id',$id)->delete();
-        // echo $id;  
-        // DB::table('prisons')->where('id',$id)->delete();
-        // try { 
-        //     // the code goes here
-        //     $delete_pname = Prison::find($id);
-        //     $delete_pname->delete();
-        //     return redirect('/editsettings')->with('success','Prison Name Deleted Successdully');
-
-        // } catch (\Exception $e) { 
-        //     // if an exception happened in the try block above 
-        //     return redirect('/editsettings')->with('error','Selected Prison Name is Being Used and Can Not Be Deleted Now!!');
-            
-         
-        // }
-           
-           
-           
     }
     // ------------------------Sentence Name  Delete ------------------>
     public function sentence_name_destroy($id)

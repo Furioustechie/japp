@@ -8,7 +8,7 @@
 </head>
 
 <body class="">
- @include('inc.navbar')
+ {{-- @include('inc.navbar') --}}
  @include('inc.messages')
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -150,32 +150,15 @@
             </div>
               </div>
 <!-- -->
-<table border='1' id='userTable' style='border-collapse: collapse;'>
-      <thead>
-        <tr>
-        <th>ID</th>
-        <th>Name_en</th>
-        <th>Name_bn</th>
-        <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type='text' id='id'></td>
-          <td><input type='text' id='name_en' ></td>
-          <td><input type='text' id='name_bn' ></td>
-          <td><input type='button' id='adduser' value='Add'></td>
-        </tr>
-      </tbody>
-    </table>
+
     
 
-<!-- -->
+<!-- 
           <div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> --}}
+		     
 		        <h4 class="modal-title" id="myModalLabel">Edit Item</h4>
 		      </div>
 
@@ -210,7 +193,8 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
+    </div>-->
+    @include('inc.settingsModal')
         </div>
       </div>
       
@@ -306,8 +290,8 @@
         </script>
         <script>
         
-       /* Edit Item */
-                    $("body").on("click",".edit-item",function(){
+       /* Edit C0urts Item */
+                    $("body").on("click",".edit_court",function(){
 
 
                     var id = $(this).data('id');
@@ -315,9 +299,9 @@
                     var name_bn = $(this).parent("td").prev("td").text();
 
 
-                    $("#edit-item").find("input[name='name_en']").val(name_en);
-                    $("#edit-item").find("input[name='name_bn']").val(name_bn);
-                    $("#edit-item").find(".edit-id").val(id);
+                    $("#edit_court").find("input[name='name_en']").val(name_en);
+                    $("#edit_court").find("input[name='name_bn']").val(name_bn);
+                    $("#edit_court").find(".edit-id").val(id);
 
 
                     });
@@ -333,11 +317,11 @@
                                           });
                     //var id = $(this).attr('data-id');
                     //var form_action = $("#edit-item").find("form").attr("action");
-                    var name_en = $("#edit-item").find("input[name='name_en']").val();
+                    var name_en = $("#edit_court").find("input[name='name_en']").val();
 
 
-                    var name_bn = $("#edit-item").find("input[name='name_bn']").val();
-                    var id = $("#edit-item").find(".edit-id").val();
+                    var name_bn = $("#edit_court").find("input[name='name_bn']").val();
+                    var id = $("#edit_court").find(".edit-id").val();
 
 
                     if(name_en != ''){
@@ -452,6 +436,79 @@
                       });
                       });
         </script>
+         <script>
+        
+          /* Edit Prisons Item */
+                       $("body").on("click",".edit_prisonName",function(){
+   
+   
+                       var id = $(this).data('id');
+                      /* var name = $(this).parent("td").prev("td").prev("td").text();*/
+                       var name = $(this).parent("td").prev("td").text();
+   
+   
+                       $("#edit_prisonName").find("input[name='rename_prison']").val(name);
+                     
+                       $("#edit_prisonName").find(".edit-id").val(id);
+   
+   
+                       });
+                       /* Updated new Item */
+                       $(".submit-prison").click(function(e){
+   
+                       e.preventDefault();
+                       $.ajaxSetup({
+                                             headers: {
+                                               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                               
+                                             }
+                                             });
+                     
+                       var name = $("#edit_prisonName").find("input[name='rename_prison']").val();
+   
+   
+        
+                       var id = $("#edit_prisonName").find(".edit-id").val();
+   
+   
+                       if(name != ''){
+                         $.ajax({
+   
+                       url: "my-datatables/update_prison/"+id,
+                       type: 'post',
+                      
+                       data: {
+                           "id":id,
+                           "rename_prison": name,
+                      
+                           "_method": 'POST',
+                                       
+                           },
+                           success: function (data) {
+                             
+                               swal("Done!","It was succesfully updated!","success");
+                             },
+                           error: function (xhr, ajaxOptions, thrownError) {
+                               swal("Error deleting!", "Name being used", "error");
+                           }
+                       })
+                       .always(function (data) {
+                                             $('#dataTablePrison').DataTable().draw(false);
+                                             });
+                       }else {
+                                             Swal({
+                                             title:'Dismissed!',
+                                             text:'Your record is safe.',
+                                             type:'error',
+                                             timer:5000,
+                                             }) 
+                                             }
+   
+   
+                       });
+   
+   
+           </script>
          @stack('scripts')
          @include('inc.scriptstyle')
          @include('sweet::alert')

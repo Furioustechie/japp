@@ -39,6 +39,7 @@
  <script src="{{URL::asset('js/sweetalert2.min.js')}}"></script>
  <script src="{{URL::asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 <script src="{{URL::asset('js/confirm.js')}}"></script>
+<script src="{{URL::asset('js/editsettings.js')}}"></script>
  <script>
  // Add your javascript here
  $(document).ready(function() {
@@ -48,3 +49,11 @@
   
 });
 </script>
+<script>
+        var url = window.location;
+        $('ul.treeview-menu a').filter(function () {
+           return this.href == url;
+        }).parents('li').addClass('active');
+        
+        </script>
+        

@@ -49,7 +49,7 @@
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="submit" name="rename_prison_submit" data-dismiss="modal" class="btn btn-success submit-edit_prisonName">Submit</button>
+                        <button type="submit" name="rename_prison_submit" data-dismiss="modal" class="btn btn-success submit-prison">Submit</button>
                     </div>
                 </form>
             </div>

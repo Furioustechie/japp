@@ -64,7 +64,7 @@ class MyDatatablesController extends Controller
             ->addColumn('action', function ($uses) {
                 return '<a href="#edit-'.$uses->id.'"  <i class="material-icons">add</i></a>'
                 .'<a href="testedit/'.$uses->id.'" <i class="material-icons">edit</i></a>'
-                .'<button data-toggle="modal" data-target="#edit-item"  data-id="'.$uses->id.'" class="btn btn-primary edit-item">Edit</button> '
+                .'<button data-toggle="modal" data-target="#edit_court"  data-id="'.$uses->id.'" class="btn btn-primary edit_court">Edit</button> '
                 .'<a href="#" class="CourtDelete delete" data-id="'.$uses->id.'"><i class="material-icons">delete</i></a>';
               
 

@@ -66,10 +66,24 @@ Route::post('/testedit/{id}', 'SettingsController@update_court');  // Update Cou
 
 Route::get('my-datatables/court_name_destroy/{id}', 'SettingsController@court_name_destroy');
 Route::get('my-datatables/prison_name_destroy/{id}', 'SettingsController@prison_name_destroy');
-Route::post('my-datatables/update_test/{id}', 'SettingsController@update_test');
+
 Route::get('my-datatables', 'MyDatatablesController@index');
 
-Route::get('get-data-my-datatables', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
-Route::get('get-data-my-datatables1', ['as'=>'get.data1','uses'=>'MyDatatablesController@getPrisonData']);
+// get Settings Data
+Route::get('/editsettings_Courts', ['as'=>'get.data','uses'=>'SettingsController@getCourtsData']);
+Route::get('/editsettings_Prisons', ['as'=>'get.data1','uses'=>'SettingsController@getPrisonData']);
+Route::get('/editsettings_Sentences', ['as'=>'get.data2','uses'=>'SettingsController@getSentenceData']);
+Route::get('/editsettings_Offences', ['as'=>'get.data3','uses'=>'SettingsController@getOffenceData']);
+Route::get('/editsettings_Status', ['as'=>'get.data4','uses'=>'SettingsController@getStatusData']);
+
+//Update Settings Data
+Route::post('editsettings/update_court/{id}', 'SettingsController@update_court');
+Route::post('editsettings/update_prison/{id}', 'SettingsController@update_prison');
+Route::post('editsettings/update_sentence/{id}', 'SettingsController@update_sentence');
+Route::post('editsettings/update_offence/{id}', 'SettingsController@update_offence');
+Route::post('editsettings/update_status/{id}', 'SettingsController@update_status');
 
 Route::get('/rotate', 'SettingsController@rotate');
+
+
+//Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
