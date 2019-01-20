@@ -83,7 +83,8 @@ Route::post('editsettings/update_sentence/{id}', 'SettingsController@update_sent
 Route::post('editsettings/update_offence/{id}', 'SettingsController@update_offence');
 Route::post('editsettings/update_status/{id}', 'SettingsController@update_status');
 
-Route::get('/rotate', 'SettingsController@rotate');
 
+Route::get('/rotate', 'SettingsController@rotate');
+Route::get('services/upload', 'settingsController@upload');
 
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);

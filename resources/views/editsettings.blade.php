@@ -8,7 +8,6 @@
 </head>
 
 <body class="">
- {{-- @include('inc.navbar') --}}
  @include('inc.messages')
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -92,7 +91,7 @@
           <div class="row">
               <div class="col-md-2"></div>
             <div class="col-md-8">
-              {{-- <div class="card"> --}}
+              <!-- <div class="card"> -->
                <!-- Edit Block -->
                <div class="card card-nav-tabs">
                 <div class="card-header card-header-primary">
@@ -101,7 +100,7 @@
                         <div class="nav-tabs-wrapper">
                             <ul class="nav nav-tabs" data-tabs="tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#profile" data-toggle="tab">
+                                    <a class="nav-link active" href="#sentences" data-toggle="tab">
                                         <i class="material-icons">account_balance</i>
                                         Sentences
                                     </a>
@@ -126,22 +125,21 @@
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" href="#sentences" data-toggle="tab">
+                                  <a class="nav-link" href="#status" data-toggle="tab">
                                       <i class="material-icons">wb_sunny</i>
                                       Status
                                   </a>
-
                               </li>
                             </ul>
                         </div>
                     </div>
-                  </div><div class="card-body ">
+                  </div>
+                  <div class="card-body ">
                     <div class="tab-content text-center">
-                        <div class="tab-pane active" id="profile">
+                        <div class="tab-pane active" id="sentences">
+                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_sentence"  data-id="add_sentence" class="add_sentence"><i class="material-icons">add_circle_outline</i> ADD</button> </a>
                           <div class="table-responsive">
                               <table id="dataTableSentences" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
-                                  <div class="card-body">
-                                          <div class="table-responsive">
                                   <thead class="text-primary">
                                           <tr>
                                               <th>ID</th>
@@ -149,11 +147,12 @@
                                               <th>Action</th>
                                           </tr>
                                       </thead>
-                                      
                                  </table> 
                       </div>
-                        </div>
+                    </div>
                         <div class="tab-pane" id="courts">
+                          <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_sentence"  data-id="add_sentence" class="add_sentence"><i class="material-icons">add_circle_outline</i> ADD</button> </a>
+
                             <table id="dataTableCourts" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
                                         <div class="table-responsive">
@@ -165,10 +164,10 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    
                                </table> 
                         </div>
                         <div class="tab-pane" id="prisons">
+                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_prison"  data-id="add_prison" class="add_prison"><i class="material-icons">add</i></button> </a>
                             <table id="dataTablePrison" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
                                         <div class="table-responsive">
@@ -179,9 +178,10 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    
                                </table>                         </div>
                         <div class="tab-pane" id="offences">
+                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_offence"  data-id="add_offence" class="add_offence"><i class="material-icons">add</i></button> </a>
+
                             <table id="dataTableOffences" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
                                         <div class="table-responsive">
@@ -193,8 +193,11 @@
                                         </tr>
                                     </thead>
                                     
-                               </table>                         </div>
-                        <div class="tab-pane" id="sentences">
+                               </table>
+                              </div>
+                        <div class="tab-pane" id="status">
+                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_status"  data-id="add_status" class="add_status"><i class="material-icons">add</i></button> </a>
+
                             <table id="dataTableStatus" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -209,7 +212,8 @@
                                </table>
                          </div>
                     </div>
-                </div></div>
+                </div>
+                </div>
             <!-- End Tabs with icons on Card -->
 
        
@@ -219,7 +223,7 @@
         </div>
       </div>
       @include('inc.settingsModal')
-      @include('inc.modals')
+       
   
     </div>
   </div>

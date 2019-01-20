@@ -305,6 +305,11 @@
                               @endforeach  
                               
                            </div>
+                           <div class="form-group">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated"></div >
+                                <div class="percent">0%</div >
+                            </div>
                     </div>
                      <!-- End Section -->
                      {{ csrf_field() }}
@@ -351,15 +356,41 @@
       // $("body").on("click",".btn-danger",function(){ 
       //     $(this).parents(".control-group").remove();
       // });
-    
-
     });
 
 </script>
-
+ <script>
+                        $('input[type=file]').change(function() { 
+                        
+                        var bar = $('.progress-bar');
+                        var percent = $('.percent');
+                        var status = $('#status');
+                        
+                        $('form').ajaxForm({
+                            beforeSend: function() {
+                                status.empty();
+                                var percentVal = '0%';
+                                bar.width(percentVal);
+                                percent.html(percentVal);
+                            },
+                            uploadProgress: function(event, position, total, percentComplete) {
+                                var percentVal = percentComplete + '%';
+                                bar.width(percentVal);
+                                percent.html(percentVal);
+                            },
+                            complete: function(xhr) {
+                                status.html(xhr.responseText);
+                                bar.hide();
+                                //alert('Success');
+                            }
+                        });
+                        $('form').submit(); 
+                        }); 
+                        </script>
 </body>
 
 </html>
+
 <script>
 // $("#fileinput").hide();
 $("#fileinput1").hide();
@@ -390,6 +421,3 @@ return false;
 
 </script>
 
-<script>
-  
-</script>

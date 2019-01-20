@@ -136,19 +136,14 @@
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Action</th>
-                                                
-                                               
-                                                
                                             </tr>
                                         </thead>
-                                        
                                    </table> 
-                        
                         </div>
                     </div>
                 </div>
             </div>
-              </div>
+          </div>
 <!-- -->
 
     

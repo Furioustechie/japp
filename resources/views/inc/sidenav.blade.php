@@ -54,4 +54,12 @@
         </li>
         </ul>
 
-      
+        <script>
+          var url = window.location;
+          $('ul.treeview-menu a').filter(function () {
+             return this.href == url;
+          }).parents('li').addClass('active');
+          
+          </script>
+          
+          

@@ -1,5 +1,5 @@
 <!--   Core JS Files   -->
-{{-- <script src="assets/js/core/jquery.min.js" type="text/javascript"></script> --}}
+<!-- <script src="assets/js/core/jquery.min.js" type="text/javascript"></script> -->
 <script src="{{URL::asset('assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('assets/js/core/popper.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('assets/js/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script>
@@ -10,8 +10,7 @@
 <!-- Plugin for the momentJs  -->
 <script src="{{URL::asset('assets/js/plugins/moment.min.js')}}"></script>
 
-    {{-- <!--  Plugin for Sweet Alert -->
-<script src="assets/js/plugins/sweetalert2.js"></script> --}}
+
 <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
@@ -40,6 +39,9 @@
  <script src="{{URL::asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 <script src="{{URL::asset('js/confirm.js')}}"></script>
 <script src="{{URL::asset('js/editsettings.js')}}"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+
+
  <script>
  // Add your javascript here
  $(document).ready(function() {

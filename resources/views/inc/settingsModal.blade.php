@@ -56,3 +56,83 @@
         </div>
     </div>
 </div>
+
+<!--Modal For Edit Sentence Name -->
+<div class="modal fade" id="edit_sentenceName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background-color:#00bcd4;">
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Sentence Name</h5>
+            </div>
+
+
+            <div class="modal-body">
+                <form data-toggle="validator" action="editsettings/update_sentence_name/" method="put">
+                    <input type="hidden" name="id" class="edit-id">
+                    <div class="form-group">
+                        <label class="control-label" for="title">Sentence Name:</label>
+                        <input type="text" name="rename_sentence"  class="form-control" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" name="rename_sentence_submit" data-dismiss="modal" class="btn btn-success submit-sentence">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal For Edit Offence Name -->
+<div class="modal fade" id="edit_offenceName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background-color:#00bcd4;">
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Offence Name</h5>
+            </div>
+
+
+            <div class="modal-body">
+                <form data-toggle="validator" action="editsettings/update_offence_name/" method="put">
+                    <input type="hidden" name="id" class="edit-id">
+                    <div class="form-group">
+                        <label class="control-label" for="title">Offence Name:</label>
+                        <input type="text" name="rename_offence"  class="form-control" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" name="rename_offence_submit" data-dismiss="modal" class="btn btn-success submit-offence">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal For Edit Status Name -->
+<div class="modal fade" id="edit_statusName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background-color:#00bcd4;">
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Status Name</h5>
+            </div>
+
+
+            <div class="modal-body">
+                <form data-toggle="validator" action="editsettings/update_status_name/" method="put">
+                    <input type="hidden" name="id" class="edit-id">
+                    <div class="form-group">
+                        <label class="control-label" for="title">Status Name:</label>
+                        <input type="text" name="rename_status"  class="form-control" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" name="rename_status_submit" data-dismiss="modal" class="btn btn-success submit-status">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

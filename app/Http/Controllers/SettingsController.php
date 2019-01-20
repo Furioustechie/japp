@@ -101,7 +101,7 @@ class SettingsController extends Controller
         $prisonName = DB::table('prisons')->select('id', 'name')->get();
         return Datatables::of($prisonName)
             ->addColumn('action', function ($prisonName) {
-                return '<a href="#" data-toggle="modal" data-target="#edit_prisonName"  data-id="'.$prisonName->id.'" class="edit_prisonName"><i class="material-icons">edit</a> '
+                return '<a href="#" data-toggle="modal" data-target="#edit_prisonName"  data-id="'.$prisonName->id.'" class="edit_prisonName"><i class="material-icons">edit</i></a> '
                 .'<a href="#" class="PrisonDelete delete" data-id="'.$prisonName->id.'"><i class="material-icons">delete</i></a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
@@ -127,7 +127,7 @@ class SettingsController extends Controller
         $sentenceName = DB::table('sentences')->select('id', 'sentence_name')->get();
         return Datatables::of($sentenceName)
             ->addColumn('action', function ($sentenceName) {
-                return '<a href="#" data-toggle="modal" data-target="#edit_sentence"  data-id="'.$sentenceName->id.'" class="edit_sentences"><i class="material-icons">edit</a> '
+                return '<a href="#" data-toggle="modal" data-target="#edit_sentenceName"  data-id="'.$sentenceName->id.'" class="edit_sentenceName"><i class="material-icons">edit</i></a> '
                 .'<a href="#" class="SentenceDelete delete" data-id="'.$sentenceName->id.'"><i class="material-icons">delete</i></a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
@@ -140,7 +140,7 @@ class SettingsController extends Controller
         $offenceName = DB::table('offences')->select('id', 'name')->get();
         return Datatables::of($offenceName)
             ->addColumn('action', function ($offenceName) {
-                return '<a href="#" data-toggle="modal" data-target="#edit_sentence"  data-id="'.$offenceName->id.'" class="edit_offence"><i class="material-icons">edit</a> '
+                return '<a href="#" data-toggle="modal" data-target="#edit_offenceName"  data-id="'.$offenceName->id.'" class="edit_offenceName"><i class="material-icons">edit</i></a> '
                 .'<a href="#" class="OffenceDelete delete" data-id="'.$offenceName->id.'"><i class="material-icons">delete</i></a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
@@ -153,7 +153,7 @@ class SettingsController extends Controller
         $statusName = DB::table('status')->select('id', 'status_name')->get();
         return Datatables::of($statusName)
             ->addColumn('action', function ($statusName) {
-                return '<a href="#" data-toggle="modal" data-target="#edit_status"  data-id="'.$statusName->id.'" class="edit_status"><i class="material-icons">edit</a> '
+                return '<a href="#" data-toggle="modal" data-target="#edit_statusName"  data-id="'.$statusName->id.'" class="edit_statusName"><i class="material-icons">edit</i></a> '
                 .'<a href="#" class="StatusDelete delete" data-id="'.$statusName->id.'"><i class="material-icons">delete</i></a>';
             })
             ->editColumn('id', 'ID: {{$id}}')

@@ -1,5 +1,5 @@
 
-
+/* Edit Courts Item */
 $(function() {
     var url = "/editsettings_Courts"
     $('#dataTableCourts').DataTable({
@@ -81,7 +81,7 @@ $('#dataTableCourts').on('click', '.CourtDelete', function (e) {
               });
 
 
-/* Edit C0urts Item */
+
             $("body").on("click",".edit_court",function(){
 
 
@@ -106,8 +106,7 @@ $('#dataTableCourts').on('click', '.CourtDelete', function (e) {
                                     
                                   }
                                   });
-            //var id = $(this).attr('data-id');
-            //var form_action = $("#edit-item").find("form").attr("action");
+         
             var name_en = $("#edit_court").find("input[name='name_en']").val();
 
 
@@ -153,7 +152,7 @@ $('#dataTableCourts').on('click', '.CourtDelete', function (e) {
 
 
 
-
+/* Edit Prisons Item */
   $(function() {
           var url = "/editsettings_Prisons"
                 $('#dataTablePrison').DataTable({
@@ -228,12 +227,12 @@ $('#dataTablePrison').on('click', '.PrisonDelete', function (e) {
 
 
 
-  /* Edit Prisons Item */
+
                $("body").on("click",".edit_prisonName",function(){
 
 
                var id = $(this).data('id');
-              /* var name = $(this).parent("td").prev("td").prev("td").text();*/
+            
                var name = $(this).parent("td").prev("td").text();
 
 
@@ -297,7 +296,7 @@ $('#dataTablePrison').on('click', '.PrisonDelete', function (e) {
 
                });
 
-
+ /* Edit Sentence Item */
 $(function() {
 var url = "/editsettings_Sentences"
         $('#dataTableSentences').DataTable({
@@ -372,12 +371,12 @@ var url = "/editsettings_Sentences"
       
       
       
-        /* Edit Prisons Item */
+       
                      $("body").on("click",".edit_sentenceName",function(){
       
       
                      var id = $(this).data('id');
-                    /* var name = $(this).parent("td").prev("td").prev("td").text();*/
+                    
                      var name = $(this).parent("td").prev("td").text();
       
       
@@ -427,7 +426,7 @@ var url = "/editsettings_Sentences"
                          }
                      })
                      .always(function (data) {
-                                           $('#dataTableSentence').DataTable().draw(false);
+                                           $('#dataTableSentences').DataTable().draw(false);
                                            });
                      }else {
                                            Swal({
@@ -484,7 +483,7 @@ var url = "/editsettings_Sentences"
                                             
                                             $.ajax({
                               
-                                            url: "editsettings/sentence_name_destroy/"+id,
+                                            url: "editsettings/offence_name_destroy/"+id,
                                             type: 'GET',
                                             dataType: "HTML",
                                             data: {
@@ -516,7 +515,7 @@ var url = "/editsettings_Sentences"
                               
                               
                               
-                                /* Edit Prisons Item */
+                                /* Edit Offence Item */
                                              $("body").on("click",".edit_offenceName",function(){
                               
                               
@@ -552,7 +551,7 @@ var url = "/editsettings_Sentences"
                                              if(name != ''){
                                                $.ajax({
                               
-                                             url: "editsettings/update_offence"+id,
+                                             url: "editsettings/update_offence/"+id,
                                              type: 'post',
                                             
                                              data: {
@@ -571,7 +570,7 @@ var url = "/editsettings_Sentences"
                                                  }
                                              })
                                              .always(function (data) {
-                                                                   $('#edit_offenceName').DataTable().draw(false);
+                                                                   $('#dataTableOffences').DataTable().draw(false);
                                                                    });
                                              }else {
                                                                    Swal({
@@ -594,7 +593,7 @@ var url = "/editsettings_Status"
         ajax: url,
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'status_name', name: 'name' },
+            { data: 'status_name', name: 'status_name' },
             {data: 'action', name: 'action', orderable: false, searchable: false}
         ]
 
@@ -627,7 +626,7 @@ var url = "/editsettings_Status"
                                     
                                     $.ajax({
                         
-                                    url: "editsettings/sentence_name_destroy/"+id,
+                                    url: "editsettings/status_name_destroy/"+id,
                                     type: 'GET',
                                     dataType: "HTML",
                                     data: {
@@ -695,7 +694,7 @@ var url = "/editsettings_Status"
                                         if(name != ''){
                                         $.ajax({
                         
-                                        url: "editsettings/update_status"+id,
+                                        url: "editsettings/update_status/"+id,
                                         type: 'post',
                                     
                                         data: {
@@ -714,7 +713,7 @@ var url = "/editsettings_Status"
                                             }
                                         })
                                         .always(function (data) {
-                                                            $('#edit_statusName').DataTable().draw(false);
+                                                            $('#dataTableStatus').DataTable().draw(false);
                                                             });
                                         }else {
                                                             Swal({
@@ -727,3 +726,7 @@ var url = "/editsettings_Status"
                         
                         
                                         });
+
+
+
+                                        
