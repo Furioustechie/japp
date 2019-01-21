@@ -76,7 +76,7 @@ class AppealsController extends Controller
                         {
                             $data=array(); 
                             foreach ($files as $file) {
-                            $name=$file->getClientOriginalName();
+                            $name=$file->getClientOriginalName()+now();
                                 $file->move(public_path().'/files/', $name);  
                             $data[] = $name;
                             }

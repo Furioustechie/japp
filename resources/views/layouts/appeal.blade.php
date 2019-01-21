@@ -305,8 +305,9 @@
                               @endforeach  
                               
                            </div>
+                           
                            <div class="form-group">
-                            <div class="progress">
+                            <div class="progress" id="prgbar">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated"></div >
                                 <div class="percent">0%</div >
                             </div>
@@ -360,6 +361,7 @@
 
 </script>
  <script>
+   $('#prgbar').hide();
                         $('input[type=file]').change(function() { 
                         
                         var bar = $('.progress-bar');
@@ -368,6 +370,7 @@
                         
                         $('form').ajaxForm({
                             beforeSend: function() {
+                              $('#prgbar').show();
                                 status.empty();
                                 var percentVal = '0%';
                                 bar.width(percentVal);
@@ -380,12 +383,14 @@
                             },
                             complete: function(xhr) {
                                 status.html(xhr.responseText);
-                                bar.hide();
+                                //bar.hide();
                                 //alert('Success');
                             }
                         });
                         $('form').submit(); 
                         }); 
+                        </script>
+                        <script>
                         </script>
 </body>
 
