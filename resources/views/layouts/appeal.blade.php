@@ -103,21 +103,21 @@
                 <form action="{{url('appeals')}}" method="POST" enctype="multipart/form-data">
                     <div class="row">  
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group" >
                               <label class="bmd-label-floating">Prisoner's No</label>
-                              <input type="text" name="prisoner_no" class="form-control">
+                              <input type="text" name="prisoner_no" class="form-control" >
                             </div>
                           </div>
                           <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="bmd-label-floating">Prisoner's Name</label>
-                                  <input type="text" name="prisoner_name" class="form-control">
+                                  <input type="text" name="prisoner_name" class="form-control" required>
                                 </div>
                               </div>
                           <div class="col-md-6">
                               <div class="form-group">
                                 <label for="Gender" class="bmd-label-floating">Gender</label>
-                                <select class="browser-default custom-select" name="prisoner_gender">
+                                <select class="browser-default custom-select" name="prisoner_gender" >
                                     <option selected>Please Select..</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
@@ -129,7 +129,7 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Prison Name</label>
-                                        <select class="browser-default custom-select" name="prisonid">
+                                        <select class="browser-default custom-select" name="prisonid" >
                                             <option>Please Select..</option>
                                                 @foreach ($pname as $data)
                                                           
@@ -178,7 +178,7 @@
                                   <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating">Appeal To Court</label>
-                                          <select class="browser-default custom-select" name="appealcourt"> 
+                                          <select class="browser-default custom-select" name="appealcourt" > 
                                               <option hidden >Please Select ..</option>
                                               <option value="1">High Court</option>
                                               <option value="2">Sentencing Court</option>
@@ -189,7 +189,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="caseno" class="bmd-label-floating">Case No</label>
-                          <input type="text" name="caseno" class="form-control">
+                          <input type="text" name="caseno" class="form-control" required>
                         </div>
                       </div>
                     
@@ -241,14 +241,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- Tracking progress -->
-                    {{-- <ol class="etapier">
-                        <li class="done"><a href="">App. Submitted</a></li>
-                        <li class="done"><a href="">BJ Form Attached</a></li>
-                        <li class="todo"><a href="">CC Not Found</a></li>
-                        <li class="todo"><a href="">Review in Progress</a></li>
-                        <li class="todo"><a href="">Appeal Resolved</a></li>
-                    </ol> --}}
+                   
                   
 
                     <!-- boleto__wrapper -->
@@ -268,33 +261,7 @@
 
 
                      <div class="row">
-                        <!-- <div class="col-md-4">
-                        <label class="card-category">ADD APP FORM :</label>
-                                    <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left" >
-                                <input type="file"  name="file_app" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                            <label class="card-category">ADD BJ FORM :</label>
-                            <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left" >
-                                <input type="file"  name="file_bj">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                                <label class="card-category">ADD Letter :</label>
-                                <div class="file-field">
-                                        <div class="btn btn-primary btn-sm float-left" >
-                                    <input type="file"  name="file_letter">
-                                    </div>
-                                </div>
-                            </div> -->
-
-                           <!-- File Uploader open for DocType -->
-
+                        <!-- File Uploader open for DocType -->
                             @foreach ($docname as $datas)
                             <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
                                 <input type="file" id="filename" name="filename[]" class="form-control">
@@ -323,10 +290,7 @@
                 </div>
               </div>
             </div>
-            <form action="appeals/offence" method="POST" enctype="multipart/form-data" id="modalsFrom">
-              {{ csrf_field() }}
-              @include('inc.modals')
-            </form>
+            
             </div>
             
           </div>
@@ -383,11 +347,14 @@
                             },
                             complete: function(xhr) {
                                 status.html(xhr.responseText);
+                                var percentVal = '0%';
+                                //bar.width(percentVal);
+                                //percent.html(percentVal);
                                 //bar.hide();
                                 //alert('Success');
                             }
                         });
-                        $('form').submit(); 
+                         $('form').submit(); 
                         }); 
                         </script>
                         <script>

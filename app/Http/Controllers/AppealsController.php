@@ -63,6 +63,12 @@ class AppealsController extends Controller
      */
     public function store(Request $request)
     {
+        
+                    $this->validate($request,[
+        
+                            'prisoner_no' => 'required|unique:posts|max:255',
+                            'prisoner_name' => 'required'
+                        ]);
         $document = Document::all();
         $doctype = Doctype::all();
              
@@ -100,7 +106,11 @@ class AppealsController extends Controller
                             }
                             $result[$key]  = $t;
                         }// end of doctype
-
+                     
+                        
+                                                      
+                            
+                        
                         //Prisoner Table Data Insertion Block
                         DB::table('prisoner')->insert([
                         ['prisoner_no' => $request->input('prisoner_no'), 
@@ -135,7 +145,7 @@ class AppealsController extends Controller
                                 ['appealid' => $nextId1, 
                                 'doctypeid' => $r[0], 
                                 'attached' => '1', 
-                                'filename' => $r[1],
+                                'filename' => $r[1].time(),
                                 'created_at' => date('Y-m-d h:s:i'),
                                 'updated_at' => date('Y-m-d h:s:i')]
                             ]);
