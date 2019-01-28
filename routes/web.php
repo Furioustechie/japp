@@ -87,5 +87,7 @@ Route::post('editsettings/update_status/{id}', 'SettingsController@update_status
 Route::get('/rotate', 'SettingsController@rotate');
 Route::get('services/upload', 'settingsController@upload');
 Route::get('/mail', 'mailController@firemail');
+Route::get('/sms', 'mailController@firesms');
 Route::post('send/mail', 'mailController@sendemail');
+Route::post('send/sms', 'mailController@sendsms');
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);

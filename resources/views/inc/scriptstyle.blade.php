@@ -1,5 +1,6 @@
 <!--   Core JS Files   -->
 <!-- <script src="assets/js/core/jquery.min.js" type="text/javascript"></script> -->
+
 <script src="{{URL::asset('assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('assets/js/core/popper.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('assets/js/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script>
@@ -56,6 +57,5 @@
         $('ul.treeview-menu a').filter(function () {
            return this.href == url;
         }).parents('li').addClass('active');
-        
-        </script>
+</script>
         

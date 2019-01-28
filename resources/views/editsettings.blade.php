@@ -4,10 +4,38 @@
 <head>
   @include('inc.style')
   
+  <style type="text/css">
+ 
+   /* #preloader {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 9999;
+   background-image: url('assets/img/loader.gif');
+   background-repeat: no-repeat; 
+   background-color: #FFF;
+   background-position: center;
+} */
+.preloader 
+{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('assets/img/loader.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+  </style>
   
 </head>
 
 <body class="">
+    <div id="preloaders" class="preloader"></div>
+
  @include('inc.messages')
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -228,12 +256,30 @@
     </div>
   </div>
   <!-- JavaScripts Styles    -->
+ 
+<script>
+//   document.onreadystatechange = function () {
+//   var state = document.readyState
+//   if (state == 'complete') {
+//          document.getElementById('interactive');
+//          document.getElementById('preloader').style.visibility="hidden";
+//   }
+// }
+</script>
+
+   <script>
+      window.setTimeout(function() {
+          $(".preloader").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove(); 
+          });
+      }, 3000);
+    </script>
   @include('inc.scriptstyle')
   @include('sweet::alert')
   <footer class="footer">
     @include('inc.footer')
   </footer>
-
+ 
 </body>
 
 </html>
