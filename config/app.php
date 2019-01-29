@@ -149,13 +149,14 @@ return [
         App\Providers\dynamiclist::class,
         App\Providers\prisonlist::class,
         
+        
         /*
          * Package Service Providers...
          */
        
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
-       
+        Tzsk\Sms\Provider\SmsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -216,6 +217,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Sms' => Tzsk\Sms\Facade\Sms::class,
 
     ],
 

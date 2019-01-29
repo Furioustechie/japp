@@ -66,14 +66,14 @@ class AppealsController extends Controller
         
                     $this->validate($request,[
         
-                            'prisoner_no' => 'required|unique:posts|max:255',
+                            'prisoner_no' => 'required|max:255',
                             'prisoner_name' => 'required'
-                        ]);
-        $document = Document::all();
-        $doctype = Doctype::all();
-             
-        $data = array(); 
-        $dtype = array();
+                            ]);
+                                $document = Document::all();
+                                $doctype = Doctype::all();
+                                    
+                                $data = array(); 
+                                $dtype = array();
              
                         $nextId = DB::table('newappeals')->max('id');
                         $nextId1 = DB::table('newappeals')->max('id')+1; //Increment ID for documents table
@@ -82,7 +82,7 @@ class AppealsController extends Controller
                         {
                             $data=array(); 
                             foreach ($files as $file) {
-                            $name=$file->getClientOriginalName()+now();
+                            $name=$file->getClientOriginalName();
                                 $file->move(public_path().'/files/', $name);  
                             $data[] = $name;
                             }
