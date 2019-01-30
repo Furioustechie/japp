@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\sendemail;
 use Session;
 use Tzsk\Sms\Facade\Sms;
+use App\User;
+namespace App\Notifications;
 
 class mailController extends Controller
 {
+
     public function firemail(){
 
        
@@ -21,11 +25,13 @@ class mailController extends Controller
         return view('sms');
     }
     public function sendemail(Request $get){
-    
+        
         $email   = $get->email;
         $subject = $get->subject;
         $message = $get->message;
 
+       
+      // $this->user()->notify(new jappNotification());
        Mail::to($email)->send(new sendemail($subject,$message));
 
         //return "Hello!";
@@ -89,7 +95,7 @@ class mailController extends Controller
             //ignore ssl certification verification proces
             
             curl_setopt($ch, CURL_SSL_VERIFYHOST, 0);
-            //curl_setopt($ch, CURL_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURL_SSL_VERIFYPEER, 0);
             
             // Get Response
             
@@ -103,6 +109,11 @@ class mailController extends Controller
             curl_close($ch);
             return redirect ('/sms')->with('success', 'Message Sent');*/
             
+    }
+    public function notifyme(){
+            $user = User::find(1);
+            User::find(1)->notify(new jappNotification);
+            return view ('/notify');
     }
 
     

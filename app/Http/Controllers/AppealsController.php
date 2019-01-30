@@ -11,6 +11,7 @@ use App\Newappeal;
 use App\Status;
 use App\Appealstatus;
 use DB;
+use Notfiable;
 
 
 class AppealsController extends Controller
@@ -154,6 +155,7 @@ class AppealsController extends Controller
                         //     
                         
                         //$appeal->save();  Eloquant Insert
+                        $this->notifiy(new jappNotification());
                          return redirect('appealForm')->with('success', 'Application Submitted'); //submit application
                     }
 

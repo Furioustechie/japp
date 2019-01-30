@@ -7,7 +7,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendEmail extends Mailable
+
+class SendEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -35,6 +36,7 @@ class SendEmail extends Mailable
     {
         $e_sub = $this->sub;
         $e_msg = $this->msg;
+
         return $this->view('/sendmail',compact("e_msg"))->subject($e_sub);
     }
 }

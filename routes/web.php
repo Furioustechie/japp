@@ -1,5 +1,8 @@
 <?php
-
+use App\Notifications\jappNotification;
+use App\User;
+use App\Notification;
+use Carboon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,4 +93,5 @@ Route::get('/mail', 'mailController@firemail');
 Route::get('/sms', 'mailController@firesms');
 Route::post('send/mail', 'mailController@sendemail');
 Route::post('send/sms', 'mailController@sendsms');
+Route::get('/notify', 'notifyController@notifyme');
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
