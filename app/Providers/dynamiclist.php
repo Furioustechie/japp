@@ -7,6 +7,7 @@ use App\Sentence;
 use App\Court;
 use App\Offence;
 use App\Status;
+use App\Notification;
 use App\Appealstatus;
 use App\Application;
 use Illuminate\Support\ServiceProvider;
@@ -54,7 +55,10 @@ class dynamiclist extends ServiceProvider
 
         });
         
+        view()->composer('*',function($view){
+            $view->with('notifyme', Notification::all());
 
+        });
         
      
 

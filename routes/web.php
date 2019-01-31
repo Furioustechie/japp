@@ -94,4 +94,5 @@ Route::get('/sms', 'mailController@firesms');
 Route::post('send/mail', 'mailController@sendemail');
 Route::post('send/sms', 'mailController@sendsms');
 Route::get('/notify', 'notifyController@notifyme');
+Route::get('/readnotify', 'notifyController@readnotify');
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);

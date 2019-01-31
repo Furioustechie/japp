@@ -9,7 +9,7 @@ use App\Mail\sendemail;
 use Session;
 use Tzsk\Sms\Facade\Sms;
 use App\User;
-namespace App\Notifications;
+
 
 class mailController extends Controller
 {
@@ -110,12 +110,7 @@ class mailController extends Controller
             return redirect ('/sms')->with('success', 'Message Sent');*/
             
     }
-    public function notifyme(){
-            $user = User::find(1);
-            User::find(1)->notify(new jappNotification);
-            return view ('/notify');
-    }
-
+   
     
     
 }
