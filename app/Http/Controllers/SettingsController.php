@@ -15,8 +15,11 @@ use App\Offence;
 use App\Status;
 //use Datatables;
 use Alert;
-// ------------------------End of Block ------------------>
+use Gate;
 use DB;
+
+// ------------------------End of Block ------------------>
+
 class SettingsController extends Controller
 {
     /**
@@ -27,6 +30,7 @@ class SettingsController extends Controller
     public function index()
     {
         //
+        
        
     }
     public function rotate()
@@ -428,7 +432,9 @@ class SettingsController extends Controller
 
     // ------------------------Edit Settings View Load ------------------>
     public function edit_settings(){
-        
+        if(!Gate::allows('isAdmin')){
+            abort(401,'You are not authorized here!');
+        }
         return view('editsettings');
     }
     //edit_settings

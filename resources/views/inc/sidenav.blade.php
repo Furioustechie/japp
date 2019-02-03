@@ -6,13 +6,14 @@
             <p>Dashboard</p>
           </a>
         </li>
-        
+        @can('isUser')
         <li class="nav-item">
           <a class="nav-link" href="appealForm">
             <i class="material-icons">content_paste</i>
             <p>Appeal Now</p>
           </a>
         </li>
+        @endcan
         <li class="nav-item ">
             <a class="nav-link" href="appeals">
               <i class="material-icons">person</i>
@@ -33,13 +34,14 @@
         </ul>
       </li> --}} -->
 
-    
+    @can('isAdmin')
         <li class="nav-item ">
           <a class="nav-link" href="editsettings">
             <i class="material-icons">settings_applications</i>
             <p>Settings</p>
           </a>
         </li>
+        @endcan
         <li class="nav-item ">
           <a class="nav-link" href="testpage">
             <i class="material-icons">location_ons</i>

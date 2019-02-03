@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Appeal;
+use App\User;
 use App\Application;
 use DB;
+use Gate;
+use App\Notifications\jappNotification;
+use App\Notification;
+use Carboon\Carbon;
 
 class PagesController extends Controller
 {
@@ -101,6 +106,9 @@ class PagesController extends Controller
         // print_r($all_appeals);
         // exit;
         //return view('dashboard', $send);
+        $send['user'] = User::find(1);
+       // User::find(1)->notify(new jappNotification);
+       
        return view ('dashboard', $send)->with('appeals',$appeals);
       // return view ('dashboard', ['count' => $wordCount,'count1' => $wordCount1,'gender' => $gen, 'total' =>$tot,'sentype' => $st, 'stotal' =>$sttotal, 'appealDetails' =>$all_appeals])->with('appeals',$appeals)->with('newappeals',$n_appeals);
        //return view ('dashboard', ['label' => $barlist1])->with('appeals',$appeals);
@@ -109,7 +117,17 @@ class PagesController extends Controller
         
     }
     public function appealForm(){
-        
+        if(!Gate::allows('isAdmin')){
+            abort(401,'You are not authorized here!');
+        }
         return view('appealForm');
+    }
+    public function readnotify(){
+        $user = User::find(1);
+        foreach ($user->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+       // $send['user'] = $user;
+        return redirect('/dashboard');
     }
 }
