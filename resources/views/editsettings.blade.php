@@ -5,19 +5,7 @@
   @include('inc.style')
   
   <style type="text/css">
- 
-   /* #preloader {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   z-index: 9999;
-   background-image: url('assets/img/loader.gif');
-   background-repeat: no-repeat; 
-   background-color: #FFF;
-   background-position: center;
-} */
+
 .preloader 
 {
     position: fixed;
@@ -119,8 +107,6 @@
           <div class="row">
               <div class="col-md-2"></div>
             <div class="col-md-8">
-              <!-- <div class="card"> -->
-               <!-- Edit Block -->
                <div class="card card-nav-tabs">
                 <div class="card-header card-header-primary">
                     <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -156,6 +142,12 @@
                                   <a class="nav-link" href="#status" data-toggle="tab">
                                       <i class="material-icons">wb_sunny</i>
                                       Status
+                                  </a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#account" data-toggle="tab">
+                                      <i class="material-icons">wc</i>
+                                      User Account
                                   </a>
                               </li>
                             </ul>

@@ -19,7 +19,7 @@
 {{session('error')}}
 </div>
 @endif
-
+<!-- Javascript for fade out messages -->
 <script>
 window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){

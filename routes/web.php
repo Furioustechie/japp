@@ -108,3 +108,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/testlogin', 'loginController@testlogin');
 Route::get('/testforgot', 'loginController@testforgot');
+
+//test route page for master blade
+Route::get('/master', 'pagesController@masterpage');

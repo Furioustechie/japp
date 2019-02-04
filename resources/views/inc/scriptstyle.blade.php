@@ -42,9 +42,9 @@
 <script src="{{URL::asset('js/editsettings.js')}}"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 
-
+<!--Javascript for active nav-ink  not tested-->
  <script>
- // Add your javascript here
+ //  javascript here
  $(document).ready(function() {
   $(document).on('click', '.nav .nav-item a', function (e) {
         $(this).parent().addClass('active').siblings().removeClass('active');
@@ -52,6 +52,8 @@
   
 });
 </script>
+
+<!-- Javascript for active nav-ink -->
 <script>
         var url = window.location;
         $('ul.treeview-menu a').filter(function () {

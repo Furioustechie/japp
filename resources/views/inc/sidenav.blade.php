@@ -22,19 +22,8 @@
           </li>
         
       
-       <!-- Dropdown -->
-       <!-- {{-- <li class="nav-item"> <a class="nav-link" id="DropdownMenuLink" data-toggle="collapse"  aria-expanded="false" data-target="#submenu1"> <i class="material-icons">settings_applications</i>Settings</a>
-        <ul class="collapse primary" id="submenu1" role="menu" aria-labelledby="DropdownMenuLink">
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPrisonForm">Add New Prison Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSentenceForm">Add New Sentence Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCourtForm">Add New Court Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalOffenceForm">Add New Offence Name</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalStatusForm">Add New Status</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#centralModalSuccess">Another One</a>
-        </ul>
-      </li> --}} -->
 
-    @can('isAdmin')
+       @can('isAdmin')
         <li class="nav-item ">
           <a class="nav-link" href="editsettings">
             <i class="material-icons">settings_applications</i>

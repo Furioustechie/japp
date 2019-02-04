@@ -130,4 +130,9 @@ class PagesController extends Controller
        // $send['user'] = $user;
         return redirect('/dashboard');
     }
+
+    public function masterpage(){
+
+        return view('/master');
+    }
 }
