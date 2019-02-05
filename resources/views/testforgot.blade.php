@@ -25,6 +25,8 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/login/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/login/css/main.css')}}">
+
+	
 	
 <!--===============================================================================================-->
 </head>
@@ -41,12 +43,12 @@
                     <form method="POST" action="{{ route('password.email')}}" class="login100-form validate-form">
                             @csrf
     
-                <span class="login100-form-title p-b-43">
+                <span data-placeholder="Type Your Email Here .." class="login100-form-title p-b-43">
                     Account Password Reset
                 </span>
                
                 <div class="wrap-login100 rs1 validate-input" data-validate = "Username is required">
-                    <input placeholder="Type Your Email Here .." id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} login100" name="email" value="{{ old('email') }}" required >
+                    <input data-placeholder="Type Your Email Here .." id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} login100" name="email" value="{{ old('email') }}" required >
                     @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -65,32 +67,35 @@
                         
                 </div>
                 
-                
             </form>
 			</div>
 		</div>
 	</div>
-	
-	
 
 	
+<script src="{{URL::asset('assets/login/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/core/jquery.introducing.min.js')}}"></script>
+<script type="text/javascript">
+	$('input').introducing()
+</script>	
+
+
+	<!--===============================================================================================-->
 	
 <!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{URL::asset('assets/login/vendor/animsition/js/animsition.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/animsition/js/animsition.min.js')}}"></script>
+	<script src="{{URL::asset('assets/login/vendor/bootstrap/js/popper.js')}}"></script>
+	<script src="{{URL::asset('assets/login/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/bootstrap/js/popper.js')}}"></script>
-	<script src="{{URL::asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+	<script src="{{URL::asset('assets/login/vendor/select2/select2.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/select2/select2.min.js')}}"></script>
+	<script src="{{URL::asset('assets/login/vendor/daterangepicker/moment.min.js')}}"></script>
+	<script src="{{URL::asset('assets/login/vendor/daterangepicker/daterangepicker.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/daterangepicker/moment.min.js')}}"></script>
-	<script src="{{URL::asset('assets/vendor/daterangepicker/daterangepicker.js')}}"></script>
+	<script src="{{URL::asset('assets/login/vendor/countdowntime/countdowntime.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/countdowntime/countdowntime.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets/js/main.js')}}"></script>
-
+	<script src="{{URL::asset('assets/login/js/main.js')}}"></script>
 </body>
+
 </html>

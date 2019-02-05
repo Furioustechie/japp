@@ -26,6 +26,7 @@
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/login/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/login/css/main.css')}}">
 	
+	
 <!--===============================================================================================-->
 </head>
 <body>
@@ -51,9 +52,6 @@
 
 						<span class="label-input100">Username</span>
 					</div>
-
-					
-					
 					<div class="wrap-input100 rs2 validate-input" data-validate="Password is required">
 					
 						<input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} input100" name="password" required>
@@ -85,24 +83,28 @@
 	
 	
 
+	<script src="{{URL::asset('assets/login/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 	
-	
+	<script src="{{URL::asset('assets/js/core/jquery.introducing.min.js')}}"></script>
+	<script type="text/javascript">
+		$('input').introducing()
+	</script>
 <!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/animsition/js/animsition.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/bootstrap/js/popper.js')}}"></script>
-	<script src="{{URL::asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/select2/select2.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/daterangepicker/moment.min.js')}}"></script>
-	<script src="{{URL::asset('assets/vendor/daterangepicker/daterangepicker.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets/vendor/countdowntime/countdowntime.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets/js/main.js')}}"></script>
 
+<!--===============================================================================================-->
+<script src="{{URL::asset('assets/login/vendor/animsition/js/animsition.min.js')}}"></script>
+<!--===============================================================================================-->
+<script src="{{URL::asset('assets/login/vendor/bootstrap/js/popper.js')}}"></script>
+<script src="{{URL::asset('assets/login/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<!--===============================================================================================-->
+<script src="{{URL::asset('assets/login/vendor/select2/select2.min.js')}}"></script>
+<!--===============================================================================================-->
+<script src="{{URL::asset('assets/login/vendor/daterangepicker/moment.min.js')}}"></script>
+<script src="{{URL::asset('assets/login/vendor/daterangepicker/daterangepicker.js')}}"></script>
+<!--===============================================================================================-->
+<script src="{{URL::asset('assets/login/vendor/countdowntime/countdowntime.js')}}"></script>
+<!--===============================================================================================-->
+<script src="{{URL::asset('assets/login/js/main.js')}}"></script>
+	
 </body>
 </html>

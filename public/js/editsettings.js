@@ -658,7 +658,7 @@ var url = "/editsettings_Status"
                         
                         
                         
-                        /* Edit Prisons Item */
+                        /* Edit Prisons Item *//////
                                         $("body").on("click",".edit_statusName",function(){
                         
                         
@@ -727,6 +727,148 @@ var url = "/editsettings_Status"
                         
                                         });
 
+// Add User Account Information
+
+$(function() {
+    var url = "/editsettings_uaccount"
+        $('#dataTableuaccount').DataTable({
+    
+            processing: true,
+            serverSide: true,
+            ajax: url,
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'phone', name: 'phone' },
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ]
+    
+        });
+    
+    });
+    $('#dataTableuaccount').on('click', '.accountNameDelete', function (e) { 
+        var id = $(this).attr('data-id');
+        
+    e.preventDefault();
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        
+    }
+    });
+
+    swal({
+    title: "Are you sure ??",
+    text: "You won't be able to revert this!", 
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+    })
+    .then((willDelete) => {
+    if (willDelete) {
+    
+    $.ajax({
+
+    url: "editsettings/accountName_destroy/"+id,
+    type: 'GET',
+    dataType: "HTML",
+    data: {
+        "id": id,
+        "_method": 'DELETE',
+                    
+        },
+        success: function (data) {
+            swal("Done!","It was succesfully deleted!","success");
+            },
+        error: function (xhr, ajaxOptions, thrownError) {
+            swal("Error deleting!", "Name being used", "error");
+        }
+    })
+    .always(function (data) {
+    $('#dataTableuaccount').DataTable().draw(false);
+    });
+    
+    } else {
+    Swal({
+    title:'Dismissed!',
+    text:'Your record is safe.',
+    type:'error',
+    timer:5000,
+    }) 
+    }
+    });
+    });
 
 
-                                        
+
+/* Edit Prisons Item *//////
+        $("body").on("click",".edit_accountName",function(){
+
+
+        var id = $(this).data('id');
+        var name = $(this).parent("td").prev("td").prev("td").prev("td").text();
+        //var name = $(this).parent("td").prev("td").prev("td").text();
+       // var name = $(this).parent("td").prev("td").text();
+
+
+        $("#edit_accountName").find("input[name='rename_name']").val(name);
+    
+        $("#edit_accountName").find(".edit-id").val(id);
+
+
+        });
+        /* Updated new Item */
+        $(".submit-accountName").click(function(e){
+
+        e.preventDefault();
+        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                
+                            }
+                            });
+    
+        var name = $("#edit_accountName").find("input[name='rename_name']").val();
+
+
+
+        var id = $("#edit_accountName").find(".edit-id").val();
+
+
+        if(name != ''){
+        $.ajax({
+
+        url: "editsettings/update_accountName/"+id,
+        type: 'post',
+    
+        data: {
+            "id":id,
+            "rename_name": name,
+    
+            "_method": 'POST',
+                        
+            },
+            success: function (data) {
+            
+                swal("Done!","It was succesfully updated!","success");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Name being used", "error");
+            }
+        })
+        .always(function (data) {
+                            $('#dataTableuaccount').DataTable().draw(false);
+                            });
+        }else {
+                            Swal({
+                            title:'Dismissed!',
+                            text:'Your record is safe.',
+                            type:'error',
+                            timer:5000,
+                            }) 
+                            }
+
+
+        });
+  

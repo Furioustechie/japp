@@ -4,20 +4,7 @@
 <head>
   @include('inc.style')
   
-  <style type="text/css">
-
-.preloader 
-{
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: url('assets/img/loader.gif') 50% 50% no-repeat rgb(249,249,249);
-    opacity: .8;
-}
-  </style>
+  
   
 </head>
 
@@ -46,7 +33,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">All Settings</a>
+            <a class="navbar-brand" href="#pablo">..</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -145,7 +132,7 @@
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" href="#account" data-toggle="tab">
+                                  <a class="nav-link" href="#uaccount" data-toggle="tab">
                                       <i class="material-icons">wc</i>
                                       User Account
                                   </a>
@@ -157,8 +144,9 @@
                   <div class="card-body ">
                     <div class="tab-content text-center">
                         <div class="tab-pane active" id="sentences">
-                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_sentence"  data-id="add_sentence" class="add_sentence"><i class="material-icons">add_circle_outline</i> ADD</button> </a>
-                          <div class="table-responsive">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalSentenceForm"  data-id="add_sentence">Add New Sentence</button>     
+
+                        <div class="table-responsive">
                               <table id="dataTableSentences" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                   <thead class="text-primary">
                                           <tr>
@@ -171,7 +159,7 @@
                       </div>
                     </div>
                         <div class="tab-pane" id="courts">
-                          <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_sentence"  data-id="add_sentence" class="add_sentence"><i class="material-icons">add_circle_outline</i> ADD</button> </a>
+                          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalCourtForm"  data-id="add_courts">Add New Court</button>     
 
                             <table id="dataTableCourts" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
@@ -187,8 +175,9 @@
                                </table> 
                         </div>
                         <div class="tab-pane" id="prisons">
-                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_prison"  data-id="add_prison" class="add_prison"><i class="material-icons">add</i></button> </a>
-                            <table id="dataTablePrison" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalPrisonForm"  data-id="add_prison">Add New Prison</button>     
+  
+                        <table id="dataTablePrison" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
                                         <div class="table-responsive">
                                 <thead class="text-primary">
@@ -200,7 +189,7 @@
                                     </thead>
                                </table>                         </div>
                         <div class="tab-pane" id="offences">
-                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_offence"  data-id="add_offence" class="add_offence"><i class="material-icons">add</i></button> </a>
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalOffenceForm"  data-id="add_offence">Add New Offence</button>     
 
                             <table id="dataTableOffences" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
@@ -216,7 +205,7 @@
                                </table>
                               </div>
                         <div class="tab-pane" id="status">
-                        <a href="#" <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#add_status"  data-id="add_status" class="add_status"><i class="material-icons">add</i></button> </a>
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalStatusForm"  data-id="add_status">Add New Status</button>     
 
                             <table id="dataTableStatus" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
@@ -231,6 +220,23 @@
                                     
                                </table>
                          </div>
+                         <div class="tab-pane" id="uaccount">
+                           <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add_accountName"  data-id="add_accountName">Add New Use</button>     
+                           <table id="dataTableuaccount" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <thead class="text-primary">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                   </table>
+                             </div>
                     </div>
                 </div>
                 </div>
@@ -259,13 +265,7 @@
 // }
 </script>
 
-   <script>
-      window.setTimeout(function() {
-          $(".preloader").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
-          });
-      }, 3000);
-    </script>
+  
   @include('inc.scriptstyle')
   @include('sweet::alert')
   <footer class="footer">

@@ -169,8 +169,8 @@
                                           <label class="bmd-label-floating">Sentence Type</label>
                                           <select class="browser-default custom-select" name="sentencetype">
                                               <option selected>Please Select..</option>
-                                              <option value="1">Sentence Type 1</option>
-                                              <option value="2">Sentence Type 2</option>
+                                              <option value="1">User</option>
+                                              <option value="2">Admin</option>
                                               <option value="3">Sentence Type 3</option>
                                              </select>
                                         </div>

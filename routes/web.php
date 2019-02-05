@@ -59,6 +59,7 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
 
  Route::post('/editsettings/update_status/{id}', 'SettingsController@update_status');  // Update Status Name
  Route::get('/editsettings/status_name_destroy/{id}', 'SettingsController@status_name_destroy'); //Delete Status Name
+ Route::get('/editsettings/uaccount_destroy/{id}', 'SettingsController@uaccount_destroy'); //Delete User infomation
 
 //Route::get('appeals/create', 'AppealsController@create');
 //Route::post('appeals/store', 'AppealsController@store');
@@ -78,6 +79,7 @@ Route::get('/editsettings_Prisons', ['as'=>'get.data1','uses'=>'SettingsControll
 Route::get('/editsettings_Sentences', ['as'=>'get.data2','uses'=>'SettingsController@getSentenceData']);
 Route::get('/editsettings_Offences', ['as'=>'get.data3','uses'=>'SettingsController@getOffenceData']);
 Route::get('/editsettings_Status', ['as'=>'get.data4','uses'=>'SettingsController@getStatusData']);
+Route::get('/editsettings_uaccount', ['as'=>'get.data5','uses'=>'SettingsController@getuaccount']);
 
 //Update Settings Data
 Route::post('editsettings/update_court/{id}', 'SettingsController@update_court');
@@ -85,6 +87,7 @@ Route::post('editsettings/update_prison/{id}', 'SettingsController@update_prison
 Route::post('editsettings/update_sentence/{id}', 'SettingsController@update_sentence');
 Route::post('editsettings/update_offence/{id}', 'SettingsController@update_offence');
 Route::post('editsettings/update_status/{id}', 'SettingsController@update_status');
+Route::post('editsettings/update_accountName/{id}', 'SettingsController@update_accountName');
 
 
 Route::get('/rotate', 'SettingsController@rotate');
@@ -103,6 +106,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/home', 'PagesController@dashboard');
 Auth::routes();
+Route::post('editsettings/add_userAccount', 'SettingsController@add_userAccount');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

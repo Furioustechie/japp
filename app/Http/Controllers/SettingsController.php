@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 use App\Appeal;
 use App\Doctype;
@@ -13,6 +16,7 @@ use App\Sentence;
 use App\Court;
 use App\Offence;
 use App\Status;
+use App\User;
 //use Datatables;
 use Alert;
 use Gate;
@@ -165,6 +169,19 @@ class SettingsController extends Controller
             ->make(true);
     }
 
+    public function getuaccount()
+    {
+        $accountName = DB::table('users')->select('id', 'name', 'email', 'phone')->get();
+        return Datatables::of($accountName)
+            ->addColumn('action', function ($accountName) {
+                return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$accountName->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
+                .'<a href="#" class="accountNameDelete delete" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->make(true);
+    }
+
     
     /**
      * Update the specified resource in storage.
@@ -233,6 +250,18 @@ class SettingsController extends Controller
           $update_status_name->updated_at = date('Y-m-d h:i:s');
 
           $update_status_name->save();
+      }
+
+      // ------------------------User Information  Update ------------------>
+      public function update_accountName(Request $request, $id) //modifed update function
+      {
+          //
+          $update_user_info = User::find($id);
+          $update_user_info->name = $request->input('rename_name');
+          $update_user_info->created_at = date('Y-m-d h:i:s');
+          $update_user_info->updated_at = date('Y-m-d h:i:s');
+
+          $update_user_info->save();
       }
     /**
      * Remove the specified resource from storage.
@@ -307,6 +336,21 @@ class SettingsController extends Controller
             return redirect('/editsettings')->with('error','Status Courts Name is Being Used and Can Not Be Deleted Now!!');
         }
     }
+
+    // ------------------------User Information  Delete ------------------>
+    public function uaccount_destroy($id)
+    {
+        
+        
+        // echo $id;  
+        try {
+         DB::table('users')->where('id',$id)->delete();
+            return redirect('/editsettings')->with('success','User information Deleted Successdully');
+        } catch (\Exception $e) { 
+            // if an exception happened in the try block above 
+            return redirect('/editsettings')->with('error','User Information is Being Used and Can Not Be Deleted Now!!');
+        }
+    }
     // ------------------------Sentence Name  Added ------------------>
     public function add_sentence(Request $request)
     {
@@ -343,11 +387,13 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('editsettings')->with('success','Offence Added');
+                    Alert::success('success','Offence Title Added Successfully');
+                    return redirect('editsettings');
             }
            
         else{
-            return redirect('editsettings')->with('error','Already Exists');
+            Alert::error('Error','Offence Title Already Exists');
+            return redirect('editsettings');
         }
         }
 
@@ -369,11 +415,13 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
+                    Alert::success('success','Prison Name Added Successfully');
                     return redirect('editsettings')->with('success','Prison Name Added');
             }
            
         else{
-            return redirect('editsettings')->with('error','Already Exists');
+            Alert::success('error','Prison Name Already Exists');
+            return redirect('editsettings');
         }
         }
 
@@ -384,21 +432,23 @@ class SettingsController extends Controller
     {
        
         if ($request->has('court_submit')) {
-            $has_prison_name = DB::table('courts')->where(array('name'=>$request->input('court_name'),'disid'=>$request->input('district_name')))->first();
+            $has_prison_name = DB::table('courts')->where(array('name_en'=>$request->input('court_name'),'disid'=>$request->input('district_name')))->first();
             if(empty($has_prison_name)){
             
                     DB::table('courts')->insert([
                         [
-                        'name'  => $request->input('court_name'),
+                        'name_en'  => $request->input('court_name'),
                         'disid'  => $request->input('district_name'),
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('editsettings')->with('success','Court Name Added');
+                    Alert::success('success','Court Name Added Successfully');
+                    return redirect('editsettings');
             }
            
         else{
-            return redirect('editsettings')->with('error','Already Exists');
+            Alert::success('error','Court Name Already Exists');
+            return redirect('editsettings');
         }
         }
 
@@ -428,6 +478,26 @@ class SettingsController extends Controller
         }
 
             
+    }
+
+   
+    public function add_userAccount(Request $request)
+    {
+        $this->validate($request,[
+        
+            'name' => 'required|string|max:255',
+            'phone' => 'required|integer|min:0|max:13',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            ]);
+            
+             DB::table('users')->insert([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        Alert::success('success','User Added Successdully');
+        return redirect('/editsettings');
     }
 
     // ------------------------Edit Settings View Load ------------------>

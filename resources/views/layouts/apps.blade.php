@@ -5,6 +5,20 @@
     <!-- CSS Style Sheet -->
     @include('inc.style')
     <!-- End CSS Style Sheet -->
+    <style type="text/css">
+
+        .preloader 
+        {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('assets/img/loader.gif') 50% 50% no-repeat rgb(249,249,249);
+            opacity: .8;
+        }
+          </style>
 </head>
 <?php $appealtest=''?>
 
@@ -695,3 +709,11 @@
     });
 
 </script>
+
+<script>
+      window.setTimeout(function() {
+          $(".preloader").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove(); 
+          });
+      }, 3000);
+    </script>
