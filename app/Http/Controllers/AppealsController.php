@@ -10,9 +10,13 @@ use App\Application;
 use App\Newappeal;
 use App\Status;
 use App\Appealstatus;
+use App\User;
 use DB;
 use Notfiable;
-
+use Gate;
+use App\Notifications\jappNotification;
+use App\Notification;
+use Carboon\Carbon;
 
 class AppealsController extends Controller
 {
@@ -153,9 +157,15 @@ class AppealsController extends Controller
                             
                             }
                         //     
-                        
+                      
+                /*-----------------Notification From Prison To High Court--------------------------------------- */
+                        $prison_name = DB::table('prisons')->where('id',$request->input('prisonid'))->first(); //Get Prison ID
+                        $msg='New Appeals From '.$prison_name->name; // Get Prison Name
+                        $arr=array('data'=> $msg);
+                         User::find(3)->notify(new jappNotification($arr));
                         //$appeal->save();  Eloquant Insert
-                        $this->notifiy(new jappNotification());
+                        //$this->notify(new jappNotification());
+                /*-----------------End of Notification From Prison To High Court--------------------------------------- */
                          return redirect('appealForm')->with('success', 'Application Submitted'); //submit application
                     }
 
@@ -243,7 +253,16 @@ class AppealsController extends Controller
         //$appeals->isgrant = $request->has('options1');
        // $appeals->remarks = $request->input('rejectgrant');
        // $appeals->isgrant = $request->has('options1');
-        
+
+      /*-----------------Notification From High Court To Prison--------------------------------------- */
+        $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first(); // Get Appeal ID
+        $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
+        $st_name = DB::table('status')->where('id',$request->input('status_id'))->first(); //Get StatusId
+        $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
+        $arr=array('data'=> $msg);
+        User::find()->notify(new jappNotification($arr));
+     /*-----------------End of Notification From High Court To Prison--------------------------------------- */
+
         return redirect('appeals')->with('success','Application Updated Successfully');
             }
         

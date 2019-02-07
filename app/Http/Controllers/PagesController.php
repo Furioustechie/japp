@@ -117,7 +117,7 @@ class PagesController extends Controller
         
     }
     public function appealForm(){
-        if(!Gate::allows('isAdmin')){
+        if(!Gate::allows('isUser')){
             abort(401,'You are not authorized here!');
         }
         return view('appealForm');

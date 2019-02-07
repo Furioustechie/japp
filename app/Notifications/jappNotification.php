@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Notifications\CustomDbChannel;
 use Carbon;
 
 class jappNotification extends Notification
@@ -17,9 +18,14 @@ class jappNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
+    // public function __construct()
+    // {
+    //     //
+    // }
+    protected $arr;
+
+    public function __construct(array $arr) {
+            $this->arr = $arr;
     }
 
     /**
@@ -28,12 +34,15 @@ class jappNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+    // public function via($notifiable)
+    // {
+    //    // return ['mail','database'];
+    //     return ['database'];
+    // }
     public function via($notifiable)
     {
-       // return ['mail','database'];
-        return ['database'];
+      return [CustomDbChannel::class]; //<-- important custom Channel defined here
     }
-
     /**
      * Get the mail representation of the notification.
      *
@@ -54,12 +63,14 @@ class jappNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
-        return [
-            //
-            'data' =>'Brand New Notification'
-        ];
+        return  $this->arr;
+             
+            // 'title' => 'other data',
+            // 'url' => 'other data',
+            //'user_id' => 1 //<-- send the id here
+          
     }
    
 }

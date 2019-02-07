@@ -486,7 +486,7 @@ class SettingsController extends Controller
         $this->validate($request,[
         
             'name' => 'required|string|max:255',
-            'phone' => 'required|integer|min:0|max:13',
+            'phone' => 'required|integer|min:0',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             ]);
