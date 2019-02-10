@@ -126,7 +126,7 @@
                             <div class="card card-chart">
                                 <div class="card-header card-header-success">
 
-                                    <canvas class="ct-chart" id="myChart" style="position: relative; height:30vw; width:80vw"></canvas>
+                                  <canvas class="ct-chart" id="myChart" style="position: relative; height:30vw; width:80vw"></canvas>
                                     <!----   -->
                                 </div>
                                 <div class="card-body">

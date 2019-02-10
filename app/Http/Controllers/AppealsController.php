@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use Illuminate\Http\Request;
 use App\Appeal;
 use App\Doctype;
@@ -11,12 +11,14 @@ use App\Newappeal;
 use App\Status;
 use App\Appealstatus;
 use App\User;
+use App\Prison;
 use DB;
 use Notfiable;
 use Gate;
 use App\Notifications\jappNotification;
 use App\Notification;
 use Carboon\Carbon;
+
 
 class AppealsController extends Controller
 {
@@ -68,7 +70,7 @@ class AppealsController extends Controller
      */
     public function store(Request $request)
     {
-        
+       
                     $this->validate($request,[
         
                             'prisoner_no' => 'required|max:255',
@@ -141,6 +143,7 @@ class AppealsController extends Controller
                             'offenceid' => $request->input('offencetype'),
                             'sentenceid' => $request->input('sentencetype'), 
                             'resultsid' => 1,
+                            'user_id' => Auth::user()->id, 
                             'created_at' => date('Y-m-d h:s:i'),
                             'updated_at' => date('Y-m-d h:s:i')]
                         ]);
@@ -159,10 +162,12 @@ class AppealsController extends Controller
                         //     
                       
                 /*-----------------Notification From Prison To High Court--------------------------------------- */
+
                         $prison_name = DB::table('prisons')->where('id',$request->input('prisonid'))->first(); //Get Prison ID
                         $msg='New Appeals From '.$prison_name->name; // Get Prison Name
                         $arr=array('data'=> $msg);
-                         User::find(3)->notify(new jappNotification($arr));
+                        $auth_user_id= Auth::user()->id;
+                         User::find($auth_user_id)->Auth::user()->id->notify(new jappNotification($arr));
                         //$appeal->save();  Eloquant Insert
                         //$this->notify(new jappNotification());
                 /*-----------------End of Notification From Prison To High Court--------------------------------------- */
@@ -245,22 +250,18 @@ class AppealsController extends Controller
                          'created_at' => date('Y-m-d h:s:i'),
                             'updated_at' => date('Y-m-d h:s:i')]
         ]);
-       // $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
-        // $appeals->caseno = $request->input('caseno');
-        //$appeals->isgrant = $request->has('options1');
-       // $appeals->remarks = $request->input('rejectgrant');
-       // $appeals->isgrant = $request->has('options1');
-
+       
       /*-----------------Notification From High Court To Prison--------------------------------------- */
+
         $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first(); // Get Appeal ID
         $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
+        //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
         $st_name = DB::table('status')->where('id',$request->input('status_id'))->first(); //Get StatusId
+                    
+
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
         $arr=array('data'=> $msg);
-        User::find()->notify(new jappNotification($arr));
+        User::find(11)->notify(new jappNotification($arr)); // ** Find value needed to be dyynamic
      /*-----------------End of Notification From High Court To Prison--------------------------------------- */
 
         return redirect('appeals')->with('success','Application Updated Successfully');
@@ -271,7 +272,7 @@ class AppealsController extends Controller
         }
 
     }
-       // $appeals->save();
+        // $appeals->save();
         //return redirect('appeals')->with('success','Application Updated');
         $test1 = Newappeals::find($id);
         $test = Appealstatus::find($id);
@@ -305,6 +306,16 @@ class AppealsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // test relationship in eloquent model
+    public function user($username){
+       // $send['user']=Newappeal::where('user_id',11)->first();
+        $send['user'] = User::where('name',$username)->firstOrFail();
+        //$send['usersid'] = User::find()->where('id', 11)->get();
+
+      //  dd($userID);
+        return view ('/profile',$send);
     }
    
    

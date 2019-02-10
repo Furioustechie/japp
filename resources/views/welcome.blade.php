@@ -81,6 +81,7 @@
                 <div class="title m-b-md">
                     This Is My First Laravel Application
                 </div>
+            <h1>{{$userID->name}}'s Area</h1>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>

@@ -221,7 +221,7 @@
                                </table>
                          </div>
                          <div class="tab-pane" id="uaccount">
-                           <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add_accountName"  data-id="add_accountName">Add New Use</button>     
+                           <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add_accountName"  data-id="add_accountName">Add New User</button>     
                            <table id="dataTableuaccount" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                     <div class="card-body">
                                         <div class="table-responsive">

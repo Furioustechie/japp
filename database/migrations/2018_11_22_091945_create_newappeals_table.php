@@ -27,7 +27,7 @@ class CreateNewappealsTable extends Migration
             $table->unsignedInteger('prisonerid');
             $table->unsignedInteger('courtid');
             $table->unsignedInteger('caseid');
-            //$table->unsignedInteger('appealcourtid');
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('offenceid');
             $table->unsignedInteger('sentenceid');
            // $table->unsignedInteger('resultid');
@@ -40,6 +40,7 @@ class CreateNewappealsTable extends Migration
             $table->foreign('caseid')->references('id')->on('cases');
             $table->foreign('offenceid')->references('id')->on('offences');
             $table->foreign('sentenceid')->references('id')->on('sentences');
+            $table->foreign('user_id')->references('id')->on('users');
 
         });
     }

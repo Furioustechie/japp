@@ -101,7 +101,6 @@ Route::get('/readnotify', 'notifyController@readnotify');
 Route::get('/read', 'pagesController@readnotify');
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/home', 'PagesController@dashboard');
@@ -115,3 +114,4 @@ Route::get('/testforgot', 'loginController@testforgot');
 
 //test route page for master blade
 Route::get('/master', 'pagesController@masterpage');
+Route::get('/profile/{username}', 'AppealsController@user');

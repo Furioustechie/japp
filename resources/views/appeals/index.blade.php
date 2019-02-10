@@ -7,7 +7,7 @@
 </head>
 
 <body class="">
-
+    
  {{-- @include('inc.navbar') --}}
  @include('inc.messages')
  @include('inc.modals')
