@@ -18,7 +18,7 @@ use Gate;
 use App\Notifications\jappNotification;
 use App\Notification;
 use Carboon\Carbon;
-
+use Toastr;
 
 class AppealsController extends Controller
 {
@@ -29,6 +29,10 @@ class AppealsController extends Controller
      */
     public function index()
     {
+        $user_id = Auth::user()->id;
+        // echo $user_id;
+        // exit;
+
         $appeals = Appeal::all();
         $test = Appealstatus::all();
         //$document = Document::all();
@@ -40,7 +44,8 @@ class AppealsController extends Controller
                                   INNER JOIN offences ON na.offenceid  = offences.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
-                                  INNER JOIN cases ON cases.id = na.caseid');
+                                  INNER JOIN cases ON cases.id = na.caseid
+                                  WHERE na.user_id = "'.$user_id.'"');
           
 
           
@@ -166,12 +171,13 @@ class AppealsController extends Controller
                         $prison_name = DB::table('prisons')->where('id',$request->input('prisonid'))->first(); //Get Prison ID
                         $msg='New Appeals From '.$prison_name->name; // Get Prison Name
                         $arr=array('data'=> $msg);
-                        $auth_user_id= Auth::user()->id;
-                         User::find($auth_user_id)->Auth::user()->id->notify(new jappNotification($arr));
+                       // $auth_user_id= Auth::user()->id;
+                        User::find(3)->notify(new jappNotification($arr));
                         //$appeal->save();  Eloquant Insert
                         //$this->notify(new jappNotification());
                 /*-----------------End of Notification From Prison To High Court--------------------------------------- */
-                         return redirect('appealForm')->with('success', 'Application Submitted'); //submit application
+                Toastr::success('Success!', 'New appeal has been sumitted successfully');        
+                return redirect('appealForm'); //submit application
                     }
 
             /**
@@ -261,7 +267,8 @@ class AppealsController extends Controller
 
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
         $arr=array('data'=> $msg);
-        User::find(11)->notify(new jappNotification($arr)); // ** Find value needed to be dyynamic
+   
+        User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dyynamic
      /*-----------------End of Notification From High Court To Prison--------------------------------------- */
 
         return redirect('appeals')->with('success','Application Updated Successfully');

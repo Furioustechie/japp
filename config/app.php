@@ -157,6 +157,7 @@ return [
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Tzsk\Sms\Provider\SmsServiceProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -218,6 +219,7 @@ return [
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Sms' => Tzsk\Sms\Facade\Sms::class,
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
 
     ],
 

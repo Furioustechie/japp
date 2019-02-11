@@ -27,6 +27,8 @@
 <!-- Chartist JS -->
 <script src="{{URL::asset('assets/js/plugins/chartist.min.js')}}"></script>
 
+<!-- Toastr JS -->
+<script src="{{URL::asset('assets/js/plugins/toastr.min.js')}}"></script>
 
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{URL::asset('assets/js/material-dashboard.min.js?v=2.1.1')}}" type="text/javascript"></script>

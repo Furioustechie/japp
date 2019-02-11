@@ -271,7 +271,7 @@
   <footer class="footer">
     @include('inc.footer')
   </footer>
- 
+  {!! Toastr::message() !!}
 </body>
 
 </html>

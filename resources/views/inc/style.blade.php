@@ -24,6 +24,7 @@
   <link href="{{URL::asset('dist/css/fs-modal.min.css')}}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <link href="{{URL::asset('css/vertrack.css')}}" rel="stylesheet" />
+  <link href="{{URL::asset('css/toastr.min.css')}}" rel="stylesheet" />
   <!-- Malsup for ProgressBar -->
 
   <!-- <link href="{{URL::asset('css/bootstrap.css')}}" rel="stylesheet" />

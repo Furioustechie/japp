@@ -21,6 +21,7 @@ use App\User;
 use Alert;
 use Gate;
 use DB;
+use Toastr;
 
 // ------------------------End of Block ------------------>
 
@@ -486,7 +487,7 @@ class SettingsController extends Controller
         $this->validate($request,[
         
             'name' => 'required|string|max:255',
-            'phone' => 'required|integer|min:0',
+            //'phone' => 'required|integer|min:0',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             ]);
@@ -497,6 +498,7 @@ class SettingsController extends Controller
             'password' => Hash::make($request['password']),
         ]);
         Alert::success('success','User Added Successdully');
+        // Toastr::success('Success!', 'New User Added Successdully');
         return redirect('/editsettings');
     }
 

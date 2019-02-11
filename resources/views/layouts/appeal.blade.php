@@ -42,6 +42,7 @@
                   <h4 class="card-title">Application Form</h4>
                   <p class="card-category">Complete your application</p>
                 </div>
+                
                 <div class="card-body">
                 <form action="{{url('appeals')}}" method="POST" enctype="multipart/form-data">
                   
@@ -226,8 +227,9 @@
                     </div>
                      <!-- End Section -->
                      {{ csrf_field() }}
-                     
-                         <button type="submit" class="btn btn-success pull-center" name="submit" value="submit">SUBMIT APPLICATION</button>
+                     <!-- button to trigger the action -->
+                         {{-- <button class="btn btn-primary" onclick="md.showNotification('top','right')">Top Right Notification</button> --}}
+                         <button type="submit" class="btn btn-success pull-right" name="submit" value="submit">SUBMIT APPLICATION</button>
                      
                          <div class="clearfix"></div>
                   </form>
@@ -286,7 +288,8 @@
 });
                        </script>
                         
-</body>
+     {!! Toastr::message() !!}
+   </body>
 
 </html>
 
