@@ -32,6 +32,7 @@ Route::get('/dashboard', 'PagesController@dashboard');// pagesController->dashbo
 Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsController->create method->appealForm
 
  Route::resource('appeals', 'AppealsController'); //For Appeal Data Insert Update Delete and Retrieve 
+ Route::get('/hcDetails', 'AppealsController@hcDetails'); //For HcDashboard 
  Route::post('appeals/update/{id}', 'AppealsController@update');
  //Route::get('appeals', 'AppealsController@show');//index page dataSet
  Route::post('appeals/modals', 'SettingsController@modals');

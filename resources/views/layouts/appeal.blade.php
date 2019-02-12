@@ -114,16 +114,16 @@
                                           <label class="bmd-label-floating">Sentence Type</label>
                                           <select class="browser-default custom-select" name="sentencetype">
                                               <option selected>Please Select..</option>
-                                              <option value="1">User</option>
-                                              <option value="2">Admin</option>
-                                              <option value="3">Sentence Type 3</option>
+                                              <option value="1">Sentence 1</option>
+                                              <option value="2">Sentence 2</option>
+                                              <option value="3">Sentence 3</option>
                                              </select>
                                         </div>
                                       </div>
                                   <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating">Appeal To Court</label>
-                                          <select class="browser-default custom-select" name="appealcourt" > 
+                                          <select class="browser-default custom-select" name="appeals_to_court" > 
                                               <option hidden >Please Select ..</option>
                                               <option value="1">High Court</option>
                                               <option value="2">Sentencing Court</option>

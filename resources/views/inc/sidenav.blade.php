@@ -14,14 +14,22 @@
           </a>
         </li>
         @endcan
+        @can('isUser')
         <li class="nav-item ">
             <a class="nav-link" href="appeals">
               <i class="material-icons">person</i>
               <p>Appeal List</p>
             </a>
           </li>
-        
-      
+          @endcan
+          @can('isAdmin')
+          <li class="nav-item ">
+            <a class="nav-link" href="hcDetails">
+              <i class="material-icons">person</i>
+              <p>Appeal Details</p>
+            </a>
+          </li>
+          @endcan
 
        @can('isAdmin')
         <li class="nav-item ">

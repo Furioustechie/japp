@@ -29,6 +29,9 @@ class AppealsController extends Controller
      */
     public function index()
     {
+        if(!Gate::allows('isUser')){
+            abort(401,'You are not authorized here!');
+        }
         $user_id = Auth::user()->id;
         // echo $user_id;
         // exit;
@@ -45,6 +48,7 @@ class AppealsController extends Controller
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
+                                  
                                   WHERE na.user_id = "'.$user_id.'"');
           
 
@@ -52,6 +56,38 @@ class AppealsController extends Controller
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         return view ('appeals.index',$send)->with('appeals',$appeals);
+        return view ('appeals.modals')->with('appeals',$appeals);
+        
+    }
+
+    public function hcDetails()
+    {
+        if(!Gate::allows('isAdmin')){
+            abort(401,'You are not authorized here!');
+        }
+        $user_id = Auth::user()->id;
+        // echo $user_id;
+        // exit;
+
+        $appeals = Appeal::all();
+        $test = Appealstatus::all();
+        //$document = Document::all();
+        //$doctype = Doctype::all();
+        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
+                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                  FROM newappeals na
+                                  INNER JOIN prisons ON na.prisonid = prisons.id
+                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN courts ON na.courtid  = courts.id
+                                  INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+                                  INNER JOIN cases ON cases.id = na.caseid
+                                 ');
+          
+
+          
+        $send['appeals']=$appeals;
+        $send['appDetails']=$appDetails;
+        return view ('appeals.hcDetails',$send)->with('appeals',$appeals);
         return view ('appeals.modals')->with('appeals',$appeals);
         
     }
@@ -144,6 +180,7 @@ class AppealsController extends Controller
                             ['prisonid' => $request->input('prisonid'), 
                             'prisonerid' => $prisonerNxtId, 
                             'courtid' => $request->input('sentencingcourt'), 
+                            'appeals_to_courtid' => $request->input('appeals_to_court'), 
                             'caseid' => $casesNxtId, 
                             'offenceid' => $request->input('offencetype'),
                             'sentenceid' => $request->input('sentencetype'), 
@@ -167,17 +204,18 @@ class AppealsController extends Controller
                         //     
                       
                 /*-----------------Notification From Prison To High Court--------------------------------------- */
-
+                        $applToUser = DB::table('newappeals')->where('id',$nextId1)->first();
+                         // Get Appeal ID
                         $prison_name = DB::table('prisons')->where('id',$request->input('prisonid'))->first(); //Get Prison ID
                         $msg='New Appeals From '.$prison_name->name; // Get Prison Name
                         $arr=array('data'=> $msg);
                        // $auth_user_id= Auth::user()->id;
-                        User::find(3)->notify(new jappNotification($arr));
+                        User::find($applToUser->appeals_to_courtid)->notify(new jappNotification($arr));
                         //$appeal->save();  Eloquant Insert
                         //$this->notify(new jappNotification());
                 /*-----------------End of Notification From Prison To High Court--------------------------------------- */
-                Toastr::success('Success!', 'New appeal has been sumitted successfully');        
-                return redirect('appealForm'); //submit application
+                        Toastr::success('Success!', 'New appeal has been sumitted successfully');        
+                        return redirect('appealForm'); //submit application
                     }
 
             /**
