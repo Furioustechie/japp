@@ -183,6 +183,18 @@ class SettingsController extends Controller
             ->make(true);
     }
 
+    // public function getAppealHistory()
+    // {
+    //     $accountName = DB::table('users')->select('id', 'name', 'email', 'phone')->get();
+    //     return Datatables::of($accountName)
+    //         ->addColumn('action', function ($accountName) {
+    //             return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$accountName->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
+    //             .'<a href="#" class="accountNameDelete delete" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>';
+    //         })
+    //         ->editColumn('id', 'ID: {{$id}}')
+    //         ->rawColumns(['delete' => 'delete','action' => 'action'])
+    //         ->make(true);
+    // }
     
     /**
      * Update the specified resource in storage.

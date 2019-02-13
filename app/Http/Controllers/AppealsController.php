@@ -201,8 +201,28 @@ class AppealsController extends Controller
                             ]);
                             
                             }
-                        //     
+                        
+                            // SMS integration with Appeal    
                       
+                        /*
+                        $url = "http://66.45.237.70/api.php";
+                                $number= $request->input('mobile');
+                                $text=$request->input('message');
+                                $data= array(
+                                'username'=>"01812370702",
+                                'password'=>"CVXTE3FN",
+                                'number'=>"$number",
+                                'message'=>"$text"
+                                );
+                                
+                                $ch = curl_init(); // Initialize cURL
+                                curl_setopt($ch, CURLOPT_URL,$url);
+                                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                $smsresult = curl_exec($ch);
+                                $p = explode("|",$smsresult);
+
+                        */
                 /*-----------------Notification From Prison To High Court--------------------------------------- */
                         $applToUser = DB::table('newappeals')->where('id',$nextId1)->first();
                          // Get Appeal ID

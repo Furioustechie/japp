@@ -56,8 +56,8 @@ class mailController extends Controller
         $smsresult = curl_exec($ch);
         $p = explode("|",$smsresult);
         //$sendstatus = $p[0];
-        print_r($p);
-        exit;
+        // print_r($p);
+        // exit;
         return redirect ('/sms')->with('success', 'Message Sent');
 
        /* Sms::via('gateway')->send("this message")->to(['Number 1', 'Number 2'])->dispatch();

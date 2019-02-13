@@ -199,10 +199,41 @@
                           <h5>Attached CC/Acknowledgement Letter</h5>
                         </label>
                       </div>
+                      <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox"  name="options" unchecked>
+                            <span class="form-check-sign">
+                              <span class="check" name="check"  data-toggle="modal" data-target="#privacy_policy"  data-id="privacy_policy"></span>
+                            </span>
+                            <h5>Accept Privacy and Policy</h5>
+                          </label>
+                        </div>
                       
-                    
                      <!-- Input File -->
-
+<!-- Central Modal Medium Warning -->
+<div class="modal fade" id="privacy_policy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#00bcd4;">
+          <h5 class="modal-title" id="exampleModalLabel">Privacy & Policy Warning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            We respect your privacy !<br>
+            Any personal information you provide to us including and similar to your name, address, 
+            telephone number and e-mail address will not be released, sold, 
+            or rented to any entities or individuals outside of our organization except as noted below.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">I Agree</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- Central Modal Medium Warning-->
 
 
                      <div class="row">
