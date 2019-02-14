@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Appeal;
 use App\Doctype;
 use App\Document;
@@ -389,7 +390,7 @@ class AppealsController extends Controller
         // if(!Gate::allows('isUser')){
         //     abort(401,'You are not authorized here!');
         // }
-        $user_id = Auth::user()->id;
+        /* $user_id = Auth::user()->id;
         // echo $user_id;
         // exit;
 
@@ -411,15 +412,40 @@ class AppealsController extends Controller
 
           
         $send['appeals']=$appeals;
-        $send['appDetails']=$appDetails;
-        return view ('prisonDashboard',$send)->with('appeals',$appeals);
-        return view ('appeals.modals')->with('appeals',$appeals);
+        $send['appDetails']=$appDetails;*/
+        return view ('prisonDashboard');
+       // return view ('appeals.modals')->with('appeals',$appeals);
         
     }
    
    
-   
-    
+     public function getAppealHistory()
+    {
+        $user_id = Auth::user()->id;
+        $appeals = Appeal::all();
+        $test = Appealstatus::all();
+      
+        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
+                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                  FROM newappeals na
+                                  INNER JOIN prisons ON na.prisonid = prisons.id
+                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN courts ON na.courtid  = courts.id
+                                  INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+                                  INNER JOIN cases ON cases.id = na.caseid
+                                  
+                                  WHERE na.user_id = "'.$user_id.'"');
+       // $accountName = DB::table('users')->select('id', 'name', 'email', 'phone')->get();
+        return Datatables::of($appDetails)
+            ->addColumn('action', function ($appDetails) {
+                return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$appDetails->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
+                .'<a href="#" class="accountNameDelete delete" data-id="'.$appDetails->id.'"><i class="material-icons">delete</i></a>';
+            })
+            
+            
+            ->make(true);
+            return view ('prisonDashboard',$appDetails);
+    }
 
 
 
