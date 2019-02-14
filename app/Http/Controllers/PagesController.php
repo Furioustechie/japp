@@ -135,4 +135,8 @@ class PagesController extends Controller
 
         return view('/master');
     }
+    public function prisonDashboard(){
+
+        return view ('prisonDashboard');
+    }
 }

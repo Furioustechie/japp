@@ -382,6 +382,40 @@ class AppealsController extends Controller
       //  dd($userID);
         return view ('/profile',$send);
     }
+
+    //test Prison Dashboard
+    public function prisonDashboardData()
+    {
+        // if(!Gate::allows('isUser')){
+        //     abort(401,'You are not authorized here!');
+        // }
+        $user_id = Auth::user()->id;
+        // echo $user_id;
+        // exit;
+
+        $appeals = Appeal::all();
+        $test = Appealstatus::all();
+        //$document = Document::all();
+        //$doctype = Doctype::all();
+        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
+                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                  FROM newappeals na
+                                  INNER JOIN prisons ON na.prisonid = prisons.id
+                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN courts ON na.courtid  = courts.id
+                                  INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+                                  INNER JOIN cases ON cases.id = na.caseid
+                                  
+                                  WHERE na.user_id = "'.$user_id.'"');
+          
+
+          
+        $send['appeals']=$appeals;
+        $send['appDetails']=$appDetails;
+        return view ('prisonDashboard',$send)->with('appeals',$appeals);
+        return view ('appeals.modals')->with('appeals',$appeals);
+        
+    }
    
    
    

@@ -46,7 +46,7 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./notifications.html">
+          <a class="nav-link" href="/prisonDashboard">
             <i class="material-icons">notifications</i>
             <p>Notifications</p>
           </a>

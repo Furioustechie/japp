@@ -29,12 +29,10 @@ class notifyController extends Controller
         
     }
     public function readnotify(){
-        $user = User::find(1);
-        foreach ($user->unreadNotifications as $notification) {
-            $notification->markAsRead();
-        }
+       
+        Auth()->user()->unreadNotifications->markAsRead();
        // $send['user'] = $user;
-        return redirect('/notify');
+        return redirect()->back();
     }
 
 }

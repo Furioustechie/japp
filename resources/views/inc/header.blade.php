@@ -32,15 +32,29 @@
           <li class="nav-item dropdown">
             <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="material-icons">notifications</i>
-              <span class="notification">{{auth()->user()->unreadNotifications->count()}}</span>
+              @if(auth()->user()->unreadNotifications->count()>0)
+              <span class="notification">{{ auth()->user()->unreadNotifications->count() }}</span>
+              @endif
               <p class="d-lg-none d-md-block">
                 Some Actions
               </p>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" style="background-color:cornflowerblue" href="/readnotify"> Mark All as Read</a>
+              @if(auth()->user()->user_type=='admin')
               @foreach (auth()->user()->unreadNotifications as $notification)
-            <a class="dropdown-item" href="{{url('/read')}}">{{$notification->data['data']}}</a>
+               <a class="dropdown-item" href="{{url('/hcDetails')}}">{{$notification->data['data']}}</a>
               @endforeach
+              @elseif(auth()->user()->user_type=='user')
+              @foreach (auth()->user()->unreadNotifications as $notification)
+              <a class="dropdown-item" href="{{url('appeals')}}">{{$notification->data['data']}}</a>
+             @endforeach
+              @endif
+              {{-- @if(auth()->user()->readNotifications->count(['read_at' != null]))
+              @foreach (auth()->user()->readNotifications as $notification)
+              <a  style="backgroud-color:green" class="dropdown-item" href="{{url('/read')}}">{{$notification->data['data']}}</a>
+                @endforeach
+                @endif --}}
 
             </div>
           </li>
