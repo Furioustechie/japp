@@ -25,7 +25,8 @@ $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appea
 $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WHERE newappeals_id = "'.$applId.'"');
 
 @endphp
-<div class="modal fade" data-backdrop="static" id="abc_{{$appeal_stat->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalStatus" aria-hidden="true">
+
+<div class="modal fade" data-backdrop=" -index: -1" id="abc_{{$appeal_stat->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalStatus" aria-hidden="true">
       
         {{-- <form action="appeals/add_status" method="POST">
             {{ csrf_field() }} --}}

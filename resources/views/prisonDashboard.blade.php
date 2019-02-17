@@ -26,7 +26,6 @@
 
    
     @include('inc.appealApplicationModal')
-    @include('inc.appealHistoryModal')
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
             <!--
@@ -198,9 +197,9 @@
                                                                     <i class="material-icons">description</i>
                                                                 </button></td>
                                                             <!--Deatils Modal Start -->
-        
-                                                          
-        
+                                                           
+                                                            @include('inc.appealHistoryModal')
+                                                           
                                                             <!--Deatils Modal End -->
         
                                                         </tr>
@@ -223,6 +222,8 @@
             </footer>
         </div>
     </div>
+   
+        
     @include('inc.scriptstyle')
     <script type="text/javascript">
 
@@ -314,5 +315,5 @@
       } );
       </script>
 
-
+   </body>
 </html>
