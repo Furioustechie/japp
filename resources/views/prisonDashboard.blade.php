@@ -26,6 +26,7 @@
 
    
     @include('inc.appealApplicationModal')
+    @include('inc.appealHistoryModal')
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
             <!--
@@ -198,7 +199,7 @@
                                                                 </button></td>
                                                             <!--Deatils Modal Start -->
         
-                                                           @include('inc.appealHistoryModal')
+                                                          
         
                                                             <!--Deatils Modal End -->
         
