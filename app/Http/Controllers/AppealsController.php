@@ -387,10 +387,10 @@ class AppealsController extends Controller
     //test Prison Dashboard
     public function prisonDashboardData()
     {
-        // if(!Gate::allows('isUser')){
-        //     abort(401,'You are not authorized here!');
-        // }
-        /* $user_id = Auth::user()->id;
+        if(!Gate::allows('isUser')){
+            abort(401,'You are not authorized here!');
+        }
+        $user_id = Auth::user()->id;
         // echo $user_id;
         // exit;
 
@@ -412,13 +412,16 @@ class AppealsController extends Controller
 
           
         $send['appeals']=$appeals;
-        $send['appDetails']=$appDetails;*/
-        return view ('prisonDashboard');
+        $send['appDetails']=$appDetails;
+        return view ('prisonDashboard',$send);
        // return view ('appeals.modals')->with('appeals',$appeals);
         
     }
    
-   
+    public  function getPrisonDB()
+    {
+        return view('prisonDashboard_data');
+    }
      public function getAppealHistory()
     {
         $user_id = Auth::user()->id;
@@ -444,8 +447,9 @@ class AppealsController extends Controller
             
             
             ->make(true);
-            return view ('prisonDashboard',$appDetails);
+            return view ('prisonDashboard_data1',$appDetails);
     }
+    
 
 
 

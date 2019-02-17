@@ -83,7 +83,8 @@ Route::get('/editsettings_Offences', ['as'=>'get.data3','uses'=>'SettingsControl
 Route::get('/editsettings_Status', ['as'=>'get.data4','uses'=>'SettingsController@getStatusData']);
 Route::get('/editsettings_uaccount', ['as'=>'get.data5','uses'=>'SettingsController@getuaccount']);
 // test
-Route::get('/prisonDashboard_data', 'AppealsController@getAppealHistory');
+Route::get('/prisonDashboard_data', 'AppealsController@getPrisonDB');
+Route::get('/prisonDashboard_data1', 'AppealsController@getAppealHistory');
 //Update Settings Data
 Route::post('editsettings/update_court/{id}', 'SettingsController@update_court');
 Route::post('editsettings/update_prison/{id}', 'SettingsController@update_prison');
