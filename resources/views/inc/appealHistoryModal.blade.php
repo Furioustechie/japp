@@ -1,35 +1,34 @@
-<div class="modal fade " id="abc_{{$appeal_stat->id}}" tabindex="-1"
-        role="dialog" aria-labelledby="myModalStatus" aria-hidden="true">
-        <?php 
-                    $applId = $appeal_stat->id;
-                    $url = "appeals/update/".$applId; 
-                    $dd = DB::select('SELECT doctype.docname, documents.filename
-                                            FROM newappeals na
-                                            
-                                                INNER JOIN documents ON na.id = documents.appealid
-                                                INNER JOIN doctype ON doctype.id = documents.doctypeid
-                                            
-                                                WHERE na.id="'.$applId.'"');
-                                            // print_r($ddd);
-                                            
-                    $appStatus = DB::select('SELECT status.status_name, appealstatus.statusid
-                                            FROM newappeals na
-                                                                                                    
-                                            INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
-                                            INNER JOIN status ON appealstatus.statusid = status.id
+@php 
+$applId = $appeal_stat->id;
+$url = "appeals/update/".$applId; 
+$dd = DB::select('SELECT doctype.docname, documents.filename
+                        FROM newappeals na
+                        
+                            INNER JOIN documents ON na.id = documents.appealid
+                            INNER JOIN doctype ON doctype.id = documents.doctypeid
+                        
+                            WHERE na.id="'.$applId.'"');
+                        // print_r($ddd);
+                        
+$appStatus = DB::select('SELECT status.status_name, appealstatus.statusid
+                        FROM newappeals na
+                                                                                
+                        INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
+                        INNER JOIN status ON appealstatus.statusid = status.id
 
-                                            WHERE na.id="'.$applId.'"');
+                        WHERE na.id="'.$applId.'"');
 
-                    // Custom Query for Displaying Status  
-                    $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$applId.'"),0) AS statusid
-                        FROM status AS S');
-                    // Custom Query for Max StatusID Status
-                    $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WHERE newappeals_id = "'.$applId.'"');
+// Custom Query for Displaying Status  
+$apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$applId.'"),0) AS statusid
+    FROM status AS S');
+// Custom Query for Max StatusID Status
+$laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WHERE newappeals_id = "'.$applId.'"');
 
-      ?>
-
-        <form action="appeals/add_status" method="POST">
-            {{ csrf_field() }}
+@endphp
+<div class="modal fade" data-backdrop="static" id="abc_{{$appeal_stat->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalStatus" aria-hidden="true">
+      
+        {{-- <form action="appeals/add_status" method="POST">
+            {{ csrf_field() }} --}}
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content ">
                     <div class="modal-header text-center" style="background-color:#00bcd4;">
@@ -176,5 +175,5 @@
                 </div>
 
             </div>
-        </form>
+        /
     </div>
