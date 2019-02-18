@@ -59,7 +59,7 @@
                                     </div>
                                     <p class="card-category">Total Appeal</p>
                                     <h3 class="card-title">
-                                        {{-- {{$count}} --}}
+                                       00
                                         <small></small>
                                     </h3>
                                 </div>
@@ -79,7 +79,7 @@
                                     </div>
                                     <p class="card-category">This Year</p>
                                     <h3 class="card-title">
-                                        {{-- {{$count1}} --}}
+                                   00
                                     </h3>
                                 </div>
                                 <div class="card-footer">
@@ -129,6 +129,7 @@
                                         <p class="card-category"></p>
                                     </div>
                           <div class="card-body">
+
                                 <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >Create New Appeal</button>
                                
                                 <div class="table-responsive">
@@ -192,17 +193,19 @@
         
                                                                 </ol>
                                                             </td>
-                                                            <td><button type="button" rel="tooltip" title="Details" class="btn btn-primary btn-link btn-sm"
-                                                                    data-toggle="modal" data-target="#abc_{{$appeal_stat->id}}">
+                                                            <td> 
+                                                                 <button type="button" rel="tooltip" title="Details" class="btn btn-primary btn-link btn-sm"
+                                                                    data-toggle="modal" data-target="#abc_{{ $appeal_stat->id }}" data-id="{{ $appeal_stat->id }}">
                                                                     <i class="material-icons">description</i>
                                                                 </button></td>
                                                             <!--Deatils Modal Start -->
                                                            
                                                             @include('inc.appealHistoryModal')
-                                                           
+                                                          
                                                             <!--Deatils Modal End -->
         
                                                         </tr>
+                                                        
                                                         @endforeach
                                                         @else
                                                         <p>Nothing Found</p>
@@ -210,21 +213,29 @@
                                                     </tbody>
                                                 </table>
                                             </div> 
-
+                                          
+                                         
                         <!-----End Of Block for All Application Deatils ------->
 
                     </div>
                 </div>
             </div>
-
+            
+          
             <footer class="footer">
                 @include('inc.footer')
             </footer>
         </div>
     </div>
-   
-        
+   @include('inc.appealHistoryModal')
+    
     @include('inc.scriptstyle')
+    <script>
+     $(document).on("click", ".show", function () {
+    var itemid= $(this).attr('data-id');
+    $("#abc").attr("abc_"+itemid)
+ });
+    </script>
     <script type="text/javascript">
 
         $(document).ready(function() {

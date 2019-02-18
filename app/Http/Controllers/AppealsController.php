@@ -441,7 +441,7 @@ class AppealsController extends Controller
        // $accountName = DB::table('users')->select('id', 'name', 'email', 'phone')->get();
         return Datatables::of($appDetails)
             ->addColumn('action', function ($appDetails) {
-                return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$appDetails->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
+                return '<a href="#" data-toggle="modal" data-target="#abc"  data-id="'.$appDetails->id.'" class="show"><i class="material-icons">edit</i></a> '
                 .'<a href="#" class="accountNameDelete delete" data-id="'.$appDetails->id.'"><i class="material-icons">delete</i></a>';
             })
             

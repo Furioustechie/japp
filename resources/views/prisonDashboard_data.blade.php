@@ -159,6 +159,37 @@
                     </div>
                 </div>
             </div>
+           
+            <script>
+            $(document).ready(function(){
+            $('.show').on('click',function(){
+            var dataURL = $(this).attr('data-target');
+            $('.modal-body').load(dataURL,function(){
+            $('#abc').modal({show:true});
+        });
+    }); 
+});
+            </script>
+<!-- Modal -->
+<div class="modal fade" id="abc" role="dialog">
+      <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Bootstrap Modal with Dynamic Content</h4>
+              </div>
+              <div class="modal-body">
+  
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+        
+      </div>
+  </div>
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                                 Button with data-target
                                               </button>
@@ -349,7 +380,7 @@
 
 <script>
 $(function() {
-    var url = "/prisonDashboard_data"
+    var url = "/prisonDashboard_data1"
     $('#dataTable_Details').DataTable({
 
         processing: true,
@@ -373,6 +404,10 @@ $(function() {
     });
 
 });
+
+$('#myModal').on('show.bs.modal', function (e) {
+  if (!data) return e.preventDefault() // stops modal from being shown
+})
 
 </script>
 <script>

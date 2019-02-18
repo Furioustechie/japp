@@ -25,11 +25,9 @@ $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appea
 $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WHERE newappeals_id = "'.$applId.'"');
 
 @endphp
+<div class="modal fade show" data-backdrop="static" tabindex="-1" id="abc_{{ $appeal_stat->id }}" role="dialog" aria-labelledby="myModalStatus" aria-hidden="true">
 
-<div class="modal fade" data-backdrop=" -index: -1" id="abc_{{$appeal_stat->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalStatus" aria-hidden="true">
-      
-        {{-- <form action="appeals/add_status" method="POST">
-            {{ csrf_field() }} --}}
+{{-- <div class="modal fade" data-backdrop="static" tabindex="-1" id="abc" role="dialog" aria-labelledby="myModalStatus" aria-hidden="true"> --}}
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content ">
                     <div class="modal-header text-center" style="background-color:#00bcd4;">
@@ -38,6 +36,7 @@ $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WH
 
                     </div>
                     <br>
+                    
                     <div class="row">
                         <span class="col-md-5 offset-sm-1 border border-primary">
                             <legend>Application Details</legend><br>
@@ -171,10 +170,10 @@ $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WH
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-info"
-                            data-dismiss="modal">Okay!</button>
+                            data-dismiss="modal">Got it !</button>
                     </div>
                 </div>
 
             </div>
-        /
+        
     </div>
