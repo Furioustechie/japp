@@ -227,7 +227,7 @@
             </footer>
         </div>
     </div>
-   @include('inc.appealHistoryModal')
+   {{-- @include('inc.appealHistoryModal') --}}
     
     @include('inc.scriptstyle')
     <script>

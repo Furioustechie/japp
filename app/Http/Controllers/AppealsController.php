@@ -439,11 +439,11 @@ class AppealsController extends Controller
                                   
                                   WHERE na.user_id = "'.$user_id.'"');
        // $accountName = DB::table('users')->select('id', 'name', 'email', 'phone')->get();
-        return Datatables::of($appDetails)
-            ->addColumn('action', function ($appDetails) {
-                return '<a href="#" data-toggle="modal" data-target="#abc"  data-id="'.$appDetails->id.'" class="show"><i class="material-icons">edit</i></a> '
-                .'<a href="#" class="accountNameDelete delete" data-id="'.$appDetails->id.'"><i class="material-icons">delete</i></a>';
-            })
+       return Datatables::of($appDetails)
+       ->addColumn('action', function ($appDetails) {
+           return '<a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="'.$appDetails->id.'" class="edit_appeal"><i class="material-icons">edit</i></a> '
+           .'<a href="#" class="accountNameDelete delete" data-id="'.$appDetails->id.'"><i class="material-icons">delete</i></a>';
+       })
             
             
             ->make(true);
@@ -452,7 +452,141 @@ class AppealsController extends Controller
     
 
 
+public function abc(request $request ,$id){
 
+    $output = ''; 
+  
+    $status_name = Status::all();
+
+    $appDetail = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
+                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                  FROM newappeals na
+                                  INNER JOIN prisons ON na.prisonid = prisons.id
+                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN courts ON na.courtid  = courts.id
+                                  INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+                                  INNER JOIN cases ON cases.id = na.caseid
+                                  
+                                  WHERE na.id = "'.$id.'"');
+
+    $dd = DB::select('SELECT doctype.docname, documents.filename
+                            FROM newappeals na
+                            
+                                INNER JOIN documents ON na.id = documents.appealid
+                                INNER JOIN doctype ON doctype.id = documents.doctypeid
+                            
+                                WHERE na.id="'.$id.'"');
+                            // print_r($ddd);
+                            
+    $appStatus = DB::select('SELECT status.status_name, appealstatus.statusid
+                            FROM newappeals na
+                                                                                    
+                            INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
+                            INNER JOIN status ON appealstatus.statusid = status.id
+    
+                            WHERE na.id="'.$id.'"');
+    
+    // Custom Query for Displaying Status  
+    $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),0) AS statusid
+        FROM status AS S');
+       
+               
+            
+    // Custom Query for Max StatusID Status
+    foreach ($appDetail as $t) {
+        $output .= '
+   
+    <span class="col-md-5 offset-sm-1 border border-primary">
+        <legend>Application Details</legend><br>
+
+        <div class="md-form form-group mt-2">
+            <input type="text" class="form-control" id="appeal_id" name="appeal_id" value="'.$t->id.'"
+                disabled>
+            <label class="label text-success font-weight-bold" for="">Appeal ID</label>
+        </div>
+        <div class="md-form form-group mt-2">
+            <input type="text" class="form-control" id="prison_name" name="prison_name" value="'.$t->prison_name.'"
+                disabled>
+            <label class="label text-success font-weight-bold" for="">Prison Name</label>
+        </div>
+        <div class="md-form form-group mt-2">
+            <input type="text" class="form-control" id="court_name" name="court_name" value="'.$t->court_name.'"
+                disabled>
+            <label class="label text-success font-weight-bold" for="">Sentencing Court</label>
+        </div>
+        <div class="md-form form-group mt-2">
+            <input type="text" class="form-control" id="prisoner_name" name="prisoner_name" value="'.$t->prisoner_name.'"
+                disabled>
+            <label class="label text-success font-weight-bold" for="">Prisoner Name</label>
+        </div>
+        <div class="md-form form-group mt-2">
+            <input type="text" class="form-control" id="offence_name" name="offence_name" value="'.$t->offence_name.'"
+                disabled>
+            <label class="label text-success font-weight-bold" for="">Offence Name</label>
+        </div>
+        <div class="md-form form-group mt-2">
+            <input type="text" class="form-control" id="case_no" name="case_no" value="'.$t->case_no.'"
+                disabled>
+            <label class="label text-success font-weight-bold" for="">Case NO</label>
+        </div>
+        <div class="md-form form-group mt-2">
+            <label class="label text-success font-weight-bold" for="">Attachemnts:</label><br>
+           
+        </div>
+    </span>
+    <span class="col-md-5  border border-primary" > 
+        <legend>Application Progress</legend><br>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="bs-vertical-wizard" id="appeal_details">
+                            <ul>';
+                                foreach($appStatus as $pp){
+                                $item = null; 
+                                foreach($apStatus as $struct){
+                                if ($pp->id == $struct->statusid)
+                                {
+                                $item = $struct;
+                                break;
+                                }
+                            }
+                         }
+                                if($item){
+                                    $output .='
+                                <li class="complete">
+                                    <a href="#">"'.$pp->status_name.'"
+                                        <i class="ico fa fa-check ico-green"></i>
+                                        <span class="desc">
+                                            <?php echo date("Y-m-d");?>
+                                        </span>
+                                    </a>
+                                </li>';
+                                      }
+                                      else{
+                                        $output.='
+                                <li>
+                                    <a href="#">"'.$pp->status_name.'"
+                                        <span class="desc">Nothing Found</span>
+                                    </a>
+                                </li>';
+                                     }
+
+                                      }
+                                      $output.='
+                            </ul>
+                        
+                        </div>
+                        </div>
+                      </div>       
+    </span>
+</div>
+</div>';
+    
+    
+
+   echo $output;
+
+
+}
 
 
 

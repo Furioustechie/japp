@@ -119,3 +119,4 @@ Route::get('/testforgot', 'loginController@testforgot');
 //test route page for master blade
 Route::get('/master', 'pagesController@masterpage');
 Route::get('/profile/{username}', 'AppealsController@user');
+Route::get('/abc/{id}', 'AppealsController@abc');
