@@ -144,7 +144,7 @@ $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WH
                                             @else
 
                                             <li>
-                                                <a href="#">{{
+                                                <a href="#">{{  }}
                                                     $pp->status_name }}
                                                     <span class="desc">Nothing
                                                         Found</span>

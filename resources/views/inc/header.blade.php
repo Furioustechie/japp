@@ -30,10 +30,12 @@
             </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="material-icons">notifications</i>
+            <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               @if(auth()->user()->unreadNotifications->count()>0)
+              <i class="material-icons">notifications_active</i>
               <span class="notification">{{ auth()->user()->unreadNotifications->count() }}</span>
+              @else
+              <i class="material-icons">notifications</i>
               @endif
               <p class="d-lg-none d-md-block">
                 Some Actions

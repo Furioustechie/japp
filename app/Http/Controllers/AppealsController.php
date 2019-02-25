@@ -572,7 +572,7 @@ public function abc(request $request ,$id){
         echo '<li class="complete">';
         echo '<a href="#">'.$pp->status_name.'';
         echo '<i class="ico fa fa-check ico-green"></i>';
-        echo '<span class="desc">';
+        echo '<span class="desc">Update on '.$pp->updated_at.'</span>';
         echo '</span>';
         echo '</a>';
         echo '</li>';
@@ -590,8 +590,7 @@ public function abc(request $request ,$id){
         echo '</div>';
         echo '</div>';
         echo '</span>';
-        echo '</div>';
-        echo '</div>';
+        
        
         
         

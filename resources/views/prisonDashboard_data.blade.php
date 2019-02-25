@@ -163,18 +163,16 @@
                                 <div class="modal-body">
                                     <div class="row" id="appeal_details">
                                               <!---   Modal Body -->
-
+                                    </div>
+                                </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">GOT IT !</button>
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal">GOT IT !</button>
                                 </div>
                               </div>
                             </div>
                           </div>
 
-                        </div>
-                      </div>
-                    </div>
+                      
 
     <footer class="footer">
         @include('inc.footer')

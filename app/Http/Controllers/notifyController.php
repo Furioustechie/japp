@@ -22,7 +22,7 @@ class notifyController extends Controller
             User::find(1)->notify(new jappNotification);
            
             $send['user'] = $user;
-            $send['test1'] = $test1;
+           // $send['test1'] = $test1;
            
            return view ('/notify',$send);
         

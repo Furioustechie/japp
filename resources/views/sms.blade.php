@@ -106,7 +106,7 @@
                               <input type="text" id="email" name="email" class="form-control" placeholder="Your Email *"  required/>
                           </div>
                           <div class="form-group">
-                            <input type="number" id="mobile" name="mobile" class="form-control" placeholder="Your Mobile Number *"  min="0" required />
+                            <input type="number" id="mobile" name="mobile" class="form-control"   min="0" required pattern="[0-9]{13}" value="88"/>
                         </div>
                           <div class="form-group">
                               <input type="text" id="message" name="message" class="form-control" placeholder="Your Message *"  required/>

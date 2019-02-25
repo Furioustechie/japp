@@ -194,9 +194,13 @@
                                                                 </ol>
                                                             </td>
                                                             <td> 
-                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal_stat->id }}" class="edit_appeal"><i class="material-icons">edit</i></a></td>
+                                                                 <button type="button" rel="tooltip" title="Details" class="btn btn-primary btn-link btn-sm"
+                                                                    data-toggle="modal" data-target="#abc_{{ $appeal_stat->id }}" data-id="{{ $appeal_stat->id }}">
+                                                                    <i class="material-icons">description</i>
+                                                                </button></td>
                                                             <!--Deatils Modal Start -->
                                                            
+                                                            @include('inc.appealHistoryModal')
                                                           
                                                             <!--Deatils Modal End -->
         
@@ -216,27 +220,7 @@
                     </div>
                 </div>
             </div>
-            <!-- -->
-            <div class="modal fade" id="edit_appeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                  <div class="modal-content ">
-                    <div class="modal-header text-center" style="background-color:#00bcd4;">
-                        <h4 class="modal-title w-100 font-weight-bold" style="color:white">Appeal Status</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row" id="appeal_details">
-                                  <!---   Modal Body -->
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="material-icons">thumb_up</i> GOT IT</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            
           
             <footer class="footer">
                 @include('inc.footer')
@@ -364,5 +348,5 @@
         });
     });
 </script>
-</body>
+   </body>
 </html>

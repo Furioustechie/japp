@@ -203,8 +203,7 @@
                     {{-- <button class="btn btn-primary" onclick="md.showNotification('top','right')">Top Right
                         Notification</button> --}}
                     <a href="#"><button type="button" class="btn btn-warning pull-right" data-dismiss="modal">CLOSE</button></a>
-                    <button type="submit" class="btn btn-success pull-right" name="submit" value="submit">SUBMIT
-                        APPLICATION</button>
+                    <button type="submit" class="btn btn-success pull-right" name="submit" value="submit"><i class="material-icons">send</i> SUBMIT</button>
 
                     <div class="clearfix"></div>
                 </form>
