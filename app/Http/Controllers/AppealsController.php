@@ -456,7 +456,7 @@ public function abc(request $request ,$id){
 
     $output = ''; 
   
-    $status_name = Status::all();
+    $status_name = DB::select('SELECT * FROM status');
 
     $appDetail = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
                                          offences.name as offence_name, courts.name_en as court_name, na.privacy
@@ -490,101 +490,117 @@ public function abc(request $request ,$id){
     $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),0) AS statusid
         FROM status AS S');
        
-               
+            //dd($dd);   
             
     // Custom Query for Max StatusID Status
     foreach ($appDetail as $t) {
-        $output .= '
-   
-    <span class="col-md-5 offset-sm-1 border border-primary">
-        <legend>Application Details</legend><br>
-
-        <div class="md-form form-group mt-2">
-            <input type="text" class="form-control" id="appeal_id" name="appeal_id" value="'.$t->id.'"
-                disabled>
-            <label class="label text-success font-weight-bold" for="">Appeal ID</label>
-        </div>
-        <div class="md-form form-group mt-2">
-            <input type="text" class="form-control" id="prison_name" name="prison_name" value="'.$t->prison_name.'"
-                disabled>
-            <label class="label text-success font-weight-bold" for="">Prison Name</label>
-        </div>
-        <div class="md-form form-group mt-2">
-            <input type="text" class="form-control" id="court_name" name="court_name" value="'.$t->court_name.'"
-                disabled>
-            <label class="label text-success font-weight-bold" for="">Sentencing Court</label>
-        </div>
-        <div class="md-form form-group mt-2">
-            <input type="text" class="form-control" id="prisoner_name" name="prisoner_name" value="'.$t->prisoner_name.'"
-                disabled>
-            <label class="label text-success font-weight-bold" for="">Prisoner Name</label>
-        </div>
-        <div class="md-form form-group mt-2">
-            <input type="text" class="form-control" id="offence_name" name="offence_name" value="'.$t->offence_name.'"
-                disabled>
-            <label class="label text-success font-weight-bold" for="">Offence Name</label>
-        </div>
-        <div class="md-form form-group mt-2">
-            <input type="text" class="form-control" id="case_no" name="case_no" value="'.$t->case_no.'"
-                disabled>
-            <label class="label text-success font-weight-bold" for="">Case NO</label>
-        </div>
-        <div class="md-form form-group mt-2">
-            <label class="label text-success font-weight-bold" for="">Attachemnts:</label><br>
-           
-        </div>
-    </span>
-    <span class="col-md-5  border border-primary" > 
-        <legend>Application Progress</legend><br>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="bs-vertical-wizard" id="appeal_details">
-                            <ul>';
-                                foreach($appStatus as $pp){
-                                $item = null; 
-                                foreach($apStatus as $struct){
-                                if ($pp->id == $struct->statusid)
-                                {
-                                $item = $struct;
-                                break;
-                                }
-                            }
-                         }
-                                if($item){
-                                    $output .='
-                                <li class="complete">
-                                    <a href="#">"'.$pp->status_name.'"
-                                        <i class="ico fa fa-check ico-green"></i>
-                                        <span class="desc">
-                                            <?php echo date("Y-m-d");?>
-                                        </span>
-                                    </a>
-                                </li>';
-                                      }
-                                      else{
-                                        $output.='
-                                <li>
-                                    <a href="#">"'.$pp->status_name.'"
-                                        <span class="desc">Nothing Found</span>
-                                    </a>
-                                </li>';
-                                     }
-
-                                      }
-                                      $output.='
-                            </ul>
-                        
-                        </div>
-                        </div>
-                      </div>       
-    </span>
-</div>
-</div>';
+        $output .= '';
+        echo '<span class="col-md-5 offset-sm-1 border border-primary">';
+        echo '<legend>Application Details</legend><br>';
+        echo '';
+        echo '<div class="md-form form-group mt-2">';
+        echo '<input type="text" class="form-control" id="appeal_id" name="appeal_id" value="'.$t->id.'"';
+        echo 'disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Appeal ID</label>';
+        echo '</div>';
+        echo '<div class="md-form form-group mt-2">';
+        echo '<input type="text" class="form-control" id="prison_name" name="prison_name" value="'.$t->prison_name.'"';
+        echo 'disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Prison Name</label>';
+        echo '</div>';
+        echo '<div class="md-form form-group mt-2">';
+        echo '<input type="text" class="form-control" id="court_name" name="court_name" value="'.$t->court_name.'"';
+        echo 'disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Sentencing Court</label>';
+        echo '</div>';
+        echo '<div class="md-form form-group mt-2">';
+        echo '<input type="text" class="form-control" id="prisoner_name" name="prisoner_name" value="'.$t->prisoner_name.'"';
+        echo 'disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Prisoner Name</label>';
+        echo '</div>';
+        echo '<div class="md-form form-group mt-2">';
+        echo '<input type="text" class="form-control" id="offence_name" name="offence_name" value="'.$t->offence_name.'"';
+        echo 'disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Offence Name</label>';
+        echo '</div>';
+        echo '<div class="md-form form-group mt-2">';
+        echo '<input type="text" class="form-control" id="case_no" name="case_no" value="'.$t->case_no.'"';
+        echo 'disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Case NO</label>';
+        echo '</div>';
+        echo '<div class="md-form form-group mt-2">';
+        echo '<label class="label text-success font-weight-bold" for="">Attachemnts:</label><br>';
+        echo '';
+        foreach($dd as $d){
+        if($d->docname == 'BJ_Form'){
+            echo'<label class="md-form form-group">';
+            echo'BJ Form: </label><a href="/files/'.$d->filename.'" target="_blank">';
+            echo'<span class="label label-default">'.$d->filename.'</span></a><br>';
+        }
+        if($d->docname == 'APP_Form'){
+            echo'<label class="md-form form-group">';
+            echo'Application Form: </label><a href="/files/'.$d->filename.'" target="_blank">';
+            echo'<span class="label label-default ">'.$d->filename.'</span></a>';
+        }
+        if($d->docname == 'ACK Letter'){
+            echo'<label class="md-form form-group">Application';
+            echo'Application Form: </label><a href="/files/'.$d->filename.'" target="_blank">';
+            echo'<span class="label label-default ">'.$d->filename.'</span></a>';
+        }
+       
+        }
+        echo '</div>';
+        echo '</span>';
+        echo '<span class="col-md-5  border border-primary" >';
+        echo '<legend>Application Progress</legend><br>';
+        echo '<div class="col-md-12">';
+        echo '<div class="form-group">';
+        echo '<div class="bs-vertical-wizard" id="appeal_details">';
+        echo '<ul>';
+        foreach($status_name as $pp){
+        @$item = null;
+        foreach($apStatus as $struct){
+        if ($pp->id == $struct->statusid)
+        {
+        @$item = $struct;
+        break;
+        }
+        }
+        
+        if($item){
+        
+        echo '<li class="complete">';
+        echo '<a href="#">'.$pp->status_name.'';
+        echo '<i class="ico fa fa-check ico-green"></i>';
+        echo '<span class="desc">';
+        echo '</span>';
+        echo '</a>';
+        echo '</li>';
+        }else
+        {
+        echo '<li>';
+        echo '<a href="#">'.$pp->status_name.'';
+        echo '<span class="desc">Nothing Found</span>';
+        echo '</a>';
+        echo '</li>';
+        }
+        }
+        echo '</ul>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '</span>';
+        echo '</div>';
+        echo '</div>';
+       
+        
+        
     
-    
+        
+       // echo $output;
 
-   echo $output;
 
+        }
 
 }
 
