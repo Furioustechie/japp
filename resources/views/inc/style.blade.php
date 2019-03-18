@@ -20,6 +20,7 @@
   <link href="{{URL::asset('css/progress-tracker.css')}}" rel="stylesheet" />
   <link type="text/css" ng-href="{{URL::asset('css/progress-tracker.scss" rel="stylesheet')}}" />
   <link  rel="stylesheet" type="text/css" href="{{URL::asset('../css/tracker.css')}}" />
+  <link  rel="stylesheet" type="text/css" href="{{URL::asset('../css/horizontal_progress_bar.css')}}" />
   <link  rel="stylesheet" type="text/css" href="{{URL::asset('css/sweetalert2.min.css')}}"/>
   <link href="{{URL::asset('dist/css/fs-modal.min.css')}}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

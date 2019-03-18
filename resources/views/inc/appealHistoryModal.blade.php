@@ -19,7 +19,7 @@ $appStatus = DB::select('SELECT status.status_name, appealstatus.statusid
                         WHERE na.id="'.$applId.'"');
 
 // Custom Query for Displaying Status  
-$apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$applId.'"),0) AS statusid
+$apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$applId.'"),0) AS statusid, (SELECT updated_at FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$applId.'") as status_updated_at
     FROM status AS S');
 // Custom Query for Max StatusID Status
 $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WHERE newappeals_id = "'.$applId.'"');
@@ -118,12 +118,15 @@ $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WH
 
                                             @foreach($status_name as $pp)
 
-                                            @php $item = null; @endphp
+                                            @php $item = null; 
+                                                                                          
+                                            @endphp
 
                                             @foreach($apStatus as $struct)
                                             @if ($pp->id == $struct->statusid)
                                             @php
                                             $item = $struct;
+                                            //$status_updated = $struct->updated_at;
                                             break;
                                             @endphp
 
@@ -133,19 +136,19 @@ $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WH
                                             @if($item)
 
                                             <li class="complete">
-                                                <a href="#">{{
-                                                    $pp->status_name }}
+                                                <a href="#">{{$pp->status_name  }}
+                                                     
                                                     <i class="ico fa fa-check ico-green"></i>
                                                     <span class="desc">
-                                                        <?php echo date("Y-m-d");?>
-                                                    </span>
+                                                        {{ $struct->status_updated_at  }}
+                                                    </span> <button type="button" class="btn btn-warning">Have a Look!</button>
                                                 </a>
                                             </li>
                                             @else
 
                                             <li>
-                                                <a href="#">{{  }}
-                                                    $pp->status_name }}
+                                                <a href="#">{{ $pp->status_name  }}
+                                                    <i class="ico fa fa-circle ico-green" style="color:red"></i>
                                                     <span class="desc">Nothing
                                                         Found</span>
                                                 </a>

@@ -193,8 +193,8 @@
         
                                                                 </ol>
                                                             </td>
-                                                            <td> 
-                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal_stat->id }}" class="edit_appeal"><i class="material-icons">edit</i></a></td>
+                                                            <td style="text-align: center;"> 
+                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal_stat->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
                                                             <!--Deatils Modal Start -->
                                                            
                                                           

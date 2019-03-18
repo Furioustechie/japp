@@ -88,8 +88,8 @@ class AppealsController extends Controller
           
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
-        return view ('appeals.hcDetails',$send)->with('appeals',$appeals);
-        return view ('appeals.modals')->with('appeals',$appeals);
+        return view ('appeals.hcDetails',$send);
+        return view ('appeals.modals',$send);
         
     }
 
@@ -312,6 +312,7 @@ class AppealsController extends Controller
                  DB::table('appealstatus')->insert([
                      ['statusid' => $request->input('status_id'), 
                         'newappeals_id' => $request->input('appeal_id'),
+                        'state' => $request->input('state'),
                          'created_at' => date('Y-m-d h:s:i'),
                             'updated_at' => date('Y-m-d h:s:i')]
         ]);
@@ -327,20 +328,46 @@ class AppealsController extends Controller
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
         $arr=array('data'=> $msg);
    
-        User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dyynamic
+        User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
      /*-----------------End of Notification From High Court To Prison--------------------------------------- */
 
-        return redirect('appeals')->with('success','Application Updated Successfully');
+        return redirect('/hcDetails')->with('success','State Updated Successfully');
             }
-        
+//         else{
+//             DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))->first()
+//             ->update([
+//                 ['state' => $request->input('state'), 
+//                        'updated_at' => date('Y-m-d h:s:i')]
+//    ]);
+//    return redirect('/hcDetails')->with('success','Application Updated Successfully');
+//         }
         else{
-            return redirect('appeals')->with('error','Already Exists');
+            $asdf = DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))
+                        ->update([
+                            'state' => $request->input('state'), 
+                                   'updated_at' => date('Y-m-d h:s:i')
+               ]);
+               //dd( $asdf);
+                /*-----------------Notification From High Court To Prison--------------------------------------- */
+
+        $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first(); // Get Appeal ID
+        $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
+        //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
+        $st_name = DB::table('status')->where('id',$request->input('status_id'))->first(); //Get StatusId
+                    
+
+        $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
+        $arr=array('data'=> $msg);
+   
+        User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+     /*-----------------End of Notification From High Court To Prison--------------------------------------- */
+               return redirect('/hcDetails')->with('success','State Updated Successfully');
         }
 
     }
         // $appeals->save();
         //return redirect('appeals')->with('success','Application Updated');
-        $test1 = Newappeals::find($id);
+        $test1 = Newappeal::find($id);
         $test = Appealstatus::find($id);
      
        
@@ -487,7 +514,7 @@ public function abc(request $request ,$id){
                             WHERE na.id="'.$id.'"');
     
     // Custom Query for Displaying Status  
-    $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),0) AS statusid
+    $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),0) AS statusid,(SELECT updated_at FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as status_updated_at
         FROM status AS S');
        
             //dd($dd);   
@@ -572,7 +599,7 @@ public function abc(request $request ,$id){
         echo '<li class="complete">';
         echo '<a href="#">'.$pp->status_name.'';
         echo '<i class="ico fa fa-check ico-green"></i>';
-        echo '<span class="desc">Update on '.$pp->updated_at.'</span>';
+        echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
         echo '</span>';
         echo '</a>';
         echo '</li>';
@@ -580,7 +607,7 @@ public function abc(request $request ,$id){
         {
         echo '<li>';
         echo '<a href="#">'.$pp->status_name.'';
-        echo '<span class="desc">Nothing Found</span>';
+        echo '<span class="desc">Nothing Yet!</span>';
         echo '</a>';
         echo '</li>';
         }

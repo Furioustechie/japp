@@ -3,7 +3,13 @@
 
 <head>
   @include('inc.style')
- 
+  <style>
+.myDiv{
+	display:none;
+}  
+
+</style>
+
 </head>
 
 <body class="">
@@ -71,20 +77,70 @@
                           <td>{{$appeal->case_no}}</td>
                           <td>{{$appeal->offence_name}}</td>
                           <td>
-                          <ol class="etapier">
-                        <li class="done" data-toggle="tooltip" data-placement="top" title="App.Submitted"><a href="" >App. Submitted</a></li>
-                        <li class="done" data-toggle="tooltip" data-placement="top" title="BJ Form Attached"><a href="">BJ Form Attached</a></li>
-                        @if($appeal->privacy == 1)   
-                        <li class="done" data-toggle="tooltip" data-placement="top" title="CC Found"><a href="">CC Found</a></li>    
-                                      @else
-                                      <li class="todo" data-toggle="tooltip" data-placement="top" title="CC Found"><a href="">CC Not Found</a></li>       
-                                              
-                                      @endif
-                        
-                        <li class="todo" data-toggle="tooltip" data-placement="top" title="Review in Progress"><a href="">Review in Progress</a></li>
-                        <li class="todo" data-toggle="tooltip" data-placement="top" title="Appeal Resolved"><a href="">Appeal Resolved</a></li>
-                    </ol>  
-                          </td>
+                                                                <ol class="etapier">
+        
+                                                                    @php
+                                                                    $apStatus = DB::select('SELECT S.status_name,
+                                                                    IFNULL((SELECT statusid FROM appealstatus WHERE
+                                                                    statusid=S.id AND newappeals_id="'.$appeal->id.'"),0)
+                                                                    AS statusid,(SELECT state FROM appealstatus WHERE
+                                                                    statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
+                                                                    statusid=S.id AND newappeals_id="'.$appeal->id.'") as updated_at
+                                                                    FROM status AS S');
+                                                                    @endphp
+                                                                    @foreach($status_name as $pp)
+        
+                                                                    @php
+                                                                    $item = null;
+                                                                    @endphp
+                                                                    @foreach($apStatus as $key=>$struct)
+                                                                    @if ($pp->id == $struct->statusid)
+                                                                    @php $item = $struct;
+                                                                    break;
+                                                                    @endphp
+                                                                    @endif
+                                                                    @endforeach
+        
+        
+        
+                                                                    @if($item)
+                                                                    
+                                                                
+                                                                    <?php
+                                                                              // $date1 = $struct->updated_at;
+                                                                              // $date2 = date('Y-m-d h:i:s');
+
+                                                                              // $diff = abs(strtotime($date2) - strtotime($date1));
+                                                                             // $mydate = round($diff / (60 * 60 * 24));
+                                                                                $date1 = date_create($struct->updated_at);
+                                                                                $date2 = date_create(date('Y-m-d H:i:s'));
+                                                                                $diff = date_diff($date1,$date2);
+                                                                                $mydate = $diff->format("%a");
+                                                                      ?>  
+                                                                      
+                                                                      
+                                                                          {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
+                                                                          @if(($mydate > 10 ) AND ($key === key($apStatus)))
+                                                                        
+                                                                                    <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
+                                                                                        title="{{ $pp->status_name }} {{ $struct->stateno }} {{ $mydate }}"></li>
+                                                                          @else
+                                                                        
+                                                                                    <li class="{{$struct->stateno}}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
+                                                                                      title="{{ $pp->status_name }} {{ $struct->stateno }} {{ $mydate }}"></li>
+                                                                          @endif 
+                                                                    @else
+        
+                                                                                <li class="todo" data-toggle="tooltip" data-placement="top"
+                                                                                    title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
+                                                                    @endif
+        
+                                                                    @endforeach
+        
+        
+        
+                                                                </ol>
+                                                            </td>
 						  
                           <td class="td-actions text-center">
                             <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appeal->id}}">
@@ -108,12 +164,12 @@
                              ?>
                                   <div class="modal fade " id="{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <!-- <form action="{{url($url)}}" method="POST" enctype="multipart/form-data">-->
-                           <form action="appeals/update/{{$appeal->id}})" method="POST" enctype="multipart/form-data">
+                           <form  method="POST" enctype="multipart/form-data">
                                   <div class="modal-dialog modal-lg" role="document">
                                   <div class="modal-content">
                                   <div class="modal-header">
                                   <h5 class="modal-title" id="exampleModalLabel">Appeal Details</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
                                   <span aria-hidden="true">&times;</span>
                                   </button>
                                   </div>
@@ -185,19 +241,16 @@
                                   <label class="btn btn-info  col-md-3">Application Form </label><a href="{{ asset('/files/') }}/{{$d->filename}}" target="_blank"> <span class = "label label-default col-md-6">{{$d->filename}}</span></a><br><br>
                                   @endif
                                   @endforeach
-                                 {{-- <!-- <div class="md-form mb-5">
-                                      <label data-error="wrong" data-success="right" for="inputAge">Prison</label>
-                                      <input type="text" id="inputAge" value="<?=$appeal->prison_name;?>" class="form-control validate">
-                                    
-                                  </div> --> --}}
+                                 <div class="row mb-12">
                                   <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
-                                        <select class="browser-default custom-select" name="status_id">
+                                        <select id="myselection" class="browser-default custom-select myselection" name="status_id">
 
                                         <!-- Custom Query for Option Value -->
                                         <?php 
-                                        $optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'")');
+                                        //$optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" )');
+                                       $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red")');
                                         ?>
                                             <option>Please Select..</option>
                                               <?php $i=1; ?>
@@ -212,34 +265,50 @@
                                           </select>
                                     </div>
                                   </div>
+                                  <div class="col-md-6 show">
+                                  <div class="form-group">
+                                  <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
+                                    <select class="browser-default custom-select" name="state">
+                                    <option>Please Select..</option>
+                                    <option value="yellowgreen" >Yes, We did</option>
+                                    <option value="red" >No, We didn't</option>
+                                    </select>
+                                  </div>
+                                  </div> 
+                                  </div>
+
                                 <div class="col-md-12">
                                   <div class="form-group">
-                                    <label class="bmd-label-floating">Remarks- If not grant</label>
+                                    <label class="bmd-label-floating">Remarks- If there any</label>
                                     <input type="text" name="rejectgrant" class="form-control">
                                   </div>
                                 </div>
-                                  <div class="form-check">
-                                    <label class="form-check-label">
-                                        {{-- <input class="form-check-input" type="checkbox"  name="options1" checked> --}}
-                                      <input class="form-check-input" type="checkbox" id="checkgrant" name="checkgrant"  unchecked onclick=" if($(this).is(':checked'))
-                                                                                                                            alert('Checked! Confirming that CC Reached at Court');
-                                                                                                                        else
-                                                                                                                            alert('Unchecked!! Write your remarks below');">
-                                      <span class="form-check-sign">status_name
-                                        <span class="check" name="check"></span>
-                                      </span>
-                                      <h5 >Application has been granted</h5>
-                                    </label>
-                                                                      
+                                
                                   </div>
-
                                   </div>
-
-                                  </div>
+                                  
                                   <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='window.location.reload()'>Close</button>
                                   {{ csrf_field() }}
-                                  <button type="submit" class="btn btn-primary pull-right" name="courts_submit" value="submit">Save changes</button>
+                                  
+
+                                  <?php 
+                                    $bs = DB::select('SELECT distinct(state)
+                                                        FROM appealstatus
+                                                          WHERE state="red" and newappeals_id="'.$appId.'"');
+                                                        // print_r($bs);
+                             
+                                              if(!empty($bs))  {
+                                                echo '<button type="submit" class="btn btn-warning pull-right" name="courts_submit" value="submit" formaction="appeals/update/{{$appeal->id}}">Save changes</button>';
+
+                                              }     
+                                              else{
+                                               echo  '<button type="submit" class="btn btn-primary pull-right" name="courts_submit" value="submit" formaction="appeals/update/{{$appeal->id}}">Save changes</button>';
+
+                                              }
+                                              ?>
+                                  
+                       
                                   </div>
                                 </div>
                               </div>
@@ -258,6 +327,7 @@
                                 @endif
                       </tbody>
                     </table>
+                   
                   </div>
                 </div>
               </div>
@@ -327,5 +397,15 @@ $(document).ready(function() {
         } );
     } );
     </script>
+    <script>
+    $('.show').hide();
+    $('.myselection').change(function() {
+    $('.show').show();
+});
+</script>
+<script>
+$('.modal').on('hide', function() {
+window.location.reload();
+});
+</script>
 </html>
-dataTable_Details
