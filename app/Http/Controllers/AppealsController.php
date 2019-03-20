@@ -20,6 +20,7 @@ use App\Notifications\jappNotification;
 use App\Notification;
 use Carboon\Carbon;
 use Toastr;
+use phpDocumentor\Reflection\Types\Void_;
 
 class AppealsController extends Controller
 {
@@ -66,30 +67,40 @@ class AppealsController extends Controller
         if(!Gate::allows('isAdmin')){
             abort(401,'You are not authorized here!');
         }
-        $user_id = Auth::user()->id;
+       $user_id = Auth::user()->id;
         // echo $user_id;
         // exit;
 
         $appeals = Appeal::all();
-        $test = Appealstatus::all();
+        //$test = Appealstatus::all();
         //$document = Document::all();
         //$doctype = Doctype::all();
-        $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
-                                  FROM newappeals na
-                                  INNER JOIN prisons ON na.prisonid = prisons.id
-                                  INNER JOIN offences ON na.offenceid  = offences.id
-                                  INNER JOIN courts ON na.courtid  = courts.id
-                                  INNER JOIN prisoner ON na.prisonerid  = prisoner.id
-                                  INNER JOIN cases ON cases.id = na.caseid
-                                 ');
+        // $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
+        //                                  offences.name as offence_name, courts.name_en as court_name, na.privacy
+        //                           FROM newappeals na
+        //                           INNER JOIN prisons ON na.prisonid = prisons.id
+        //                           INNER JOIN offences ON na.offenceid  = offences.id
+        //                           INNER JOIN courts ON na.courtid  = courts.id
+        //                           INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+        //                           INNER JOIN cases ON cases.id = na.caseid
+        //                           ');
           
+          $appDetails = DB::table('newappeals AS na')
+          ->join('prisons', 'na.prisonid', '=', 'prisons.id')
+          ->join('offences', 'na.offenceid', '=', 'offences.id')
+          ->join('courts', 'na.courtid', '=', 'courts.id')
+          ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
+          ->join('cases', 'cases.id', '=', 'na.caseid')
 
+          ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
+          'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
+          ->paginate(10);
           
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         return view ('appeals.hcDetails',$send);
-        return view ('appeals.modals',$send);
+        //return view ('appeals.modals',$send);
+        //return view ('appeals.hcDetails');
         
     }
 
@@ -434,7 +445,7 @@ class AppealsController extends Controller
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
                                   
-                                  WHERE na.user_id = "'.$user_id.'"');
+                                  WHERE na.user_id = "'.$user_id.'" ');
           
 
           
@@ -628,16 +639,118 @@ public function abc(request $request ,$id){
 
         }
 
+        
+
 }
 
 
 
+        public function hc_appeal_details(){
+
+            return 'Nothing' ;
+        }
+
+        public function getDetail()
+        {
+            $user_id = Auth::user()->id;
+          $appeals = Appeal::all();
+          $appDetails = DB::table('newappeals AS na')
+          ->select('na.id','cases.caseno AS case_no', 'prisons.name AS prison_name')
+
+          ->join('prisons', 'na.prisonid', '=', 'prisons.id')
+          ->join('offences', 'na.offenceid', '=', 'offences.id')
+          ->join('courts', 'na.courtid', '=', 'courts.id')
+          ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
+          ->join('cases', 'cases.id', '=', 'na.caseid')
+          ->get();
+
+               return Datatables::of($appDetails)
+                ->addColumn('status', function ($appDetails) {
+                      
+                    
+                })
+                ->addColumn('action', function ($appDetails) {
+                    return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$appDetails->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
+                    .'<a href="#" class="accountNameDelete delete" data-id="'.$appDetails->id.'"><i class="material-icons">delete</i></a>';
+                })
+                ->editColumn('id', 'ID: {{$id}}')
+                ->rawColumns(['delete' => 'delete','action' => 'action'])
+                ->make(true);
+        }
+
+        public function testt()
+        {
+            $status_name = Status::all();
+            $user_id = Auth::user()->id;
+          $appeals = Appeal::all();
+          $appDetails = DB::table('newappeals AS na')
+          ->select('na.id','cases.caseno AS case_no', 'prisons.name AS prison_name')
+
+          ->join('prisons', 'na.prisonid', '=', 'prisons.id')
+          ->join('offences', 'na.offenceid', '=', 'offences.id')
+          ->join('courts', 'na.courtid', '=', 'courts.id')
+          ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
+          ->join('cases', 'cases.id', '=', 'na.caseid')
+          ->get();
+            
+            foreach($appDetails as $appeal){
+                $data= "<ol class='etapier'>";
+            
+        $apStatus = DB::select('SELECT S.status_name,
+        IFNULL((SELECT statusid FROM appealstatus WHERE
+        statusid=S.id AND newappeals_id="'.$appeal->id.'"),0)
+        AS statusid,(SELECT state FROM appealstatus WHERE
+        statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
+        statusid=S.id AND newappeals_id="'.$appeal->id.'") as updated_at
+        FROM status AS S');
+
+        $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
+        
+        $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
+        
+        $total=$totalrow[0]->status_count;
+      // print_r($totalrow);
+        $total= $total+1;
+            
+            @$date1 = date_create(@$last_state[0]->updated_at);
+            @$date2 = date_create(date('Y-m-d H:i:s'));
+            @$diff = date_diff(@$date1,@$date2);
+            @$mydate = $diff->format("%a");
+
+       
+        foreach($status_name as $pp){
+
+       
+        $item = null;
+       
+       
+        foreach($apStatus as $key=>$struct){
+        
+        if ($pp->id == $struct->statusid){
+        $item = $struct;
+        break;
+       
+        }
+        }
+        if($item){
+        $data.= "<li>'".$pp->status_name."'</li>";
+             
+        }else{
+        
+        if(($mydate > 10 ) AND ($total == @$loop->iteration) AND (@$last_state[0]->state != 'red') ){
+            $data.= "<li>'".$pp->status_name."'</li>";
+           
+       }else{
+        
+        $data.= "<li>gfgfgfg</li>";
+
+         
+          }
+      }
+  }
 
 
-
-
-
-
-
-
+  $data.= "</ol>";
+}
+    echo $data;    }
 }

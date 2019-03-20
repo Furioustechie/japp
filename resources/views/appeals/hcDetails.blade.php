@@ -87,13 +87,29 @@
                                                                     statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
                                                                     statusid=S.id AND newappeals_id="'.$appeal->id.'") as updated_at
                                                                     FROM status AS S');
+
+                                                                    $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
+                                                                    
+                                                                    $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
+                                                                    
+                                                                    $total=$totalrow[0]->status_count;
+                                                                  // print_r($totalrow);
+                                                                    $total= $total+1;
+                                                                        
+                                                                        @$date1 = date_create(@$last_state[0]->updated_at);
+                                                                        @$date2 = date_create(date('Y-m-d H:i:s'));
+                                                                        @$diff = date_diff($date1,$date2);
+                                                                        @$mydate = $diff->format("%a");
+      
                                                                     @endphp
                                                                     @foreach($status_name as $pp)
         
                                                                     @php
                                                                     $item = null;
+                                                                   
                                                                     @endphp
                                                                     @foreach($apStatus as $key=>$struct)
+                                                                    
                                                                     @if ($pp->id == $struct->statusid)
                                                                     @php $item = $struct;
                                                                     break;
@@ -106,33 +122,24 @@
                                                                     @if($item)
                                                                     
                                                                 
-                                                                    <?php
-                                                                              // $date1 = $struct->updated_at;
-                                                                              // $date2 = date('Y-m-d h:i:s');
-
-                                                                              // $diff = abs(strtotime($date2) - strtotime($date1));
-                                                                             // $mydate = round($diff / (60 * 60 * 24));
-                                                                                $date1 = date_create($struct->updated_at);
-                                                                                $date2 = date_create(date('Y-m-d H:i:s'));
-                                                                                $diff = date_diff($date1,$date2);
-                                                                                $mydate = $diff->format("%a");
-                                                                      ?>  
-                                                                      
+                                                                    
                                                                       
                                                                           {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
-                                                                          @if(($mydate > 10 ) AND ($key === key($apStatus)))
-                                                                        
-                                                                                    <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
-                                                                                        title="{{ $pp->status_name }} {{ $struct->stateno }} {{ $mydate }}"></li>
-                                                                          @else
-                                                                        
-                                                                                    <li class="{{$struct->stateno}}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
-                                                                                      title="{{ $pp->status_name }} {{ $struct->stateno }} {{ $mydate }}"></li>
-                                                                          @endif 
+                                                                          <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
+                                                                            title="{{ $pp->status_name }}"></li>
+                                                                         
                                                                     @else
-        
-                                                                                <li class="todo" data-toggle="tooltip" data-placement="top"
-                                                                                    title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
+                                                                    
+                                                                    @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') )
+                                                                    
+                                                                       
+                                                                    <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
+                                                                                    title="{{ $pp->status_name }}"></li>
+                                                                      @else
+                                                                    
+                                                                      <li class="todo" data-toggle="tooltip" data-placement="top"
+                                                                      title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
+                                                                      @endif     
                                                                     @endif
         
                                                                     @endforeach
@@ -146,7 +153,8 @@
                             <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#{{$appeal->id}}">
                               <i class="material-icons">edit</i>
                             </button>
-                             <!-- Modal -->
+                            
+                             <!-- Modal Start -->
                              
                              <?php 
                               $appId = $appeal->id;
@@ -327,7 +335,7 @@
                                 @endif
                       </tbody>
                     </table>
-                   
+                    {{ $appDetails->links() }}
                   </div>
                 </div>
               </div>
@@ -350,6 +358,7 @@
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
     $('#dataTable tfoot th').each( function () {
+      
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
     } );
@@ -360,18 +369,23 @@ $(document).ready(function() {
     // Apply the search
     table.columns().every( function () {
         var that = this;
- 
+       
         $( 'input', this.footer() ).on( 'keyup change', function () {
             if ( that.search() !== this.value ) {
                 that
                     .search( this.value )
                     .draw();
             }
+            
         } );
     } );
 } );
 </script>
-
+<script>
+$('#dataTable').dataTable( {
+    "paging": false
+} );
+</script>
 <script>
     $(document).ready(function() {
         // Setup - add a text input to each footer cell
