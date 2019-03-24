@@ -46,36 +46,47 @@
                   <h4 class="card-title ">Appeal Records</h4>
                   <p class="card-category"> Details Appeal Information</p>
                 </div>
-                <div class="card-body">
+                 <div class="col-md-12">
+                    <form action="/search" method="get">
+                        <div class="input-group">
+                        <input type="search" data-placeholder="Search by - CaseNO or PrisonName or ID" name="search" id="search"  class="form-control">
+                        <span class="inut-group-prepend">
+                        <button type="submit" class="btn btn-primary"><i class="material-icons">search</i></button>
+                        </span>
+                        
+                        </form>
+                    </div>
+                <div>
+            
+                 <div class="card-body">
                   <div class="table-responsive">
-				            <table class="table table-hover table-light display nowrap" id="dataTable" width="100%" cellspacing="0">
-                      <thead class=" text-primary">
+				            <table class="table table-hover table-light display nowrap" id="dataTable_no" cellspacing="0" style="width: auto !important">
+                      <thead class=" text-primary" style="white-space: nowrap">
                         <th>ID</th>
                         <th>Case No</th>
-                        <th>Sentence Type </th>
+                        <th>Offence</th>
                         <th>Prison Name</th>
-                        <th>Appealed On</th>
+                        {{-- <th>Appealed On</th> --}}
                         <th>Status</th>
                         <th>Command</th>
                       </thead>
 					  <tfoot class="text-primary">
 					            	<th>ID</th>
                         <th>Case No</th>
-                        <th>Sentence Type </th>
+                        <th>Offence</th>
                         <th>Prison Name</th>
-                        <th>Appealed On</th>
+                        {{-- <th>Appealed On</th> --}}
                         <th>Status</th>
                         <th>Command</th>
 					  </tfoot>
-                      <tbody>
+                      <tbody style="white-space: nowrap;">
                                 @if(count($appDetails) > 0)
                                 @foreach($appDetails as $appeal)
                         <tr>
                           <td>{{$appeal->id}}</td>
-                          <td>{{$appeal->prison_name}}</td>
-                          <td>{{$appeal->prisoner_name}}</td>
                           <td>{{$appeal->case_no}}</td>
                           <td>{{$appeal->offence_name}}</td>
+                          <td>{{$appeal->prison_name}}</td>
                           <td>
                                                                 <ol class="etapier">
         
@@ -315,7 +326,6 @@
 
                                               }
                                               ?>
-                                  
                        
                                   </div>
                                 </div>
@@ -335,7 +345,8 @@
                                 @endif
                       </tbody>
                     </table>
-                    {{ $appDetails->links() }}
+                    <div class="col-md-5 offset-md-5">  {{ $appDetails->links() }}</div>
+                  
                   </div>
                 </div>
               </div>
@@ -351,6 +362,23 @@
   </div>
   <!-- JavaScripts Styles    -->
   @include('inc.scriptstyle')
+  <script type="text/javascript">
+    // $('#search').on('keyup',function(){
+    // $value=$(this).val();
+    // $.ajax({
+    // type : 'get',
+    // url : '{{URL::to('search')}}',
+    // data:{'search':$value},
+    // success:function(data){
+    // $('tbody').html(data);
+    // }
+    // });
+    // })
+    </script>
+    <script src="{{URL::asset('assets/js/core/jquery.introducing.min.js')}}"></script>
+    <script type="text/javascript">
+    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+    </script>
 </body>
 
 
@@ -385,6 +413,9 @@ $(document).ready(function() {
 $('#dataTable').dataTable( {
     "paging": false
 } );
+$('#btnFiterSubmitSearch').click(function(){
+     $('#dataTable').DataTable().draw(true);
+  });
 </script>
 <script>
     $(document).ready(function() {
@@ -421,5 +452,8 @@ $('#dataTable').dataTable( {
 $('.modal').on('hide', function() {
 window.location.reload();
 });
+</script>
+<script type="text/javascript">
+	$('input').introducing()
 </script>
 </html>

@@ -22,6 +22,7 @@ use Carboon\Carbon;
 use Toastr;
 use phpDocumentor\Reflection\Types\Void_;
 
+
 class AppealsController extends Controller
 {
     /**
@@ -57,6 +58,7 @@ class AppealsController extends Controller
           
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
+       
         return view ('appeals.index',$send)->with('appeals',$appeals);
         return view ('appeals.modals')->with('appeals',$appeals);
         
@@ -68,6 +70,7 @@ class AppealsController extends Controller
             abort(401,'You are not authorized here!');
         }
        $user_id = Auth::user()->id;
+
         // echo $user_id;
         // exit;
 
@@ -98,6 +101,7 @@ class AppealsController extends Controller
           
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
+       
         return view ('appeals.hcDetails',$send);
         //return view ('appeals.modals',$send);
         //return view ('appeals.hcDetails');
@@ -429,6 +433,10 @@ class AppealsController extends Controller
             abort(401,'You are not authorized here!');
         }
         $user_id = Auth::user()->id;
+        $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.$user_id.')');
+       // dd($district_name);
+        
+
         // echo $user_id;
         // exit;
 
@@ -451,6 +459,7 @@ class AppealsController extends Controller
           
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
+        $send['district_name']=$district_name;
         return view ('prisonDashboard',$send);
        // return view ('appeals.modals')->with('appeals',$appeals);
         
@@ -525,8 +534,29 @@ public function abc(request $request ,$id){
                             WHERE na.id="'.$id.'"');
     
     // Custom Query for Displaying Status  
-    $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),0) AS statusid,(SELECT updated_at FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as status_updated_at
+    $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),0) 
+    AS statusid, (SELECT state FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as stateno,(SELECT updated_at FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as status_updated_at
         FROM status AS S');
+
+        $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$id.'" order by statusid desc limit 1');
+                                                                    
+        $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$id.'"');
+        
+        $total=$totalrow[0]->status_count;
+      // print_r($totalrow);
+        $total= $total+1;
+            
+            @$date1 = date_create(@$last_state[0]->updated_at);
+            @$date2 = date_create(date('Y-m-d H:i:s'));
+            @$diff = date_diff($date1,$date2);
+            @$mydate = $diff->format("%a");
+        // $apStatus = DB::select('SELECT S.status_name,
+        // IFNULL((SELECT statusid FROM appealstatus WHERE
+        // statusid=S.id AND newappeals_id="'.$id.'"),0)
+        // AS statusid,(SELECT state FROM appealstatus WHERE
+        // statusid=S.id AND newappeals_id="'.$id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
+        // statusid=S.id AND newappeals_id="'.$id.'") as updated_at
+        // FROM status AS S');
        
             //dd($dd);   
             
@@ -606,21 +636,44 @@ public function abc(request $request ,$id){
         }
         
         if($item){
-        
-        echo '<li class="complete">';
-        echo '<a href="#">'.$pp->status_name.'';
-        echo '<i class="ico fa fa-check ico-green"></i>';
-        echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
-        echo '</span>';
-        echo '</a>';
-        echo '</li>';
+        if($struct->stateno == 'yellowgreen'){
+            echo '<li class="complete">';
+            echo '<a href="#">'.$pp->status_name.'';
+            echo '<i class="ico fa fa-check ico-check" style="color:green"></i>';
+            echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+            echo '</span>';
+            echo '</a>';
+            echo '</li>';
+        }
+        else{
+            echo '<li class="complete">';
+            echo '<a href="#">'.$pp->status_name.'';
+            echo '<i class="ico fa fa-close ico-close" style="color:red"></i>';
+            echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+            echo '</span>';
+            echo '</a>';
+            echo '</li>';
+        }
+       
         }else
         {
-        echo '<li>';
-        echo '<a href="#">'.$pp->status_name.'';
-        echo '<span class="desc">Nothing Yet!</span>';
-        echo '</a>';
-        echo '</li>';
+            if(($mydate > 10 ) AND (@$total == @$loop->iteration) AND (@$last_state[0]->state != 'red') ){
+                echo '<li class="complete">';
+                echo '<a href="#">'.$pp->status_name.'';
+                echo '<i class="ico fa fa-exclamation-circle" style="color:orange"></i>';
+                echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+                echo '</span>';
+                echo '</a>';
+                echo '</li>';
+            }
+            else{
+                echo '<li>';
+                echo '<a href="#">'.$pp->status_name.'';
+                echo '<span class="desc">Nothing Yet!</span>';
+                echo '</a>';
+                echo '</li>';
+            }
+       
         }
         }
         echo '</ul>';
@@ -642,7 +695,25 @@ public function abc(request $request ,$id){
         
 
 }
+public function search(Request $request){
 
+    $search = $request->get('search');
+    //$appDetails = DB::table('newappeals')->where('id', 'like', '%'.$search.'%')->paginate(3);
+    $appDetails = DB::table('newappeals AS na')
+            ->join('prisons', 'na.prisonid', '=', 'prisons.id')
+            ->join('offences', 'na.offenceid', '=', 'offences.id')
+            ->join('courts', 'na.courtid', '=', 'courts.id')
+            ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
+            ->join('cases', 'cases.id', '=', 'na.caseid')
+
+            ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
+            'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
+            ->where('na.id', 'like', '%'.$search.'%')
+            ->orWhere('prisons.name', 'like', '%'.$search.'%')
+            ->orWhere('cases.caseno', 'like', '%'.$search.'%')
+            ->paginate(10);
+    return view('appeals.hcDetails',['appDetails' => $appDetails]);
+}
 
 
         public function hc_appeal_details(){
@@ -652,6 +723,8 @@ public function abc(request $request ,$id){
 
         public function getDetail()
         {
+           
+            
             $user_id = Auth::user()->id;
           $appeals = Appeal::all();
           $appDetails = DB::table('newappeals AS na')
@@ -666,8 +739,10 @@ public function abc(request $request ,$id){
 
                return Datatables::of($appDetails)
                 ->addColumn('status', function ($appDetails) {
-                      
                     
+                      $apStatus = Status::all();
+                      foreach($apStatus as $ap)
+                    return 'Hi ' . $ap->id. '!';
                 })
                 ->addColumn('action', function ($appDetails) {
                     return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$appDetails->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
@@ -678,8 +753,9 @@ public function abc(request $request ,$id){
                 ->make(true);
         }
 
-        public function testt()
+        public function testonly()
         {
+           
             $status_name = Status::all();
             $user_id = Auth::user()->id;
           $appeals = Appeal::all();
@@ -733,16 +809,16 @@ public function abc(request $request ,$id){
         }
         }
         if($item){
-        $data.= "<li>'".$pp->status_name."'</li>";
+        echo "<li>'".$pp->status_name."'</li>";
              
         }else{
         
         if(($mydate > 10 ) AND ($total == @$loop->iteration) AND (@$last_state[0]->state != 'red') ){
-            $data.= "<li>'".$pp->status_name."'</li>";
+            echo "<li>'".$pp->status_name."'</li>";
            
        }else{
         
-        $data.= "<li>gfgfgfg</li>";
+        echo "<li>gfgfgfg</li>";
 
          
           }
@@ -750,7 +826,17 @@ public function abc(request $request ,$id){
   }
 
 
-  $data.= "</ol>";
+  echo "</ol>";
 }
-    echo $data;    }
+$send['data']=$data;
+return view('test');   
+ }
+
+
+
+ public function testonly1(){
+     return view('test');
+ }
+          
+
 }

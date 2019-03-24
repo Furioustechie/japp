@@ -125,11 +125,14 @@
                     <div class="col-md-12">
                                 <div class="card card-plain">
                                     <div class="card-header card-header-primary">
-                                        <h4 class="card-title mt-0"> Appeal Details From X Prison</h4>
+                                        @php
+                                         
+                                        // $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.Auth::user()->id.')');
+                                        @endphp
+                                        <h4 class="card-title mt-0">Appeal Details From <strong>{{ $district_name[0]->name }}</strong></h4>
                                         <p class="card-category"></p>
                                     </div>
                           <div class="card-body">
-
                                 <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >Create New Appeal</button>
                                
                                 <div class="table-responsive">
@@ -146,13 +149,13 @@
                                                     <tbody>
         
                                                         @if(count($appDetails) > 0)
-                                                        @foreach($appDetails as $appeal_stat)
+                                                        @foreach($appDetails as $appeal)
                                                         <tr>
-                                                            <td>{{ $appeal_stat->id }}</td>
-                                                            <td>{{$appeal_stat->case_no}}</td>
+                                                            <td>{{ $appeal->id }}</td>
+                                                            <td>{{$appeal->case_no}}</td>
                                                             {{-- <td>{{$appeal_stat->prisoner_name}}</td>
                                                             <td>{{ $appeal_stat->prison_name }}</td>--}}
-                                                            <td>
+                                                            {{-- <td>
                                                                 <ol class="etapier">
         
                                                                     @php
@@ -192,9 +195,81 @@
         
         
                                                                 </ol>
+                                                            </td>--}}
+                                                            <td> 
+                                                                <ol class="etapier">
+        
+                                                                    @php
+                                                                    $apStatus = DB::select('SELECT S.status_name,
+                                                                    IFNULL((SELECT statusid FROM appealstatus WHERE
+                                                                    statusid=S.id AND newappeals_id="'.$appeal->id.'"),0)
+                                                                    AS statusid,(SELECT state FROM appealstatus WHERE
+                                                                    statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
+                                                                    statusid=S.id AND newappeals_id="'.$appeal->id.'") as updated_at
+                                                                    FROM status AS S');
+
+                                                                    $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
+                                                                    
+                                                                    $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
+                                                                    
+                                                                    $total=$totalrow[0]->status_count;
+                                                                  // print_r($totalrow);
+                                                                    $total= $total+1;
+                                                                        
+                                                                        @$date1 = date_create(@$last_state[0]->updated_at);
+                                                                        @$date2 = date_create(date('Y-m-d H:i:s'));
+                                                                        @$diff = date_diff($date1,$date2);
+                                                                        @$mydate = $diff->format("%a");
+      
+                                                                    @endphp
+                                                                    @foreach($status_name as $pp)
+        
+                                                                    @php
+                                                                    $item = null;
+                                                                   
+                                                                    @endphp
+                                                                    @foreach($apStatus as $key=>$struct)
+                                                                    
+                                                                    @if ($pp->id == $struct->statusid)
+                                                                    @php $item = $struct;
+                                                                    break;
+                                                                    @endphp
+                                                                    @endif
+                                                                    @endforeach
+        
+        
+        
+                                                                    @if($item)
+                                                                    
+                                                                
+                                                                    
+                                                                      
+                                                                          {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
+                                                                          <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
+                                                                            title="{{ $pp->status_name }}"></li>
+                                                                         
+                                                                    @else
+                                                                    
+                                                                    @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') )
+                                                                    
+                                                                       
+                                                                    <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
+                                                                                    title="{{ $pp->status_name }}"></li>
+                                                                      @else
+                                                                    
+                                                                      <li class="todo" data-toggle="tooltip" data-placement="top"
+                                                                      title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
+                                                                      @endif     
+                                                                    @endif
+        
+                                                                    @endforeach
+        
+        
+        
+                                                                </ol>
                                                             </td>
                                                             <td style="text-align: center;"> 
-                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal_stat->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
+                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
                                                             <!--Deatils Modal Start -->
                                                            
                                                           

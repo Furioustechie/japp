@@ -32,4 +32,7 @@ class User extends Authenticatable
     public function appeals(){
         return $this->hasMany('App\Newappeal');
     }
+    public function prison(){
+        return $this->belongsTo('App\Prison');
+    }
 }

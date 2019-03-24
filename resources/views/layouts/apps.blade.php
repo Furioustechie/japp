@@ -19,8 +19,23 @@
             opacity: .8;
         }
           </style>
+           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
-<?php $appealtest=''?>
+<style>
+            
+        .zoom {
+          transition: transform .2s;
+          width: 500px;
+          height: 500px;
+          margin: 0 auto;
+        }
+        
+        .zoom:hover {
+          -ms-transform: scale(1.5); /* IE 9 */
+          -webkit-transform: scale(1.5); /* Safari 3-8 */
+          transform: scale(1.5); 
+        }
+        </style>
 
 <body class="">
 
@@ -144,8 +159,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="card card-chart">
-                                <div class="card-header card-header-warning">
-                                    <div class="ct-chart" id="websiteViewsCharts"></div>
+                                <div class="card-header card-header-success">
+                                        <div id="piechart_3d" class="zoom" style="width: 400px; height: 170px;"></div>
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">Total Appeals By Sentencing Type</h4>
@@ -703,6 +718,29 @@
     });
 
 </script>
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Gender Type', 'Count'],
+          ['Female',     60],
+          ['Male',      25],
+          ['Trans-Gender',    10]
+        ]);
+
+        var options = {
+          title: 'Appeals By Gender',
+          width:600,
+          height:220,
+          backgroundColor: { fill:'transparent' },
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
 <script type="text/javascript">
     $(document).ready(function () {
         Tipped.create('.simple-tooltip');

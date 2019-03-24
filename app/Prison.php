@@ -8,5 +8,9 @@ class Prison extends Model
 {
     //Tabkle name
     protected $table = 'prisons';
+    public function user(){
+        return $this->hasMany('App\User');
+    }
+    
     
 }
