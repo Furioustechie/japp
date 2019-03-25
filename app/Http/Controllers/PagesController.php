@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Appeal;
 use App\User;
 use App\Application;
+use App\Doctype;
+use App\Document;
+use App\Newappeal;
+use App\Status;
+use App\Appealstatus;
 use DB;
 use Gate;
 use App\Notifications\jappNotification;
@@ -35,8 +40,17 @@ class PagesController extends Controller
 
         $wordlist1 = Appeal::where('options', '=', '1')->get();
         $wordCount1 = $wordlist1->count();
-
-
+        $cc_missing = DB::select('select newappeals.date_of_sentence,cases.caseno
+                        FROM newappeals 
+                        INNER JOIN cases ON newappeals.caseid = cases.id
+                        INNER JOIN documents ON newappeals.id = documents.appealid 
+                        WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3))'
+                     );
+                     $cc_missing_count = DB::select('select COUNT(cases.caseno) as total_cc_missing
+                     FROM newappeals 
+                     INNER JOIN cases ON newappeals.caseid = cases.id
+                     INNER JOIN documents ON newappeals.id = documents.appealid 
+                     WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3))');
         $barlist = DB::table('appeals')
         ->select('gender')
         ->groupBy('gender')
@@ -101,6 +115,8 @@ class PagesController extends Controller
         $send['stotal']=$sttotal;
         $send['appealStatus']=$appStat;
         $send['appeals'] = $appeals;
+        $send['cc_missing']=$cc_missing;
+        $send['cc_missing_count']=$cc_missing_count;
 
         // echo "<pre>";
         // print_r($all_appeals);

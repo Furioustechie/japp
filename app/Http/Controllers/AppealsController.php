@@ -98,7 +98,7 @@ class AppealsController extends Controller
           ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
           'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
           ->paginate(10);
-          
+          $showlog = DB::table('notifications');
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
        
@@ -334,14 +334,16 @@ class AppealsController extends Controller
        
       /*-----------------Notification From High Court To Prison--------------------------------------- */
 
-        $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first(); // Get Appeal ID
+        $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first();
+        //dd($appl->id); // Get Appeal ID
         $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
         //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
         $st_name = DB::table('status')->where('id',$request->input('status_id'))->first(); //Get StatusId
                     
 
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-        $arr=array('data'=> $msg);
+        $arr=array('data'=> $msg, 'appeal_id' => $appl->id);
+        //dd($arr);
    
         User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
      /*-----------------End of Notification From High Court To Prison--------------------------------------- */
@@ -372,7 +374,7 @@ class AppealsController extends Controller
                     
 
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-        $arr=array('data'=> $msg);
+        $arr=array('data'=> $msg,'appeal_id'=>$appl->id);
    
         User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
      /*-----------------End of Notification From High Court To Prison--------------------------------------- */
@@ -830,6 +832,11 @@ public function search(Request $request){
 }
 $send['data']=$data;
 return view('test');   
+ }
+
+ public function showLog(){
+
+    $logview = DB::table('notifications');
  }
 
 

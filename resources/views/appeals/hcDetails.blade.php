@@ -302,10 +302,32 @@
                                     <input type="text" name="rejectgrant" class="form-control">
                                   </div>
                                 </div>
-                                
+                                <p>
+                                  <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Show Log
+                                  </a>
+                                </p>
+                                @php
+                                  $showlog = DB::select('SELECT * FROM notifications WHERE appeal_id="'.$appId.'" ORDER BY updated_at');  
+                                @endphp
+                                <div class="collapse" id="collapseExample">
+                                  <div class="card card-body">
+                                      <div class="card-header card-header-success">
+                                      @foreach ($showlog as $log)
+                                      @php
+                                          $logview = json_decode($log->data);
+                                         //print_r($logview);
+                                      @endphp
+                                      <p><i class="material-icons" style="vertical-align: middle;">calendar_today</i> On {{ $log->updated_at }}</p>
+                                      <p><i class="material-icons" style="vertical-align: middle;">check_circle</i> {{ $logview->data }}</p>
+                                      <hr>
+                                      @endforeach
+                                    </div>
+                                  </div>
+                                </div>
                                   </div>
                                   </div>
-                                  
+                                 
                                   <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='window.location.reload()'>Close</button>
                                   {{ csrf_field() }}

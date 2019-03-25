@@ -202,21 +202,21 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link active" href="#profile" data-toggle="tab">
 
-                                                        <i class="material-icons">bug_report</i> CC Not Attached
-                                                        <span class="badge badge-pill badge-warning" style="font-size: 15px !important;">{{ $cc_missing_count[0]->total_cc_missing }}</span>
+                                                        <i class="material-icons">bug_report</i> HC Rejects
+                                                        <span class="badge badge-pill badge-warning" style="font-size: 15px !important;">1</span>
                                                         <div class="ripple-container"> </div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#messages" data-toggle="tab">
-                                                        <i class="material-icons">code</i> Long Time No Action <span
+                                                        <i class="material-icons">code</i> Long Time Pending <span
                                                             class="badge badge-pill badge-danger" style="font-size: 15px !important;">5</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#settings" data-toggle="tab">
-                                                        <i class="material-icons">cloud</i> Hearing Date Sets <span
+                                                        <i class="material-icons">cloud</i> Upcoming Hearing Date <span
                                                             class="badge badge-pill badge-info" style="font-size: 15px !important;">6</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
@@ -238,25 +238,21 @@
                                                             Case No
                                                         </th>
                                                         <th>
-                                                            Conviction Date
+                                                            Sentence Type
                                                         </th>
                                                     </thead>
                                                     <tbody>
 
-                                                        @foreach($cc_missing as $no_cc)
+                                                        @foreach($appeals as $appeal)
                                                         <!-- ToolTip value  -->
                                                         <?php
-                                                           // $output ="ID :".$no_cc->id."&#009;"."Case No :".$no_cc->caseno."&#10;"."Sentence Type : ".$appeal->date_of_sentence ;
+                                                            $output ="ID :".$appeal->id."&#009;"."Case No :".$appeal->caseno."&#10;"."Sentence Type : ".$appeal->sentencetype ;
                                                         ?>
                                                         <tr>
 
-                                                            <td>{{$no_cc->caseno}}</td>
-                                                            <td> <a rel="tooltip" data-placement="right" title="">
-                                                                @if(!empty($no_cc->date_of_sentence))
-                                                                    {{ $no_cc->date_of_sentence }}</a>
-                                                                    @else
-                                                                    No Date Found
-                                                                    @endif
+                                                            <td>{{$appeal->caseno}}</td>
+                                                            <td> <a rel="tooltip" data-placement="right" title="<?=$output;?>">
+                                                                    {{$appeal->sentencetype}}</a>
                                                                 {{-- <a class="btn tooltipped" data-position="bottom"
                                                                     data-tooltip="I am a tooltip">Hover me!</a> --}}
                                                             </td>
