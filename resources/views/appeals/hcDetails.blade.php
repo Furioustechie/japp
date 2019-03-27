@@ -100,11 +100,12 @@
                                                                     FROM status AS S');
 
                                                                     $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
-                                                                    
+                                                                
                                                                     $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
                                                                     
                                                                     $total=$totalrow[0]->status_count;
                                                                   // print_r($totalrow);
+                                                                  $current_state = $total;
                                                                     $total= $total+1;
                                                                         
                                                                         @$date1 = date_create(@$last_state[0]->updated_at);
@@ -131,19 +132,19 @@
         
         
                                                                     @if($item)
-                                                                    
-                                                                
-                                                                    
+
                                                                       
-                                                                          {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
+                                                                          @if(($mydate > 10 ) AND ($struct->stateno == 'todo'))
+                                                                          <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
+                                                                          title="{{ $pp->status_name }}"></li>
+                                                                          @else
                                                                           <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
                                                                             title="{{ $pp->status_name }}"></li>
-                                                                         
+                                                                          @endif
+                                                                      
                                                                     @else
-                                                                    
-                                                                    @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') )
-                                                                    
-                                                                       
+                                                                   
+                                                                    @if(($mydate > 10 ) AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
                                                                     <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
                                                                                     title="{{ $pp->status_name }}"></li>
                                                                       @else
@@ -269,28 +270,51 @@
                                         <!-- Custom Query for Option Value -->
                                         <?php 
                                         //$optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" )');
-                                       $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red")');
+                                       $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red" AND state<>"todo")');
                                         ?>
                                             <option>Please Select..</option>
                                               <?php $i=1; ?>
                                                 @foreach ($optt as $sdata)
                                                  @if($i++ == 1)        
-                                              <option value="{{$sdata->id}}" >{{$sdata->status_name}}</option>
+                                              <option value="{{ $sdata->id }}" >{{$sdata->status_name}}</option>
+                                             
                                               @else
                                               <option disabled value="{{$sdata->id}}" >{{$sdata->status_name}}</option>
                                               @endif
 
                                                   @endforeach
                                           </select>
+                                          <div>
+                                          
+                                             @if(@$last_state[0]->statusid == 4) 
+                                             <input type="text" name="prisoner_name" value="My Text" class="form-control" disabled>
+                                             @endif
+
+                                          </div>
                                     </div>
                                   </div>
+                                  @php
+                                  $option_display = DB::select('SELECT statusid 
+                                                    FROM appealstatus 
+                                                    WHERE newappeals_id="'.$appId.'"
+                                                    ORDER BY statusid DESC LIMIT 1');
+                              // echo (@$last_state[0]->statusid);
+                                  @endphp  
+
+                                 
                                   <div class="col-md-6 show">
                                   <div class="form-group">
                                   <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
-                                    <select class="browser-default custom-select" name="state">
+                                  <select class="browser-default custom-select" name="state">
+                                    @if(@$last_state[0]->statusid != 2)
                                     <option>Please Select..</option>
                                     <option value="yellowgreen" >Yes, We did</option>
                                     <option value="red" >No, We didn't</option>
+                                    @else
+                                    <option>Please Select..</option>
+                                    <option value="yellowgreen" >Yes, We did</option>
+                                    <option value="todo" >No, We didn't. Reminder Sent</option>
+                                    @endif
                                     </select>
                                   </div>
                                   </div> 

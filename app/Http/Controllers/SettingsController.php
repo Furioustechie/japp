@@ -496,21 +496,28 @@ class SettingsController extends Controller
    
     public function add_userAccount(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
         
             'name' => 'required|string|max:255',
             //'phone' => 'required|integer|min:0',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             ]);
-            
-             DB::table('users')->insert([
+           
+        // if (Hash::check(Input::get('password'), $request->password)) {
+        //     // The passwords match...
+        //     Alert::success('error', 'Password already exists');
+        // } else {
+            DB::table('users')->insert([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'created_at' => date('Y-m-d h:i:s'),
+            'updated_at' => date('Y-m-d h:i:s')
         ]);
-        Alert::success('success','User Added Successdully');
-        // Toastr::success('Success!', 'New User Added Successdully');
+            Alert::success('success', 'User Added Successdully');
+            // Toastr::success('Success!', 'New User Added Successdully');
+        //}
         return redirect('/editsettings');
     }
 
@@ -521,5 +528,4 @@ class SettingsController extends Controller
         }
         return view('editsettings');
     }
-    //edit_settings
 }

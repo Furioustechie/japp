@@ -42,6 +42,8 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
  Route::post('/editsettings/add_prisonname', 'SettingsController@add_prisonname'); // Add Prison Name
  Route::post('/editsettings/add_courtname', 'SettingsController@add_courtname'); //Add Courts Name
  Route::post('/editsettings/add_status', 'SettingsController@add_status'); // Add Status
+ Route::post('/editsettings/add_userAccount', 'SettingsController@add_userAccount'); //Add User
+
 
  Route::post('/appealForm', 'PagesController@appealForm');
 
@@ -104,12 +106,11 @@ Route::get('/notify', 'notifyController@notifyme');
 Route::get('/readnotify', 'notifyController@readnotify');
 Route::get('/read', 'pagesController@readnotify');
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
-Auth::routes();
+//Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/home', 'PagesController@dashboard');
 Auth::routes();
-Route::post('editsettings/add_userAccount', 'SettingsController@add_userAccount');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
