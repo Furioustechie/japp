@@ -244,7 +244,7 @@ class AppealsController extends Controller
                          // Get Appeal ID
                         $prison_name = DB::table('prisons')->where('id',$request->input('prisonid'))->first(); //Get Prison ID
                         $msg='New Appeals From '.$prison_name->name; // Get Prison Name
-                        $arr=array('data'=> $msg);
+                        $arr=array('data'=> $msg, 'appeal_id' =>$applToUser->id);
                        // $auth_user_id= Auth::user()->id;
                         User::find($applToUser->appeals_to_courtid)->notify(new jappNotification($arr));
                         //$appeal->save();  Eloquant Insert

@@ -125,9 +125,9 @@
                                           <label class="bmd-label-floating">Appeal To Court</label>
                                           <select class="browser-default custom-select" name="appeals_to_court" > 
                                               <option hidden >Please Select ..</option>
-                                              <option value="1">High Court</option>
+                                              <option value="3">High Court</option>
                                               <option value="2">Sentencing Court</option>
-                                              <option value="3">Other Court</option>
+                                              <option value="1">Other Court</option>
                                              </select>
                                         </div>
                                       </div>

@@ -195,7 +195,11 @@
        
   
     </div>
+    <footer class="footer">
+        @include('inc.footer')
+    </footer>
   </div>
+  
   <!-- JavaScripts Styles    -->
  
 <script>

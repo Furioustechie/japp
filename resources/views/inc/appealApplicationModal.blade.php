@@ -165,14 +165,13 @@
                     </div>
                     <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="options" checked>
-                                <span class="form-check-sign">
-                                    <span class="check" name="check1"></span>
-                                </span>
-                                <h5>Accept Privacy and Policy</h5>
+                              <input class="form-check-input" type="checkbox"  name="options" unchecked>
+                              <span class="form-check-sign">
+                                <span class="check" name="check"  data-toggle="modal" data-target="#privacy_policy"  data-id="privacy_policy"></span>
+                              </span>
+                              <h5>Accept Privacy and Policy</h5>
                             </label>
-                        </div>
-
+                          </div>
 
 
                         <div class="row">

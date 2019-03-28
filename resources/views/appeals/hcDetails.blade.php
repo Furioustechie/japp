@@ -284,14 +284,11 @@
 
                                                   @endforeach
                                           </select>
-                                          <div>
-                                          
-                                             @if(@$last_state[0]->statusid == 4) 
-                                             <input type="text" name="prisoner_name" value="My Text" class="form-control" disabled>
-                                             @endif
 
+                                        </div>
                                           </div>
-                                    </div>
+                                          
+                                    <div>
                                   </div>
                                   @php
                                   $option_display = DB::select('SELECT statusid 
@@ -306,7 +303,7 @@
                                   <div class="form-group">
                                   <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
                                   <select class="browser-default custom-select" name="state">
-                                    @if(@$last_state[0]->statusid != 2)
+                                    @if((@$last_state[0]->statusid != 2) AND (@$last_state[0]->statusid != 3))
                                     <option>Please Select..</option>
                                     <option value="yellowgreen" >Yes, We did</option>
                                     <option value="red" >No, We didn't</option>
@@ -319,7 +316,14 @@
                                   </div>
                                   </div> 
                                   </div>
-
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Appeal No.</label>
+                                      @if(@$last_state[0]->statusid == 4) 
+                                      <input type="text" name="case_no" value="" class="form-control">
+                                      @endif
+                                    </div>
+                                  </div>
                                 <div class="col-md-12">
                                   <div class="form-group">
                                     <label class="bmd-label-floating">Remarks- If there any</label>

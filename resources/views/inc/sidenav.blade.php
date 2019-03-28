@@ -3,10 +3,10 @@
           <a class="nav-link" href="dashboard">
             <span class="sr-only"></span>
             <i class="material-icons">dashboard</i>
-            <p>Dashboard</p>
+            <p>HC Dashboard</p>
           </a>
         </li>
-        @can('isUser')
+        @can('isNothing')
         <li class="nav-item">
           <a class="nav-link" href="appealForm">
             <i class="material-icons">content_paste</i>
@@ -14,7 +14,7 @@
           </a>
         </li>
         @endcan
-        @can('isUser')
+        @can('isNothing')
         <li class="nav-item ">
             <a class="nav-link" href="appeals">
               <i class="material-icons">person</i>
@@ -39,18 +39,22 @@
           </a>
         </li>
         @endcan
+        @can('isNothing')
         <li class="nav-item ">
           <a class="nav-link" href="testpage">
             <i class="material-icons">location_ons</i>
             <p>Test Page</p>
           </a>
         </li>
+        @endcan
+        @can('isUser')
         <li class="nav-item ">
           <a class="nav-link" href="/prisonDashboard">
             <i class="material-icons">notifications</i>
-            <p>Sample PrisonDB</p>
+            <p>Sample Prison View</p>
           </a>
         </li>
+        @endcan
         </ul>
 
         <script>

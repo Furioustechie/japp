@@ -313,11 +313,12 @@
                 </div>
               </div>
           
-            <footer class="footer">
+              <footer class="footer">
                 @include('inc.footer')
             </footer>
         </div>
     </div>
+    
    {{-- @include('inc.appealHistoryModal') --}}
     
     @include('inc.scriptstyle')
@@ -439,5 +440,6 @@
         });
     });
 </script>
+
 </body>
 </html>
