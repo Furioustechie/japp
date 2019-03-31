@@ -47,11 +47,12 @@
                   <p class="card-category"> Details Appeal Information</p>
                 </div>
                  <div class="col-md-12">
-                    <form action="/search" method="get">
+                    <form action="/search" method="POST">
                         <div class="input-group">
                         <input type="search" data-placeholder="Search by - CaseNO or PrisonName or ID" name="search" id="search"  class="form-control">
                         <span class="inut-group-prepend">
-                        <button type="submit" class="btn btn-primary"><i class="material-icons">search</i></button>
+                          @csrf();
+                        <button type="submit" name="btn_search" class="btn btn-primary"><i class="material-icons">search</i></button>
                         </span>
                         
                         </form>

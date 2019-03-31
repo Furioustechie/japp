@@ -66,9 +66,10 @@
                                 <label class="bmd-label-floating">Offence Type</label>
                                 <select class="browser-default custom-select" name="offencetype">
                                     <option selected>Please Select..</option>
-                                    <option value="1">Offence 1</option>
-                                    <option value="2">Offence 2</option>
-                                    <option value="3">Offence 3</option>
+                                    @foreach ($offence_name as $offence_names)
+                                    <option value="{{ $offence_names->id }}">{{ $offence_names->name }}</option>
+                                    @endforeach
+                                   
                                 </select>
                             </div>
                         </div>
@@ -77,10 +78,10 @@
                                 <label class="bmd-label-floating">Sentence Type</label>
                                 <select class="browser-default custom-select" name="sentencetype">
                                     <option selected>Please Select..</option>
-                                    <option value="1">Sentence 1</option>
-                                    <option value="2">Sentence 2</option>
-                                    <option value="3">Sentence 3</option>
-                                </select>
+                                    @foreach ($sents_name as $sentenceid)
+                                    <option value="{{ $sentenceid->id }}">{{ $sentenceid->sentence_name }}</option>
+                                    @endforeach                                    
+                                   </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -88,9 +89,9 @@
                                 <label class="bmd-label-floating">Appeal To Court</label>
                                 <select class="browser-default custom-select" name="appeals_to_court">
                                     <option hidden>Please Select ..</option>
-                                    <option value="1">High Court</option>
-                                    <option value="2">Sentencing Court</option>
-                                    <option value="3">Other Court</option>
+                                    <option value="3">High Court</option>
+                                    <option value="2" disabled>Sentencing Court</option>
+                                    <option value="1" disabled>Other Court</option>
                                 </select>
                             </div>
                         </div>

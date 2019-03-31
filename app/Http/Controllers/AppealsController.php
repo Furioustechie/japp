@@ -13,6 +13,7 @@ use App\Status;
 use App\Appealstatus;
 use App\User;
 use App\Prison;
+use App\Sentence;
 use DB;
 use Notfiable;
 use Gate;
@@ -146,20 +147,36 @@ class AppealsController extends Controller
                         {
                             $data=array(); 
                             foreach ($files as $file) {
-                            $name=$file->getClientOriginalName();
+                            $name=uniqid().$file->getClientOriginalName(); //uniqid(). This has been use to make each file unique
                                 $file->move(public_path().'/files/', $name);  
                             $data[] = $name;
                             }
                         }
                 
-                        $appeal= new Appeal();
+                        // $appeal= new Appeal();
                         $document= new Document();
                         $doctype= new Doctype();
-                        $appeal->caseno = $request->input('caseno');
+                        //$appeal->caseno = $request->input('caseno');
                         
                         // array to save doctype and filname
-
-                        $typeid = $request->input('doctype'); //doctype ID
+//dd($prisonerNxtId);
+//Prisoner Table Data Insertion Block
+DB::table('prisoner')->insert([
+    ['prisoner_no' => $request->input('prisoner_no'), 
+    'prisoner_name' => $request->input('prisoner_name'), 
+    'prisoner_gender' => $request->input('prisoner_gender'), 
+        'created_at' => date('Y-m-d h:s:i'),
+        'updated_at' => date('Y-m-d h:s:i')]
+    ]);
+    
+    $prisonerNxtId = DB::table('prisoner')->max('id'); // For PRISONER Tables Prisonerid Column
+     // Cases Table Data Insertion Block
+     DB::table('cases')->insert([
+        ['caseno' => $request->input('prisoner_no'), 
+            'created_at' => date('Y-m-d h:s:i'),
+            'updated_at' => date('Y-m-d h:s:i')]
+    ]);
+    $typeid = $request->input('doctype'); //doctype ID
                         $result = array();
                         $values = array($typeid, $data);
                         
@@ -173,50 +190,41 @@ class AppealsController extends Controller
                      
                         
                                                       
-                            
-                        
-                        //Prisoner Table Data Insertion Block
-                        DB::table('prisoner')->insert([
-                        ['prisoner_no' => $request->input('prisoner_no'), 
-                        'prisoner_name' => $request->input('prisoner_name'), 
-                        'prisoner_gender' => $request->input('prisoner_gender'), 
-                            'created_at' => date('Y-m-d h:s:i'),
-                            'updated_at' => date('Y-m-d h:s:i')]
-                        ]);
-                        // Cases Table Data Insertion Block
-                        $prisonerNxtId = DB::table('prisoner')->max('id'); // For PRISONER Tables Prisonerid Column
-                        DB::table('cases')->insert([
-                            ['caseno' => $request->input('prisoner_no'), 
-                                'created_at' => date('Y-m-d h:s:i'),
-                                'updated_at' => date('Y-m-d h:s:i')]
-                        ]);
-                        // NewAppeals Table Data Insertion Block
-                        $casesNxtId = DB::table('cases')->max('id'); // For NEWAPPEALS Tables caseid Column
-                        DB::table('newappeals')->insert([
-                            ['prisonid' => $request->input('prisonid'), 
-                            'prisonerid' => $prisonerNxtId, 
-                            'courtid' => $request->input('sentencingcourt'), 
-                            'appeals_to_courtid' => $request->input('appeals_to_court'), 
-                            'caseid' => $casesNxtId, 
-                            'offenceid' => $request->input('offencetype'),
-                            'sentenceid' => $request->input('sentencetype'), 
-                            'resultsid' => 1,
-                            'user_id' => Auth::user()->id, 
-                            'created_at' => date('Y-m-d h:s:i'),
-                            'updated_at' => date('Y-m-d h:s:i')]
-                        ]);
-                        // Documents Table Data Insertion Block
+                          // Documents Table Data Insertion Block
                         foreach($result as $r){                     //Loop for Doctype and Filename Column
                             DB::table('documents')->insert([
                                 ['appealid' => $nextId1, 
                                 'doctypeid' => $r[0], 
                                 'attached' => '1', 
-                                'filename' => $r[1].time(),
+                                //'filename' => $r[1].time(),
+                                'filename' => $r[1],
                                 'created_at' => date('Y-m-d h:s:i'),
                                 'updated_at' => date('Y-m-d h:s:i')]
                             ]);
                             
-                            }
+                            }  
+
+// NewAppeals Table Data Insertion Block
+$casesNxtId = DB::table('cases')->max('id'); // For NEWAPPEALS Tables caseid Column
+DB::table('newappeals')->insert([
+    ['prisonid' => $request->input('prisonid'), 
+    'prisonerid' => $prisonerNxtId , 
+    'courtid' => $request->input('sentencingcourt'), 
+    'appeals_to_courtid' => $request->input('appeals_to_court'), 
+    'caseid' => $casesNxtId, 
+    'offenceid' => $request->input('offencetype'),
+    'sentenceid' => $request->input('sentencetype'), 
+    'resultsid' => 1,
+    'user_id' => Auth::user()->id, 
+    'created_at' => date('Y-m-d h:s:i'),
+    'updated_at' => date('Y-m-d h:s:i')]
+]);
+                        
+                        
+                        
+                       
+                        
+                        
                         
                             // SMS integration with Appeal    
                       
@@ -251,7 +259,7 @@ class AppealsController extends Controller
                         //$this->notify(new jappNotification());
                 /*-----------------End of Notification From Prison To High Court--------------------------------------- */
                         Toastr::success('Success!', 'New appeal has been sumitted successfully');        
-                        return redirect('appealForm'); //submit application
+                        return redirect('prisonDashboard'); //submit application
                     }
 
             /**
@@ -698,23 +706,31 @@ public function abc(request $request ,$id){
 
 }
 public function search(Request $request){
-
-    $search = $request->get('search');
-    //$appDetails = DB::table('newappeals')->where('id', 'like', '%'.$search.'%')->paginate(3);
-    $appDetails = DB::table('newappeals AS na')
+    //if(!(isset($request))){ 
+        if (isset($request->search)){
+            $search = $request->search;
+            //dd($search);
+            $appDetails = DB::table('newappeals AS na')
             ->join('prisons', 'na.prisonid', '=', 'prisons.id')
             ->join('offences', 'na.offenceid', '=', 'offences.id')
             ->join('courts', 'na.courtid', '=', 'courts.id')
             ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
             ->join('cases', 'cases.id', '=', 'na.caseid')
-
+    
             ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
             'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
             ->where('na.id', 'like', '%'.$search.'%')
             ->orWhere('prisons.name', 'like', '%'.$search.'%')
             ->orWhere('cases.caseno', 'like', '%'.$search.'%')
             ->paginate(10);
-    return view('appeals.hcDetails',['appDetails' => $appDetails]);
+            return view('appeals.hcDetails',['appDetails' => $appDetails]);
+        }
+    
+        
+    else{
+        return redirect('hcDetails')->with('error','Nothing Found!!');
+
+    }
 }
 
 
