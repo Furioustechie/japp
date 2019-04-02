@@ -8,6 +8,7 @@ use App\Court;
 use App\Offence;
 use App\Status;
 use App\Notification;
+use App\Prison;
 use App\Appealstatus;
 use App\Application;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +25,10 @@ class dynamiclist extends ServiceProvider
     {
         view()->composer('*',function($view){
             $view->with('dname', District::all());
+
+        });
+        view()->composer('*',function($view){
+            $view->with('prisonName', Prison::all());
 
         });
         view()->composer('*',function($view){

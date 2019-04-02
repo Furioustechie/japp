@@ -129,7 +129,7 @@
                                          
                                         // $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.Auth::user()->id.')');
                                         @endphp
-                                        <h4 class="card-title mt-0">Appeal Details From <strong>{{ $district_name[0]->name }}</strong></h4>
+                                        <h4 class="card-title mt-0">Appeal Details From <strong>{{ @$district_name[0]->name }}</strong></h4>
                                         <p class="card-category"></p>
                                     </div>
                           <div class="card-body">

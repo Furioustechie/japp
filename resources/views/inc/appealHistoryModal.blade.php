@@ -51,7 +51,7 @@ $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WH
                             <div class="md-form form-group mt-2">
                                 <input type="text" class="form-control"
                                     id="" value="{{$appeal_stat->prison_name}}"
-                                    disabled>
+                                    name="PrisonName" disabled>
                                 <label class="label text-success font-weight-bold"
                                     for="">Prison Name</label>
                             </div>

@@ -499,6 +499,7 @@ class SettingsController extends Controller
         $this->validate($request, [
         
             'name' => 'required|string|max:255',
+            //'prison_id' => 'required|string|max:255',
             //'phone' => 'required|integer|min:0',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -510,7 +511,9 @@ class SettingsController extends Controller
         // } else {
             DB::table('users')->insert([
             'name' => $request['name'],
+            'prison_id' => $request['prison_Name'],
             'email' => $request['email'],
+            'user_type' => $request['user_type'],
             'password' => Hash::make($request['password']),
             'created_at' => date('Y-m-d h:i:s'),
             'updated_at' => date('Y-m-d h:i:s')

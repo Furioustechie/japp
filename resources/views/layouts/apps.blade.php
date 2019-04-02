@@ -93,12 +93,12 @@
                                     </div>
                                     <p class="card-category">This Year</p>
                                     <h3 class="card-title">
-                                        {{$count1}}
+                                        {{$count1[0]->totalAppeal}}
                                     </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 12 Month
+                                        <i class="material-icons">date_range</i> Last 01 Month
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                         <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">Peding for CC</p>
-                                    <h3 class="card-title">02</h3>
+                                    <h3 class="card-title">{{ $cc_missing_count[0]->total_cc_missing }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -126,7 +126,7 @@
                                         <i class="fa fa-twitter"></i>
                                     </div>
                                     <p class="card-category">Appeal Resolved</p>
-                                    <h3 class="card-title">00</h3>
+                                    <h3 class="card-title">{{ $totalappealResolved[0]->totalAppealResolved }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -145,7 +145,7 @@
                                     <!----   -->
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">This week appeals by Gender</h4>
+                                    <h4 class="card-title">Total Appeals by Gender</h4>
                                     <p class="card-category">
                                         <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span>
                                         increased from last week.</p>
@@ -163,8 +163,8 @@
                                         <div id="piechart_3d" class="zoom"></div>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">Total Appeals By Sentencing Type</h4>
-                                    <p class="card-category">Category :Type Of Sentence</p>
+                                    <h4 class="card-title">Total Appeals By Gender</h4>
+                                    <p class="card-category">Category | by Gender</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -234,12 +234,10 @@
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
-                                                        <th>
-                                                            Case No
-                                                        </th>
-                                                        <th>
-                                                            Conviction Date
-                                                        </th>
+                                                        <th>Case No</th>
+                                                        <th>Prison Name</th>
+                                                        <th>Conviction Time</th>
+                                                        <td>Action</td>
                                                     </thead>
                                                     <tbody>
 
@@ -251,6 +249,7 @@
                                                         <tr>
 
                                                             <td>{{$no_cc->caseno}}</td>
+                                                            <td>{{$no_cc->name}}</td>
                                                             <td> <a rel="tooltip" data-placement="right" title="">
                                                                 @if(!empty($no_cc->date_of_sentence))
                                                                     {{ $no_cc->date_of_sentence }}</a>
@@ -260,7 +259,7 @@
                                                                 {{-- <a class="btn tooltipped" data-position="bottom"
                                                                     data-tooltip="I am a tooltip">Hover me!</a> --}}
                                                             </td>
-
+                                                            <td>Action</td>
                                                         </tr>
 
                                                         @endforeach

@@ -201,7 +201,7 @@
                                           <div class="col-md-4">
                                               <div class="form-group">
                                                 <label class="bmd-label-floating text-info" style="font-size: 14px;">Appeal ID</label>
-                                                <input type="text" name="appeal_id" value="{{$appeal->id}}" class="form-control" readonly>
+                                                <input type="text" name="appeal_id" value="{{ $appeal->id }}" class="form-control" readonly>
                                               </div>
                                             </div>
                                             <div class="col-md-4">
@@ -212,8 +212,12 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                      <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name</label>
-                                                      <input type="text" name="prison_name" value="{{$appeal->prison_name}}" class="form-control" disabled>
+                                                      <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name</label><br>
+                                                      <select name="prison_name" class="browser-default custom-select">
+                                                        @foreach ($prisonName as $pname)
+                                                            <option value="{{ $pname->id }}" <?=$pname->id==$appeal->prisonid ? ' selected="selected"' : '';?>>{{ $pname->name }}</option>
+                                                        @endforeach
+                                                      </select>
                                                     </div>
                                                   </div>
                                                   <div class="col-md-4">
@@ -229,7 +233,7 @@
                                                         </div>
                                                       </div>
                                                       
-                                                      <div class="col-md-4">
+                                                      {{-- <div class="col-md-4">
                                                           <div class="form-group">
                                                             <label class="bmd-label-floating text-info" style="font-size: 14px;">Checked Privacy Agreement</label>
                                                             @if($appeal->privacy == 1)
@@ -238,7 +242,7 @@
                                                             <input type="text" name="prisoner_name" value="NO" class="form-control" disabled>
                                                             @endif
                                                           </div>
-                                                        </div>
+                                                        </div> --}}
                                               </div>
                                   {{-- <label for="id" class="form-control col-md-6 ">ID : {{$appeal->id}}</label><br>
                                   <label for="caseno" class="form-control col-md-6">Case No : {{$appeal->case_no}}</label>
@@ -332,14 +336,14 @@
                                   </div>
                                 </div>
                                 <p>
-                                  <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                  <a class="btn btn-info" data-toggle="collapse" href="#log_{{ $appId }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     Show Log
                                   </a>
                                 </p>
                                 @php
                                   $showlog = DB::select('SELECT * FROM notifications WHERE appeal_id="'.$appId.'" ORDER BY updated_at');  
                                 @endphp
-                                <div class="collapse" id="collapseExample">
+                                <div class="collapse" id="log_{{ $appId }}">
                                   <div class="card card-body">
                                       <div class="card-header card-header-success">
                                       @foreach ($showlog as $log)

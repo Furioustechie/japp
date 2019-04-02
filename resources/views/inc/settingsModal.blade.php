@@ -195,6 +195,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="userFromPrison" class="col-md-12 col-form-label text-md-right">{{ __('Prison Name') }}</label>
+                        <select class="browser-default custom-select" name="prison_Name">
+                            <option value="" disabled selected>Please Select ..</option>
+                            @foreach ($prisonName as $pname)
+                            <option value="{{ $pname->id }}">{{ $pname->name }}</option>
+                           @endforeach
+
+                        </select>
+
+                    </div>
+                    <div class="form-group row">
                         <label for="phone" class="col-md-12 col-form-label text-md-right">{{ __('Phone') }}</label>
 
                         <div class="col-md-12">

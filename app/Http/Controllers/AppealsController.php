@@ -22,6 +22,7 @@ use App\Notification;
 use Carboon\Carbon;
 use Toastr;
 use phpDocumentor\Reflection\Types\Void_;
+use Illuminate\Notifications\Notifiable;
 
 
 class AppealsController extends Controller
@@ -96,7 +97,7 @@ class AppealsController extends Controller
           ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
           ->join('cases', 'cases.id', '=', 'na.caseid')
 
-          ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
+          ->select('na.id', 'na.prisonid', 'prisons.id AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
           'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
           ->paginate(10);
           $showlog = DB::table('notifications');
@@ -326,23 +327,42 @@ DB::table('newappeals')->insert([
                 'rejectgrant' => 'required'
             ]);
         }
-        $appeals = Newappeal::find($id);
+        
        
         //$applStatus = DB::table('appealstatus'); // For PRISONER Tables Prisonerid Column
         if ($request->has('courts_submit')) {
+            
+            $appeals = Newappeal::find($request->input('appeal_id'));
+            $appealNO =  $appeals->appeal_number;
+            if($request->input('case_no')){$appealNO = $request->input('case_no');}
+            DB::table('newappeals')
+                ->where('id', $request->input('appeal_id'))
+                ->update(['prisonid' => $request->input('prison_name'), 'appeal_number' => $appealNO ]);
+
+                
+                
             $has_status_name = DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))->first();
             if(empty($has_status_name)){
+                //return redirect('/hcDetails')->with('error','State Remain Same');
                  DB::table('appealstatus')->insert([
                      ['statusid' => $request->input('status_id'), 
                         'newappeals_id' => $request->input('appeal_id'),
                         'state' => $request->input('state'),
                          'created_at' => date('Y-m-d h:s:i'),
                             'updated_at' => date('Y-m-d h:s:i')]
+
         ]);
+       // $update_prisonName = Newappeal::where('id', '=', $request->input('appeal_id') )->first();
        
+
+       
+       // $update_prisonName->prisonid = $request->input('prison_name');
+             //  $update_prisonName->save();
+               //dd( $update_prisonName);
       /*-----------------Notification From High Court To Prison--------------------------------------- */
 
         $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first();
+       // $notifiable_user = DB::table('SELECT id FROM users WHERE prison_id = "'.$appl->prisonid.'"');
         //dd($appl->id); // Get Appeal ID
         $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
         //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
@@ -352,8 +372,13 @@ DB::table('newappeals')->insert([
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
         $arr=array('data'=> $msg, 'appeal_id' => $appl->id);
         //dd($arr);
-   
-        User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+        $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
+        //print_r($users);exit;
+        foreach($users as $userr){
+            User::find($userr->id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+
+        }
+           // \Notification::send($users, new jappNotification($arr));
      /*-----------------End of Notification From High Court To Prison--------------------------------------- */
 
         return redirect('/hcDetails')->with('success','State Updated Successfully');
@@ -383,8 +408,15 @@ DB::table('newappeals')->insert([
 
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
         $arr=array('data'=> $msg,'appeal_id'=>$appl->id);
-   
-        User::find($appl->user_id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+       // $users = User::all()->where('prisonid',$appl->prisonid);
+       $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
+       //print_r($users);exit;
+       foreach($users as $userr){
+           User::find($userr->id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+
+       }
+        //\Notification::send($users, new jappNotification($arr));
+       // User::find($appl->prisonid)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
      /*-----------------End of Notification From High Court To Prison--------------------------------------- */
                return redirect('/hcDetails')->with('success','State Updated Successfully');
         }
@@ -443,6 +475,7 @@ DB::table('newappeals')->insert([
             abort(401,'You are not authorized here!');
         }
         $user_id = Auth::user()->id;
+        $prison_id = Auth::user()->prison_id;
         $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.$user_id.')');
        // dd($district_name);
         
@@ -462,8 +495,9 @@ DB::table('newappeals')->insert([
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
+                                --   INNER JOIN users ON users.prison_id = na.prisonid
                                   
-                                  WHERE na.user_id = "'.$user_id.'" ');
+                                  WHERE  na.prisonid = "'.$prison_id.'" ');
           
 
           

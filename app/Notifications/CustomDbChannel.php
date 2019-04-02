@@ -3,6 +3,9 @@
 namespace App\Notifications;
 
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Notifiable;
+use App\Newappeal;
+use App\User;
 
 class CustomDbChannel 
 {
@@ -17,6 +20,7 @@ class CustomDbChannel
 
         //customize here
         //'sender_id' => $data['sender_id'], //<-- comes from toDatabase() Method below
+
         'user_id'=> \Auth::user()->id,
 
         'type' => get_class($notification),

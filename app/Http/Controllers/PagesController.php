@@ -33,17 +33,16 @@ class PagesController extends Controller
     }
     public function dashboard(){
         $appeals = Appeal::all();
-        $n_appeals = Application::all();
 
-        $wordlist = Appeal::where('id', '>', 0)->get();
-        $wordCount = $wordlist->count();
-
-        $wordlist1 = Appeal::where('options', '=', '1')->get();
-        $wordCount1 = $wordlist1->count();
-        $cc_missing = DB::select('select newappeals.date_of_sentence,cases.caseno
+        $totalAppeals = Newappeal::where('id', '>', 0)->get();
+        $countAppeals = $totalAppeals->count();
+        $lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
+        $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = 10');
+        $cc_missing = DB::select('select newappeals.date_of_sentence,cases.caseno,prisons.name
                         FROM newappeals 
                         INNER JOIN cases ON newappeals.caseid = cases.id
                         INNER JOIN documents ON newappeals.id = documents.appealid 
+                        INNER JOIN prisons ON newappeals.prisonid = prisons.id 
                         WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3))'
                      );
                      $cc_missing_count = DB::select('select COUNT(cases.caseno) as total_cc_missing
@@ -107,8 +106,9 @@ class PagesController extends Controller
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
 
 
-        $send['count']=$wordCount;
-        $send['count1']=$wordCount1;
+        $send['count']=$countAppeals;
+        $send['count1']=$lastYearAppeals;
+        $send['totalappealResolved'] = $appealResolved;
         $send['gender']=$gen;
         $send['total']=$tot;
         $send['sentype']=$st;
