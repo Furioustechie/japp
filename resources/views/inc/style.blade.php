@@ -24,6 +24,7 @@
   <link  rel="stylesheet" type="text/css" href="{{URL::asset('css/sweetalert2.min.css')}}"/>
   <link href="{{URL::asset('dist/css/fs-modal.min.css')}}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href="{{URL::asset('css/vertrack.css')}}" rel="stylesheet" />
   <link href="{{URL::asset('css/toastr.min.css')}}" rel="stylesheet" />
   <!-- Malsup for ProgressBar -->

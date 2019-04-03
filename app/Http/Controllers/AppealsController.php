@@ -892,7 +892,14 @@ return view('test');
 
 
  public function testonly1(){
-     return view('test');
+     
+    $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
+
+  
+
+    // $json_appealStates = json_encode($appealStates);
+    // echo ( $json_appealStates);
+
  }
           
 

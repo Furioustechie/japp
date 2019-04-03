@@ -19,7 +19,6 @@
             opacity: .8;
         }
           </style>
-           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <style>
             
@@ -160,8 +159,13 @@
                         <div class="col-md-4">
                             <div class="card card-chart">
                                 <div class="card-header card-header-success">
-                                        <div id="piechart_3d" class="zoom"></div>
-                                </div>
+                                        {{-- <div id="piechart_3d" class="zoom"></div> --}}
+                                        <div  id="dashboard_div">
+                                            <div id="slider_div" style="float:left;"></div>
+                                            <div id="categoryPicker_div" style="float:right"></div><br><br><br>
+                                            <div id="chart_div" style=""></div>
+                                          </div>
+                                    </div>
                                 <div class="card-body">
                                     <h4 class="card-title">Total Appeals By Gender</h4>
                                     <p class="card-category">Category | by Gender</p>
@@ -424,7 +428,14 @@
                     </div>
                 </div>
             </div>
-
+            <?php 
+            $data="";
+            $testData = DB::select('SELECT prisoner_gender, dob, prisoner.id FROM prisoner   JOIN   newappeals ON newappeals.id = prisoner.id');
+            foreach($testData as $js){
+           
+                $data.= "['".$js->prisoner_gender."',".$js->id.",'".$js->dob."'],";
+            }
+            ?> 
             <footer class="footer">
                 @include('inc.footer')
             </footer>
@@ -494,6 +505,7 @@
         });
 
     </script>
+
 
 
 
@@ -659,6 +671,74 @@
 
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+    });
+
+  google.charts.load('current', {'packages':['corechart', 'table', 'controls']});
+  google.charts.setOnLoadCallback(drawMainDashboard);
+
+  function drawMainDashboard() {
+    var dashboard = new google.visualization.Dashboard(
+        document.getElementById('dashboard_div'));
+    var slider = new google.visualization.ControlWrapper({
+      'controlType': 'NumberRangeFilter',
+      'containerId': 'slider_div',
+      'options': {
+        'filterColumnIndex': 1,
+        
+        'ui': {
+          'labelStacking': 'vertical',
+          'label': 'Age Filter:'
+        }
+       
+      }
+    });
+    var categoryPicker = new google.visualization.ControlWrapper({
+      'controlType': 'CategoryFilter',
+      'containerId': 'categoryPicker_div',
+      'options': {
+        'filterColumnIndex': 0, // Select column to view
+        'ui': {
+          'labelStacking': 'vertical',
+          'label': 'Select Gender:',
+          'allowTyping': false,
+          'allowMultiple': false
+        }
+      }
+    });
+    var pie = new google.visualization.ChartWrapper({
+      'chartType': 'PieChart',
+      'containerId': 'chart_div',
+      'options': {
+        'width':'100%',
+          'height':'100%',
+        'legend': 'none',
+        'chartArea': {'left': 0, 'top': 0, 'right': 0, 'bottom': 0},
+        'pieSliceText': 'label',
+        'backgroundColor': { fill:'transparent' },
+         'is3D': true
+      },
+      'view': {'columns': [0, 2]}
+    });
+    // var table = new google.visualization.ChartWrapper({
+    //   'chartType': 'Table',
+    //   'containerId': 'table_div',
+    //   'options': {
+    //   }
+    //});
+    var data = google.visualization.arrayToDataTable([
+        ['State','StatusID','some'],
+       <?php echo substr($data,0,-1);?>
+ 
+
+    ]);
+
+    dashboard.bind([slider, categoryPicker], [pie]);
+    dashboard.draw(data);
+  }
+</script>
 <script>
       window.setTimeout(function() {
           $(".preloader").fadeTo(500, 0).slideUp(500, function(){

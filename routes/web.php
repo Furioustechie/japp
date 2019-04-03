@@ -123,5 +123,5 @@ Route::get('/profile/{username}', 'AppealsController@user');
 Route::get('/abc/{id}', 'AppealsController@abc');
 Route::get('/hc_details', ['as'=>'get.data6','uses'=>'AppealsController@getDetail']);
 //Route::get('/testt', ['as'=>'get.data7','uses'=>'AppealsController@testt']);
-Route::get('/test', 'AppealsController@testonly');
+Route::get('/test', 'AppealsController@testonly1');
 Route::any('/search','AppealsController@search');
