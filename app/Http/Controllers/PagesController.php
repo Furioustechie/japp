@@ -38,7 +38,11 @@ class PagesController extends Controller
         $countAppeals = $totalAppeals->count();
         $lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
-       
+        $overDue = DB::select('SELECT vid FROM takeaction');
+        $PendingForAction = DB::select('SELECT id, date_of_sentence,datatotakeaction.caseno,name FROM datatotakeaction');
+        $data_PieChart = DB::select('SELECT prisoner_name,prisoner_gender, dob, prisoner.id FROM prisoner   JOIN   newappeals ON newappeals.id = prisoner.id');
+        $totalOnhearing = DB::select('SELECT statusid FROM totalonhearing');
+        $PendingOnHearing = DB::select('SELECT id, date_of_sentence,onhearingdetails.caseno,name FROM onhearingdetails');
 // foreach($appealStates as $aps){
 // $output = array(
 //     'statusid' => $aps->statusid,
@@ -48,7 +52,7 @@ class PagesController extends Controller
  //dd($json_appealStates);
 // }
         
-        $cc_missing = DB::select('select newappeals.date_of_sentence,cases.caseno,prisons.name
+        $cc_missing = DB::select('select newappeals.id,newappeals.date_of_sentence,cases.caseno,prisons.name
                         FROM newappeals 
                         INNER JOIN cases ON newappeals.caseid = cases.id
                         INNER JOIN documents ON newappeals.id = documents.appealid 
@@ -116,31 +120,7 @@ class PagesController extends Controller
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
     $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
 
-    $table = array();
-$table['cols'] = array(
-//Labels for the chart, these represent the column titles
-array('label' => 'statusid', 'type' => 'string'),
-array( 'label' => 'newappeals_id', 'type' => 'number'),
-array( 'label' => 'state', 'type' => 'number')
-);
 
-$rows = array();
-foreach($appealStates as $row){
-$temp = array();
-
-//Values
-$temp[] = array('v' => (string) $row->statusid);
-$temp[] = array('v' => (float) $row->newappeals_id);
-$temp[] = array('v' => (float) $row->state);
-$rows[] = array('c' => $temp);
-}
-
-// $appealStates->free();
-$table['rows'] = $rows;
-// echo '<pre>';
-// echo json_encode($rows, JSON_PRETTY_PRINT);
-// echo '</pre>';
-$jsonTable = json_encode($table, true);
 
         $send['count']=$countAppeals;
         $send['count1']=$lastYearAppeals;
@@ -153,9 +133,11 @@ $jsonTable = json_encode($table, true);
         $send['appeals'] = $appeals;
         $send['cc_missing']=$cc_missing;
         $send['cc_missing_count']=$cc_missing_count;
-        $send['jsonTable']=$appealStates;
-        
-
+        $send['overDue']=$overDue; 
+        $send['PendingForAction']=$PendingForAction; 
+        $send['data_PieChart']=$data_PieChart;
+        $send['totalOnhearing']=$totalOnhearing;
+        $send['PendingOnHearing']=$PendingOnHearing;
         // echo "<pre>";
         // print_r($all_appeals);
         // exit;

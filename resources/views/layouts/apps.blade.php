@@ -214,14 +214,14 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#messages" data-toggle="tab">
                                                         <i class="material-icons">code</i> Long Time No Action <span
-                                                            class="badge badge-pill badge-danger" style="font-size: 15px !important;">5</span>
+                                                            class="badge badge-pill badge-danger" style="font-size: 15px !important;">{{ $overDue[0]->vid }}</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#settings" data-toggle="tab">
-                                                        <i class="material-icons">cloud</i> Hearing Date Sets <span
-                                                            class="badge badge-pill badge-info" style="font-size: 15px !important;">6</span>
+                                                        <i class="material-icons">cloud</i>On Hearing Stage <span
+                                                            class="badge badge-pill badge-info" style="font-size: 15px !important;">{{ $totalOnhearing[0]->statusid }}</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                 </li>
@@ -252,7 +252,7 @@
                                                         ?>
                                                         <tr>
 
-                                                            <td>{{$no_cc->caseno}}</td>
+                                                            <td>{{ $no_cc->caseno }}</td>
                                                             <td>{{$no_cc->name}}</td>
                                                             <td> <a rel="tooltip" data-placement="right" title="">
                                                                 @if(!empty($no_cc->date_of_sentence))
@@ -263,8 +263,10 @@
                                                                 {{-- <a class="btn tooltipped" data-position="bottom"
                                                                     data-tooltip="I am a tooltip">Hover me!</a> --}}
                                                             </td>
-                                                            <td>Action</td>
-                                                        </tr>
+                                                            <td>
+                                                                    <form action="/searchs" method="POST"><button name="search" value={{ $no_cc->id }}><span
+                                                                class="badge badge-pill badge-warning" style="font-size: 15px !important;"> @csrf()Action</span>
+                                                            </button></form></td></tr>
 
                                                         @endforeach
 
@@ -276,133 +278,83 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="messages">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="" checked>
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Flooded: One year later, assessing what was lost and what
-                                                            was found when a ravaging rain swept through metro Detroit
-                                                        </td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                                                <i class="material-icons">edit</i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="">
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Sign contract for "What are conference organizers afraid
-                                                            of?"</td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                                                <i class="material-icons">edit</i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            @if(count($appeals) > 0)
+                                                <table class="table table-striped table-bordered" id="dataTablex" width="100%"
+                                                    cellspacing="0">
+                                                    <thead class=" text-primary">
+
+                                                        <th>Case No</th>
+                                                        <th>Prison Name</th>
+                                                        <th>Conviction Time</th>
+                                                        <td>Action</td>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach($PendingForAction as $action)
+                                                        <!-- ToolTip value  -->
+                                                        <?php
+                                                           // $output ="ID :".$no_cc->id."&#009;"."Case No :".$no_cc->caseno."&#10;"."Sentence Type : ".$appeal->date_of_sentence ;
+                                                        ?>
+                                                        <tr>
+
+                                                            <td>{{ $action->caseno }}</td>
+                                                            <td>{{$action->name}}</td>
+                                                            <td> <a rel="tooltip" data-placement="right" title="">
+                                                                @if(!empty($action->date_of_sentence))
+                                                                    {{ $action->date_of_sentence }}</a>
+                                                                    @else
+                                                                    No Date Found
+                                                                    @endif
+                                                                {{-- <a class="btn tooltipped" data-position="bottom"
+                                                                    data-tooltip="I am a tooltip">Hover me!</a> --}}
+                                                            </td>
+                                                            <td><form action="/searchs" method="POST"><button name="search" value={{ $action->id }}><span
+                                                                class="badge badge-pill badge-danger" style="font-size: 15px !important;"> @csrf()Action</span>
+                                                            </button></form></td></tr>
+
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                                @else
+                                                <p>Nothing Found</p>
+                                                @endif
                                         </div>
                                         <div class="tab-pane" id="settings">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="">
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Lines From Great Russian Literature? Or E-mails From My
-                                                            Boss?</td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                                                <i class="material-icons">edit</i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="" checked>
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Flooded: One year later, assessing what was lost and what
-                                                            was found when a ravaging rain swept through metro Detroit
-                                                        </td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                                                <i class="material-icons">edit</i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="" checked>
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Sign contract for "What are conference organizers afraid
-                                                            of?"</td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                                                <i class="material-icons">edit</i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            @if(count($appeals) > 0)
+                                                <table class="table table-striped table-bordered" id="dataTablex" width="100%"
+                                                    cellspacing="0">
+                                                    <thead class=" text-primary">
+
+                                                        <th>Case No</th>
+                                                        <th>Prison Name</th>
+                                                        <th>Conviction Time</th>
+                                                        <td>Action</td>
+                                                    </thead>
+                                                    <tbody>
+                                                            @foreach($PendingOnHearing as $onhearing)
+                                                        <tr>
+                                                                <td>{{ $onhearing->caseno }}</td>
+                                                                <td>{{$onhearing->name}}</td>
+                                                                <td> <a rel="tooltip" data-placement="right" title="">
+                                                                        @if(!empty($onhearing->date_of_sentence))
+                                                                            {{ $onhearing->date_of_sentence }}</a>
+                                                                            @else
+                                                                            No Date Found
+                                                                            @endif
+                                                                        {{-- <a class="btn tooltipped" data-position="bottom"
+                                                                            data-tooltip="I am a tooltip">Hover me!</a> --}}
+                                                                    </td>
+                                                                    <td><form action="/searchs" method="POST"><button name="search" value={{ $onhearing->id }}><span
+                                                                        class="badge badge-pill badge-danger" style="font-size: 15px !important;"> @csrf()Action</span>
+                                                                    </button></form></td> </tr>
+                                                                    @endforeach
+
+                                                                </tbody>
+                                                            </table>
+                                                            @else
+                                                            <p>Nothing Found</p>
+                                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -430,10 +382,9 @@
             </div>
             <?php 
             $data="";
-            $testData = DB::select('SELECT prisoner_gender, dob, prisoner.id FROM prisoner   JOIN   newappeals ON newappeals.id = prisoner.id');
-            foreach($testData as $js){
+            foreach($data_PieChart as $dataPie){
            
-                $data.= "['".$js->prisoner_gender."',".$js->id.",'".$js->dob."'],";
+                $data.= "['".$dataPie->prisoner_name."','".$dataPie->prisoner_gender."',".$dataPie->dob.",".$dataPie->id."],";
             }
             ?> 
             <footer class="footer">
@@ -686,7 +637,7 @@
       'controlType': 'NumberRangeFilter',
       'containerId': 'slider_div',
       'options': {
-        'filterColumnIndex': 1,
+        'filterColumnIndex': 2,
         
         'ui': {
           'labelStacking': 'vertical',
@@ -699,7 +650,7 @@
       'controlType': 'CategoryFilter',
       'containerId': 'categoryPicker_div',
       'options': {
-        'filterColumnIndex': 0, // Select column to view
+        'filterColumnIndex': 1, // Select column to view
         'ui': {
           'labelStacking': 'vertical',
           'label': 'Select Gender:',
@@ -720,7 +671,7 @@
         'backgroundColor': { fill:'transparent' },
          'is3D': true
       },
-      'view': {'columns': [0, 2]}
+      'view': {'columns': [0, 3]}
     });
     // var table = new google.visualization.ChartWrapper({
     //   'chartType': 'Table',
@@ -729,7 +680,7 @@
     //   }
     //});
     var data = google.visualization.arrayToDataTable([
-        ['State','StatusID','some'],
+        ['Name','Gender','DOB','ID'],
        <?php echo substr($data,0,-1);?>
  
 

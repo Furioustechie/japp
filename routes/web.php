@@ -125,3 +125,4 @@ Route::get('/hc_details', ['as'=>'get.data6','uses'=>'AppealsController@getDetai
 //Route::get('/testt', ['as'=>'get.data7','uses'=>'AppealsController@testt']);
 Route::get('/test', 'AppealsController@testonly1');
 Route::any('/search','AppealsController@search');
+Route::any('/searchs','AppealsController@searchbyID');

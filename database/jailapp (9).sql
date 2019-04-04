@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2019 at 01:09 PM
+-- Generation Time: Apr 04, 2019 at 01:34 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -165,8 +165,8 @@ CREATE TABLE `appealstatus` (
 --
 
 INSERT INTO `appealstatus` (`id`, `statusid`, `newappeals_id`, `state`, `last_status_update`, `created_at`, `updated_at`) VALUES
-(2, 1, 2, 'yellowgreen', NULL, '2019-04-01 12:43:55', '2019-04-01 12:43:55'),
-(13, 1, 6, 'yellowgreen', '2019-04-02 13:16:58', '2019-04-01 01:06:52', '2019-04-01 02:53:07'),
+(2, 1, 2, 'yellowgreen', '2019-04-02 21:26:54', '2019-04-01 12:43:55', '2019-03-01 12:43:55'),
+(13, 1, 6, 'yellowgreen', '2019-04-03 23:18:20', '2019-04-01 01:06:52', '2019-03-06 04:53:15'),
 (19, 1, 1, 'yellowgreen', NULL, '2019-04-01 03:11:24', '2019-04-01 03:11:24'),
 (23, 1, 3, 'yellowgreen', NULL, '2019-04-01 04:59:05', '2019-04-01 04:59:05'),
 (24, 2, 3, 'yellowgreen', NULL, '2019-04-01 04:56:07', '2019-04-01 04:56:07'),
@@ -180,24 +180,25 @@ INSERT INTO `appealstatus` (`id`, `statusid`, `newappeals_id`, `state`, `last_st
 (41, 3, 6, 'yellowgreen', NULL, '2019-04-02 01:56:18', '2019-04-02 01:56:18'),
 (42, 4, 6, 'yellowgreen', NULL, '2019-04-02 01:09:19', '2019-04-02 01:09:19'),
 (44, 5, 6, 'yellowgreen', NULL, '2019-04-02 01:05:30', '2019-04-02 01:05:30'),
-(45, 6, 6, 'yellowgreen', NULL, '2019-04-02 01:35:30', '2019-04-02 01:35:30'),
+(45, 8, 6, 'yellowgreen', '2019-04-04 15:19:24', '2019-04-02 01:35:30', '2019-03-01 01:35:30'),
 (47, 1, 5, 'yellowgreen', '2019-04-02 15:21:18', '2019-04-02 01:26:47', '2019-04-02 01:44:47'),
-(53, 2, 5, 'yellowgreen', NULL, '2019-04-02 03:35:21', '2019-04-02 03:35:21'),
 (54, 3, 5, 'yellowgreen', NULL, '2019-04-02 03:53:34', '2019-04-02 03:53:34'),
 (55, 4, 5, 'yellowgreen', '2019-04-02 15:39:53', '2019-04-02 03:43:35', '2019-04-02 03:53:39'),
 (56, 5, 5, 'yellowgreen', '2019-04-02 16:05:42', '2019-04-02 03:26:40', '2019-04-02 04:42:05'),
 (57, 6, 5, 'yellowgreen', NULL, '2019-04-02 04:57:05', '2019-04-02 04:57:05'),
 (58, 7, 5, 'yellowgreen', '2019-04-02 16:08:16', '2019-04-02 04:10:07', '2019-04-02 04:16:08'),
 (59, 8, 5, 'yellowgreen', '2019-04-02 16:12:16', '2019-04-02 04:30:11', '2019-04-02 04:16:12'),
-(60, 9, 5, 'yellowgreen', '2019-04-02 16:20:10', '2019-04-02 04:22:14', '2019-04-02 04:10:20'),
 (61, 6, 1, 'yellowgreen', '2019-04-02 16:37:11', '2019-04-02 04:07:36', '2019-04-02 04:11:37'),
 (62, 7, 1, 'yellowgreen', '2019-04-02 16:39:26', '2019-04-02 04:20:37', '2019-04-02 04:26:39'),
 (63, 8, 1, 'yellowgreen', NULL, '2019-04-02 04:34:39', '2019-04-02 04:34:39'),
-(64, 10, 5, 'yellowgreen', '2019-04-02 16:41:38', '2019-04-02 04:37:40', '2019-04-02 04:38:41'),
 (65, 9, 1, 'yellowgreen', '2019-04-02 16:46:00', '2019-04-02 04:30:45', '2019-04-02 04:00:46'),
 (66, 1, 4, 'yellowgreen', NULL, '2019-04-02 04:15:48', '2019-04-02 04:15:48'),
 (67, 2, 4, 'yellowgreen', NULL, '2019-04-02 04:30:49', '2019-04-02 04:30:49'),
-(68, 10, 1, 'red', NULL, '2019-04-02 04:01:52', '2019-04-02 04:01:52');
+(68, 10, 1, 'red', NULL, '2019-04-02 04:01:52', '2019-04-02 04:01:52'),
+(69, 3, 4, 'yellowgreen', NULL, '2019-04-04 02:55:47', '2019-04-04 02:55:47'),
+(70, 2, 2, 'yellowgreen', NULL, '2019-04-04 02:32:48', '2019-04-04 02:32:48'),
+(71, 5, 3, 'yellowgreen', NULL, '2019-04-04 02:52:59', '2019-04-04 02:52:59'),
+(72, 8, 5, 'yellowgreen', '2019-04-04 15:47:18', '2019-04-04 03:23:44', '2019-04-04 03:23:44');
 
 -- --------------------------------------------------------
 
@@ -2037,6 +2038,19 @@ INSERT INTO `courts` (`id`, `name_bn`, `name_en`, `disid`, `created_at`, `update
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `datatotakeaction`
+-- (See below for the actual view)
+--
+CREATE TABLE `datatotakeaction` (
+`id` int(10) unsigned
+,`date_of_sentence` datetime
+,`caseno` varchar(191)
+,`name` varchar(191)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `districts`
 --
 
@@ -2199,6 +2213,36 @@ INSERT INTO `documents` (`id`, `appealid`, `doctypeid`, `attached`, `filename`, 
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `forhearing`
+-- (See below for the actual view)
+--
+CREATE TABLE `forhearing` (
+`id` int(10) unsigned
+,`statusid` int(10) unsigned
+,`newappeals_id` int(10) unsigned
+,`state` varchar(191)
+,`updated_at` datetime
+,`mydate` int(7)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `longtimepending`
+-- (See below for the actual view)
+--
+CREATE TABLE `longtimepending` (
+`id` int(10) unsigned
+,`statusid` int(10) unsigned
+,`newappeals_id` int(10) unsigned
+,`state` varchar(191)
+,`updated_at` datetime
+,`mydate` int(7)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -2273,10 +2317,10 @@ CREATE TABLE `newappeals` (
 
 INSERT INTO `newappeals` (`id`, `date_of_sentence`, `date_of_petition_for_cc`, `date_of_cc_receipt`, `date_of_order_on_appeal`, `dateoforderreceipt`, `date_of_ticket_notes`, `date_of_appeal`, `privacy`, `prisonid`, `prisonerid`, `courtid`, `appeals_to_courtid`, `caseid`, `user_id`, `offenceid`, `sentenceid`, `created_at`, `updated_at`, `resultsid`, `appeal_number`) VALUES
 (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 17, 1, 76, 1, 1, 2, 2, 42, '2018-12-14 04:24:58', '2019-03-31 04:24:58', 1, NULL),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 21, 2, 88, 1, 2, 2, 1, 56, '2019-03-31 05:53:03', '2019-03-31 05:53:03', 1, NULL),
-(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 15, 3, 78, 1, 3, 2, 1, 1, '2019-03-31 05:55:05', '2019-04-01 10:21:02', 1, NULL),
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 4, 76, 3, 4, 2, 1, 42, '2019-03-31 05:13:11', '2019-03-31 05:13:11', 1, NULL),
-(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 5, 74, 3, 5, 2, 2, 42, '2019-03-31 05:48:23', '2019-04-02 06:50:44', 1, 1),
+(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2, 88, 1, 2, 2, 1, 56, '2019-03-31 05:53:03', '2019-03-31 05:53:03', 1, NULL),
+(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, 78, 1, 3, 2, 1, 1, '2019-03-31 05:55:05', '2019-04-01 10:21:02', 1, 0),
+(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 4, 76, 3, 4, 2, 1, 42, '2019-03-31 05:13:11', '2019-03-31 05:13:11', 1, NULL),
+(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5, 74, 3, 5, 2, 2, 42, '2019-03-31 05:48:23', '2019-04-02 06:50:44', 1, 1),
 (6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 6, 74, 3, 6, 15, 2, 42, '2019-03-31 05:10:37', '2019-04-02 06:34:42', 1, 1);
 
 -- --------------------------------------------------------
@@ -2307,93 +2351,93 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 ('05c95034-b93a-4ed3-9035-12b7ee10ca4d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:57:47', '2019-04-01 10:07:19', 2),
 ('064ca2b2-9fe9-46eb-9c3c-0d21683e86e2', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:20', '2019-04-01 06:56:49', '2019-04-01 10:07:20', 2),
 ('09cb3d34-a035-4224-8a07-ed9bf030c3ef', 'App\\Notifications\\jappNotification', 'App\\User', 7, 3, '{\"data\":\"Update : Outcome Received (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 10:52:01', '2019-04-02 10:52:01', 1),
-('0a3e283d-70ca-4c1d-8852-24d03d4fc9d6', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 09:11:22', '2019-04-02 09:11:22', 5),
+('0a3e283d-70ca-4c1d-8852-24d03d4fc9d6', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 09:11:22', '2019-04-02 14:53:03', 5),
 ('0e834f36-59ee-42ef-a2fc-0e1cfed2cf25', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Received (ON sdefr)\",\"appeal_id\":3}', '2019-04-01 10:07:19', '2019-04-01 10:05:59', '2019-04-01 10:07:19', 3),
 ('153c6484-a09c-4dd0-8792-e02bda69877b', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Case Docket Received (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 05:47:27', '2019-04-02 05:47:27', 6),
-('18bca865-4bfd-4b78-a341-e6f658649096', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 06:39:49', '2019-04-02 06:39:49', 5),
+('18bca865-4bfd-4b78-a341-e6f658649096', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:39:49', '2019-04-02 14:53:03', 5),
 ('1b11f1fa-142b-4c95-ac47-8dec58479666', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Received (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:20', '2019-04-01 06:55:43', '2019-04-01 10:07:20', 2),
 ('1ee43e01-1180-43f2-8ec9-1a41c4d9bb6a', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 07:30:05', '2019-04-02 07:30:05', 6),
-('20ef69f1-80e6-467e-a88a-a4c8ddcf563b', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 10:08:07', '2019-04-02 10:08:07', 5),
+('20ef69f1-80e6-467e-a88a-a4c8ddcf563b', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 10:08:07', '2019-04-02 14:53:03', 5),
 ('2169c5bb-2b92-453b-8c64-0393be8dc7d1', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:57:04', '2019-04-01 10:07:19', 2),
 ('218e8087-3cb8-4298-bccf-b673af1dc5dd', 'App\\Notifications\\jappNotification', 'App\\User', 17, 3, '{\"data\":\"Update : Case Docket Requested (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 10:37:11', '2019-04-02 10:37:11', 1),
-('27f15ed1-b174-48ae-9465-6737137acb52', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Received (ON reter)\",\"appeal_id\":4}', NULL, '2019-04-02 10:48:15', '2019-04-02 10:48:15', 4),
-('2cd13a50-8c85-4f75-b19e-cfe28900393c', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 09:21:35', '2019-04-02 09:21:35', 5),
-('2f4c6658-adcc-4184-9f3b-73daeb1d6ce6', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 08:57:42', '2019-04-02 08:57:42', 5),
+('27f15ed1-b174-48ae-9465-6737137acb52', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Received (ON reter)\",\"appeal_id\":4}', '2019-04-02 14:53:03', '2019-04-02 10:48:15', '2019-04-02 14:53:03', 4),
+('2cd13a50-8c85-4f75-b19e-cfe28900393c', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 09:21:35', '2019-04-02 14:53:03', 5),
+('2f4c6658-adcc-4184-9f3b-73daeb1d6ce6', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 08:57:42', '2019-04-02 14:53:03', 5),
 ('3dd922f4-1c48-49de-8e6b-e2c61ee4b123', 'App\\Notifications\\jappNotification', 'App\\User', 17, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 07:49:42', '2019-04-02 07:49:42', 5),
-('3f556381-6c86-4017-a786-9a86d30f5a0b', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 10:05:43', '2019-04-02 10:05:43', 5),
+('3f556381-6c86-4017-a786-9a86d30f5a0b', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 10:05:43', '2019-04-02 14:53:03', 5),
 ('40ee2c37-45b9-4f03-a595-4d69957da65a', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:58:13', '2019-04-01 10:07:19', 2),
 ('44497fcd-0d54-47e6-b0af-607501faafdd', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdfsdf)\",\"appeal_id\":6}', '2019-04-01 10:07:19', '2019-04-01 08:09:41', '2019-04-01 10:07:19', 6),
-('463b7dcf-4e7d-4afd-a10f-82a52107a59d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 06:45:35', '2019-04-02 06:45:35', 5),
-('4af4d84c-2bff-4e1a-a00f-3561662584c2', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:39:50', '2019-04-02 07:39:50', 1),
-('4d6608fe-4616-49e4-ac6a-407d23c5a4ec', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdefr)\",\"appeal_id\":3}', NULL, '2019-04-01 10:23:25', '2019-04-01 10:23:25', 3),
+('463b7dcf-4e7d-4afd-a10f-82a52107a59d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:45:35', '2019-04-02 14:53:03', 5),
+('4af4d84c-2bff-4e1a-a00f-3561662584c2', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:39:50', '2019-04-02 14:53:03', 1),
+('4d6608fe-4616-49e4-ac6a-407d23c5a4ec', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdefr)\",\"appeal_id\":3}', '2019-04-02 14:53:03', '2019-04-01 10:23:25', '2019-04-02 14:53:03', 3),
 ('4e815cd7-55dc-46a7-81fe-4a04bb22299c', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Lawyer Requested (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 06:18:43', '2019-04-02 06:18:43', 6),
-('51daf10d-2524-45a3-b231-3e43fc41fcbb', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 08:54:12', '2019-04-02 08:54:12', 5),
+('51daf10d-2524-45a3-b231-3e43fc41fcbb', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 08:54:12', '2019-04-02 14:53:03', 5),
 ('54505d68-48a2-4587-93b4-3f1b2e6b5361', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:58:56', '2019-04-01 10:07:19', 2),
 ('57d3e2bc-b6dd-436d-b335-85f370060ded', 'App\\Notifications\\jappNotification', 'App\\User', 17, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 08:59:54', '2019-04-02 08:59:54', 5),
 ('59125ffd-135c-48b9-b78b-b1baa4d67f1f', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdsd)\",\"appeal_id\":5}', '2019-04-01 10:07:19', '2019-04-01 09:23:42', '2019-04-01 10:07:19', 5),
 ('5a3c7306-ade9-4fcf-8f95-f696135ded2f', 'App\\Notifications\\jappNotification', 'App\\User', 6, 3, '{\"data\":\"Update : Application Received (ON reter)\",\"appeal_id\":4}', NULL, '2019-04-02 10:48:16', '2019-04-02 10:48:16', 4),
 ('5bc17be1-8d51-444f-b0a3-8d570d81a884', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdfsdf)\",\"appeal_id\":6}', '2019-04-01 10:07:19', '2019-04-01 09:28:07', '2019-04-01 10:07:19', 6),
 ('5db47d07-9905-4ffe-b9bd-2b89a1925156', 'App\\Notifications\\jappNotification', 'App\\User', 17, 3, '{\"data\":\"Update : Outcome Received (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 10:52:01', '2019-04-02 10:52:01', 1),
-('5eb911ae-3ef5-4be4-b9dc-6f3e59f9b648', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:02:57', '2019-04-02 07:02:57', 1),
-('609f5b54-d60c-4ac2-a391-1cb83ffbefd7', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 06:38:36', '2019-04-02 06:38:36', 5),
+('5eb911ae-3ef5-4be4-b9dc-6f3e59f9b648', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:02:57', '2019-04-02 14:53:03', 1),
+('609f5b54-d60c-4ac2-a391-1cb83ffbefd7', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:38:36', '2019-04-02 14:53:03', 5),
 ('629859c4-13da-49ec-a251-788eb8f15dcb', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:57:21', '2019-04-01 10:07:19', 2),
 ('639ab591-d84d-40b5-ab43-4d7ff58138b0', 'App\\Notifications\\jappNotification', 'App\\User', 3, 2, '{\"data\":\"New Appeals From Comilla Central Jail x\",\"appeal_id\":1}', '2019-03-31 05:11:37', '2019-03-31 04:58:24', '2019-03-31 05:11:37', 1),
-('6986124f-2ed9-41a9-a2eb-fbdd32352809', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 06:39:16', '2019-04-02 06:39:16', 5),
-('6a3a36b5-3e97-429c-aa12-22d36df378e5', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 10:20:10', '2019-04-02 10:20:10', 5),
+('6986124f-2ed9-41a9-a2eb-fbdd32352809', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:39:16', '2019-04-02 14:53:03', 5),
+('6a3a36b5-3e97-429c-aa12-22d36df378e5', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 10:20:10', '2019-04-02 14:53:03', 5),
 ('6c9baca8-2e26-4929-874d-222d11efa2fe', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 07:19:42', '2019-04-02 07:19:42', 6),
 ('6ca13950-0b0f-4a5e-81d9-1351b3bac89c', 'App\\Notifications\\jappNotification', 'App\\User', 3, 2, '{\"data\":\"New Appeals From Bogra District Jail\",\"appeal_id\":5}', NULL, '2019-03-31 05:23:48', '2019-03-31 05:23:48', 5),
 ('6eba8957-1055-4036-b6bf-2841a4203d7c', 'App\\Notifications\\jappNotification', 'App\\User', 6, 3, '{\"data\":\"Update : Application Complete (ON reter)\",\"appeal_id\":4}', NULL, '2019-04-02 10:49:30', '2019-04-02 10:49:30', 4),
 ('7018a5c8-4439-4bbe-aef7-d23016a92440', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Received (ON sdefr)\",\"appeal_id\":1}', '2019-04-01 10:07:20', '2019-03-31 05:13:35', '2019-04-01 10:07:20', 1),
-('7039e0f9-0973-43e4-8055-ac5b80e3c330', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 08:58:04', '2019-04-02 08:58:04', 5),
-('70f6631f-665b-43bc-a1b5-6ef6d8659d76', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:04:46', '2019-04-02 07:04:46', 1),
+('7039e0f9-0973-43e4-8055-ac5b80e3c330', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 08:58:04', '2019-04-02 14:53:03', 5),
+('70f6631f-665b-43bc-a1b5-6ef6d8659d76', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:04:46', '2019-04-02 14:53:03', 1),
 ('770b9bd3-ba61-4929-8cfd-3515109eb291', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Received (ON sdefr)\",\"appeal_id\":1}', '2019-04-01 10:07:19', '2019-04-01 09:24:11', '2019-04-01 10:07:19', 1),
-('772bfa4a-5a2c-4117-b925-1240fb41eb68', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 09:34:53', '2019-04-02 09:34:53', 5),
+('772bfa4a-5a2c-4117-b925-1240fb41eb68', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 09:34:53', '2019-04-02 14:53:03', 5),
 ('7731ecc0-567e-46ee-877c-cc1177d752af', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 06:36:31', '2019-04-02 06:36:31', 6),
 ('7e30eccb-eeb5-4432-ad9d-e116f973ae3d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdsd)\",\"appeal_id\":5}', '2019-04-01 10:07:19', '2019-04-01 09:40:38', '2019-04-01 10:07:19', 5),
 ('7ea9a6b9-99dd-457b-a194-2138591617dc', 'App\\Notifications\\jappNotification', 'App\\User', 3, 2, '{\"data\":\"New Appeals From Bogra District Jail\",\"appeal_id\":4}', '2019-03-31 05:11:37', '2019-03-31 05:11:13', '2019-03-31 05:11:37', 4),
 ('7f8ea61a-2b8f-4685-bb48-7ded27245df6', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 06:35:34', '2019-04-02 06:35:34', 6),
-('800f8bfb-4937-43ba-a6ad-e5ea914aa572', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:04:17', '2019-04-02 07:04:17', 1),
+('800f8bfb-4937-43ba-a6ad-e5ea914aa572', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:04:17', '2019-04-02 14:53:03', 1),
 ('8321d15f-5d10-43f0-89c4-8c61eaaeeae0', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 07:19:09', '2019-04-02 07:19:09', 6),
-('86270c7c-64c3-45ed-8143-2c2071ae6756', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 09:13:09', '2019-04-02 09:13:09', 5),
+('86270c7c-64c3-45ed-8143-2c2071ae6756', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 09:13:09', '2019-04-02 14:53:03', 5),
 ('87d792e2-e0d5-4a44-a6a5-c87194967a09', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Application Complete (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 07:18:47', '2019-04-02 07:18:47', 6),
-('8be6a176-1fdd-4db5-bace-b93d32173e0c', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 10:08:17', '2019-04-02 10:08:17', 5),
+('8be6a176-1fdd-4db5-bace-b93d32173e0c', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 10:08:17', '2019-04-02 14:53:03', 5),
 ('9179826c-0b62-4564-83ef-68a60219aaaa', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdsd)\",\"appeal_id\":5}', '2019-04-01 10:07:19', '2019-04-01 09:39:30', '2019-04-01 10:07:19', 5),
 ('950396a0-eb6d-40d0-8bb2-27cf67f7ecd0', 'App\\Notifications\\jappNotification', 'App\\User', 1, 2, '{\"data\":\"New Appeals From Comilla Central Jail x\",\"appeal_id\":3}', NULL, '2019-03-31 05:05:55', '2019-03-31 05:05:55', 3),
 ('97d3ae01-e2a8-437b-97de-c1497e6a3d3f', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:20', '2019-04-01 06:56:40', '2019-04-01 10:07:20', 2),
 ('97d65cd0-4d88-4afb-b0a5-3038975402e1', 'App\\Notifications\\jappNotification', 'App\\User', 17, 3, '{\"data\":\"Update : Case Docket Received (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 10:39:26', '2019-04-02 10:39:26', 1),
-('988d02e4-4d8a-494d-a3c8-f752a01c3e38', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 10:41:39', '2019-04-02 10:41:39', 5),
+('988d02e4-4d8a-494d-a3c8-f752a01c3e38', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 10:41:39', '2019-04-02 14:53:03', 5),
 ('a31a3bfb-9098-46dc-a00f-130df7f988e4', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:20', '2019-04-01 06:56:24', '2019-04-01 10:07:20', 2),
 ('acc1d8a4-d910-4096-8b21-061edd1d0c14', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Case Docket Requested (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 07:30:35', '2019-04-02 07:30:35', 6),
-('ae635322-385b-4002-b13c-0826f3fa4f96', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:03:19', '2019-04-02 07:03:19', 1),
-('afd090f4-cf34-4585-bef5-3f11c2b89189', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 06:40:11', '2019-04-02 06:40:11', 5),
-('b0453fb3-a1ae-40a2-be56-ece5725a5e44', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 10:12:16', '2019-04-02 10:12:16', 5),
+('ae635322-385b-4002-b13c-0826f3fa4f96', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:03:19', '2019-04-02 14:53:03', 1),
+('afd090f4-cf34-4585-bef5-3f11c2b89189', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:40:11', '2019-04-02 14:53:03', 5),
+('b0453fb3-a1ae-40a2-be56-ece5725a5e44', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 10:12:16', '2019-04-02 14:53:03', 5),
 ('b3f235da-4ada-49bc-bc0c-0860553faed8', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:58:20', '2019-04-01 10:07:19', 2),
-('b9675d9b-a50f-403b-8770-3b7b18c46b18', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 08:52:41', '2019-04-02 08:52:41', 5),
+('b9675d9b-a50f-403b-8770-3b7b18c46b18', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 08:52:41', '2019-04-02 14:53:03', 5),
 ('c1a5b119-5be1-49bb-9b45-8d69d66cf421', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 06:34:43', '2019-04-02 06:34:43', 6),
 ('c2af5a02-64aa-4040-aedc-a53056644d4f', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Received (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:58:05', '2019-04-01 10:07:19', 2),
-('c55feef6-1a22-43c9-8dd0-0d0e9004b981', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:03:54', '2019-04-02 07:03:54', 1),
+('c55feef6-1a22-43c9-8dd0-0d0e9004b981', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:03:54', '2019-04-02 14:53:03', 1),
 ('c82cef08-d8b4-4967-b316-c25a831ff098', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Lawyer Requested (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 06:32:56', '2019-04-02 06:32:56', 6),
 ('c867c872-9c54-4ed0-be27-256b1618552d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdfsdf)\",\"appeal_id\":6}', '2019-04-01 10:07:19', '2019-04-01 08:07:55', '2019-04-01 10:07:19', 6),
-('c87fd811-9c1e-4394-8540-dc2175064fce', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 07:47:44', '2019-04-02 07:47:44', 5),
-('c94547ba-9de3-4707-a69a-f8a10f77975d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdefr)\",\"appeal_id\":3}', NULL, '2019-04-01 10:07:56', '2019-04-01 10:07:56', 3),
+('c87fd811-9c1e-4394-8540-dc2175064fce', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 07:47:44', '2019-04-02 14:53:03', 5),
+('c94547ba-9de3-4707-a69a-f8a10f77975d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON sdefr)\",\"appeal_id\":3}', '2019-04-02 14:53:03', '2019-04-01 10:07:56', '2019-04-02 14:53:03', 3),
 ('ccb0b376-1e18-49f7-adef-b9bedc3d491d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:57:57', '2019-04-01 10:07:19', 2),
-('cdcb9ee8-3ed3-4529-a76d-981b47090e75', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 06:48:49', '2019-04-02 06:48:49', 5),
-('d41c76c0-f3dd-47bd-8a01-71b5e3f791aa', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 06:37:43', '2019-04-02 06:37:43', 5),
+('cdcb9ee8-3ed3-4529-a76d-981b47090e75', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:48:49', '2019-04-02 14:53:03', 5),
+('d41c76c0-f3dd-47bd-8a01-71b5e3f791aa', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:37:43', '2019-04-02 14:53:03', 5),
 ('d8f1b87a-afa7-40fe-a341-783c69bfda70', 'App\\Notifications\\jappNotification', 'App\\User', 17, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 10:46:00', '2019-04-02 10:46:00', 1),
-('d956ed46-2b02-42c9-9188-11403aebdc42', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdefr)\",\"appeal_id\":3}', NULL, '2019-04-01 10:21:02', '2019-04-01 10:21:02', 3),
+('d956ed46-2b02-42c9-9188-11403aebdc42', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdefr)\",\"appeal_id\":3}', '2019-04-02 14:53:03', '2019-04-01 10:21:02', '2019-04-02 14:53:03', 3),
 ('dcdcac34-4050-412b-a78f-d169b30f084c', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Received (ON sdfsdf)\",\"appeal_id\":6}', '2019-04-01 10:07:19', '2019-04-01 07:51:41', '2019-04-01 10:07:19', 6),
 ('dec2d4c4-3030-4464-9499-1b31a350d7d2', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 07:18:56', '2019-04-02 07:18:56', 6),
 ('e41fd466-6062-42ce-a87e-3b958aa51309', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 06:36:50', '2019-04-02 06:36:50', 6),
 ('e5911777-3f08-4cf8-b2d5-06fb36eb0bf6', 'App\\Notifications\\jappNotification', 'App\\User', 1, 2, '{\"data\":\"New Appeals From Manikganj District Jail\",\"appeal_id\":2}', NULL, '2019-03-31 05:03:53', '2019-03-31 05:03:53', 2),
-('eebe8729-85b0-4d20-b52b-2a50efa6fb35', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:05:50', '2019-04-02 07:05:50', 1),
-('eefc3e9e-1d61-4c67-96ba-cb8f9b806539', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 07:43:45', '2019-04-02 07:43:45', 5),
-('f314fba2-4d0e-48ec-add2-f41a6d88c4cc', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON reter)\",\"appeal_id\":4}', NULL, '2019-04-02 10:49:30', '2019-04-02 10:49:30', 4),
+('eebe8729-85b0-4d20-b52b-2a50efa6fb35', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:05:50', '2019-04-02 14:53:03', 1),
+('eefc3e9e-1d61-4c67-96ba-cb8f9b806539', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 07:43:45', '2019-04-02 14:53:03', 5),
+('f314fba2-4d0e-48ec-add2-f41a6d88c4cc', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON reter)\",\"appeal_id\":4}', '2019-04-02 14:53:03', '2019-04-02 10:49:30', '2019-04-02 14:53:03', 4),
 ('f6be2c0b-33f9-4492-8086-38f023166987', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Case Docket Received (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 05:44:10', '2019-04-02 05:44:10', 6),
 ('f7d91994-5797-48af-880c-2e9836422595', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdfsdf)\",\"appeal_id\":6}', '2019-04-01 10:07:19', '2019-04-01 09:21:18', '2019-04-01 10:07:19', 6),
 ('f9977e9d-9cf0-4725-bdd0-ec285b2a12e4', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Case Docket Received (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 05:49:47', '2019-04-02 05:49:47', 6),
-('fa1eaf47-bced-4ca2-a0f7-86741a096eeb', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:03:38', '2019-04-02 07:03:38', 1),
-('fe954798-dd50-42a2-989a-9888b6cddedb', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 07:06:19', '2019-04-02 07:06:19', 1),
-('ffe3b480-8892-4fa3-8260-68a8ccbaf678', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON sdsd)\",\"appeal_id\":5}', NULL, '2019-04-02 09:17:12', '2019-04-02 09:17:12', 5);
+('fa1eaf47-bced-4ca2-a0f7-86741a096eeb', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:03:38', '2019-04-02 14:53:03', 1),
+('fe954798-dd50-42a2-989a-9888b6cddedb', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:06:19', '2019-04-02 14:53:03', 1),
+('ffe3b480-8892-4fa3-8260-68a8ccbaf678', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 09:17:12', '2019-04-02 14:53:03', 5);
 
 -- --------------------------------------------------------
 
@@ -2418,6 +2462,19 @@ INSERT INTO `offences` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (6, 'dfsdsd xx', '2019-01-28 05:05:15', '2019-01-28 05:05:15'),
 (8, 'htgf', '2019-01-06 19:36:36', '2019-01-06 19:36:36'),
 (9, 'hjjxxxxxxx', '2019-01-28 05:05:00', '2019-01-28 05:05:00');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `onhearingdetails`
+-- (See below for the actual view)
+--
+CREATE TABLE `onhearingdetails` (
+`id` int(10) unsigned
+,`date_of_sentence` datetime
+,`caseno` varchar(191)
+,`name` varchar(191)
+);
 
 -- --------------------------------------------------------
 
@@ -2450,6 +2507,7 @@ CREATE TABLE `prisoner` (
   `prisoner_no` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prisoner_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prisoner_gender` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dob` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2458,13 +2516,13 @@ CREATE TABLE `prisoner` (
 -- Dumping data for table `prisoner`
 --
 
-INSERT INTO `prisoner` (`id`, `prisoner_no`, `prisoner_name`, `prisoner_gender`, `created_at`, `updated_at`) VALUES
-(1, 'sdefr', 'ss', 'M', '2019-03-31 04:24:58', '2019-03-31 04:24:58'),
-(2, 'fgfh', 'ddd', 'F', '2019-03-31 05:53:03', '2019-03-31 05:53:03'),
-(3, 'sdefr', 'ddd', 'M', '2019-03-31 05:55:05', '2019-03-31 05:55:05'),
-(4, 'reter', 'fdgdsg', 'F', '2019-03-31 05:13:11', '2019-03-31 05:13:11'),
-(5, 'sdsd', 'sdsd', 'F', '2019-03-31 05:47:23', '2019-03-31 05:47:23'),
-(6, 'sdfsdf', 'dfsfsd', 'M', '2019-03-31 05:10:37', '2019-03-31 05:10:37');
+INSERT INTO `prisoner` (`id`, `prisoner_no`, `prisoner_name`, `prisoner_gender`, `dob`, `created_at`, `updated_at`) VALUES
+(1, 'sdefr', 'ss', 'M', 20, '2019-03-31 04:24:58', '2019-03-31 04:24:58'),
+(2, 'fgfh', 'ddd', 'F', 30, '2019-03-31 05:53:03', '2019-03-31 05:53:03'),
+(3, 'sdefr', 'ddd', 'M', 25, '2019-03-31 05:55:05', '2019-03-31 05:55:05'),
+(4, 'reter', 'fdgdsg', 'F', 35, '2019-03-31 05:13:11', '2019-03-31 05:13:11'),
+(5, 'sdsd', 'sdsd', 'F', 45, '2019-03-31 05:47:23', '2019-03-31 05:47:23'),
+(6, 'sdfsdf', 'dfsfsd', 'M', 50, '2019-03-31 05:10:37', '2019-03-31 05:10:37');
 
 -- --------------------------------------------------------
 
@@ -2571,6 +2629,26 @@ INSERT INTO `status` (`id`, `status_name`, `expire_in_days`, `created_at`, `upda
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `takeaction`
+-- (See below for the actual view)
+--
+CREATE TABLE `takeaction` (
+`vid` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `totalonhearing`
+-- (See below for the actual view)
+--
+CREATE TABLE `totalonhearing` (
+`statusid` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -2594,8 +2672,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `prison_id`, `user_type`, `phone`, `email`, `email_verified_at`, `password`, `district_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'abdullah al noman', 0, 'admin', '01812370702', 'admin@japp.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 1, 'e0aKJjM5KKeTJeLkvp7SQAtC7jVJiEZ7Gtd1vBowIcltVXCSerNbjrPsu1Vp', '2019-02-03 18:00:00', '2019-02-03 18:00:00'),
-(2, 'Prison User', 2, 'user', '01812370702', 'test@outlook.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 31, 'wwGXrwNVcMumAGbrJ2URYItZ4AatcfolxF8eWyLLb4LD4bEIax2Zmf9ZMUi2', '2019-02-05 05:18:36', '2019-02-05 05:18:36'),
+(1, 'abdullah al noman', 0, 'admin', '01812370702', 'admin@japp.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 1, 'qijmqxaH0wYPAbY40ZKgCACPcLgpDZgqSTjSvfDIiE9aEjFUEw7WjckLGbP1', '2019-02-03 18:00:00', '2019-02-03 18:00:00'),
+(2, 'Prison User', 2, 'user', '01812370702', 'test@outlook.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 31, 'dSfRUwqMBxUXgl8gDMQeG8g38D8ux0TUW1piq3kHygQR0xO0z5OlTSxCgcrK', '2019-02-05 05:18:36', '2019-02-05 05:18:36'),
 (3, 'High Court User', 0, 'admin', NULL, 'user@outlook.com', NULL, '$2y$10$85X3udmGrekuUoGVyRFOWOz.aWxEXFGyOj.MmQC7zBLrsDUsoGvJW', NULL, 'eFedhPqbsrjnvrBYrjaui3y563xVMXI5qWA9osuE9fztnzBo3mUNkAgIdAc2', '2019-02-05 06:31:38', '2019-02-05 06:31:38'),
 (5, 'dd', 0, NULL, NULL, 'dd@dd', NULL, '$2y$10$n.wKi48kKX7XHPnv1B/GT.f5UF66DEa5uXMftYY2chCWvRUYh48w2', NULL, NULL, NULL, NULL),
 (6, 'dd@gmail', 2, 'user', NULL, 'user33@outlook.com', NULL, '$2y$10$634lqKE7s4lVFnA/6SBp8.vgjhkoNQvyQSIjUu8wUpkN4gBu1OYIe', NULL, 'GH2Zp6S1MtA1eqqaNKC3CVgKZ0868gj0sii6iEf3kEqDNfr4f1cUD34kYn4J', '2019-02-04 19:19:07', '2019-02-04 19:19:07'),
@@ -2609,6 +2687,60 @@ INSERT INTO `users` (`id`, `name`, `prison_id`, `user_type`, `phone`, `email`, `
 (14, 'Abdullah Al Noman', 0, NULL, NULL, 'aalnoman1@outlook.com', NULL, '$2y$10$mNL52UtlvsHUk8.9cnzf1uOdjLMEBefqAR/TyIufIHfIIIV.FkTd2', NULL, NULL, NULL, NULL),
 (15, 'mathew', 0, 'user', NULL, 'user30@outlook.com', NULL, '$2y$10$Wruw0vffm7IRmqAvhNDJwOGQZJj.dRsUp9/7yMoia4I.G8tQlwOT2', 31, 'UMlWSC0ej36iZvxdZAvdirSJhpH2qb15vitpeIZAprjt3c3Hs0dXzbf54Jon', NULL, NULL),
 (17, 'New Prison', 17, 'user', NULL, 'newuser@outlook.com', NULL, '$2y$10$iXOyjzXl0na6sLjwffAJ5uo0LVxAvxZ2AVvbA/z1hTT/fgZ9pleCy', NULL, 'tUFTicUQjLIHyNP1Rh6zgBqJKpL9fhHJqDkAQyEUYsmrno94v9rqfL1hESOB', '2019-04-02 06:10:08', '2019-04-02 06:10:08');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `datatotakeaction`
+--
+DROP TABLE IF EXISTS `datatotakeaction`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datatotakeaction`  AS  select `newappeals`.`id` AS `id`,`newappeals`.`date_of_sentence` AS `date_of_sentence`,`cases`.`caseno` AS `caseno`,`prisons`.`name` AS `name` from (((`newappeals` join `cases` on((`newappeals`.`caseid` = `cases`.`id`))) join `documents` on((`newappeals`.`id` = `documents`.`appealid`))) join `prisons` on((`newappeals`.`prisonid` = `prisons`.`id`))) where `newappeals`.`id` in (select `longtimepending`.`newappeals_id` from `longtimepending` where (`longtimepending`.`mydate` > 10)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `forhearing`
+--
+DROP TABLE IF EXISTS `forhearing`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `forhearing`  AS  select `longtimepending`.`id` AS `id`,`longtimepending`.`statusid` AS `statusid`,`longtimepending`.`newappeals_id` AS `newappeals_id`,`longtimepending`.`state` AS `state`,`longtimepending`.`updated_at` AS `updated_at`,`longtimepending`.`mydate` AS `mydate` from `longtimepending` where (`longtimepending`.`statusid` = 8) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `longtimepending`
+--
+DROP TABLE IF EXISTS `longtimepending`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `longtimepending`  AS  select `appealstatus`.`id` AS `id`,`appealstatus`.`statusid` AS `statusid`,`appealstatus`.`newappeals_id` AS `newappeals_id`,`appealstatus`.`state` AS `state`,`appealstatus`.`updated_at` AS `updated_at`,(to_days(curdate()) - to_days(`appealstatus`.`updated_at`)) AS `mydate` from `appealstatus` group by `appealstatus`.`newappeals_id` desc ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `onhearingdetails`
+--
+DROP TABLE IF EXISTS `onhearingdetails`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `onhearingdetails`  AS  select `newappeals`.`id` AS `id`,`newappeals`.`date_of_sentence` AS `date_of_sentence`,`cases`.`caseno` AS `caseno`,`prisons`.`name` AS `name` from (((`newappeals` join `cases` on((`newappeals`.`caseid` = `cases`.`id`))) join `documents` on((`newappeals`.`id` = `documents`.`appealid`))) join `prisons` on((`newappeals`.`prisonid` = `prisons`.`id`))) where `newappeals`.`id` in (select `forhearing`.`newappeals_id` from `forhearing`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `takeaction`
+--
+DROP TABLE IF EXISTS `takeaction`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `takeaction`  AS  select count(`longtimepending`.`id`) AS `vid` from `longtimepending` where (`longtimepending`.`mydate` > 10) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `totalonhearing`
+--
+DROP TABLE IF EXISTS `totalonhearing`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `totalonhearing`  AS  select count(`onhearingdetails`.`id`) AS `statusid` from `onhearingdetails` ;
 
 --
 -- Indexes for dumped tables
@@ -2762,7 +2894,7 @@ ALTER TABLE `appeals`
 -- AUTO_INCREMENT for table `appealstatus`
 --
 ALTER TABLE `appealstatus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `cases`
@@ -2860,39 +2992,10 @@ ALTER TABLE `appealstatus`
   ADD CONSTRAINT `fk_appealstatus_newappeals1` FOREIGN KEY (`newappeals_id`) REFERENCES `newappeals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `courts`
---
-ALTER TABLE `courts`
-  ADD CONSTRAINT `courts_disid_foreign` FOREIGN KEY (`disid`) REFERENCES `districts` (`id`);
-
---
 -- Constraints for table `districts`
 --
 ALTER TABLE `districts`
   ADD CONSTRAINT `districts_divid_foreign` FOREIGN KEY (`divid`) REFERENCES `divisions` (`id`);
-
---
--- Constraints for table `documents`
---
-ALTER TABLE `documents`
-  ADD CONSTRAINT `documents_doctypeid_foreign` FOREIGN KEY (`doctypeid`) REFERENCES `doctype` (`id`);
-
---
--- Constraints for table `newappeals`
---
-ALTER TABLE `newappeals`
-  ADD CONSTRAINT `newappeals_caseid_foreign` FOREIGN KEY (`caseid`) REFERENCES `cases` (`id`),
-  ADD CONSTRAINT `newappeals_courtid_foreign` FOREIGN KEY (`courtid`) REFERENCES `courts` (`id`),
-  ADD CONSTRAINT `newappeals_offenceid_foreign` FOREIGN KEY (`offenceid`) REFERENCES `offences` (`id`),
-  ADD CONSTRAINT `newappeals_prisonerid_foreign` FOREIGN KEY (`prisonerid`) REFERENCES `prisoner` (`id`),
-  ADD CONSTRAINT `newappeals_prisonid_foreign` FOREIGN KEY (`prisonid`) REFERENCES `prisons` (`id`),
-  ADD CONSTRAINT `newappeals_sentenceid_foreign` FOREIGN KEY (`sentenceid`) REFERENCES `sentences` (`id`);
-
---
--- Constraints for table `prisons`
---
-ALTER TABLE `prisons`
-  ADD CONSTRAINT `prisons_disid_foreign` FOREIGN KEY (`disid`) REFERENCES `districts` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

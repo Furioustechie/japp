@@ -739,7 +739,7 @@ public function abc(request $request ,$id){
         
 
 }
-public function search(Request $request){
+public function search(Request $request ){
     //if(!(isset($request))){ 
         if (isset($request->search)){
             $search = $request->search;
@@ -752,7 +752,7 @@ public function search(Request $request){
             ->join('cases', 'cases.id', '=', 'na.caseid')
     
             ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
-            'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
+            'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy','prisons.id AS prison_id')
             ->where('na.id', 'like', '%'.$search.'%')
             ->orWhere('prisons.name', 'like', '%'.$search.'%')
             ->orWhere('cases.caseno', 'like', '%'.$search.'%')
@@ -765,6 +765,41 @@ public function search(Request $request){
         return redirect('hcDetails')->with('error','Nothing Found!!');
 
     }
+}
+public function searchbyID( Request $request ){
+  
+    if (isset($request->search)){
+        $search = $request->search;
+        //dd($search);
+        $appDetails = DB::table('newappeals AS na')
+            ->join('prisons', 'na.prisonid', '=', 'prisons.id')
+            ->join('offences', 'na.offenceid', '=', 'offences.id')
+            ->join('courts', 'na.courtid', '=', 'courts.id')
+            ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
+            ->join('cases', 'cases.id', '=', 'na.caseid')
+    
+            ->select(
+                'na.id',
+                'prisons.name AS prison_name',
+                'prisoner.prisoner_name AS prisoner_name',
+                'cases.caseno AS case_no',
+                'offences.name AS offence_name',
+                'courts.name_en AS court_name',
+                'na.privacy',
+                'prisons.id AS prison_id'
+            )
+            ->where('na.id', 'like', '%'.$search.'%')
+            // ->orWhere('prisons.name', 'like', '%'.$search.'%')
+            // ->orWhere('cases.caseno', 'like', '%'.$search.'%')
+            ->paginate(10);
+        return view('appeals.hcDetails', ['appDetails' => $appDetails]);
+    }
+    else{
+        return redirect('/dashboard')->with('error','Nothing Found!!');
+    }
+    // } else {
+    //     return redirect('hcDetails')->with('error', 'Nothing Found!!');
+    //}
 }
 
 

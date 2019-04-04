@@ -213,9 +213,11 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                       <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name</label><br>
+                                                      {{-- <input type="text" name="prisoner_name" value="{{$appeal->prison_name}}" class="form-control" disabled> --}}
+
                                                       <select name="prison_name" class="browser-default custom-select">
                                                         @foreach ($prisonName as $pname)
-                                                            <option value="{{ $pname->id }}" <?=$pname->id==$appeal->prisonid ? ' selected="selected"' : '';?>>{{ $pname->name }}</option>
+                                                            <option value="{{ $pname->id }}" <?php $pname->id==$appeal->prison_name ? ' selected="selected"' : '';?>>{{ $pname->name }}</option>
                                                         @endforeach
                                                       </select>
                                                     </div>
