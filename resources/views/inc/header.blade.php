@@ -33,7 +33,7 @@
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               @if(auth()->user()->unreadNotifications->count()>0)
               <i class="material-icons">notifications_active</i>
-              <span class="notification">{{ auth()->user()->unreadNotifications->count() }}</span>
+              <span class="notification animated infinite flash delay-2s">{{ auth()->user()->unreadNotifications->count() }}</span>
               @else
               <i class="material-icons">notifications</i>
               @endif

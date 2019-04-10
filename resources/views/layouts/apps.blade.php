@@ -34,6 +34,7 @@
           -webkit-transform: scale(1.5); /* Safari 3-8 */
           transform: scale(1.5); 
         }
+        
         </style>
 
 <body class="">
@@ -47,7 +48,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="#" class="simple-text logo-normal"><img src="assets/img/logo.png">Jail Appeal</a>
+                <a href="#" class="simple-text logo-normal animated infinite pulse delay-4s"><img src="assets/img/logo.png">Jail Appeal</a>
 
 
             </div>
@@ -79,7 +80,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons text-danger">warning</i>
-                                        <a href="/appeals">See All...</a>
+                                        <a href="/hcDetails" >See All...</a>
                                     </div>
                                 </div>
                             </div>
@@ -279,7 +280,7 @@
                                         </div>
                                         <div class="tab-pane" id="messages">
                                             @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered" id="dataTablex" width="100%"
+                                                <table class="table table-striped table-bordered animated fadeInRight" id="dataTablex" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
@@ -322,7 +323,7 @@
                                         </div>
                                         <div class="tab-pane" id="settings">
                                             @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered" id="dataTablex" width="100%"
+                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTablex" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
