@@ -22,7 +22,7 @@ class SendEmail extends Mailable implements ShouldQueue
     public function __construct($subject,$message)
     {
         //
-        $this->sub = $subject;
+        $this->sub = 'Notification From Jail Appeal';
         $this->msg = $message;
          
     }

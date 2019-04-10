@@ -48,7 +48,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="#" class="simple-text logo-normal animated infinite pulse delay-4s"><img src="assets/img/logo.png">Jail Appeal</a>
+                <a href="#" class="simple-text logo-normal animated onece slideInLeft"><img src="assets/img/logo.png">Jail Appeal</a>
 
 
             </div>
@@ -64,8 +64,8 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="row animated onece slideInRight">
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card card-stats">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
@@ -267,7 +267,14 @@
                                                             <td>
                                                                     <form action="/searchs" method="POST"><button name="search" value={{ $no_cc->id }}><span
                                                                 class="badge badge-pill badge-warning" style="font-size: 15px !important;"> @csrf()Action</span>
-                                                            </button></form></td></tr>
+                                                            </button><!-- Button trigger modal -->
+                                                            <button type="button" class="badge badge-pill badge-warning" style="font-size: 15px !important;" data-toggle="modal" data-target="#exampleModal">
+                                                              Send Reminder
+                                                            </button> 
+                                                        </form>
+                                                        
+                                                    </td>
+                                                </tr>
 
                                                         @endforeach
 
@@ -309,10 +316,16 @@
                                                                 {{-- <a class="btn tooltipped" data-position="bottom"
                                                                     data-tooltip="I am a tooltip">Hover me!</a> --}}
                                                             </td>
-                                                            <td><form action="/searchs" method="POST"><button name="search" value={{ $action->id }}><span
+                                                            <td>
+                                                                <form action="/searchs" method="POST">
+                                                                    <button name="search" value={{ $action->id }}><span
                                                                 class="badge badge-pill badge-danger" style="font-size: 15px !important;"> @csrf()Action</span>
-                                                            </button></form></td></tr>
-
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                               
+                                                     
                                                         @endforeach
 
                                                     </tbody>
@@ -394,6 +407,41 @@
         </div>
     </div>
     @include('inc.scriptstyle')
+
+    
+                                                      <!-- Modal -->
+                                                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                  <h5 class="modal-title" id="exampleModalLabel">Compose Reminder</h5>
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                  </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                  ...
+                                                                  <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                          <label class="bmd-label-floating text-info" style="font-size: 14px;">Content</label>
+                                                                          <input type="text" name="name" value="content" class="form-control" disabled>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="col-md-12">
+                                                                          <div class="form-group">
+                                                                            <label class="bmd-label-floating text-info" style="font-size: 14px;">Case NO</label>
+                                                                            <input type="text" name="name" value="case no" class="form-control" disabled>
+                                                                          </div>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                  <button type="button" class="btn btn-primary">Send</button>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </body> 
     <script>
         $(document).ready(function () {
             // Javascript method's body can be found in assets/js/demos.js
