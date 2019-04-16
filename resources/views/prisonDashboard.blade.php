@@ -59,14 +59,14 @@
                                     </div>
                                     <p class="card-category">Total Appeal</p>
                                     <h3 class="card-title">
-                                       00
+                                       {{ $countAppeals_byPrison[0]->totalid }}
                                         <small></small>
                                     </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons text-danger">warning</i>
-                                        <a href="/appeals">See All...</a>
+                                        <a href="#">See All...</a>
                                     </div>
                                 </div>
                             </div>
@@ -79,12 +79,12 @@
                                     </div>
                                     <p class="card-category">This Year</p>
                                     <h3 class="card-title">
-                                   00
+                                            {{ $lastYearAppeals_byPrison[0]->totalAppeal }}
                                     </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 12 Month
+                                        <i class="material-icons">date_range</i> Last 1 Month
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> CC Not Found
+                                        <i class="material-icons">local_offer</i> CC Not Attached
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                         <i class="fa fa-twitter"></i>
                                     </div>
                                     <p class="card-category">Appeal Resolved</p>
-                                    <h3 class="card-title">00</h3>
+                                    <h3 class="card-title">{{ $appealResolved_byPrison[0]->totalAppealResolved }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">

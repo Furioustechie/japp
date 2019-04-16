@@ -217,7 +217,7 @@
 
                                                       <select name="prison_name" class="browser-default custom-select">
                                                         @foreach ($prisonName as $pname)
-                                                            <option value="{{ $pname->id }}" <?php $pname->id==$appeal->prison_name ? ' selected="selected"' : '';?>>{{ $pname->name }}</option>
+                                                            <option value="{{ $pname->id }}" <?php if($pname->id == $appeal->prison_id) echo 'selected="selected"';?>>{{ $pname->name }}</option>
                                                         @endforeach
                                                       </select>
                                                     </div>
@@ -279,7 +279,7 @@
                                         //$optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" )');
                                        $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red" AND state<>"todo")');
                                         ?>
-                                            <option>Please Select..</option>
+                                            <option value="">Please Select..</option>
                                               <?php $i=1; ?>
                                                 @foreach ($optt as $sdata)
                                                  @if($i++ == 1)        
@@ -311,11 +311,11 @@
                                   <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
                                   <select class="browser-default custom-select" name="state">
                                     @if((@$last_state[0]->statusid != 2) AND (@$last_state[0]->statusid != 3))
-                                    <option>Please Select..</option>
+                                    <option value="">Please Select..</option>
                                     <option value="yellowgreen" >Yes, We did</option>
                                     <option value="red" >No, We didn't</option>
                                     @else
-                                    <option>Please Select..</option>
+                                    <option value="">Please Select..</option>
                                     <option value="yellowgreen" >Yes, We did</option>
                                     <option value="todo" >No, We didn't. Reminder Sent</option>
                                     @endif
@@ -334,7 +334,7 @@
                                 <div class="col-md-12">
                                   <div class="form-group">
                                     <label class="bmd-label-floating">Remarks- If there any</label>
-                                    <input type="text" name="rejectgrant" class="form-control">
+                                    <input type="text" name="rejectgrant" class="form-control" required>
                                   </div>
                                 </div>
                                 <p>

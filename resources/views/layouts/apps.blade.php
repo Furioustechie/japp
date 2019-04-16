@@ -235,7 +235,7 @@
                                         <div class="tab-pane active" id="profile">
                                             <div class="card-body table-responsive">
                                                 @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered" id="dataTablex" width="100%"
+                                                <table class="table table-striped table-bordered" id="dataTable_cc" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
@@ -244,6 +244,7 @@
                                                         <th>Conviction Time</th>
                                                         <td>Action</td>
                                                     </thead>
+                                                   
                                                     <tbody>
 
                                                         @foreach($cc_missing as $no_cc)
@@ -287,7 +288,7 @@
                                         </div>
                                         <div class="tab-pane" id="messages">
                                             @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered animated fadeInRight" id="dataTablex" width="100%"
+                                                <table class="table table-striped table-bordered animated fadeInRight" id="dataTable_pending" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
@@ -296,6 +297,7 @@
                                                         <th>Conviction Time</th>
                                                         <td>Action</td>
                                                     </thead>
+                                                   
                                                     <tbody>
 
                                                         @foreach($PendingForAction as $action)
@@ -336,7 +338,7 @@
                                         </div>
                                         <div class="tab-pane" id="settings">
                                             @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTablex" width="100%"
+                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_onhearing" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
@@ -345,7 +347,7 @@
                                                         <th>Conviction Time</th>
                                                         <td>Action</td>
                                                     </thead>
-                                                    <tbody>
+                                                                                                       <tbody>
                                                             @foreach($PendingOnHearing as $onhearing)
                                                         <tr>
                                                                 <td>{{ $onhearing->caseno }}</td>
@@ -380,8 +382,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-warning">
-                                    <h4 class="card-title">Appeals Stats</h4>
-                                    <p class="card-category">Deatils Of Appeals</p>
+                                    <h4 class="card-title">TO DO</h4>
+                                    <p class="card-category">Deatils Of TODO</p>
                                 </div>
                                 <div class="card-body table-responsive">
                                   <!--   Content goes here -->
@@ -454,20 +456,20 @@
     <script>
         $(document).ready(function () {
             // Setup - add a text input to each footer cell
-            $('#dataTable tfoot th').each(function () {
+            $('#dataTable_cc tfoot th').each(function () {
                 var title = $(this).text();
                 $(this).html('<input type="text" class="form-control" placeholder="Search ' + title +
                     '" />');
             });
 
             // DataTable
-            var table = $('#dataTable').DataTable();
+            var table = $('#dataTable_cc').DataTable();
 
             // Apply the search
             table.columns().every(function () {
                 var that = this;
 
-                $('input', this.footer()).on('keyup change', function () {
+                $('input', this).on('keyup change', function () {
                     if (that.search() !== this.value) {
                         that
                             .search(this.value)
@@ -481,20 +483,20 @@
     <script>
         $(document).ready(function () {
             // Setup - add a text input to each footer cell
-            $('#dataTablex tfoot th').each(function () {
+            $('#dataTable_pending tfoot th').each(function () {
                 var title = $(this).text();
                 $(this).html('<input type="text" class="form-control" placeholder="Search ' + title +
                     '" />');
             });
 
             // DataTable
-            var table = $('#dataTablex').DataTable();
+            var table = $('#dataTable_pending').DataTable();
 
             // Apply the search
             table.columns().every(function () {
                 var that = this;
 
-                $('input', this.footer()).on('keyup change', function () {
+                $('input', this).on('keyup change', function () {
                     if (that.search() !== this.value) {
                         that
                             .search(this.value)
@@ -506,7 +508,33 @@
 
     </script>
 
+<script>
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#dataTable_onhearing tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="form-control" placeholder="Search ' + title +
+                '" />');
+        });
 
+        // DataTable
+        var table = $('#dataTable_onhearing').DataTable();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+
+</script>
 
 
 </html>

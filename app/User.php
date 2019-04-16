@@ -35,4 +35,5 @@ class User extends Authenticatable
     public function prison(){
         return $this->belongsTo('App\Prison');
     }
+    
 }

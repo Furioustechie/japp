@@ -32,6 +32,9 @@ class PagesController extends Controller
         return view('form');
     }
     public function dashboard(){
+        if(!Gate::allows('isAdmin')){
+            abort(401,'You are not authorized here!');
+        }
         $appeals = Appeal::all();
 
         $totalAppeals = Newappeal::where('id', '>', 0)->get();

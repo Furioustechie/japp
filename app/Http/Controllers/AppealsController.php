@@ -97,7 +97,7 @@ class AppealsController extends Controller
           ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
           ->join('cases', 'cases.id', '=', 'na.caseid')
 
-          ->select('na.id', 'na.prisonid', 'prisons.id AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
+          ->select('na.id', 'na.prisonid', 'prisons.id AS prison_id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
           'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
           ->paginate(10);
           $showlog = DB::table('notifications');
@@ -129,12 +129,16 @@ class AppealsController extends Controller
      */
     public function store(Request $request)
     {
-       
-                    $this->validate($request,[
-        
-                            'prisoner_no' => 'required|max:255',
-                            'prisoner_name' => 'required'
-                            ]);
+        if ($request->has('submit')){
+           
+                $this->validate($request,[
+                'prisoner_no' => 'required',
+                'prisoner_name' => 'required',
+                'caseno' => 'required',
+                'filename' => 'mimes:jpeg,png,jpg,pdf|max:1999'  //To allow null |nullable
+                ]);
+        }
+                   
                                 $document = Document::all();
                                 $doctype = Doctype::all();
                                     
@@ -208,7 +212,7 @@ DB::table('prisoner')->insert([
 // NewAppeals Table Data Insertion Block
 $casesNxtId = DB::table('cases')->max('id'); // For NEWAPPEALS Tables caseid Column
 DB::table('newappeals')->insert([
-    ['prisonid' => $request->input('prisonid'), 
+    ['prisonid' => $request->input('prison_id'), 
     'prisonerid' => $prisonerNxtId , 
     'courtid' => $request->input('sentencingcourt'), 
     'appeals_to_courtid' => $request->input('appeals_to_court'), 
@@ -251,7 +255,7 @@ DB::table('newappeals')->insert([
                 /*-----------------Notification From Prison To High Court--------------------------------------- */
                         $applToUser = DB::table('newappeals')->where('id',$nextId1)->first();
                          // Get Appeal ID
-                        $prison_name = DB::table('prisons')->where('id',$request->input('prisonid'))->first(); //Get Prison ID
+                        $prison_name = DB::table('prisons')->where('id',$request->input('prison_id'))->first(); //Get Prison ID
                         $msg='New Appeals From '.$prison_name->name; // Get Prison Name
                         $arr=array('data'=> $msg, 'appeal_id' =>$applToUser->id);
                        // $auth_user_id= Auth::user()->id;
@@ -259,8 +263,8 @@ DB::table('newappeals')->insert([
                         //$appeal->save();  Eloquant Insert
                         //$this->notify(new jappNotification());
                 /*-----------------End of Notification From Prison To High Court--------------------------------------- */
-                        Toastr::success('Success!', 'New appeal has been sumitted successfully');        
-                        return redirect('prisonDashboard'); //submit application
+                        //Toastr::success('Success!', 'New appeal has been sumitted successfully');        
+                        return redirect('prisonDashboard')->with('success','New appeal has been sumitted successfully'); //submit application
                     }
 
             /**
@@ -342,6 +346,7 @@ DB::table('newappeals')->insert([
                 
                 
             $has_status_name = DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))->first();
+            //dd($has_status_name);
             if(empty($has_status_name)){
                 //return redirect('/hcDetails')->with('error','State Remain Same');
                  DB::table('appealstatus')->insert([
@@ -352,13 +357,13 @@ DB::table('newappeals')->insert([
                             'updated_at' => date('Y-m-d h:s:i')]
 
         ]);
-       // $update_prisonName = Newappeal::where('id', '=', $request->input('appeal_id') )->first();
+    //     $update_prisonName = Newappeal::where('id', '=', $request->input('appeal_id') )->first();
        
 
        
-       // $update_prisonName->prisonid = $request->input('prison_name');
-             //  $update_prisonName->save();
-               //dd( $update_prisonName);
+    //    $update_prisonName->prisonid = $request->input('prison_name');
+    //           $update_prisonName->save();
+              // dd( $update_prisonName);
       /*-----------------Notification From High Court To Prison--------------------------------------- */
 
         $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first();
@@ -392,7 +397,7 @@ DB::table('newappeals')->insert([
 //    return redirect('/hcDetails')->with('success','Application Updated Successfully');
 //         }
         else{
-            $asdf = DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))
+            DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))
                         ->update([
                             'state' => $request->input('state'), 
                                    'updated_at' => date('Y-m-d h:s:i')
@@ -476,6 +481,16 @@ DB::table('newappeals')->insert([
         }
         $user_id = Auth::user()->id;
         $prison_id = Auth::user()->prison_id;
+        $prisonid_forAppealStatus =  DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus 
+        INNER JOIN newappeals ON appealstatus.newappeals_id = newappeals.id
+        INNER JOIN users ON users.prison_id = newappeals.prisonid
+        WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
+        //dd($prisonid_forAppealStatus);
+        $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid FROM `newappeals` WHERE prisonid = '.$prison_id.'');
+        $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() AND prisonid = '.$prison_id.'');
+        $appealResolved_byPrison = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
+
+        
         $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.$user_id.')');
        // dd($district_name);
         
@@ -500,7 +515,9 @@ DB::table('newappeals')->insert([
                                   WHERE  na.prisonid = "'.$prison_id.'" ');
           
 
-          
+        $send['countAppeals_byPrison']=$countAppeals_byPrison;
+        $send['lastYearAppeals_byPrison']=$lastYearAppeals_byPrison;
+        $send['appealResolved_byPrison']=$prisonid_forAppealStatus;
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         $send['district_name']=$district_name;
