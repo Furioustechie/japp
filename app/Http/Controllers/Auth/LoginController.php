@@ -27,8 +27,25 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
-
+    
+  //  protected $redirectTo = '/dashboard';
+    public function redirectTo(){
+        // User role
+    $role = Auth::user()->user_type; 
+    
+    // Check user role
+    switch ($role) {
+        case 'admin':
+                return '/dashboard';
+            break;
+        case 'user':
+                return '/prisonDashboard';
+            break; 
+        default:
+                return '/login'; 
+            break;
+    }
+    }
     /**
      * Create a new controller instance.
      *

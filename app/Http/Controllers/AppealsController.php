@@ -481,15 +481,15 @@ DB::table('newappeals')->insert([
         }
         $user_id = Auth::user()->id;
         $prison_id = Auth::user()->prison_id;
-        $prisonid_forAppealStatus =  DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus 
+        $appealResolved_forPrison =  DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus 
         INNER JOIN newappeals ON appealstatus.newappeals_id = newappeals.id
         INNER JOIN users ON users.prison_id = newappeals.prisonid
-        WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
+        WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1) AND newappeals.prisonid = '.$prison_id.'');
         //dd($prisonid_forAppealStatus);
         $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid FROM `newappeals` WHERE prisonid = '.$prison_id.'');
         $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() AND prisonid = '.$prison_id.'');
-        $appealResolved_byPrison = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
-
+        $cc_missing_count_forPrison = DB::select('SELECT COUNT(id) as total_cc_missing  FROM newappeals 
+        WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3)) AND prisonid = '.$prison_id.'');
         
         $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.$user_id.')');
        // dd($district_name);
@@ -517,7 +517,8 @@ DB::table('newappeals')->insert([
 
         $send['countAppeals_byPrison']=$countAppeals_byPrison;
         $send['lastYearAppeals_byPrison']=$lastYearAppeals_byPrison;
-        $send['appealResolved_byPrison']=$prisonid_forAppealStatus;
+        $send['appealResolved_forPrison']=$appealResolved_forPrison;
+        $send['cc_missing_count_forPrison']=$cc_missing_count_forPrison;
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         $send['district_name']=$district_name;

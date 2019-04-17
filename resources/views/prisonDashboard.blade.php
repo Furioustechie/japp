@@ -96,7 +96,7 @@
                                         <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">Peding for CC</p>
-                                    <h3 class="card-title">02</h3>
+                                    <h3 class="card-title">{{ $cc_missing_count_forPrison[0]->total_cc_missing }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -112,7 +112,7 @@
                                         <i class="fa fa-twitter"></i>
                                     </div>
                                     <p class="card-category">Appeal Resolved</p>
-                                    <h3 class="card-title">{{ $appealResolved_byPrison[0]->totalAppealResolved }}</h3>
+                                    <h3 class="card-title">{{ $appealResolved_forPrison[0]->totalAppealResolved }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
