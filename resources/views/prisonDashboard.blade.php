@@ -53,6 +53,15 @@
                 $('.show_total').hide(); 
                 $('.show_resolved').hide(); 
                     });
+                $('#monthAppeals').click(function() {
+                $('.show').hide();
+                    });   
+                $('#pendingCC').click(function() {
+                $('.show_total').hide(); 
+                    });   
+                $('#appealsResolved').click(function() {
+                $('.show_resolved').hide(); 
+                    });        
         });
         </script>
 
@@ -134,7 +143,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> <a href="#" id="seeAll">Incomplete Appliation</a>
+                                        <i class="material-icons">local_offer</i> <a href="#" id="seeAll">Incomplete Appliation / Failed</a>
                                     </div>
                                 </div>
                             </div>
@@ -157,9 +166,11 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card show animated onece fadeInDownBig">
+                        <div class="card show animated onece fadeIn">
                             <div class="card-header card-header-success">
-                                    <h4 class="card-title mt-0">Details of Appeals in This Month</strong></h4>
+                                    <h4 class="card-title mt-0">Details of Appeals in This Month</strong><span class="float-right"><button type="button" class="close" id="monthAppeals" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></span></h4>
+                                          </button>
                                     <p class="card-category"></p>
                             </div>
                             <div class="card-body">
@@ -257,7 +268,8 @@
                 <div class="col-md-12">
                         <div class="card show_total">
                             <div class="card-header card-header-danger">
-                                    <h4 class="card-title mt-0">Details of Pending For CC</strong></h4>
+                                    <h4 class="card-title mt-0">Details of Pending For CC</strong><span class="float-right"><button type="button" class="close" id="pendingCC" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></span></h4>
                                     <p class="card-category"></p>
                             </div>
                             <div class="card-body">
@@ -355,7 +367,8 @@
                 <div class="col-md-12">
                         <div class="card show_resolved">
                             <div class="card-header card-header-info">
-                                    <h4 class="card-title mt-0">Details of Appeal Resolved</strong></h4>
+                                    <h4 class="card-title mt-0">Details of Appeal Resolved</strong><span class="float-right"><button type="button" class="close" id="appealsResolved" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></span></h4>
                                     <p class="card-category"></p>
                             </div>
                             <div class="card-body">
