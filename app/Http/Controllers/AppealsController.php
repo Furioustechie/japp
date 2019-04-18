@@ -25,6 +25,7 @@ use phpDocumentor\Reflection\Types\Void_;
 use Illuminate\Notifications\Notifiable;
 
 
+
 class AppealsController extends Controller
 {
     /**
@@ -481,10 +482,10 @@ DB::table('newappeals')->insert([
         }
         $user_id = Auth::user()->id;
         $prison_id = Auth::user()->prison_id;
-        $appealResolved_forPrison =  DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus 
-        INNER JOIN newappeals ON appealstatus.newappeals_id = newappeals.id
-        INNER JOIN users ON users.prison_id = newappeals.prisonid
-        WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1) AND newappeals.prisonid = '.$prison_id.'');
+        // $appealResolved_forPrison =  DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus 
+        // INNER JOIN newappeals ON appealstatus.newappeals_id = newappeals.id
+        // INNER JOIN users ON users.prison_id = newappeals.prisonid
+        // WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1) AND newappeals.prisonid = '.$prison_id.'');
         //dd($prisonid_forAppealStatus);
         $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid FROM `newappeals` WHERE prisonid = '.$prison_id.'');
         $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() AND prisonid = '.$prison_id.'');
@@ -513,15 +514,48 @@ DB::table('newappeals')->insert([
                                 --   INNER JOIN users ON users.prison_id = na.prisonid
                                   
                                   WHERE  na.prisonid = "'.$prison_id.'" ');
-          
+         // $timeInterval = DB::select('SELECT created_at from newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
+          //$string = implode(' ', $timeInterval);
+
+          $appDetails_thisYear = DB::table('thisyearappealforprison')
+          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+          ->where('thisyearappealforprison.prison_id', $prison_id )
+          ->paginate(20);
+
+          $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
+          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+          ->where('pendingforcc_prison.prison_id', $prison_id )
+          ->paginate(20);
+
+          $appDetails_appealResolved_Prison = DB::table('appealresolved_prison')
+          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+          ->where('appealresolved_prison.prison_id', $prison_id )
+          ->paginate(20);
+
+
+
+          //dd($string);
+          $appDetails_thisYear1 = DB::select('SELECT na.id, prisons.id as prison_id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
+          offences.name as offence_name, courts.name_en as court_name, na.privacy
+                    FROM newappeals na
+                    INNER JOIN prisons ON na.prisonid = prisons.id
+                    INNER JOIN offences ON na.offenceid  = offences.id
+                    INNER JOIN courts ON na.courtid  = courts.id
+                    INNER JOIN prisoner ON na.prisonerid  = prisoner.id
+                    INNER JOIN cases ON cases.id = na.caseid
+                    WHERE  na.created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() AND na.prisonid = "'.$prison_id.'" '); 
+                 
 
         $send['countAppeals_byPrison']=$countAppeals_byPrison;
         $send['lastYearAppeals_byPrison']=$lastYearAppeals_byPrison;
-        $send['appealResolved_forPrison']=$appealResolved_forPrison;
         $send['cc_missing_count_forPrison']=$cc_missing_count_forPrison;
+        $send['appDetails_pendingForCC_Prison']=$appDetails_pendingForCC_Prison;
+        $send['appDetails_appealResolved_Prison']=$appDetails_appealResolved_Prison;
+        $send['appDetails_thisYear']=$appDetails_thisYear;
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         $send['district_name']=$district_name;
+    
         return view ('prisonDashboard',$send);
        // return view ('appeals.modals')->with('appeals',$appeals);
         
