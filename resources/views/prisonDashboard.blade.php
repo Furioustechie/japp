@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="{{ app()->getLocale() }}">
+{{-- <html lang="{{ app()->getLocale() }}"> --}}
 <head>
     <!-- CSS Style Sheet -->
     @include('inc.style')
@@ -61,7 +61,10 @@
                     });   
                 $('#appealsResolved').click(function() {
                 $('.show_resolved').hide(); 
-                    });        
+                    }); 
+        //   $('.bn').click(function() {
+        //         $('.bn').hide(); 
+        //             });                
         });
         </script>
 
@@ -77,7 +80,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="#" class="simple-text logo-normal"><img src="assets/img/logo.png">Jail Appeal</a>
+                <a href="#" class="simple-text logo-normal"><img src="{{URL::asset('assets/img/logo.png')}}">{{ __('labels.logo_title') }}</a>
 
 
             </div>
@@ -100,7 +103,7 @@
                                     <div class="card-icon">
                                         <i class="material-icons">content_copy</i>
                                     </div>
-                                    <p class="card-category">Total Appeal</p>
+                                    <p class="card-category">{{ __('labels.prison_totalAppeal') }}</p>
                                     <h3 class="card-title">
                                        {{ $countAppeals_byPrison[0]->totalid }}
                                         <small></small>
@@ -109,7 +112,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons text-danger">warning</i>
-                                        <a href="#" id="allAppeal">See All...</a>
+                                        <a href="#" id="allAppeal">{{ __('labels.prison_seeAll') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -120,14 +123,14 @@
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
                                     </div>
-                                    <p class="card-category">This Year</p>
+                                    <p class="card-category">{{ __('labels.prison_thisYear') }}</p>
                                     <h3 class="card-title">
                                             {{ $lastYearAppeals_byPrison[0]->totalAppeal }}
                                     </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i><a href="#" id="myselection">Last 1 Month</a> 
+                                        <i class="material-icons">date_range</i><a href="#" id="myselection">{{ __('labels.prison_lastMonth') }}</a> 
                                     </div>
                                 </div>
                             </div>
@@ -138,12 +141,12 @@
                                     <div class="card-icon">
                                         <i class="material-icons">info_outline</i>
                                     </div>
-                                    <p class="card-category">Peding for CC</p>
+                                    <p class="card-category">{{ __('labels.prison_pendingForCC') }}</p>
                                     <h3 class="card-title">{{ $cc_missing_count_forPrison[0]->total_cc_missing }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> <a href="#" id="seeAll">Incomplete Appliation / Failed</a>
+                                        <i class="material-icons">local_offer</i> <a href="#" id="seeAll">{{ __('labels.prison_ccNotFound') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -154,12 +157,12 @@
                                     <div class="card-icon">
                                         <i class="fa fa-twitter"></i>
                                     </div>
-                                    <p class="card-category">Appeal Resolved</p>
+                                    <p class="card-category">{{ __('labels.prison_appealResolved') }}</p>
                                     <h3 class="card-title">{{ count($appDetails_appealResolved_Prison) }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">update</i><a href="#" id="seeResolved">Just Updated</a>
+                                        <i class="material-icons">update</i><a href="#" id="seeResolved">{{ __('labels.justUpdated') }}</a>
                                     </div>
                                 </div>
                             </div>

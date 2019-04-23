@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <a class="navbar-brand" href="#pablo">Dashboard</a>
+        <a class="navbar-brand" href="#">@lang('labels.project_name')</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
@@ -20,15 +20,41 @@
             </button>
           </div>
         </form>
+        <?php
+         $value = Session::get('locale');
+         //echo $value;
+        ?>
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#pablo">
-              <i class="material-icons">dashboard</i>
-              <p class="d-lg-none d-md-block">
-                Stats
-              </p>
-            </a>
-          </li>
+            @if(auth()->user()->user_type=='admin')
+            <ul class="navbar-nav">
+              @if($value =='bn')
+                <li class="nav-item en">
+                  <a class="nav-link" href="{{URL::asset('locale/en')}}">
+                    <i class="material-icons">dashboard</i>EN
+                  </a>
+                </li>
+                @else
+                <li class="nav-item bn">
+                  <a class="nav-link" href="{{URL::asset('locale/bn')}}">
+                    <i class="material-icons">dashboard</i>BN
+                  </a>
+                </li>
+                @endif
+        @elseif(auth()->user()->user_type=='user')
+        @if($value =='bn')
+        <li class="nav-item en">
+          <a class="nav-link" href="{{URL::asset('locale/en')}}">
+            <i class="material-icons">dashboard</i>EN
+          </a>
+        </li>
+        @else
+        <li class="nav-item bn">
+          <a class="nav-link" href="{{URL::asset('locale/bn')}}">
+            <i class="material-icons">dashboard</i>BN
+          </a>
+        </li>
+        @endif
+          @endif
           <li class="nav-item dropdown">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               @if(auth()->user()->unreadNotifications->count()>0)

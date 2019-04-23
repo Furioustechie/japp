@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Auth;
+use App;
+Use Session;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Appeal;
@@ -475,11 +477,14 @@ DB::table('newappeals')->insert([
     }
 
     //test Prison Dashboard
-    public function prisonDashboardData()
+    public function prisonDashboardData($lang=null)
     {
         if(!Gate::allows('isUser')){
             abort(401,'You are not authorized here!');
         }
+       // Session::put('Locale',$lang);
+        //App::setLocale($lang);
+        //Session::put('locale',$lang);
         $user_id = Auth::user()->id;
         $prison_id = Auth::user()->prison_id;
         // $appealResolved_forPrison =  DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus 
@@ -555,7 +560,8 @@ DB::table('newappeals')->insert([
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         $send['district_name']=$district_name;
-    
+        
+        //return redirect()->back();
         return view ('prisonDashboard',$send);
        // return view ('appeals.modals')->with('appeals',$appeals);
         

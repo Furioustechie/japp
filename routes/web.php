@@ -24,12 +24,17 @@ Route::get('/about', function () {
 });});
 
 */
+/* Localtion controller settings*/
+Route::get('locale/{locale}', function ($locale){Session::put('locale',$locale);return redirect()->back();});
+/* ------   */
 Route::get('/index', 'PagesController@index');//AppealList->index method
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/form', 'PagesController@form');
 Route::get('/dashboard', 'PagesController@dashboard');// pagesController->dashboard method
 Route::get('/prisonDashboard', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
+//Route::get('/prisonDashboard/{locale}', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
+
 Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsController->create method->appealForm
 
  Route::resource('appeals', 'AppealsController'); //For Appeal Data Insert Update Delete and Retrieve 

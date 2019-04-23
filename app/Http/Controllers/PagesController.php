@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
+use Session;
 use App\Appeal;
 use App\User;
 use App\Application;
@@ -31,10 +33,33 @@ class PagesController extends Controller
     public function form(){
         return view('form');
     }
+    // public function __construct()
+    // {
+    //     // Closure as callback
+    //     $this->beforeFilter(function(){
+    //         if(!Auth::check()) {
+    //             return 'no';
+    //         }
+    //     });
+
+    //     // or register filter name
+    //     // $this->beforeFilter('auth');
+    //     //
+    //     // and place this to app/filters.php
+    //     // Route::filter('auth', function()
+    //     // {
+    //     //  if(!Auth::check()) {
+    //     //      return 'no';
+    //     //  }
+    //     // });
+    // }
+
     public function dashboard(){
         if(!Gate::allows('isAdmin')){
             abort(401,'You are not authorized here!');
         }
+        //App::setLocale($lang);
+       // Session::put('locale',$lang);
         $appeals = Appeal::all();
 
         $totalAppeals = Newappeal::where('id', '>', 0)->get();

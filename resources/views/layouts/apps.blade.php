@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <!-- CSS Style Sheet -->
@@ -48,7 +48,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="#" class="simple-text logo-normal animated onece slideInLeft"><img src="assets/img/logo.png">Jail Appeal</a>
+                <a href="#" class="simple-text logo-normal animated onece slideInLeft"><img src="{{URL::asset('assets/img/logo.png')}}">{{ __('labels.logo_title') }}</a>
 
 
             </div>
@@ -64,14 +64,14 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row animated onece slideInRight">
+                    <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card card-stats">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">content_copy</i>
                                     </div>
-                                    <p class="card-category">Total Appeal</p>
+                                    <p class="card-category">{{ __('labels.hc_totalAppeal') }}</p>
                                     <h3 class="card-title">
                                         {{$count}}
                                         <small></small>
@@ -80,7 +80,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons text-danger">warning</i>
-                                        <a href="/hcDetails" >See All...</a>
+                                        <a href="/hcDetails" >{{ __('labels.seeAll') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -91,14 +91,14 @@
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
                                     </div>
-                                    <p class="card-category">This Year</p>
+                                    <p class="card-category">{{ __('labels.hc_thisYear') }}</p>
                                     <h3 class="card-title">
                                         {{$count1[0]->totalAppeal}}
                                     </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 01 Month
+                                        <i class="material-icons">date_range</i> {{ __('labels.lastMonth') }}
                                     </div>
                                 </div>
                             </div>
@@ -109,12 +109,12 @@
                                     <div class="card-icon">
                                         <i class="material-icons">info_outline</i>
                                     </div>
-                                    <p class="card-category">Peding for CC</p>
+                                    <p class="card-category">{{ __('labels.hc_pendingForCC') }}</p>
                                     <h3 class="card-title">{{ $cc_missing_count[0]->total_cc_missing }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> CC Not Found
+                                        <i class="material-icons">local_offer</i> {{ __('labels.ccNotFound') }}
                                     </div>
                                 </div>
                             </div>
@@ -125,12 +125,12 @@
                                     <div class="card-icon">
                                         <i class="fa fa-twitter"></i>
                                     </div>
-                                    <p class="card-category">Appeal Resolved</p>
+                                    <p class="card-category">{{ __('labels.hc_appealResolved') }}</p>
                                     <h3 class="card-title">{{ $totalappealResolved[0]->totalAppealResolved }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">update</i> Just Updated
+                                        <i class="material-icons">update</i> {{ __('labels.justUpdated') }}
                                     </div>
                                 </div>
                             </div>
@@ -207,21 +207,21 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link active" href="#profile" data-toggle="tab">
 
-                                                        <i class="material-icons">bug_report</i> CC Not Attached
+                                                        <i class="material-icons">bug_report</i>{{ __('labels.tab_cc') }}
                                                         <span class="badge badge-pill badge-warning" style="font-size: 15px !important;">{{ $cc_missing_count[0]->total_cc_missing }}</span>
                                                         <div class="ripple-container"> </div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#messages" data-toggle="tab">
-                                                        <i class="material-icons">code</i> Long Time No Action <span
+                                                        <i class="material-icons">code</i> {{ __('labels.tab_longTime') }} <span
                                                             class="badge badge-pill badge-danger" style="font-size: 15px !important;">{{ $overDue[0]->vid }}</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#settings" data-toggle="tab">
-                                                        <i class="material-icons">cloud</i>On Hearing Stage <span
+                                                        <i class="material-icons">cloud</i>{{ __('labels.tab_onHearing') }} <span
                                                             class="badge badge-pill badge-info" style="font-size: 15px !important;">{{ $totalOnhearing[0]->statusid }}</span>
                                                         <div class="ripple-container"></div>
                                                     </a>

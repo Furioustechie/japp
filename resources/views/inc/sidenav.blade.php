@@ -4,7 +4,7 @@
           <a class="nav-link" href="dashboard">
             <span class="sr-only"></span>
             <i class="material-icons">dashboard</i>
-            <p>HC Dashboard</p>
+            <p>{{ __('labels.navbar_hcview') }}</p>
           </a>
         </li>
         @endcan
@@ -28,7 +28,7 @@
           <li class="nav-item ">
             <a class="nav-link" href="hcDetails">
               <i class="material-icons">person</i>
-              <p>Appeal Details</p>
+              <p>{{ __('labels.navbar_appealDetails') }}</p>
             </a>
           </li>
           @endcan
@@ -37,7 +37,7 @@
         <li class="nav-item ">
           <a class="nav-link" href="editsettings">
             <i class="material-icons">settings_applications</i>
-            <p>Settings</p>
+            <p>{{ __('labels.navbar_settings') }}</p>
           </a>
         </li>
         @endcan
@@ -53,7 +53,7 @@
         <li class="nav-item ">
           <a class="nav-link" href="/prisonDashboard">
             <i class="material-icons">notifications</i>
-            <p>Sample Prison View</p>
+            <p>{{ __('labels.navbar_prisonView') }}</p>
           </a>
         </li>
         @endcan
