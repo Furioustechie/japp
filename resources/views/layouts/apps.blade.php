@@ -180,12 +180,24 @@
                         </div>
                         <div class="col-md-4">
                             <div class="card card-chart">
-                                <div class="card-header card-header-danger">
-                                    <div class="ct-chart" id="completedTasksChart"></div>
+                                <div class="card-header card-header-default">
+                                    <div class="ct-chart" id="bar_Vchart"></div>
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">Completed Tasks</h4>
                                     <p class="card-category">Last Campaign Performance</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card border-primary">
+                                <div class="card-header card-header-default">
+                                    <div class="ct-chart" id="barchart"></div>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -402,6 +414,12 @@
            
                 $data.= "['".$dataPie->prisoner_name."','".$dataPie->prisoner_gender."',".$dataPie->dob.",".$dataPie->id."],";
             }
+            $bar_chart="";
+            foreach ($totalsByPrison as $bar_data) {
+                $bar_chart.="['". $bar_data->name."',". $bar_data->totalsByPrison."],";
+            }
+
+
             ?> 
             <footer class="footer">
                 @include('inc.footer')
@@ -750,6 +768,7 @@
       },
       'view': {'columns': [0, 3]}
     });
+    
     // var table = new google.visualization.ChartWrapper({
     //   'chartType': 'Table',
     //   'containerId': 'table_div',
@@ -766,6 +785,75 @@
     dashboard.bind([slider, categoryPicker], [pie]);
     dashboard.draw(data);
   }
+</script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages: ["corechart"]});
+    google.setOnLoadCallback(drawChart) 
+
+      function drawChart() {
+          
+        var bar_chart = google.visualization.arrayToDataTable([
+            ['name','totalsByPrison'],
+                
+                <?php echo substr($bar_chart,0,-1);?>
+                        ]);
+        var options = {
+                    title: 'Total Appeals By Prisons',
+                    height: '100%',
+                    width: '100%',
+                    seriesType: "bars",
+                    backgroundColor: { fill:'transparent' },
+                    vAxis: {
+                        title: "No.Of Appeals",
+                        gridlines: {count: 3}
+                    },
+   hAxis: {
+       slantedText: true,  /* Enable slantedText for horizontal axis */
+       slantedTextAngle: 45 /* Define slant Angle */
+   },
+   'chartArea': { top: '15%',right: '12%', left: '5%', bottom: '50%'} /* Adjust chart alignment to fit vertical labels for horizontal axis*/
+};
+        var chart = new google.visualization.ComboChart(document.getElementById('barchart'));
+
+        chart.draw(bar_chart,options);
+        $(window).resize(function(){
+        drawChart();
+        });
+      }
+    </script>
+<script>
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Status', 'Total',],
+        ['Requested', 8175000],
+        ['Received', 3175000],
+        ['Sent To Bench', 2695000],
+        ['Accepted By Bench', 2099000],
+        ['Jail', 1526000]
+     
+      ]);
+
+      var options = {
+        title: 'Population of Largest U.S. Cities',
+        backgroundColor: { fill:'transparent' },
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Total Population',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'City'
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('bar_Vchart'));
+
+      chart.draw(data, options);
+    }
 </script>
 <script>
       window.setTimeout(function() {

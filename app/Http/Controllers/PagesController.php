@@ -71,7 +71,9 @@ class PagesController extends Controller
         $data_PieChart = DB::select('SELECT prisoner_name,prisoner_gender, dob, prisoner.id FROM prisoner   JOIN   newappeals ON newappeals.id = prisoner.id');
         $totalOnhearing = DB::select('SELECT statusid FROM totalonhearing');
         $PendingOnHearing = DB::select('SELECT id, date_of_sentence,onhearingdetails.caseno,name FROM onhearingdetails');
-// foreach($appealStates as $aps){
+        $totalsByPrison = DB::select('SELECT name, prisonsId, totalsByPrison FROM totalappealbyprison');
+//dd($totalsByPrison);
+        // foreach($appealStates as $aps){
 // $output = array(
 //     'statusid' => $aps->statusid,
 //      'newappeals_id' => $aps->newappeals_id,
@@ -92,7 +94,9 @@ class PagesController extends Controller
                      INNER JOIN cases ON newappeals.caseid = cases.id
                      INNER JOIN documents ON newappeals.id = documents.appealid 
                      WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3))');
-        $barlist = DB::table('appeals')
+        
+        
+         $barlist = DB::table('appeals')
         ->select('gender')
         ->groupBy('gender')
         ->get();
@@ -166,6 +170,7 @@ class PagesController extends Controller
         $send['data_PieChart']=$data_PieChart;
         $send['totalOnhearing']=$totalOnhearing;
         $send['PendingOnHearing']=$PendingOnHearing;
+        $send['totalsByPrison']=$totalsByPrison;
         // echo "<pre>";
         // print_r($all_appeals);
         // exit;
