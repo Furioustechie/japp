@@ -137,8 +137,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-chart">
+                        {{--<div class="col-md-4">
+                             <div class="card card-chart">
                                 <div class="card-header card-header-success">
 
                                   <canvas class="ct-chart" id="myChart" style="position: relative; height:30vw; width:80vw"></canvas>
@@ -156,8 +156,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
+                        </div> --}}
+                        <div class="col-md-6">
                             <div class="card card-chart">
                                 <div class="card-header card-header-success">
                                         {{-- <div id="piechart_3d" class="zoom"></div> --}}
@@ -178,14 +178,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card card-chart">
-                                <div class="card-header card-header-default">
+                                <div class="card-header card-header-success">
                                     <div class="ct-chart" id="bar_Vchart"></div>
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -409,15 +408,7 @@
                 </div>
             </div>
             <?php 
-            $data="";
-            foreach($data_PieChart as $dataPie){
            
-                $data.= "['".$dataPie->prisoner_name."','".$dataPie->prisoner_gender."',".$dataPie->dob.",".$dataPie->id."],";
-            }
-            $bar_chart="";
-            foreach ($totalsByPrison as $bar_data) {
-                $bar_chart.="['". $bar_data->name."',". $bar_data->totalsByPrison."],";
-            }
 
 
             ?> 
@@ -764,7 +755,7 @@
         'chartArea': {'left': 0, 'top': 0, 'right': 0, 'bottom': 0},
         'pieSliceText': 'label',
         'backgroundColor': { fill:'transparent' },
-         'is3D': true
+         'is3D': false
       },
       'view': {'columns': [0, 3]}
     });
@@ -794,7 +785,6 @@
           
         var bar_chart = google.visualization.arrayToDataTable([
             ['name','totalsByPrison'],
-                
                 <?php echo substr($bar_chart,0,-1);?>
                         ]);
         var options = {
@@ -828,31 +818,37 @@ google.charts.setOnLoadCallback(drawBasic);
 function drawBasic() {
 
       var data = google.visualization.arrayToDataTable([
-        ['Status', 'Total',],
-        ['Requested', 8175000],
-        ['Received', 3175000],
-        ['Sent To Bench', 2695000],
-        ['Accepted By Bench', 2099000],
-        ['Jail', 1526000]
+        ['status_name', 'totalAppeals',],
+        <?php echo substr($appealsByStatus,0,-1);?>
      
       ]);
 
       var options = {
-        title: 'Population of Largest U.S. Cities',
+        title: 'Apppeals By Status',
+        height: '100%',
+        width: '100%',
         backgroundColor: { fill:'transparent' },
-        chartArea: {width: '50%'},
+        chartArea: {height: '75%', width: '50%', left: '30%', bottom: '15%'},
         hAxis: {
-          title: 'Total Population',
+          title: 'Total',
           minValue: 0
         },
         vAxis: {
-          title: 'City'
+          title: 'Status'
         }
       };
 
       var chart = new google.visualization.BarChart(document.getElementById('bar_Vchart'));
 
       chart.draw(data, options);
+      google.visualization.events.addListener(chart, 'select', selectHandler); 
+
+    function selectHandler(e)     {   
+        alert(data.getValue(chart.getSelection()[0].row, 0));
+    }
+      $(window).resize(function(){
+        drawBasic();
+        });
     }
 </script>
 <script>

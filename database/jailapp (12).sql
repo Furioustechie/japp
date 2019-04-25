@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2019 at 12:44 PM
+-- Generation Time: Apr 25, 2019 at 12:42 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -160,6 +160,40 @@ INSERT INTO `appeals` (`id`, `caseno`, `sentencetype`, `prisonname`, `gender`, `
 (77, 'NAR181/002000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-11-28 02:20:25', '2018-11-28 02:20:25'),
 (78, 'NAR181/002000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-11-28 02:21:19', '2018-11-28 02:21:19'),
 (79, 'NAR181/002000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-11-28 02:33:24', '2018-11-28 02:33:24');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `appealsbygender`
+-- (See below for the actual view)
+--
+CREATE TABLE `appealsbygender` (
+`prisoner_gender` varchar(191)
+,`appID` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `appealsbysentence`
+-- (See below for the actual view)
+--
+CREATE TABLE `appealsbysentence` (
+`sentence_name` varchar(191)
+,`totalAppeals` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `appealsbystatus`
+-- (See below for the actual view)
+--
+CREATE TABLE `appealsbystatus` (
+`id` int(10) unsigned
+,`status_name` varchar(191)
+,`totalAppeals` bigint(21)
+);
 
 -- --------------------------------------------------------
 
@@ -2605,14 +2639,8 @@ INSERT INTO `prisoner` (`id`, `prisoner_no`, `prisoner_name`, `prisoner_gender`,
 (6, 'sdfsdf', 'dfsfsd', 'M', 50, '2019-03-31 05:10:37', '2019-03-31 05:10:37'),
 (7, 'test-002', 'test', 'M', NULL, '2019-04-14 20:13:43', '2019-04-14 20:13:43'),
 (8, 'estt-98', 'tettstr', 'M', NULL, '2019-04-14 21:56:20', '2019-04-14 21:56:20'),
-(9, 'dfsdf', 'sdfds', 'M', NULL, '2019-04-14 21:46:27', '2019-04-14 21:46:27'),
-(10, 'q', 'q', 'M', NULL, '2019-04-16 04:37:06', '2019-04-16 04:37:06'),
-(11, 'q', 'q', 'M', NULL, '2019-04-16 04:56:09', '2019-04-16 04:56:09'),
-(12, 'dfdf', 'fdg', 'M', NULL, '2019-04-16 04:24:38', '2019-04-16 04:24:38'),
-(13, 'dfdf', 'fdg', 'M', NULL, '2019-04-16 04:36:40', '2019-04-16 04:36:40'),
-(14, 'dfdf', 'fdg', 'M', NULL, '2019-04-16 04:22:41', '2019-04-16 04:22:41'),
-(15, 'sdefr', 'ss', 'M', NULL, '2019-04-16 04:53:41', '2019-04-16 04:53:41'),
-(16, 'sdefr', 'ss', 'M', NULL, '2019-04-16 04:42:42', '2019-04-16 04:42:42'),
+(9, 'dfsdf', 'sdfds', 'TG', NULL, '2019-04-14 21:46:27', '2019-04-14 21:46:27'),
+(15, 'sdefr', 'ss', 'TG', NULL, '2019-04-16 04:53:41', '2019-04-16 04:53:41'),
 (17, 'sdefr', 'ss', 'M', NULL, '2019-04-16 04:59:43', '2019-04-16 04:59:43');
 
 -- --------------------------------------------------------
@@ -2634,7 +2662,7 @@ CREATE TABLE `prisons` (
 --
 
 INSERT INTO `prisons` (`id`, `name`, `created_at`, `updated_at`, `disid`) VALUES
-(1, 'Barisal Central Jail XXXXX', '2019-01-20 10:23:26', '2019-01-20 10:23:26', 2),
+(1, 'Barisal Central Jail', '2019-04-24 12:33:59', '2019-04-24 12:33:59', 2),
 (2, 'Bogra District Jail', NULL, NULL, 45),
 (5, 'Comilla Central Jail x', '2019-01-15 03:18:44', '2019-01-15 03:18:44', 31),
 (7, 'Dinajpur District Jail', NULL, NULL, 53),
@@ -2677,13 +2705,13 @@ CREATE TABLE `sentences` (
 --
 
 INSERT INTO `sentences` (`id`, `sentence_name`, `created_at`, `updated_at`) VALUES
-(1, 'sentence 1', '2019-04-16 11:02:05', '2019-04-16 11:02:05'),
-(42, 'sentence 11', '2019-01-15 11:36:11', '2019-01-15 11:36:11'),
-(43, 'sentence 22', '2019-01-14 03:41:04', '2019-01-14 03:41:04'),
-(49, 'sentence 5', '2019-01-07 01:49:08', '2019-01-07 01:49:08'),
-(52, 'sentence 6', '2019-01-08 09:37:31', '2019-01-08 09:37:31'),
-(53, 'sentence 7', '2019-01-08 09:37:50', '2019-01-08 09:37:50'),
-(55, 'sentence 9', '2019-01-08 10:31:15', '2019-01-08 10:31:15'),
+(1, 'Death', '2019-04-25 03:37:56', '2019-04-25 03:37:56'),
+(42, 'Imprisonment for life', '2019-04-25 03:38:11', '2019-04-25 03:38:11'),
+(43, 'Extinction of Discriminatory Privileges', '2019-04-25 03:39:05', '2019-04-25 03:39:05'),
+(49, 'Imprisonment - Rigorous', '2019-04-25 03:39:50', '2019-04-25 03:39:50'),
+(52, 'Imprisonment - Rigorous', '2019-04-25 03:40:12', '2019-04-25 03:40:12'),
+(53, 'Forfeiture of property', '2019-04-25 03:40:34', '2019-04-25 03:40:34'),
+(55, 'Fine', '2019-04-25 03:40:55', '2019-04-25 03:40:55'),
 (56, 'sentence 112', '2019-02-05 04:13:11', '2019-02-05 04:13:11');
 
 -- --------------------------------------------------------
@@ -2706,7 +2734,7 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`id`, `status_name`, `expire_in_days`, `created_at`, `updated_at`, `sequence_no`) VALUES
-(1, 'Application Received', NULL, '2019-03-25 04:22:58', '2019-03-25 04:23:33', NULL),
+(1, 'Application Acknowledged', NULL, '2019-04-24 20:44:58', '2019-04-24 20:44:58', NULL),
 (2, 'Application Complete', NULL, '2019-03-25 04:23:03', '2019-03-25 04:23:37', NULL),
 (3, 'Application Sent to Bench', NULL, '2019-03-25 04:23:06', '2019-03-25 04:23:40', NULL),
 (4, 'Appeal Admitted by Bench', NULL, '2019-03-25 04:23:09', '2019-03-25 04:23:44', NULL),
@@ -2747,6 +2775,18 @@ CREATE TABLE `thisyearappealforprison` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `totalappealbyprison`
+-- (See below for the actual view)
+--
+CREATE TABLE `totalappealbyprison` (
+`name` varchar(191)
+,`prisonsId` decimal(10,0)
+,`totalsByPrison` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `totalonhearing`
 -- (See below for the actual view)
 --
@@ -2781,8 +2821,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `prison_id`, `user_type`, `phone`, `email`, `email_verified_at`, `password`, `district_id`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'abdullah al noman', 0, 'admin', '01812370702', 'abdullah.noman@giz.de', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 1, 'qijmqxaH0wYPAbY40ZKgCACPcLgpDZgqSTjSvfDIiE9aEjFUEw7WjckLGbP1', '2019-02-03 18:00:00', '2019-02-03 18:00:00'),
-(2, 'Prison User', 2, 'user', '01812370702', 'test@outlook.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 31, 'Z9wyrVb0CPkeEVnOsVMMk1xf30yHzUs0d5rvJ9LFZyPEk44M91CSvsDQHXpU', '2019-02-05 05:18:36', '2019-02-05 05:18:36'),
-(3, 'High Court User', 0, 'admin', NULL, 'user@outlook.com', NULL, '$2y$10$85X3udmGrekuUoGVyRFOWOz.aWxEXFGyOj.MmQC7zBLrsDUsoGvJW', NULL, 'T9sIih4OvxN8e4Wky8y7bVyGv0Cfb7uz7mszUE5kKuATexM31fOZUvqGCCMy', '2019-02-05 06:31:38', '2019-02-05 06:31:38'),
+(2, 'Prison User', 2, 'user', '01812370702', 'test@outlook.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 31, 'uGkKi18KOhXFtl2wdIL2U7QkLAZFELaec0KH7Bw6auBEE8PGYmvJ89vQZIXi', '2019-02-05 05:18:36', '2019-02-05 05:18:36'),
+(3, 'High Court User', 0, 'admin', NULL, 'user@outlook.com', NULL, '$2y$10$85X3udmGrekuUoGVyRFOWOz.aWxEXFGyOj.MmQC7zBLrsDUsoGvJW', NULL, 'cxrwYRlTfRcUWGAQhBHcT5iNN4PRMQJP37HOWY8NCUCHtoTXvnMIxlKple4g', '2019-02-05 06:31:38', '2019-02-05 06:31:38'),
 (5, 'dd', 0, NULL, NULL, 'dd@dd', NULL, '$2y$10$n.wKi48kKX7XHPnv1B/GT.f5UF66DEa5uXMftYY2chCWvRUYh48w2', NULL, NULL, NULL, NULL),
 (6, 'dd@gmail', 2, 'user', NULL, 'user33@outlook.com', NULL, '$2y$10$634lqKE7s4lVFnA/6SBp8.vgjhkoNQvyQSIjUu8wUpkN4gBu1OYIe', NULL, 'GH2Zp6S1MtA1eqqaNKC3CVgKZ0868gj0sii6iEf3kEqDNfr4f1cUD34kYn4J', '2019-02-04 19:19:07', '2019-02-04 19:19:07'),
 (7, 'Md. Jamir Ahmed', 17, NULL, NULL, 'user3@outlook.co4', NULL, '$2y$10$fMJaJC8yPKC0XYdyqg0xuuWFu/9OHy2DpjYHMIT4Jw9HHrlGXCQxW', NULL, NULL, NULL, NULL),
@@ -2805,6 +2845,33 @@ INSERT INTO `users` (`id`, `name`, `prison_id`, `user_type`, `phone`, `email`, `
 DROP TABLE IF EXISTS `appealresolved_prison`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `appealresolved_prison`  AS  select `na`.`id` AS `id`,`prisons`.`id` AS `prison_id`,`prisons`.`name` AS `prison_name`,`prisoner`.`prisoner_name` AS `prisoner_name`,`cases`.`caseno` AS `case_no`,`offences`.`name` AS `offence_name`,`courts`.`name_en` AS `court_name`,`na`.`privacy` AS `privacy` from (((((((`newappeals` `na` join `prisons` on((`na`.`prisonid` = `prisons`.`id`))) join `offences` on((`na`.`offenceid` = `offences`.`id`))) join `courts` on((`na`.`courtid` = `courts`.`id`))) join `prisoner` on((`na`.`prisonerid` = `prisoner`.`id`))) join `cases` on((`cases`.`id` = `na`.`caseid`))) join `appealstatus` on((`appealstatus`.`newappeals_id` = `na`.`id`))) join `status` on((`status`.`id` = `appealstatus`.`statusid`))) where ((`na`.`created_at` between (curdate() - interval 30 day) and curdate()) and (`appealstatus`.`statusid` = (select `status`.`id` from `status` order by `status`.`id` desc limit 1))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `appealsbygender`
+--
+DROP TABLE IF EXISTS `appealsbygender`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `appealsbygender`  AS  select `prisoner`.`prisoner_gender` AS `prisoner_gender`,count(`newappeals`.`id`) AS `appID` from (`prisoner` join `newappeals` on((`prisoner`.`id` = `newappeals`.`prisonerid`))) group by `prisoner`.`prisoner_gender` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `appealsbysentence`
+--
+DROP TABLE IF EXISTS `appealsbysentence`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `appealsbysentence`  AS  select `s`.`sentence_name` AS `sentence_name`,ifnull((select count(`newappeals`.`sentenceid`) from `newappeals` where (`newappeals`.`sentenceid` = `s`.`id`)),0) AS `totalAppeals` from `sentences` `s` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `appealsbystatus`
+--
+DROP TABLE IF EXISTS `appealsbystatus`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `appealsbystatus`  AS  select `s`.`id` AS `id`,`s`.`status_name` AS `status_name`,ifnull((select count(`appealstatus`.`statusid`) from `appealstatus` where (`appealstatus`.`statusid` = `s`.`id`)),0) AS `totalAppeals` from `status` `s` ;
 
 -- --------------------------------------------------------
 
@@ -2868,6 +2935,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `thisyearappealforprison`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `thisyearappealforprison`  AS  select `na`.`id` AS `id`,`prisons`.`id` AS `prison_id`,`prisons`.`name` AS `prison_name`,`prisoner`.`prisoner_name` AS `prisoner_name`,`cases`.`caseno` AS `case_no`,`offences`.`name` AS `offence_name`,`courts`.`name_en` AS `court_name`,`na`.`privacy` AS `privacy` from (((((`newappeals` `na` join `prisons` on((`na`.`prisonid` = `prisons`.`id`))) join `offences` on((`na`.`offenceid` = `offences`.`id`))) join `courts` on((`na`.`courtid` = `courts`.`id`))) join `prisoner` on((`na`.`prisonerid` = `prisoner`.`id`))) join `cases` on((`cases`.`id` = `na`.`caseid`))) where (`na`.`created_at` between (curdate() - interval 30 day) and curdate()) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `totalappealbyprison`
+--
+DROP TABLE IF EXISTS `totalappealbyprison`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `totalappealbyprison`  AS  select `prisons`.`name` AS `name`,ifnull((select `newappeals`.`prisonid` from `newappeals` where (`newappeals`.`prisonid` = `prisons`.`id`) group by `newappeals`.`prisonid`),0) AS `prisonsId`,ifnull((select count(`newappeals`.`id`) from `newappeals` where (`newappeals`.`prisonid` = `prisons`.`id`)),0) AS `totalsByPrison` from `prisons` ;
 
 -- --------------------------------------------------------
 

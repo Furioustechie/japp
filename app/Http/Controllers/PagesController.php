@@ -72,6 +72,7 @@ class PagesController extends Controller
         $totalOnhearing = DB::select('SELECT statusid FROM totalonhearing');
         $PendingOnHearing = DB::select('SELECT id, date_of_sentence,onhearingdetails.caseno,name FROM onhearingdetails');
         $totalsByPrison = DB::select('SELECT name, prisonsId, totalsByPrison FROM totalappealbyprison');
+        $totalByStatus = DB::select('SELECT status_name,totalAppeals FROM appealsbystatus');
 //dd($totalsByPrison);
         // foreach($appealStates as $aps){
 // $output = array(
@@ -81,7 +82,22 @@ class PagesController extends Controller
 // );
  //dd($json_appealStates);
 // }
-        
+
+/* ------------- Data format for charts ---------------- */
+$data="";
+foreach($data_PieChart as $dataPie){
+
+    $data.= "['".$dataPie->prisoner_name."','".$dataPie->prisoner_gender."',".$dataPie->dob.",".$dataPie->id."],";
+}
+$bar_chart="";
+foreach ($totalsByPrison as $bar_data) {
+    $bar_chart.="['". $bar_data->name."',". $bar_data->totalsByPrison."],";
+}
+$appealsByStatus = "";
+foreach($totalByStatus as $byStatus){
+    $appealsByStatus.="['". $byStatus->status_name."',". $byStatus->totalAppeals."],";
+}
+/* ------------- Data format for charts ---------------- */      
         $cc_missing = DB::select('select newappeals.id,newappeals.date_of_sentence,cases.caseno,prisons.name
                         FROM newappeals 
                         INNER JOIN cases ON newappeals.caseid = cases.id
@@ -171,6 +187,10 @@ class PagesController extends Controller
         $send['totalOnhearing']=$totalOnhearing;
         $send['PendingOnHearing']=$PendingOnHearing;
         $send['totalsByPrison']=$totalsByPrison;
+        $send['data']=$data;
+        $send['bar_chart']=$bar_chart;
+        $send['appealsByStatus']=$appealsByStatus;
+
         // echo "<pre>";
         // print_r($all_appeals);
         // exit;
