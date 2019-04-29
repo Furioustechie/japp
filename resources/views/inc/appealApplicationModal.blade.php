@@ -1,10 +1,9 @@
 @include('inc.messages')
-<div class="modal fade" data-backdrop="static" tabindex="-1" id="appealModal" role="dialog" aria-labelledby="myModalAppeal" aria-hidden="true">
+<div class="modal fade" data-backdrop="static" tabindex="-1" id="appealModal" role="dialog" aria-labelledby="myModalAppeal" aria-hidden="true" data-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-center" style="background-color:#00bcd4;">
-                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Jail
-                    Appeal Application Form</h5>
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">{{ __('labels.applicationForm_name') }}</h5><span class="float-right"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
             </div>
             <div class="modal-body" >
                 <form action="{{url('appeals')}}" method="POST" enctype="multipart/form-data">
@@ -51,15 +50,25 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Sentencing Court</label>
-                                <select class="browser-default custom-select" name="sentencingcourt" required>
+                                <label class="bmd-label-floating">Sentencing District</label>
+                                <select class="browser-default custom-select" id="sentencingDistrict" name="sentencingDistrict" required>
                                     <option selected value="">Please Select..</option>
-                                    @foreach ($courts_name as $cdata)
-                                    {{--
-                                    <!--@if($cdata->disid == 18)             --> --}}
-                                    <option value="{{$cdata->id}}">{{$cdata->name_en}} </option>
-                                    {{-- @endif --}}
+                                    @foreach ($dname as $districts)
+                                    <option value="{{ $districts->id }}">{{$districts->name}} </option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Sentencing Court</label>
+                                <select class="browser-default custom-select" id="sentencingcourt" name="sentencingcourt" required>
+                                    
+                                    <option selected value="">Please Select..</option>
+                                    {{-- @foreach ($courts_Name as $cdata)
+                                    <option value="{{ $cdata->id }}">{{$cdata->name_en}} </option>
+                                    @endforeach
+                                  @endif --}}
                                 </select>
                             </div>
                         </div>
@@ -146,9 +155,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                     <!-- boleto__wrapper -->
                     <div class="form-check">
                         <label class="form-check-label">
@@ -209,3 +215,43 @@
    
 </div>
 
+<script>
+$(document).ready(function(){
+
+$("#sentencingDistrict").change(function(){
+    var district_id = $(this).val();
+    console.log(district_id);
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+if(district_id == ""){
+    $("#sentencingcourt").empty();
+    $("#sentencingcourt").append("<option value=''>"+'Please Select ..'+"</option>");
+}else{
+    $.ajax({
+        url: '/dynamicCourtsList/'+ district_id,
+        type: 'post',
+        //data: {district_id},
+        dataType: 'json',
+        success:function(response){
+
+            var len = response.length;
+
+
+
+            $("#sentencingcourt").empty();
+            for( var i = 0; i<len; i++){
+                var id = response[i]['disid'];
+                var name = response[i]['name_en'];
+                
+                $("#sentencingcourt").append("<option value='"+id+"'>"+name+"</option>");
+            
+            }
+        }
+    });}
+});
+
+});
+</script>

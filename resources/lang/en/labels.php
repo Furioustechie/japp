@@ -30,7 +30,29 @@ return [
     'prison_lastMonth' => 'Last Month',
     'prison_ccNotFound' => 'Incomplete Appliation / Failed',
     'prison_justUpdated' => 'Just Updated',
+    // Prison Modal Details
+    'applicationForm_name' =>'Jail Appeal Application Form',
+    'prisoners_No' => 'Prisoner NO.',
+    'prisoners_Name' => 'Prisoner Name',
+    'case_No' => 'Case NO.',
+    'prison_Name' => 'Prison Name',
+    'gender' => 'Gender',
+    'sentencing_District' => 'Sentencing Court`s District',
+    'sentencing_Court' => 'Sentencing Court',
+    'offence_Type' => 'Office Type',
+    'sentence_Type' => 'Sentence Type',
+    'appeals_ToCourt' => 'Appeals To Court',
+    'conviction_time' => 'Conviction Length',
+    'dateOf_appeal' => 'Date Of Appeal',
+    'sharok_NO' => 'Sharok NO.',
+    'doc_attachment' => 'Document Upload',
+    'remarks' => 'Remarks',
+    'browse' => 'BROWSE',
+    'submit' => 'SUBMIT',
+    'close' => 'CLOSE',
 
+
+    
 
 
     

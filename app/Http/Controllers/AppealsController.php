@@ -7,6 +7,7 @@ Use Session;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Appeal;
+use App\Court;
 use App\Doctype;
 use App\Document;
 use App\Application;
@@ -498,7 +499,8 @@ DB::table('newappeals')->insert([
         WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3)) AND prisonid = '.$prison_id.'');
         
         $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.$user_id.')');
-       // dd($district_name);
+        $courts_Name = DB::Select('SELECT id,name_en,disid FROM courts');
+        //dd($courts_Name);
         
 
         // echo $user_id;
@@ -560,6 +562,7 @@ DB::table('newappeals')->insert([
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         $send['district_name']=$district_name;
+        $send['courts_Name']=$courts_Name;
         
         //return redirect()->back();
         return view ('prisonDashboard',$send);
@@ -984,15 +987,9 @@ return view('test');
 
 
 
- public function testonly1(){
-     
-    $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
-
-  
-
-    // $json_appealStates = json_encode($appealStates);
-    // echo ( $json_appealStates);
-
+ public function dynamicCourtsList($district_id){
+    $courts_Name = DB::Select('SELECT disid,name_en FROM courts WHERE disid = "'.$district_id.'"');
+    echo json_encode($courts_Name);
  }
           
 
