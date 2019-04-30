@@ -73,7 +73,8 @@ class PagesController extends Controller
         $PendingOnHearing = DB::select('SELECT id, date_of_sentence,onhearingdetails.caseno,name FROM onhearingdetails');
         $totalsByPrison = DB::select('SELECT name, prisonsId, totalsByPrison FROM totalappealbyprison');
         $totalByStatus = DB::select('SELECT status_name,totalAppeals FROM appealsbystatus');
-//dd($totalsByPrison);
+        $totalByGender = DB::select('SELECT status_name,totalAppeals FROM appealsbystatus');
+        //dd($totalsByPrison);
         // foreach($appealStates as $aps){
 // $output = array(
 //     'statusid' => $aps->statusid,

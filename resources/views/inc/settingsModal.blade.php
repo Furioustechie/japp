@@ -156,7 +156,25 @@
                         <input type="text" name="rename_name" class="form-control" required>
                         <div class="help-block with-errors"></div>
                     </div>
-
+                    <div class="form-group">
+                        <label class="control-label" for="title">e-Mail:</label>
+                        <input type="email" name="rename_emailid" class="form-control" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="title">Phone:</label>
+                        <input type="number" name="rename_phone" class="form-control" min="0" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    {{-- <div class="form-group">
+                        <label class="control-label" for="title">User Account Status:</label>
+                        <input type="text" id="rename_status" name="rename_status" class="form-control" required>
+                        <div class="help-block with-errors"></div>
+                    </div> --}}
+                    <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="checked">
+                            <label class="custom-control-label" for="defaultUnchecked" id="checkbox_label">User Account Activated</label>
+                        </div>
                     <div class="modal-footer">
                         <button type="submit" name="rename_uaccount_submit" data-dismiss="modal" class="btn btn-success submit-accountName">Submit</button>
                     </div>

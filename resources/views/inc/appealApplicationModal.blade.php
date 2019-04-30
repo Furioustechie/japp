@@ -11,13 +11,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Prisoner's No</label>
+                                <label class="bmd-label-floating">{{ __('labels.prisoners_No') }}</label>
                                 <input type="text" name="prisoner_no" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Prisoner's Name</label>
+                                <label class="bmd-label-floating">{{ __('labels.prisoners_Name') }}</label>
                                 <input type="text" name="prisoner_name" class="form-control" >
                             </div>
                         </div>
@@ -25,13 +25,13 @@
                         <!-- Dropdown data from Prison model and Prisonlist Providers -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="caseno" class="bmd-label-floating">Case No</label>
+                                <label for="caseno" class="bmd-label-floating">{{ __('labels.case_No') }}</label>
                                 <input type="text" name="caseno" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name</label>
+                                <label class="bmd-label-floating text-info" style="font-size: 14px;">{{ __('labels.prison_Name') }}</label>
                                 <input type="text"  value="{{ Auth::user()->prison->name }}" class="form-control" readonly>
                                 <input type="hidden" name="prison_id"  value="{{ Auth::user()->prison->id }}" class="form-control">
                             </div>
@@ -39,7 +39,7 @@
                         <!-- Dropdown Ends for Prison List -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="Gender" class="bmd-label-floating">Gender</label>
+                                <label for="Gender" class="bmd-label-floating">{{ __('labels.gender') }}</label>
                                 <select class="browser-default custom-select" name="prisoner_gender" required>
                                     <option selected value="">Please Select..</option>
                                     <option value="M">Male</option>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Sentencing District</label>
+                                <label class="bmd-label-floating">{{ __('labels.sentencing_District') }}</label>
                                 <select class="browser-default custom-select" id="sentencingDistrict" name="sentencingDistrict" required>
                                     <option selected value="">Please Select..</option>
                                     @foreach ($dname as $districts)
@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Sentencing Court</label>
+                                <label class="bmd-label-floating">{{ __('labels.sentencing_Court') }}</label>
                                 <select class="browser-default custom-select" id="sentencingcourt" name="sentencingcourt" required>
                                     
                                     <option selected value="">Please Select..</option>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Offence Type</label>
+                                <label class="bmd-label-floating">{{ __('labels.offence_Type') }}</label>
                                 <select class="browser-default custom-select" name="offencetype" required>
                                     <option selected value="">Please Select..</option>
                                     @foreach ($offence_name as $offence_names)
@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Sentence Type</label>
+                                <label class="bmd-label-floating">{{ __('labels.sentence_Type') }}</label>
                                 <select class="browser-default custom-select" name="sentencetype" required>
                                     <option selected value="">Please Select..</option>
                                     @foreach ($sents_name as $sentenceid)
@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Appeal To Court</label>
+                                <label class="bmd-label-floating">{{ __('labels.appeals_ToCourt') }}</label>
                                 <select class="browser-default custom-select" name="appeals_to_court" required>
                                     <option hidden value="">Please Select ..</option>
                                     <option value="3">High Court</option>
@@ -111,28 +111,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Conviction Date</label>
+                                <label class="bmd-label-floating">{{ __('labels.conviction_time') }}</label>
                                 <input type="date" name="convictiondate" class="form-control">
                                 <!-- <input type="text" name="convictiondate" class="datepicker">  -->
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Date of Appeal</label>
+                                <label class="bmd-label-floating">{{ __('labels.dateOf_appeal') }}</label>
                                 <input name="dateofappeal" class="form-control" value=<?php echo date("Y-m-d");?>
                                 disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Sharok No</label>
+                                <label class="bmd-label-floating">{{ __('labels.sharok_NO') }}</label>
                                 <input type="text" name="sharokno" class="form-control">
                             </div>
                         </div>
                         <!-- Dropdown data from Doctype model and dynamiclist providers -->
                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Documents Name</label>
+                                <label class="bmd-label-floating">{{ __('labels.doc_attachment') }}</label>
                                 <select class="browser-default custom-select myselect" id="doctype" name="doctype[]" multiple="multiple" required>
                                     
                                         @foreach ($docname as $data)
@@ -147,7 +147,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Remarks</label>
+                                <label>{{ __('labels.remarks') }}</label>
                                 <div class="form-group">
                                     <label class="bmd-label-floating"></label>
                                     <textarea class="form-control" rows="5" name="remarks"></textarea>
@@ -162,7 +162,7 @@
                             <span class="form-check-sign">
                                 <span class="check" name="check"></span>
                             </span>
-                            <h5>Attached CC/Acknowledgement Letter</h5>
+                            <h5>{{__('labels.cc_attached') }}</h5>
                         </label>
                     </div>
                     <div class="form-check">
@@ -171,7 +171,7 @@
                               <span class="form-check-sign">
                                 <span class="check" name="check"  data-toggle="modal" data-target="#privacy_policy"  data-id="privacy_policy"></span>
                               </span>
-                              <h5>Accept Privacy and Policy</h5>
+                              <h5>{{ __('labels.privacy') }}</h5>
                             </label>
                           </div>
 
@@ -184,7 +184,7 @@
                                         <div class="input-group-btn"> 
                                           <button class="btn btn-success" type="button" ><!--For modern browsers-->
 
-                                            <i class="material-icons">open_in_browser</i></i>Browse</button>
+                                            <i class="material-icons">open_in_browser</i></i>{{ __('labels.browse') }}</button>
                                         </div>
                                       </div>
                                       @endforeach  
@@ -203,8 +203,8 @@
                     <!-- button to trigger the action -->
                     {{-- <button class="btn btn-primary" onclick="md.showNotification('top','right')">Top Right
                         Notification</button> --}}
-                    <a href="#"><button type="button" class="btn btn-warning pull-right" data-dismiss="modal">CLOSE</button></a>
-                    <button type="submit" class="btn btn-success pull-right" name="submit" value="submit"><i class="material-icons">send</i> SUBMIT</button>
+                    <a href="#"><button type="button" class="btn btn-warning pull-right" data-dismiss="modal">{{ __('labels.close') }}</button></a>
+                    <button type="submit" class="btn btn-success pull-right" name="submit" value="submit"><i class="material-icons">send</i> {{ __('labels.submit') }}</button>
 
                     <div class="clearfix"></div>
                 </form>
@@ -236,18 +236,12 @@ if(district_id == ""){
         //data: {district_id},
         dataType: 'json',
         success:function(response){
-
             var len = response.length;
-
-
-
             $("#sentencingcourt").empty();
             for( var i = 0; i<len; i++){
                 var id = response[i]['disid'];
                 var name = response[i]['name_en'];
-                
                 $("#sentencingcourt").append("<option value='"+id+"'>"+name+"</option>");
-            
             }
         }
     });}

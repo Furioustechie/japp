@@ -172,12 +172,13 @@ class SettingsController extends Controller
 
     public function getuaccount()
     {
-        $accountName = DB::table('users')->select('id', 'name', 'email', 'phone')->get();
+        $accountName = DB::table('users')->select('id', 'name', 'email', 'phone','status')->get();
         return Datatables::of($accountName)
             ->addColumn('action', function ($accountName) {
                 return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$accountName->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
                 .'<a href="#" class="accountNameDelete delete" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>';
             })
+           
             ->editColumn('id', 'ID: {{$id}}')
             ->rawColumns(['delete' => 'delete','action' => 'action'])
             ->make(true);
@@ -271,6 +272,9 @@ class SettingsController extends Controller
           //
           $update_user_info = User::find($id);
           $update_user_info->name = $request->input('rename_name');
+          $update_user_info->phone = $request->input('rename_phone');
+          $update_user_info->email = $request->input('rename_emailid');
+          $update_user_info->status = $request->input('rename_status');
           $update_user_info->created_at = date('Y-m-d h:i:s');
           $update_user_info->updated_at = date('Y-m-d h:i:s');
 

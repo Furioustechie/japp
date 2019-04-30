@@ -5,7 +5,6 @@ $(function() {
     $('#dataTableCourts').DataTable({
 
         processing: true,
-
         serverSide: true,
         ajax: url,
         
@@ -741,6 +740,7 @@ $(function() {
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
                 { data: 'phone', name: 'phone' },
+                { data: 'status', name: 'status' },
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
     
@@ -807,13 +807,29 @@ $(function() {
 
 
         var id = $(this).data('id');
-        var name = $(this).parent("td").prev("td").prev("td").prev("td").text();
-        //var name = $(this).parent("td").prev("td").prev("td").text();
-       // var name = $(this).parent("td").prev("td").text();
-
-
+        var name = $(this).parent("td").prev("td").prev("td").prev("td").prev("td").text();
+        var email = $(this).parent("td").prev("td").prev("td").prev("td").text();
+        var phone = $(this).parent("td").prev("td").prev("td").text();
+        var status = $(this).parent("td").prev("td").text();
+        //var test = "Active";
+    //console.log(test);
+//var person = "John Doe";
         $("#edit_accountName").find("input[name='rename_name']").val(name);
-    
+        $("#edit_accountName").find("input[name='rename_emailid']").val(email);
+        $("#edit_accountName").find("input[name='rename_phone']").val(phone);
+        if(status != 0){
+            //$("#edit_accountName").find("input[name='rename_status']").val('Active');
+            $("#edit_accountName").find('input[name=checked]').attr('checked', true).css('color', 'red');
+            $("#edit_accountName").find('#checkbox_label').css('color', 'green');
+
+        }else{
+           // $("#edit_accountName").find("input[name='rename_status']").val('Inactive');
+            $("#edit_accountName").find('input[name=checked]').attr('checked', false);
+            $("#edit_accountName").find('#checkbox_label').css('color', 'red');
+        }
+
+        
+
         $("#edit_accountName").find(".edit-id").val(id);
 
 
@@ -830,13 +846,14 @@ $(function() {
                             });
     
         var name = $("#edit_accountName").find("input[name='rename_name']").val();
-
-
+        var email = $("#edit_accountName").find("input[name='rename_emailid']").val();
+        var phone = $("#edit_accountName").find("input[name='rename_phone']").val();
+        var status = $("#edit_accountName").find("input[name='checked']").val();
 
         var id = $("#edit_accountName").find(".edit-id").val();
 
 
-        if(name != ''){
+        if(name != '' && email != '' && phone != ''){
         $.ajax({
 
         url: "editsettings/update_accountName/"+id,
@@ -845,7 +862,10 @@ $(function() {
         data: {
             "id":id,
             "rename_name": name,
-    
+            "rename_emailid": email,
+            "rename_phone": phone,
+            "checked": status,
+
             "_method": 'POST',
                         
             },
@@ -862,8 +882,8 @@ $(function() {
                             });
         }else {
                             Swal({
-                            title:'Dismissed!',
-                            text:'Your record is safe.',
+                            title:'Check Your Input !!!',
+                            text:' Record is safe.',
                             type:'error',
                             timer:5000,
                             }) 

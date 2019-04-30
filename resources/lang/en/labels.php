@@ -20,8 +20,7 @@ return [
     'tab_cc' => 'CC Not Attached',
     'tab_longTime' => 'Long Time No Actions',
     'tab_onHearing' => 'On Hearing Stage',
-
-//prison
+    //prison
     'prison_totalAppeal' => 'Total Appeals',
     'prison_thisYear' => 'This Year',
     'prison_pendingForCC' => 'Pending for CC',
@@ -30,6 +29,7 @@ return [
     'prison_lastMonth' => 'Last Month',
     'prison_ccNotFound' => 'Incomplete Appliation / Failed',
     'prison_justUpdated' => 'Just Updated',
+    'create_appeal' => 'create new appeal',
     // Prison Modal Details
     'applicationForm_name' =>'Jail Appeal Application Form',
     'prisoners_No' => 'Prisoner NO.',
@@ -47,13 +47,14 @@ return [
     'sharok_NO' => 'Sharok NO.',
     'doc_attachment' => 'Document Upload',
     'remarks' => 'Remarks',
+    'cc_attached' => 'Attached CC/Acknowledgement Letter',
+    'privacy'   => 'Accept Privacy and Policy',
     'browse' => 'BROWSE',
     'submit' => 'SUBMIT',
     'close' => 'CLOSE',
-
-
-    
-
-
-    
+    // Footer Line Labels  
+    'about_us' => 'About Us',
+    'pro_name' => 'Jail Appeal',
+    'blog' => 'Blog',
+    'licenses' => 'Licenses',
 ];
