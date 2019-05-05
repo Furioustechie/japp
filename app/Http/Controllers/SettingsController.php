@@ -176,7 +176,7 @@ class SettingsController extends Controller
         return Datatables::of($accountName)
             ->addColumn('action', function ($accountName) {
                 return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$accountName->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
-                .'<a href="#" class="accountNameDelete delete" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>';
+                .'<a href="#" class="accountNameDelete delete" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>'.'<a href="#" data-toggle="modal" data-target="#edit_accountStatus"  data-id="'.$accountName->id.'" class="edit_accountStatus"><i class="material-icons">vpn_key</i></a>';
             })
            
             ->editColumn('id', 'ID: {{$id}}')
@@ -274,11 +274,15 @@ class SettingsController extends Controller
           $update_user_info->name = $request->input('rename_name');
           $update_user_info->phone = $request->input('rename_phone');
           $update_user_info->email = $request->input('rename_emailid');
-          $update_user_info->status = $request->input('rename_status');
           $update_user_info->created_at = date('Y-m-d h:i:s');
           $update_user_info->updated_at = date('Y-m-d h:i:s');
 
           $update_user_info->save();
+      }
+      public function update_accountStatus(Request $request, $id){
+        $update_user_status = User::find($id);
+        $update_user_status->status = $request->input('check',1);//
+        $update_user_status->save();
       }
     /**
      * Remove the specified resource from storage.
@@ -362,6 +366,7 @@ class SettingsController extends Controller
         // echo $id;  
         try {
          DB::table('users')->where('id',$id)->delete();
+         
             return redirect('/editsettings')->with('success','User information Deleted Successdully');
         } catch (\Exception $e) { 
             // if an exception happened in the try block above 

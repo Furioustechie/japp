@@ -3,7 +3,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center" style="background-color:#00bcd4;">
-                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Courts Name</h5>
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Courts Name
+                </h5>
             </div>
 
 
@@ -23,7 +24,8 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" name="court_rename_submit" data-dismiss="modal" class="btn btn-success submit-edit">Submit</button>
+                        <button type="submit" name="court_rename_submit" data-dismiss="modal"
+                            class="btn btn-success submit-edit">Submit</button>
                     </div>
                 </form>
             </div>
@@ -35,7 +37,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center" style="background-color:#00bcd4;">
-                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Courts Name</h5>
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Courts Name
+                </h5>
             </div>
 
 
@@ -49,7 +52,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" name="rename_prison_submit" data-dismiss="modal" class="btn btn-success submit-prison">Submit</button>
+                        <button type="submit" name="rename_prison_submit" data-dismiss="modal"
+                            class="btn btn-success submit-prison">Submit</button>
                     </div>
                 </form>
             </div>
@@ -77,7 +81,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" name="rename_sentence_submit" data-dismiss="modal" class="btn btn-success submit-sentence">Submit</button>
+                        <button type="submit" name="rename_sentence_submit" data-dismiss="modal"
+                            class="btn btn-success submit-sentence">Submit</button>
                     </div>
                 </form>
             </div>
@@ -104,7 +109,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" name="rename_offence_submit" data-dismiss="modal" class="btn btn-success submit-offence">Submit</button>
+                        <button type="submit" name="rename_offence_submit" data-dismiss="modal"
+                            class="btn btn-success submit-offence">Submit</button>
                     </div>
                 </form>
             </div>
@@ -117,7 +123,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center" style="background-color:#00bcd4;">
-                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Status Name</h5>
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Status Name
+                </h5>
             </div>
 
 
@@ -131,7 +138,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" name="rename_status_submit" data-dismiss="modal" class="btn btn-success submit-status">Submit</button>
+                        <button type="submit" name="rename_status_submit" data-dismiss="modal"
+                            class="btn btn-success submit-status">Submit</button>
                     </div>
                 </form>
             </div>
@@ -166,17 +174,14 @@
                         <input type="number" name="rename_phone" class="form-control" min="0" required>
                         <div class="help-block with-errors"></div>
                     </div>
-                    {{-- <div class="form-group">
-                        <label class="control-label" for="title">User Account Status:</label>
-                        <input type="text" id="rename_status" name="rename_status" class="form-control" required>
-                        <div class="help-block with-errors"></div>
-                    </div> --}}
                     <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="checked">
-                            <label class="custom-control-label" for="defaultUnchecked" id="checkbox_label">User Account Activated</label>
-                        </div>
+                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="checked">
+                        <label class="custom-control-label" for="defaultUnchecked" id="checkbox_label">User Account
+                            Activated</label>
+                    </div>
                     <div class="modal-footer">
-                        <button type="submit" name="rename_uaccount_submit" data-dismiss="modal" class="btn btn-success submit-accountName">Submit</button>
+                        <button type="submit" name="rename_uaccount_submit" data-dismiss="modal"
+                            class="btn btn-success submit-accountName">Submit</button>
                     </div>
                 </form>
             </div>
@@ -184,6 +189,37 @@
     </div>
 </div>
 
+<!--Modal For Account Status -->
+<div class="modal fade" id="edit_accountStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="background-color:#00bcd4;">
+                <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify User
+                    Status</h5>
+            </div>
+
+
+            <div class="modal-body">
+                <form data-toggle="validator" action="editsettings/update_accountStatus/" method="put">
+                    <input type="hidden" name="id" class="edit-id">
+                    
+                    <div class="form-group">
+                        <div class="row">
+                            
+                            <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"  name="check"> Activate/DeActivate User Account
+                                  </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="rename_uaccount_StatusSubmit" data-dismiss="modal"
+                            class="btn btn-success submit-accountStatus">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!--Modal For Add  User Information -->
 <div class="modal fade" id="add_accountName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -202,8 +238,9 @@
                         <label for="name" class="col-md-12 col-form-label text-md-right">{{ __('Name') }}</label>
 
                         <div class="col-md-12">
-                            <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                name="name" value="{{ old('name') }}" required autofocus>
+                            <input id="name" type="text"
+                                class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name"
+                                value="{{ old('name') }}" required autofocus>
 
                             @if ($errors->has('name'))
                             <span class="invalid-feedback" role="alert">
@@ -213,12 +250,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="userFromPrison" class="col-md-12 col-form-label text-md-right">{{ __('Prison Name') }}</label>
+                        <label for="userFromPrison"
+                            class="col-md-12 col-form-label text-md-right">{{ __('Prison Name') }}</label>
                         <select class="browser-default custom-select" name="prison_Name">
                             <option value="" disabled selected>Please Select ..</option>
                             @foreach ($prisonName as $pname)
                             <option value="{{ $pname->id }}">{{ $pname->name }}</option>
-                           @endforeach
+                            @endforeach
 
                         </select>
 
@@ -234,7 +272,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="usertype" class="col-md-12 col-form-label text-md-right">{{ __('User Type') }}</label>
+                        <label for="usertype"
+                            class="col-md-12 col-form-label text-md-right">{{ __('User Type') }}</label>
                         <select class="browser-default custom-select" name="user_type">
                             <option value="" disabled selected>Please Select ..</option>
                             <option value="user">User Group</option>
@@ -244,11 +283,13 @@
 
                     </div>
                     <div class="form-group row">
-                        <label for="email" class="col-md-12 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <label for="email"
+                            class="col-md-12 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                         <div class="col-md-12">
-                            <input id="email" type="email" class="form-control" data-error="{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                name="email" value="{{ old('email') }}" required>
+                            <input id="email" type="email" class="form-control"
+                                data-error="{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
+                                value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
                             <span class="invalid-feedback" role="alert">
@@ -259,11 +300,13 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="password" class="col-md-12 col-form-label text-md-right">{{ __('Password') }}</label>
+                        <label for="password"
+                            class="col-md-12 col-form-label text-md-right">{{ __('Password') }}</label>
 
                         <div class="col-md-12">
-                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                name="password" required>
+                            <input id="password" type="password"
+                                class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"
+                                required>
 
                             @if ($errors->has('password'))
                             <span class="invalid-feedback" role="alert">
@@ -278,14 +321,14 @@
                             Password') }}</label>
 
                         <div class="col-md-12">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                                required>
+                            <input id="password-confirm" type="password" class="form-control"
+                                name="password_confirmation" required>
                         </div>
                     </div>
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary" >
+                            <button type="submit" class="btn btn-primary">
                                 {{ __('Register') }}
                             </button>
                         </div>
@@ -328,7 +371,8 @@
 
 <!-- Modal For Courts Name Entry -->
 
-<div class="modal fade" id="modalCourtForm" tabindex="-1" role="dialog" aria-labelledby="myModalCourt" aria-hidden="true">
+<div class="modal fade" id="modalCourtForm" tabindex="-1" role="dialog" aria-labelledby="myModalCourt"
+    aria-hidden="true">
     <form action="/editsettings/add_courtname" method="POST">
         {{ csrf_field() }}
         <div class="modal-dialog" role="document">
@@ -370,7 +414,8 @@
 </div>
 
 <!-- Modal For Staus Name Entry -->
-<div class="modal fade" id="modalStatusForm" tabindex="-1" role="dialog" aria-labelledby="myModalStatus" aria-hidden="true">
+<div class="modal fade" id="modalStatusForm" tabindex="-1" role="dialog" aria-labelledby="myModalStatus"
+    aria-hidden="true">
     <form action="/editsettings/add_status" method="POST">
         {{ csrf_field() }}
         <div class="modal-dialog" role="document">
@@ -400,7 +445,8 @@
 
 <!-- Modal For Offence Name Entry -->
 
-<div class="modal fade" id="modalOffenceForm" tabindex="-1" role="dialog" aria-labelledby="myModalOffence" aria-hidden="true">
+<div class="modal fade" id="modalOffenceForm" tabindex="-1" role="dialog" aria-labelledby="myModalOffence"
+    aria-hidden="true">
     <form action="/editsettings/add_offence" method="POST" name="offenceForm">
         {{ csrf_field() }}
         <div class="modal-dialog" role="document">
@@ -428,7 +474,8 @@
 </div>
 
 <!-- Modal For Prion Name Entry -->
-<div class="modal fade" id="modalPrisonForm" tabindex="-1" role="dialog" aria-labelledby="myModalPrison" aria-hidden="true">
+<div class="modal fade" id="modalPrisonForm" tabindex="-1" role="dialog" aria-labelledby="myModalPrison"
+    aria-hidden="true">
     <form action="/editsettings/add_prisonname" method="POST">
         {{ csrf_field() }}
         <div class="modal-dialog" role="document">

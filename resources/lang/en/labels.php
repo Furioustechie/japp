@@ -29,7 +29,12 @@ return [
     'prison_lastMonth' => 'Last Month',
     'prison_ccNotFound' => 'Incomplete Appliation / Failed',
     'prison_justUpdated' => 'Just Updated',
+    'prison_appealDetailsFrom' => 'Appeal Details From',
     'create_appeal' => 'create new appeal',
+     //Prison appeal details
+    'prison_inThisMonth' => 'Details of in This Month',
+    'prison_detailsPending' => 'Details of Pending For Certified Copy',
+    'prison_detailsOfResolved' => 'Details of Appeals Resolved',
     // Prison Modal Details
     'applicationForm_name' =>'Jail Appeal Application Form',
     'prisoners_No' => 'Prisoner NO.',
@@ -57,4 +62,25 @@ return [
     'pro_name' => 'Jail Appeal',
     'blog' => 'Blog',
     'licenses' => 'Licenses',
+    'copyright' =>'',
+    //Prison Appeals Details Table
+    'id' => 'ID',
+    'case_no' => 'CASE NO',
+    'status' => 'STATUS',
+    'view_in_detail' => 'VIEW IN DETAIL',
+    //Prison - lastMonth Table
+    'lastMonth_id' => 'ID',
+    'lastMonth_case_no' => 'CASE NO',
+    'lastMonth_status' => 'STATUS',
+    'lastMonth_view_in_detail' => 'VIEW IN DETAIL',
+    //Prison- CC Table
+    'CC_id' => 'ID',
+    'CC_case_no' => 'CASE NO',
+    'CC_status' => 'STATUS',
+    'CC_view_in_detail' => 'VIEW IN DETAIL',
+    //Prison- Resolved Table
+    'resolved_id' => 'ID',
+    'resolved_case_no' => 'CASE NO',
+    'resolved_status' => 'STATUS',
+    'resolved_view_in_detail' => 'VIEW IN DETAIL',
 ];

@@ -392,7 +392,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-warning">
+                                <div class="card-header card-header-default">
                                     <h4 class="card-title">TO DO</h4>
                                     <p class="card-category">Deatils Of TODO</p>
                                 </div>

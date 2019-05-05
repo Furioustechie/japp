@@ -325,8 +325,8 @@
                                   </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        @if(@$last_state[0]->statusid == 4) 
                                       <label class="bmd-label-floating">Appeal No.</label>
-                                      @if(@$last_state[0]->statusid == 4) 
                                       <input type="text" name="case_no" value="" class="form-control">
                                       @endif
                                     </div>

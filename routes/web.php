@@ -99,6 +99,7 @@ Route::post('editsettings/update_sentence/{id}', 'SettingsController@update_sent
 Route::post('editsettings/update_offence/{id}', 'SettingsController@update_offence');
 Route::post('editsettings/update_status/{id}', 'SettingsController@update_status');
 Route::post('editsettings/update_accountName/{id}', 'SettingsController@update_accountName');
+Route::post('editsettings/update_accountStatus/{id}', 'SettingsController@update_accountStatus');
 
 
 Route::get('/rotate', 'SettingsController@rotate');

@@ -171,7 +171,7 @@
                     <div class="col-md-12">
                         <div class="card show animated onece fadeIn">
                             <div class="card-header card-header-success">
-                                    <h4 class="card-title mt-0">Details of Appeals in This Month</strong><span class="float-right"><button type="button" class="close" id="monthAppeals" aria-label="Close">
+                                    <h4 class="card-title mt-0">{{ __('labels.prison_inThisMonth') }}</strong><span class="float-right"><button type="button" class="close" id="monthAppeals" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></span></h4>
                                           </button>
                                     <p class="card-category"></p>
@@ -180,12 +180,12 @@
                                     <div class="table-responsive">
                                             <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
                                                 <thead class="text-primary">
-                                                    <th>ID</th>
-                                                    <th style="white-space: nowrap;">Case No</th>
+                                                    <th>{{ __('labels.resolved_id') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_case_no') }}</th>
                                                     {{-- <th>Prisoner Name </th>
                                                     <th>Prison Name</th>--}}
-                                                    <th style="white-space: nowrap;">Status</th>
-                                                    <th style="white-space: nowrap;">View in Detail</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_view_in_detail') }}</th>
                                                 </thead>
                                             
                                                 <tbody>
@@ -271,7 +271,7 @@
                 <div class="col-md-12">
                         <div class="card show_total">
                             <div class="card-header card-header-danger">
-                                    <h4 class="card-title mt-0">Details of Pending For CC</strong><span class="float-right"><button type="button" class="close" id="pendingCC" aria-label="Close">
+                                    <h4 class="card-title mt-0">{{__('labels.prison_detailsPending') }}</strong><span class="float-right"><button type="button" class="close" id="pendingCC" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></span></h4>
                                     <p class="card-category"></p>
                             </div>
@@ -279,12 +279,12 @@
                                     <div class="table-responsive">
                                             <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
                                                 <thead class="text-primary">
-                                                    <th>ID</th>
-                                                    <th style="white-space: nowrap;">Case No</th>
+                                                    <th>{{ __('labels.CC_id') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.CC_case_no') }}</th>
                                                     {{-- <th>Prisoner Name </th>
                                                     <th>Prison Name</th>--}}
-                                                    <th style="white-space: nowrap;">Status</th>
-                                                    <th style="white-space: nowrap;">View in Detail</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.CC_status') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.CC_view_in_detail') }}</th>
                                                 </thead>
                                             
                                                 <tbody>
@@ -370,7 +370,7 @@
                 <div class="col-md-12">
                         <div class="card show_resolved">
                             <div class="card-header card-header-info">
-                                    <h4 class="card-title mt-0">Details of Appeal Resolved</strong><span class="float-right"><button type="button" class="close" id="appealsResolved" aria-label="Close">
+                            <h4 class="card-title mt-0">{{ __('labels.prison_detailsOfResolved') }}</strong><span class="float-right"><button type="button" class="close" id="appealsResolved" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></span></h4>
                                     <p class="card-category"></p>
                             </div>
@@ -378,12 +378,12 @@
                                     <div class="table-responsive">
                                             <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
                                                 <thead class="text-primary">
-                                                    <th>ID</th>
-                                                    <th style="white-space: nowrap;">Case No</th>
+                                                    <th>{{ __('labels.lastMonth_id') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.lastMonth_case_no') }}</th>
                                                     {{-- <th>Prisoner Name </th>
                                                     <th>Prison Name</th>--}}
-                                                    <th style="white-space: nowrap;">Status</th>
-                                                    <th style="white-space: nowrap;">View in Detail</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.lastMonth_status') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.lastMonth_view_in_detail') }}</th>
                                                 </thead>
                                             
                                                 <tbody>
@@ -473,21 +473,21 @@
                                          
                                         // $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.Auth::user()->id.')');
                                         @endphp
-                                        <h4 class="card-title mt-0">Appeal Details From <strong>{{ @$district_name[0]->name }}</strong></h4>
+                                        <h4 class="card-title mt-0">{{ __('labels.prison_appealDetailsFrom') }} <strong>{{ @$district_name[0]->name }}</strong></h4>
                                         <p class="card-category"></p>
                                     </div>
                            <div class="card-body">
-                                <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >Create New Appeal</button>
+                           <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >{{ __('labels.create_appeal')}}</button>
                                
                                 <div class="table-responsive">
                                                 <table id="dataTable_Details" class="display nowrap dtr-inline" style="width:100%">
                                                     <thead class="text-primary">
-                                                        <th>ID</th>
-                                                        <th>Case No</th>
+                                                        <th>{{ __('labels.id') }}</th>
+                                                        <th>{{ __('labels.case_no') }}</th>
                                                         {{-- <th>Prisoner Name </th>
                                                         <th>Prison Name</th>--}}
-                                                        <th>Status</th>
-                                                        <th>View in Detail</th>
+                                                        <th>{{ __('labels.status') }}</th>
+                                                        <th>{{ __('labels.view_in_detail') }}</th>
                                                     </thead>
                                                 
                                                     <tbody>

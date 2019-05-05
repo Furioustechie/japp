@@ -29,7 +29,12 @@ return [
     'prison_lastMonth' => 'শেষ এক মাস',
     'prison_ccNotFound' => 'প্রত্যয়িত কপি / অসম্পূর্ণ আপিলের জন্য মুলতুবি',
     'prison_justUpdated' => 'মাত্র আপডেট',
+    'prison_appealDetailsFrom' => 'আপীল বিবরণ:',
     'create_appeal' => 'নতুন আবেদন তৈরি করুন',
+    //Prison appeal details
+    'prison_inThisMonth' => 'এই মাসের বিস্তারিত',
+    'prison_detailsPending' => ' প্রত্যয়িত কপির জন্য মুলতুবি বিস্তারিত',
+    'prison_detailsOfResolved' => 'আপিল নিস্পত্তি বিস্তারিত',
     // Prison Modal Details
     'applicationForm_name' =>'জেল আপিল অ্যাপ্লিকেশন ফর্ম',
     'prisoners_No' => 'কারাবন্দীর নম্বর',
@@ -58,5 +63,24 @@ return [
     'blog' => 'ব্লগ',
     'licenses' => 'লাইসেন্স',
     'copyright' =>'',
-
+    //Prison Appeals Details Table
+    'id' => 'আইডি',
+    'case_no' => 'কেস নম্বর',
+    'status' => 'অবস্থা',
+    'view_in_detail' => 'বিস্তারিত দেখুন',
+    //Prison - lastMonth Table
+     'lastMonth_id' => 'আইডি',
+     'lastMonth_case_no' => 'কেস নম্বর',
+     'lastMonth_status' => 'অবস্থা',
+     'lastMonth_view_in_detail' => 'বিস্তারিত দেখুন',
+    //Prison- CC Table
+    'CC_id' => 'আইডি',
+    'CC_case_no' => 'কেস নম্বর',
+    'CC_status' => 'অবস্থা',
+    'CC_view_in_detail' => 'বিস্তারিত দেখুন',
+    //Prison- Resolved Table
+     'resolved_id' => 'আইডি',
+     'resolved_case_no' => 'কেস নম্বর',
+     'resolved_status' => 'অবস্থা',
+     'resolved_view_in_detail' => 'বিস্তারিত দেখুন',
 ];

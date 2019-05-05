@@ -799,8 +799,41 @@ $(function() {
     }
     });
     });
-
-
+//To update status of user account only
+    $("body").on("click",".edit_accountStatus",function(){
+        var id = $(this).data('id');
+       // console.log(id);
+        $("#edit_accountStatus").find(".edit-id").val(id);
+    });
+      $(".submit-accountStatus").click(function(e){
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            //console.log(status);
+            var id = $("#edit_accountStatus").find(".edit-id").val();
+            var status = $("input[type=checkbox][name=check]:checked").val();
+            console.log(status);
+            $.ajax({
+                url: "editsettings/update_accountStatus/"+id,
+                type: 'post',
+                data: {
+                    "id":id,
+                    "check": status,
+                    "_method": 'POST',
+                    },
+                    success: function (data) {
+                        swal("Done!","Updated Successfully!","success");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        swal("Error deleting!", "Name being used", "error");
+                    }
+                }).always(function (data) {
+                    $('#dataTableuaccount').DataTable().draw(false);
+                    });
+            });
 
 /* Edit Prisons Item *//////
         $("body").on("click",".edit_accountName",function(){
@@ -812,21 +845,22 @@ $(function() {
         var phone = $(this).parent("td").prev("td").prev("td").text();
         var status = $(this).parent("td").prev("td").text();
         //var test = "Active";
-    //console.log(test);
+    //console.log(id);
 //var person = "John Doe";
         $("#edit_accountName").find("input[name='rename_name']").val(name);
         $("#edit_accountName").find("input[name='rename_emailid']").val(email);
         $("#edit_accountName").find("input[name='rename_phone']").val(phone);
         if(status != 0){
             //$("#edit_accountName").find("input[name='rename_status']").val('Active');
-            $("#edit_accountName").find('input[name=checked]').attr('checked', true).css('color', 'red');
+            $("#edit_accountName").find('input[name=checked]').attr('checked', true);
             $("#edit_accountName").find('#checkbox_label').css('color', 'green');
 
         }else{
            // $("#edit_accountName").find("input[name='rename_status']").val('Inactive');
-            $("#edit_accountName").find('input[name=checked]').attr('checked', false);
+            $("#edit_accountName").find('input[name=checked]').attr('checked', true);
             $("#edit_accountName").find('#checkbox_label').css('color', 'red');
         }
+       
 
         
 
