@@ -174,11 +174,11 @@
                         <input type="number" name="rename_phone" class="form-control" min="0" required>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="custom-control custom-checkbox">
+                    {{-- <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="checked">
                         <label class="custom-control-label" for="defaultUnchecked" id="checkbox_label">User Account
                             Activated</label>
-                    </div>
+                    </div> --}}
                     <div class="modal-footer">
                         <button type="submit" name="rename_uaccount_submit" data-dismiss="modal"
                             class="btn btn-success submit-accountName">Submit</button>

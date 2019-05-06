@@ -31,6 +31,7 @@ class LoginController extends Controller
   //  protected $redirectTo = '/dashboard';
     public function redirectTo(){
         // User role
+        
     $role = Auth::user()->user_type; 
     
     // Check user role
@@ -55,6 +56,17 @@ class LoginController extends Controller
     {
         //$this->middleware('guest')->except('logout');
         $this->middleware('guest', ['except' => ['logout', 'getLogout']]);
+    }
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        // return $request->only($this->username(), 'password');
+    return ['email' =>$request{$this->username()}, 'password' => $request->password, 'status' => 0];
     }
     public function logout(Request $request) {
         Auth::logout();

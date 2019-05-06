@@ -161,15 +161,16 @@
                             <div class="card card-chart">
                                 <div class="card-header card-header-success">
                                         {{-- <div id="piechart_3d" class="zoom"></div> --}}
-                                        <div  id="dashboard_div">
+                                        {{-- <div  id="dashboard_div">
                                             <div id="slider_div" style="float:left;"></div>
                                             <div id="categoryPicker_div" style="float:right"></div><br><br><br>
                                             <div id="chart_div" style=""></div>
-                                          </div>
+                                          </div> --}}
+                                          <div id="piechart_3d" style=""></div>
                                     </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">Total Appeals By Gender</h4>
-                                    <p class="card-category">Category | by Gender</p>
+                                    <h4 class="card-title">Total Appeals By Sentence Type</h4>
+                                    <p class="card-category">Category | by Sentence</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -184,7 +185,7 @@
                                     <div class="ct-chart" id="bar_Vchart"></div>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">Completed Tasks</h4>
+                                    <h4 class="card-title">Total Appeals By Status</h4>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -851,10 +852,30 @@ function drawBasic() {
         });
     }
 </script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+        ['sentence_name','totalAppeals'],
+       <?php echo substr($pieChartBySentence,0,-1);?>
+       ]);
+
+        var options = {
+          title: 'Appeals By Sentence Type'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+
+        chart.draw(data, options);
+      }
+    </script>
 <script>
       window.setTimeout(function() {
           $(".preloader").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
           });
       }, 3000);
-    </script>
+</script>

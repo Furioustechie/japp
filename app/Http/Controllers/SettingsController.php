@@ -521,9 +521,11 @@ class SettingsController extends Controller
             DB::table('users')->insert([
             'name' => $request['name'],
             'prison_id' => $request['prison_Name'],
-            'email' => $request['email'],
             'user_type' => $request['user_type'],
+            'phone' =>$request->input('phone'),
+            'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'status' => $request->input('check',1),
             'created_at' => date('Y-m-d h:i:s'),
             'updated_at' => date('Y-m-d h:i:s')
         ]);

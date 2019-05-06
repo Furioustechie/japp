@@ -74,7 +74,8 @@ class PagesController extends Controller
         $totalsByPrison = DB::select('SELECT name, prisonsId, totalsByPrison FROM totalappealbyprison');
         $totalByStatus = DB::select('SELECT status_name,totalAppeals FROM appealsbystatus');
         $totalByGender = DB::select('SELECT status_name,totalAppeals FROM appealsbystatus');
-        //dd($totalsByPrison);
+        $pieChartBySentences = DB::select('SELECT sentence_name, totalAppeals FROM appealsbysentence');
+        //dd($pieChartBySentences);
         // foreach($appealStates as $aps){
 // $output = array(
 //     'statusid' => $aps->statusid,
@@ -85,6 +86,12 @@ class PagesController extends Controller
 // }
 
 /* ------------- Data format for charts ---------------- */
+$pieChartBySentence="";
+foreach($pieChartBySentences as $pieBySentence){
+
+    $pieChartBySentence.= "['".$pieBySentence->sentence_name."',".$pieBySentence->totalAppeals."],";
+}
+
 $data="";
 foreach($data_PieChart as $dataPie){
 
@@ -98,6 +105,8 @@ $appealsByStatus = "";
 foreach($totalByStatus as $byStatus){
     $appealsByStatus.="['". $byStatus->status_name."',". $byStatus->totalAppeals."],";
 }
+
+
 /* ------------- Data format for charts ---------------- */      
         $cc_missing = DB::select('select newappeals.id,newappeals.date_of_sentence,cases.caseno,prisons.name
                         FROM newappeals 
@@ -191,6 +200,8 @@ foreach($totalByStatus as $byStatus){
         $send['data']=$data;
         $send['bar_chart']=$bar_chart;
         $send['appealsByStatus']=$appealsByStatus;
+        $send['pieChartBySentence']=$pieChartBySentence;
+
 
         // echo "<pre>";
         // print_r($all_appeals);
