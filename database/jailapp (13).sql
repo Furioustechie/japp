@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2019 at 12:42 PM
+-- Generation Time: May 06, 2019 at 12:54 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -257,7 +257,8 @@ INSERT INTO `appealstatus` (`id`, `statusid`, `newappeals_id`, `state`, `last_st
 (83, 7, 6, 'yellowgreen', NULL, '2019-04-16 03:30:45', '2019-04-16 03:30:45'),
 (84, 8, 6, 'yellowgreen', NULL, '2019-04-16 03:43:45', '2019-04-16 03:43:45'),
 (85, 9, 6, 'yellowgreen', NULL, '2019-04-16 03:59:45', '2019-04-16 03:59:45'),
-(86, 1, 10, 'yellowgreen', '2019-04-18 15:11:19', '2019-04-18 03:28:10', '2019-04-18 03:28:10');
+(86, 1, 10, 'yellowgreen', '2019-04-18 15:11:19', '2019-04-18 03:28:10', '2019-04-18 03:28:10'),
+(87, 10, 6, 'yellowgreen', NULL, '2019-05-05 09:24:56', '2019-05-05 09:24:56');
 
 -- --------------------------------------------------------
 
@@ -316,7 +317,7 @@ CREATE TABLE `courts` (
 
 INSERT INTO `courts` (`id`, `name_bn`, `name_en`, `disid`, `created_at`, `updated_at`) VALUES
 (1, 'জেলা জজ আদালত', 'District Judge Court1', 42, '2019-01-16 22:59:39', '2019-01-16 22:59:39'),
-(74, 'জেলা জজ আদালত', 'District Judge Court', 41, NULL, NULL),
+(74, 'জেলা জজ আদালত', 'District Judge Court1', 41, '2019-04-29 19:18:44', '2019-04-29 19:18:44'),
 (76, 'যুগ্ম জেলা ও দায়রা জজ -১', 'Joint District and Sessions Judge -1', 41, NULL, NULL),
 (78, 'সহকারী জজ, মেলান্দহ', 'Assistant Judge, Melandou', 41, NULL, NULL),
 (79, 'সহকারী জজ, ইসলামপুর', 'Assistant Judge, Islampur', 41, NULL, NULL),
@@ -2278,11 +2279,11 @@ INSERT INTO `documents` (`id`, `appealid`, `doctypeid`, `attached`, `filename`, 
 (3, 3, 1, 1, '3.PNG1554008755', '2019-03-31 05:55:05', '2019-03-31 05:55:05'),
 (4, 4, 1, 1, '15540090733.PNG', '2019-03-31 05:13:11', '2019-03-31 05:13:11'),
 (5, 5, 3, 1, '123edited.jpg', '2019-03-31 05:48:23', '2019-03-31 05:48:23'),
-(6, 6, 1, 1, '5ca052066f0ad11.PNG', '2019-03-31 05:10:37', '2019-03-31 05:10:37'),
+(6, 6, 3, 1, '5ca052066f0ad11.PNG', '2019-03-31 05:10:37', '2019-03-31 05:10:37'),
 (7, 7, 1, 1, '5cb4442191aab4.PNG', '2019-04-14 20:13:43', '2019-04-14 20:13:43'),
 (8, 8, 1, 1, '5cb44cf896f393.PNG', '2019-04-14 21:56:20', '2019-04-14 21:56:20'),
 (9, 9, 2, 1, '5cb44e92bb67f3.PNG', '2019-04-14 21:46:27', '2019-04-14 21:46:27'),
-(10, 10, 3, 1, '5cb55c40c466c4.PNG', '2019-04-16 04:25:38', '2019-04-16 04:25:38');
+(10, 10, 1, 1, '5cb55c40c466c4.PNG', '2019-04-16 04:25:38', '2019-04-16 04:25:38');
 
 -- --------------------------------------------------------
 
@@ -2517,6 +2518,7 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 ('cbee13b2-3da7-40d3-9c6c-4520e5f173b9', 'App\\Notifications\\jappNotification', 'App\\User', 3, 2, '{\"data\":\"New Appeals From Bogra District Jail\",\"appeal_id\":11}', NULL, '2019-04-16 04:44:00', '2019-04-16 04:44:00', 11),
 ('ccb0b376-1e18-49f7-adef-b9bedc3d491d', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Case Docket Requested (ON fgfh)\",\"appeal_id\":2}', '2019-04-01 10:07:19', '2019-04-01 06:57:57', '2019-04-01 10:07:19', 2),
 ('cdcb9ee8-3ed3-4529-a76d-981b47090e75', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Lawyer Requested (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:48:49', '2019-04-02 14:53:03', 5),
+('ced05981-651d-4930-8903-8655ad2af679', 'App\\Notifications\\jappNotification', 'App\\User', 6, 3, '{\"data\":\"Update : Outcome Received (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-05-05 03:56:24', '2019-05-05 03:56:24', 6),
 ('d41c76c0-f3dd-47bd-8a01-71b5e3f791aa', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 06:37:43', '2019-04-02 14:53:03', 5),
 ('d5e48776-0888-4449-a184-521c3608ecee', 'App\\Notifications\\jappNotification', 'App\\User', 6, 3, '{\"data\":\"Update : Case Docket Received (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-16 09:45:30', '2019-04-16 09:45:30', 6),
 ('d8f1b87a-afa7-40fe-a341-783c69bfda70', 'App\\Notifications\\jappNotification', 'App\\User', 17, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdefr)\",\"appeal_id\":1}', NULL, '2019-04-02 10:46:00', '2019-04-02 10:46:00', 1),
@@ -2525,6 +2527,7 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 ('dec2d4c4-3030-4464-9499-1b31a350d7d2', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Application Sent to Bench (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 07:18:56', '2019-04-02 07:18:56', 6),
 ('e41fd466-6062-42ce-a87e-3b958aa51309', 'App\\Notifications\\jappNotification', 'App\\User', 15, 3, '{\"data\":\"Update : Appeal sent to Bench for Hearing (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-04-02 06:36:50', '2019-04-02 06:36:50', 6),
 ('e5911777-3f08-4cf8-b2d5-06fb36eb0bf6', 'App\\Notifications\\jappNotification', 'App\\User', 1, 2, '{\"data\":\"New Appeals From Manikganj District Jail\",\"appeal_id\":2}', NULL, '2019-03-31 05:03:53', '2019-03-31 05:03:53', 2),
+('e6f5108c-2eef-4791-85ba-e066690e4a3c', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Outcome Received (ON sdfsdf)\",\"appeal_id\":6}', NULL, '2019-05-05 03:56:24', '2019-05-05 03:56:24', 6),
 ('eebe8729-85b0-4d20-b52b-2a50efa6fb35', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Jail Appeal NO Assigned (ON sdefr)\",\"appeal_id\":1}', '2019-04-02 14:53:03', '2019-04-02 07:05:50', '2019-04-02 14:53:03', 1),
 ('eefc3e9e-1d61-4c67-96ba-cb8f9b806539', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Appeal Admitted by Bench (ON sdsd)\",\"appeal_id\":5}', '2019-04-02 14:53:03', '2019-04-02 07:43:45', '2019-04-02 14:53:03', 5),
 ('f314fba2-4d0e-48ec-add2-f41a6d88c4cc', 'App\\Notifications\\jappNotification', 'App\\User', 2, 3, '{\"data\":\"Update : Application Complete (ON reter)\",\"appeal_id\":4}', '2019-04-02 14:53:03', '2019-04-02 10:49:30', '2019-04-02 14:53:03', 4),
@@ -2553,11 +2556,10 @@ CREATE TABLE `offences` (
 --
 
 INSERT INTO `offences` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'attempt to murder', '2019-01-07 20:22:14', '2019-01-07 20:22:14'),
+(1, 'attempt to murder', '2019-05-04 19:30:25', '2019-05-04 19:30:25'),
 (2, 'dfsdsd xxxssdsd', '2019-01-09 05:57:32', '2019-01-09 05:57:32'),
 (6, 'dfsdsd xx', '2019-01-28 05:05:15', '2019-01-28 05:05:15'),
-(8, 'htgf', '2019-01-06 19:36:36', '2019-01-06 19:36:36'),
-(9, 'hjjxxxxxxx', '2019-01-28 05:05:00', '2019-01-28 05:05:00');
+(8, 'htgf', '2019-01-06 19:36:36', '2019-01-06 19:36:36');
 
 -- --------------------------------------------------------
 
@@ -2591,7 +2593,7 @@ CREATE TABLE `password_resets` (
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 ('aalnoman@outlook.com', '$2y$10$x/NMT10fOhy1TDE.jxScM.CvBgEFqbqi1bratpOypxG9FeazXe08W', '2019-02-03 11:19:42'),
 ('arifur.rahman@giz.de', '$2y$10$.ZM.XqPFr0hF/2vsEIVD.u5EdyAJI7rUBasRggFlSal4FVsUZhvr.', '2019-02-03 11:24:11'),
-('abdullah.noman@giz.de', '$2y$10$0N40FsGS0QrK30S95IYjsOCpIRwM46./ril974oABAQjkumv6Kr0.', '2019-04-10 06:19:29');
+('abdullah.noman@giz.de', '$2y$10$T28VwgSIl0QAtCCsjBxBoeZhoX/qXsjuSQrj/fBkBlo6LRsONC5E.', '2019-05-06 06:40:25');
 
 -- --------------------------------------------------------
 
@@ -2705,14 +2707,14 @@ CREATE TABLE `sentences` (
 --
 
 INSERT INTO `sentences` (`id`, `sentence_name`, `created_at`, `updated_at`) VALUES
-(1, 'Death', '2019-04-25 03:37:56', '2019-04-25 03:37:56'),
+(1, 'Death', '2019-04-30 10:41:36', '2019-04-30 10:41:36'),
 (42, 'Imprisonment for life', '2019-04-25 03:38:11', '2019-04-25 03:38:11'),
 (43, 'Extinction of Discriminatory Privileges', '2019-04-25 03:39:05', '2019-04-25 03:39:05'),
 (49, 'Imprisonment - Rigorous', '2019-04-25 03:39:50', '2019-04-25 03:39:50'),
-(52, 'Imprisonment - Rigorous', '2019-04-25 03:40:12', '2019-04-25 03:40:12'),
+(52, 'Imprisonment - Simple', '2019-04-29 10:08:26', '2019-04-29 10:08:26'),
 (53, 'Forfeiture of property', '2019-04-25 03:40:34', '2019-04-25 03:40:34'),
 (55, 'Fine', '2019-04-25 03:40:55', '2019-04-25 03:40:55'),
-(56, 'sentence 112', '2019-02-05 04:13:11', '2019-02-05 04:13:11');
+(56, 'Sentence Sample', '2019-04-29 10:08:44', '2019-04-29 10:08:44');
 
 -- --------------------------------------------------------
 
@@ -2811,6 +2813,7 @@ CREATE TABLE `users` (
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `district_id` int(10) DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2819,23 +2822,25 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `prison_id`, `user_type`, `phone`, `email`, `email_verified_at`, `password`, `district_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'abdullah al noman', 0, 'admin', '01812370702', 'abdullah.noman@giz.de', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 1, 'qijmqxaH0wYPAbY40ZKgCACPcLgpDZgqSTjSvfDIiE9aEjFUEw7WjckLGbP1', '2019-02-03 18:00:00', '2019-02-03 18:00:00'),
-(2, 'Prison User', 2, 'user', '01812370702', 'test@outlook.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 31, 'uGkKi18KOhXFtl2wdIL2U7QkLAZFELaec0KH7Bw6auBEE8PGYmvJ89vQZIXi', '2019-02-05 05:18:36', '2019-02-05 05:18:36'),
-(3, 'High Court User', 0, 'admin', NULL, 'user@outlook.com', NULL, '$2y$10$85X3udmGrekuUoGVyRFOWOz.aWxEXFGyOj.MmQC7zBLrsDUsoGvJW', NULL, 'cxrwYRlTfRcUWGAQhBHcT5iNN4PRMQJP37HOWY8NCUCHtoTXvnMIxlKple4g', '2019-02-05 06:31:38', '2019-02-05 06:31:38'),
-(5, 'dd', 0, NULL, NULL, 'dd@dd', NULL, '$2y$10$n.wKi48kKX7XHPnv1B/GT.f5UF66DEa5uXMftYY2chCWvRUYh48w2', NULL, NULL, NULL, NULL),
-(6, 'dd@gmail', 2, 'user', NULL, 'user33@outlook.com', NULL, '$2y$10$634lqKE7s4lVFnA/6SBp8.vgjhkoNQvyQSIjUu8wUpkN4gBu1OYIe', NULL, 'GH2Zp6S1MtA1eqqaNKC3CVgKZ0868gj0sii6iEf3kEqDNfr4f1cUD34kYn4J', '2019-02-04 19:19:07', '2019-02-04 19:19:07'),
-(7, 'Md. Jamir Ahmed', 17, NULL, NULL, 'user3@outlook.co4', NULL, '$2y$10$fMJaJC8yPKC0XYdyqg0xuuWFu/9OHy2DpjYHMIT4Jw9HHrlGXCQxW', NULL, NULL, NULL, NULL),
-(8, 'Md. Jamir Ahmed', 0, NULL, NULL, 'user4@outlook.com', NULL, '$2y$10$pgekq/j/eTBzt.KZpXJ6vOKWYVph9EDLZO1emTlVw660jzdymvW8G', NULL, NULL, NULL, NULL),
-(9, 'Md. Jamir Ahmed', 0, NULL, NULL, 'user5@outlook.com', NULL, '$2y$10$KsESRrZWRIYLNNS2PLgXQOuopBgT.LsY8Dg9AERG15FVEru0y3yVC', NULL, NULL, NULL, NULL),
-(10, 'Md. Jamir Ahmed m', 0, NULL, NULL, 'user6@outlook.com', NULL, '$2y$10$rQFN61TduMIdo7sn9.hp2OE5CsVDzV4NWuTtfh2egHtZr32xhn3Gy', NULL, NULL, '2019-02-04 19:30:58', '2019-02-04 19:30:58'),
-(11, 'prison', 0, 'user', NULL, 'prison@outlook.com', NULL, '$2y$10$pzl7rzy/KSJ57sRysS6NfO1OdiqbegVv5RZuRO1PcPhWD2OqFKtze', NULL, 'IlvZV8ntRDviqMDxLPqg7HwnebUfioR5tQ368172d3YAklXbzYRySUj1o2ja', NULL, NULL),
-(12, 'MR. ABCD', 0, NULL, NULL, 'abcd@japp.com', NULL, '$2y$10$ObHvJRYOewHjiTgh8wuJ/eADybpiEtjC5fbWnZW7xLdpcJ2AdaQBC', NULL, NULL, NULL, NULL),
-(13, 'MR. ABCDE', 0, NULL, NULL, 'abcde@japp.com', NULL, '$2y$10$mx8OeuMOU3JAwo2vd0QgluKWVhTIjKp.ubfilQuiYwGHn1EN96vYm', NULL, NULL, NULL, NULL),
-(14, 'Abdullah Al Noman', 0, NULL, NULL, 'aalnoman1@outlook.com', NULL, '$2y$10$mNL52UtlvsHUk8.9cnzf1uOdjLMEBefqAR/TyIufIHfIIIV.FkTd2', NULL, NULL, NULL, NULL),
-(15, 'mathew', 0, 'user', NULL, 'user30@outlook.com', NULL, '$2y$10$Wruw0vffm7IRmqAvhNDJwOGQZJj.dRsUp9/7yMoia4I.G8tQlwOT2', 31, 'UMlWSC0ej36iZvxdZAvdirSJhpH2qb15vitpeIZAprjt3c3Hs0dXzbf54Jon', NULL, NULL),
-(17, 'New Prison', 17, 'user', NULL, 'newuser@outlook.com', NULL, '$2y$10$iXOyjzXl0na6sLjwffAJ5uo0LVxAvxZ2AVvbA/z1hTT/fgZ9pleCy', NULL, 'tUFTicUQjLIHyNP1Rh6zgBqJKpL9fhHJqDkAQyEUYsmrno94v9rqfL1hESOB', '2019-04-02 06:10:08', '2019-04-02 06:10:08'),
-(18, 'myuser', 32, 'user', NULL, 'myuser1@test.com', NULL, '$2y$10$u45X/XuYTjcGUqwq3Qljw.uRLg7Z/uat8lohu9DhawvSdW2aCWZa6', NULL, 'MFAr2B5mlPH3gtvuU0SRk11M3dLv78SundDJc4tstAmvyeJek51eem75KueE', '2019-04-14 20:39:46', '2019-04-14 20:39:46');
+INSERT INTO `users` (`id`, `name`, `prison_id`, `user_type`, `phone`, `email`, `email_verified_at`, `password`, `district_id`, `remember_token`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'myUser1', 0, 'admin', '01812370702', 'abdullah.noman@giz.de', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 1, 'qijmqxaH0wYPAbY40ZKgCACPcLgpDZgqSTjSvfDIiE9aEjFUEw7WjckLGbP1', 0, '2019-05-04 20:23:36', '2019-05-06 07:15:56'),
+(2, 'Prison User', 2, 'user', '01812370702', 'test@outlook.com', '2019-01-29 18:00:00', '$2y$10$EUJb9/Gr7yV0kUeLblENVeEuKRVltRZQkgrZ0q/WcLMXoI9KJcvqS', 31, 'WyX8jYYMxh1MRUFmBf7GMXI2g6YVk2ULcka3A1yPPCVe5B7W4bYxv3Ryjh8G', 1, '2019-05-05 05:32:42', '2019-05-05 11:17:59'),
+(3, 'High Court User', 0, 'admin', NULL, 'user@outlook.com', NULL, '$2y$10$85X3udmGrekuUoGVyRFOWOz.aWxEXFGyOj.MmQC7zBLrsDUsoGvJW', NULL, '0JhWYeBhpiYoSiGK4pZmRxneflwa7dRb5D1nIueri23D5FQgpApgoXlWH0M6', 0, '2019-02-05 06:31:38', '2019-02-05 06:31:38'),
+(5, '01812370702', 0, NULL, NULL, 'dd@dd', NULL, '$2y$10$n.wKi48kKX7XHPnv1B/GT.f5UF66DEa5uXMftYY2chCWvRUYh48w2', NULL, NULL, 0, '2019-04-29 19:36:49', '2019-05-05 11:13:27'),
+(6, 'dd@gmail', 2, 'user', NULL, 'user33@outlook.com', NULL, '$2y$10$634lqKE7s4lVFnA/6SBp8.vgjhkoNQvyQSIjUu8wUpkN4gBu1OYIe', NULL, 'GH2Zp6S1MtA1eqqaNKC3CVgKZ0868gj0sii6iEf3kEqDNfr4f1cUD34kYn4J', 0, '2019-02-04 19:19:07', '2019-05-05 11:01:13'),
+(7, 'Md. Jamir Ahmed', 17, NULL, NULL, 'user3@outlook.co4', NULL, '$2y$10$fMJaJC8yPKC0XYdyqg0xuuWFu/9OHy2DpjYHMIT4Jw9HHrlGXCQxW', NULL, NULL, 0, NULL, '2019-05-05 11:07:58'),
+(8, 'Md. Jamir Ahmed', 0, NULL, NULL, 'user4@outlook.com', NULL, '$2y$10$pgekq/j/eTBzt.KZpXJ6vOKWYVph9EDLZO1emTlVw660jzdymvW8G', NULL, NULL, 0, NULL, '2019-05-05 11:12:14'),
+(9, 'Md. Jamir Ahmed', 0, NULL, NULL, 'user5@outlook.com', NULL, '$2y$10$KsESRrZWRIYLNNS2PLgXQOuopBgT.LsY8Dg9AERG15FVEru0y3yVC', NULL, NULL, NULL, NULL, NULL),
+(10, 'Md. Jamir Ahmed m', 0, NULL, NULL, 'user6@outlook.com', NULL, '$2y$10$rQFN61TduMIdo7sn9.hp2OE5CsVDzV4NWuTtfh2egHtZr32xhn3Gy', NULL, NULL, NULL, '2019-02-04 19:30:58', '2019-02-04 19:30:58'),
+(11, 'prison', 0, 'user', NULL, 'prison@outlook.com', NULL, '$2y$10$pzl7rzy/KSJ57sRysS6NfO1OdiqbegVv5RZuRO1PcPhWD2OqFKtze', NULL, 'IlvZV8ntRDviqMDxLPqg7HwnebUfioR5tQ368172d3YAklXbzYRySUj1o2ja', NULL, NULL, NULL),
+(12, 'MR. ABCD', 0, NULL, NULL, 'abcd@japp.com', NULL, '$2y$10$ObHvJRYOewHjiTgh8wuJ/eADybpiEtjC5fbWnZW7xLdpcJ2AdaQBC', NULL, NULL, NULL, NULL, NULL),
+(13, 'MR. ABCDE', 0, NULL, NULL, 'abcde@japp.com', NULL, '$2y$10$mx8OeuMOU3JAwo2vd0QgluKWVhTIjKp.ubfilQuiYwGHn1EN96vYm', NULL, NULL, NULL, NULL, NULL),
+(14, 'Abdullah Al Noman', 0, NULL, NULL, 'aalnoman1@outlook.com', NULL, '$2y$10$mNL52UtlvsHUk8.9cnzf1uOdjLMEBefqAR/TyIufIHfIIIV.FkTd2', NULL, NULL, NULL, NULL, NULL),
+(15, 'mathew', 0, 'user', NULL, 'user30@outlook.com', NULL, '$2y$10$Wruw0vffm7IRmqAvhNDJwOGQZJj.dRsUp9/7yMoia4I.G8tQlwOT2', 31, 'UMlWSC0ej36iZvxdZAvdirSJhpH2qb15vitpeIZAprjt3c3Hs0dXzbf54Jon', NULL, NULL, NULL),
+(17, 'New Prison', 17, 'user', NULL, 'newuser@outlook.com', NULL, '$2y$10$iXOyjzXl0na6sLjwffAJ5uo0LVxAvxZ2AVvbA/z1hTT/fgZ9pleCy', NULL, 'tUFTicUQjLIHyNP1Rh6zgBqJKpL9fhHJqDkAQyEUYsmrno94v9rqfL1hESOB', NULL, '2019-04-02 06:10:08', '2019-04-02 06:10:08'),
+(18, 'myuser', 32, 'user', NULL, 'myuser1@test.com', NULL, '$2y$10$u45X/XuYTjcGUqwq3Qljw.uRLg7Z/uat8lohu9DhawvSdW2aCWZa6', NULL, 'MFAr2B5mlPH3gtvuU0SRk11M3dLv78SundDJc4tstAmvyeJek51eem75KueE', NULL, '2019-04-14 20:39:46', '2019-04-14 20:39:46'),
+(19, 'Abdullah Al', 13, 'user', '01812370702', 'aalnoman@outlookk.com', NULL, '$2y$10$XnQhf/yRQNqmdbD/Ee.3KOEl6JA4OdpfPzDeIfF5IgBQ4KA7PYeya', NULL, NULL, 0, '2019-05-05 21:57:26', '2019-05-06 09:57:44'),
+(20, 'Abdullah Al Noman', 7, 'user', '01812370702', 'test@test.com', NULL, '$2y$10$hptgPl0L0SLqhoq4TOnQPuTTr/n6OL1OAhbVaNNEiuaM972OSI31G', NULL, NULL, 1, '2019-05-05 21:58:50', '2019-05-05 21:58:50');
 
 -- --------------------------------------------------------
 
@@ -2844,7 +2849,7 @@ INSERT INTO `users` (`id`, `name`, `prison_id`, `user_type`, `phone`, `email`, `
 --
 DROP TABLE IF EXISTS `appealresolved_prison`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `appealresolved_prison`  AS  select `na`.`id` AS `id`,`prisons`.`id` AS `prison_id`,`prisons`.`name` AS `prison_name`,`prisoner`.`prisoner_name` AS `prisoner_name`,`cases`.`caseno` AS `case_no`,`offences`.`name` AS `offence_name`,`courts`.`name_en` AS `court_name`,`na`.`privacy` AS `privacy` from (((((((`newappeals` `na` join `prisons` on((`na`.`prisonid` = `prisons`.`id`))) join `offences` on((`na`.`offenceid` = `offences`.`id`))) join `courts` on((`na`.`courtid` = `courts`.`id`))) join `prisoner` on((`na`.`prisonerid` = `prisoner`.`id`))) join `cases` on((`cases`.`id` = `na`.`caseid`))) join `appealstatus` on((`appealstatus`.`newappeals_id` = `na`.`id`))) join `status` on((`status`.`id` = `appealstatus`.`statusid`))) where ((`na`.`created_at` between (curdate() - interval 30 day) and curdate()) and (`appealstatus`.`statusid` = (select `status`.`id` from `status` order by `status`.`id` desc limit 1))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `appealresolved_prison`  AS  select `na`.`id` AS `id`,`prisons`.`id` AS `prison_id`,`prisons`.`name` AS `prison_name`,`prisoner`.`prisoner_name` AS `prisoner_name`,`cases`.`caseno` AS `case_no`,`offences`.`name` AS `offence_name`,`courts`.`name_en` AS `court_name`,`na`.`privacy` AS `privacy` from (((((((`newappeals` `na` join `prisons` on((`na`.`prisonid` = `prisons`.`id`))) join `offences` on((`na`.`offenceid` = `offences`.`id`))) join `courts` on((`na`.`courtid` = `courts`.`id`))) join `prisoner` on((`na`.`prisonerid` = `prisoner`.`id`))) join `cases` on((`cases`.`id` = `na`.`caseid`))) join `appealstatus` on((`appealstatus`.`newappeals_id` = `na`.`id`))) join `status` on((`status`.`id` = `appealstatus`.`statusid`))) where (`appealstatus`.`statusid` = (select `status`.`id` from `status` order by `status`.`id` desc limit 1)) ;
 
 -- --------------------------------------------------------
 
@@ -2916,7 +2921,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `pendingforcc_prison`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pendingforcc_prison`  AS  select `na`.`id` AS `id`,`prisons`.`id` AS `prison_id`,`prisons`.`name` AS `prison_name`,`prisoner`.`prisoner_name` AS `prisoner_name`,`cases`.`caseno` AS `case_no`,`offences`.`name` AS `offence_name`,`courts`.`name_en` AS `court_name`,`na`.`privacy` AS `privacy` from (((((`newappeals` `na` join `prisons` on((`na`.`prisonid` = `prisons`.`id`))) join `offences` on((`na`.`offenceid` = `offences`.`id`))) join `courts` on((`na`.`courtid` = `courts`.`id`))) join `prisoner` on((`na`.`prisonerid` = `prisoner`.`id`))) join `cases` on((`cases`.`id` = `na`.`caseid`))) where ((`na`.`created_at` between (curdate() - interval 30 day) and curdate()) and `na`.`id` in (select `documents`.`appealid` from `documents` where (`documents`.`doctypeid` <> 3))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pendingforcc_prison`  AS  select `na`.`id` AS `id`,`prisons`.`id` AS `prison_id`,`prisons`.`name` AS `prison_name`,`prisoner`.`prisoner_name` AS `prisoner_name`,`cases`.`caseno` AS `case_no`,`offences`.`name` AS `offence_name`,`courts`.`name_en` AS `court_name`,`na`.`privacy` AS `privacy` from (((((`newappeals` `na` join `prisons` on((`na`.`prisonid` = `prisons`.`id`))) join `offences` on((`na`.`offenceid` = `offences`.`id`))) join `courts` on((`na`.`courtid` = `courts`.`id`))) join `prisoner` on((`na`.`prisonerid` = `prisoner`.`id`))) join `cases` on((`cases`.`id` = `na`.`caseid`))) where `na`.`id` in (select `documents`.`appealid` from `documents` where (`documents`.`doctypeid` <> 3)) ;
 
 -- --------------------------------------------------------
 
@@ -3106,7 +3111,7 @@ ALTER TABLE `appeals`
 -- AUTO_INCREMENT for table `appealstatus`
 --
 ALTER TABLE `appealstatus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `cases`
@@ -3190,7 +3195,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
