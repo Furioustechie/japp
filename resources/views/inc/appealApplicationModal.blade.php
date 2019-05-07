@@ -239,7 +239,7 @@ if(district_id == ""){
             var len = response.length;
             $("#sentencingcourt").empty();
             for( var i = 0; i<len; i++){
-                var id = response[i]['disid'];
+                var id = response[i]['id'];
                 var name = response[i]['name_en'];
                 $("#sentencingcourt").append("<option value='"+id+"'>"+name+"</option>");
             }

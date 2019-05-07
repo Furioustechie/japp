@@ -3,7 +3,13 @@
 return [
     'project_name' => 'জেল আপিল অ্যাপ্লিকেশন  সিস্টেম',
     'logo_title' => 'জেল আপিল',
-    'email' => 'ই-মেইল ঠিকানা',
+    //login Page
+    'email' => 'ই-মেইল',
+    'password' => 'পাসওয়ার্ড',
+    'login' => 'লগইন',
+    'rememberme' => 'এই ডিভাইসে আমার প্রমাণপত্রাদি মনে রাখবেন',
+    'forgotPassword' => 'পাসওয়ার্ড ভুলে গেছেন?',
+    //Dashboard items
     'navbar_prisonView' => 'কারাগার ড্যাশবোর্ড',
     'navbar_hcview' => 'আদালত ড্যাশবোর্ড',
     'navbar_appealDetails' => 'আপীল বিবরণ',

@@ -3,7 +3,13 @@
 return [
     'project_name' => 'Jail Appeal Application System',
     'logo_title' => 'Jail Appeal',
-    'email' => 'E-Mail Address',
+    //login Page
+    'email' => 'Your Email',
+    'password' => 'Password',
+    'login' => 'Login',
+    'rememberme' => 'Remember Me',
+    'forgotPassword' => 'Forgot Your Password?',
+   //Dashboard items
     'navbar_prisonView' => 'Prison Dashboard',
     'navbar_hcview' => 'HC Dashboard',
     'navbar_appealDetails' => 'Appeal Details',

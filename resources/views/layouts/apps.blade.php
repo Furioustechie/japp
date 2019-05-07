@@ -170,7 +170,7 @@
                                     </div>
                                 <div class="card-body">
                                     <h4 class="card-title">Total Appeals By Sentence Type</h4>
-                                    <p class="card-category">Category | by Sentence</p>
+                                    {{-- <p class="card-category">Category | by Sentence</p> --}}
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -247,7 +247,7 @@
                                         <div class="tab-pane active" id="profile">
                                             <div class="card-body table-responsive">
                                                 @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered" id="dataTable_cc" width="100%"
+                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_cc" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
@@ -300,7 +300,7 @@
                                         </div>
                                         <div class="tab-pane" id="messages">
                                             @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered animated fadeInRight" id="dataTable_pending" width="100%"
+                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_pending" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
@@ -373,9 +373,14 @@
                                                                         {{-- <a class="btn tooltipped" data-position="bottom"
                                                                             data-tooltip="I am a tooltip">Hover me!</a> --}}
                                                                     </td>
-                                                                    <td><form action="/searchs" method="POST"><button name="search" value={{ $onhearing->id }}><span
+                                                                    <td>
+                                                                        <form action="/searchs" method="POST">
+                                                                            <button name="search" value={{ $onhearing->id }}><span
                                                                         class="badge badge-pill badge-danger" style="font-size: 15px !important;"> @csrf()Action</span>
-                                                                    </button></form></td> </tr>
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                         </tr>
                                                                     @endforeach
 
                                                                 </tbody>

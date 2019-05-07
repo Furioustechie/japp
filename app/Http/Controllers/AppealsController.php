@@ -139,7 +139,7 @@ class AppealsController extends Controller
                 'prisoner_no' => 'required',
                 'prisoner_name' => 'required',
                 'caseno' => 'required',
-                'filename' => 'mimes:jpeg,png,jpg,pdf|max:1999'  //To allow null |nullable
+               // 'filename' => 'mimes:jpeg,png,jpg,pdf|max:1999'  //To allow null |nullable
                 ]);
         }
                    
@@ -494,7 +494,7 @@ DB::table('newappeals')->insert([
         // WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1) AND newappeals.prisonid = '.$prison_id.'');
         //dd($prisonid_forAppealStatus);
         $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid FROM `newappeals` WHERE prisonid = '.$prison_id.'');
-        $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() AND prisonid = '.$prison_id.'');
+        $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN NOW() - INTERVAL 30 DAY AND CURDATE() AND prisonid = '.$prison_id.'');
         $cc_missing_count_forPrison = DB::select('SELECT COUNT(id) as total_cc_missing  FROM newappeals 
         WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3)) AND prisonid = '.$prison_id.'');
         
@@ -849,8 +849,8 @@ public function searchbyID( Request $request ){
                 'na.privacy',
                 'prisons.id AS prison_id'
             )
-            ->where('na.id', 'like', '%'.$search.'%')
-            // ->orWhere('prisons.name', 'like', '%'.$search.'%')
+            ->where('na.id')
+            ->orWhere('prisons.name', 'like', '%'.$search.'%')
             // ->orWhere('cases.caseno', 'like', '%'.$search.'%')
             ->paginate(10);
         return view('appeals.hcDetails', ['appDetails' => $appDetails]);
@@ -988,7 +988,7 @@ return view('test');
 
 
  public function dynamicCourtsList($district_id){
-    $courts_Name = DB::Select('SELECT disid,name_en FROM courts WHERE disid = "'.$district_id.'"');
+    $courts_Name = DB::Select('SELECT id,name_en FROM courts WHERE disid = "'.$district_id.'"');
     echo json_encode($courts_Name);
  }
           
