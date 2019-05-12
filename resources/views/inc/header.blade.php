@@ -75,7 +75,7 @@
               @endforeach
               @elseif(auth()->user()->user_type=='user')
               @foreach (auth()->user()->unreadNotifications as $notification)
-              <a class="dropdown-item" href="{{url('appeals')}}">{{$notification->data['data']}}</a>
+              <a class="dropdown-item" href="{{url('prisonDashboard')}}">{{$notification->data['data']}}</a>
              @endforeach
               @endif
               {{-- @if(auth()->user()->readNotifications->count(['read_at' != null]))
@@ -89,7 +89,7 @@
         
                 @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('labels.login') }}</a>
                         </li>
                         <li class="nav-item">
                             @if (Route::has('register'))

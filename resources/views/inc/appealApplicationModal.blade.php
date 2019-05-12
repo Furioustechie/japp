@@ -119,8 +119,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">{{ __('labels.dateOf_appeal') }}</label>
-                                <input name="dateofappeal" class="form-control" value=<?php echo date("Y-m-d");?>
-                                disabled>
+                                <input type="date" name="dateofappeal" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -166,15 +165,15 @@
                         </label>
                     </div>
                     <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox"  name="options" unchecked>
+                            <label class="form-check-label" data-toggle="tooltip" data-placement="top" title="The prisoner has been informed about the implications of electronic data processing and the fact that it is not mandatory. He or she has given their consent to the electronic processing of their jail appeal application.">
+                              <input class="form-check-input" type="checkbox"  name="options"  unchecked>
                               <span class="form-check-sign">
-                                <span class="check" name="check"  data-toggle="modal" data-target="#privacy_policy"  data-id="privacy_policy"></span>
+                                <span class="check" name="check"></span>
                               </span>
-                              <h5>{{ __('labels.privacy') }}</h5>
+                              <h5 >{{ __('labels.privacy') }}</h5>
                             </label>
                           </div>
-
+                       
 
                         <div class="row">
                                 <!-- File Uploader open for DocType -->

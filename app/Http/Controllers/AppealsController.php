@@ -357,6 +357,7 @@ DB::table('newappeals')->insert([
                      ['statusid' => $request->input('status_id'), 
                         'newappeals_id' => $request->input('appeal_id'),
                         'state' => $request->input('state'),
+                        'remarks' => $request->input('rejectgrant'),
                          'created_at' => date('Y-m-d h:s:i'),
                             'updated_at' => date('Y-m-d h:s:i')]
 
@@ -494,7 +495,8 @@ DB::table('newappeals')->insert([
         // WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1) AND newappeals.prisonid = '.$prison_id.'');
         //dd($prisonid_forAppealStatus);
         $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid FROM `newappeals` WHERE prisonid = '.$prison_id.'');
-        $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at BETWEEN NOW() - INTERVAL 30 DAY AND CURDATE() AND prisonid = '.$prison_id.'');
+
+        $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at AND DATE_SUB(NOW(), INTERVAL 1 MONTH) AND prisonid = '.$prison_id.'');
         $cc_missing_count_forPrison = DB::select('SELECT COUNT(id) as total_cc_missing  FROM newappeals 
         WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3)) AND prisonid = '.$prison_id.'');
         
@@ -527,10 +529,10 @@ DB::table('newappeals')->insert([
           $appDetails_thisYear = DB::table('thisyearappealforprison')
           ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
           ->where('thisyearappealforprison.prison_id', $prison_id )
-          ->paginate(20);
+          ->paginate(1);
 
           $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
-          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name','states')
           ->where('pendingforcc_prison.prison_id', $prison_id )
           ->paginate(20);
 
@@ -569,7 +571,18 @@ DB::table('newappeals')->insert([
        // return view ('appeals.modals')->with('appeals',$appeals);
         
     }
-   
+    function fetch_data(Request $request)
+    {
+    $prison_id = Auth::user()->prison_id;
+     if($request->ajax())
+     {
+        $appDetails_thisYear = DB::table('thisyearappealforprison')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        ->where('thisyearappealforprison.prison_id',$prison_id )
+        ->paginate(1);
+      return view('pagination_data', compact('appDetails_thisYear'))->render();
+     }
+    }
     public  function getPrisonDB()
     {
         return view('prisonDashboard_data');
@@ -640,7 +653,8 @@ public function abc(request $request ,$id){
     
     // Custom Query for Displaying Status  
     $apStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),0) 
-    AS statusid, (SELECT state FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as stateno,(SELECT updated_at FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as status_updated_at
+    AS statusid,IFNULL((SELECT remarks FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'"),"Nothing") 
+    AS remarks, (SELECT state FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as stateno,(SELECT updated_at FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$id.'") as status_updated_at
         FROM status AS S');
 
         $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$id.'" order by statusid desc limit 1');
@@ -702,7 +716,7 @@ public function abc(request $request ,$id){
         echo '<label class="label text-success font-weight-bold" for="">Case NO</label>';
         echo '</div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<label class="label text-success font-weight-bold" for="">Attachemnts:</label><br>';
+        echo '<label class="label text-success font-weight-bold" for="">Attachments:</label><br>';
         echo '';
         foreach($dd as $d){
         if($d->docname == 'BJ_Form'){
@@ -746,6 +760,7 @@ public function abc(request $request ,$id){
             echo '<a href="#">'.$pp->status_name.'';
             echo '<i class="ico fa fa-check ico-check" style="color:green"></i>';
             echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+            echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
             echo '</span>';
             echo '</a>';
             echo '</li>';
@@ -755,6 +770,7 @@ public function abc(request $request ,$id){
             echo '<a href="#">'.$pp->status_name.'';
             echo '<i class="ico fa fa-close ico-close" style="color:red"></i>';
             echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+            echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
             echo '</span>';
             echo '</a>';
             echo '</li>';
@@ -767,6 +783,7 @@ public function abc(request $request ,$id){
                 echo '<a href="#">'.$pp->status_name.'';
                 echo '<i class="ico fa fa-exclamation-circle" style="color:orange"></i>';
                 echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+                echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
                 echo '</span>';
                 echo '</a>';
                 echo '</li>';

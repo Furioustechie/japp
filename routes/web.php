@@ -132,3 +132,4 @@ Route::get('/hc_details', ['as'=>'get.data6','uses'=>'AppealsController@getDetai
 Route::post('/dynamicCourtsList/{district_id}', 'AppealsController@dynamicCourtsList');
 Route::any('/search','AppealsController@search');
 Route::any('/searchs','AppealsController@searchbyID');
+Route::get('prisonDashboard/fetch_data', 'AppealsController@fetch_data');

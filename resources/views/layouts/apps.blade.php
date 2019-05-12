@@ -18,8 +18,18 @@
             background: url('assets/img/loader.gif') 50% 50% no-repeat rgb(249,249,249);
             opacity: .8;
         }
+        div.show_datespan {        /* this will hide div with id div_id_name */
+                display:none;
+                }
+        div.show_ccNotFound {        /* this will hide div with id div_id_name */
+                display:none;
+                }
+        div.show_justUpdate {        /* this will hide div with id div_id_name */
+                display:none;
+                }          
           </style>
 </head>
+
 <style>
             
         .zoom {
@@ -36,6 +46,40 @@
         }
         
         </style>
+        <script>
+        $(document).ready(function(){
+            $('#seeAll').click(function() {
+                $('.show_All').show();
+                $('.show_total').hide();
+                $('.show_resolved').hide();          
+                 });
+            $('#datespan').click(function() {
+                $('.show_ccNotFound').hide();
+                $('.show_justUpdate').hide();
+                $('.show_datespan').show();  
+                    });
+           $('#ccNotFound').click(function() {
+                $('.show_datespan').hide();
+                $('.show_justUpdate').hide(); 
+                $('.show_ccNotFound').show(); 
+                    });
+           $('#justUpdate').click(function() {
+                $('.show_datespan').hide();
+                $('.show_ccNotFound').hide(); 
+                $('.show_justUpdate').show(); 
+                    });
+           $('#close_datespan').click(function() {
+                $('.show_datespan').hide();
+                    });   
+           $('#close_ccNotFound').click(function() {
+                $('.show_ccNotFound').hide(); 
+                    });   
+           $('#close_justUpdate').click(function() {
+                $('.show_justUpdate').hide(); 
+                    }); 
+               
+        });
+        </script>
 
 <body class="">
 
@@ -67,9 +111,9 @@
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card card-stats">
-                                <div class="card-header card-header-warning card-header-icon">
+                                <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">content_copy</i>
+                                        <i class="material-icons">store</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_totalAppeal') }}</p>
                                     <h3 class="card-title">
@@ -87,9 +131,9 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">
-                                <div class="card-header card-header-success card-header-icon">
+                                <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">store</i>
+                                        <i class="material-icons">filter_none</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_thisYear') }}</p>
                                     <h3 class="card-title">
@@ -98,7 +142,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i> {{ __('labels.lastMonth') }}
+                                        <i class="material-icons">date_range</i> <a href="#" id="datespan">{{ __('labels.lastMonth') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +158,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> {{ __('labels.ccNotFound') }}
+                                        <i class="material-icons">local_offer</i> <a href="#" id="ccNotFound">{{ __('labels.ccNotFound') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -130,9 +174,310 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">update</i> {{ __('labels.justUpdated') }}
+                                        <i class="material-icons">update</i><a href="#" id="justUpdate"> {{ __('labels.justUpdated') }}</a>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card show_datespan animated onece fadeIn">
+                            <div class="card-header card-header-warning">
+                                    <h4 class="card-title mt-0">{{ __('labels.hc_thisYear') }}</strong><span class="float-right"><button type="button" class="close" id="close_datespan" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></span></h4>
+                                          </button>
+                                    <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                            <div class="table-responsive">
+                            <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
+                                                <thead class="text-primary">
+                                                    <th>{{ __('labels.resolved_id') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_case_no') }}</th>
+                                                    {{-- <th>Prisoner Name </th>
+                                                    <th>Prison Name</th>--}}
+                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_view_in_detail') }}</th>
+                                                </thead>
+                                            
+                                                <tbody>
+    
+                                                    @if(count($appDetails_thisYear_ForHC) > 0)
+                                                    @foreach($appDetails_thisYear_ForHC as $appeal_thisYear)
+                                                    <tr>
+                                                        <td>{{ $appeal_thisYear->id }}</td>
+                                                        <td>{{$appeal_thisYear->case_no}}</td>
+                                                        <td> 
+                                                            <ol class="etapier">
+    
+                                                                @php
+                                                                $apStatus = DB::select('SELECT S.status_name,
+                                                                IFNULL((SELECT statusid FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal_thisYear->id.'"),0)
+                                                                AS statusid,(SELECT state FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal_thisYear->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal_thisYear->id.'") as updated_at
+                                                                FROM status AS S');
+
+                                                                $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal_thisYear->id.'" order by statusid desc limit 1');
+                                                                
+                                                                $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal_thisYear->id.'"');
+                                                                
+                                                                $total=$totalrow[0]->status_count;
+                                                              // print_r($totalrow);
+                                                                $total= $total+1;
+                                                                    
+                                                                    @$date1 = date_create(@$last_state[0]->updated_at);
+                                                                    @$date2 = date_create(date('Y-m-d H:i:s'));
+                                                                    @$diff = date_diff($date1,$date2);
+                                                                    @$mydate = $diff->format("%a");
+  
+                                                                @endphp
+                                                                @foreach($status_name as $pp)
+    
+                                                                @php
+                                                                $item = null;
+                                                               
+                                                                @endphp
+                                                                @foreach($apStatus as $key=>$struct)
+                                                                
+                                                                @if ($pp->id == $struct->statusid)
+                                                                @php $item = $struct;
+                                                                break;
+                                                                @endphp
+                                                                @endif
+                                                                @endforeach
+    
+                                                                @if($item)
+                                                                      {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
+                                                                      <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
+                                                                        title="{{ $pp->status_name }}"></li>
+                                                                @else
+                                                                @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') )
+                                                                <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
+                                                                                title="{{ $pp->status_name }}"></li>
+                                                                  @else
+                                                                  <li class="todo" data-toggle="tooltip" data-placement="top"
+                                                                  title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
+                                                                  @endif     
+                                                                @endif
+                                                                @endforeach
+                                                            </ol>
+                                                        </td>
+                                                        <td style="text-align: center;"> 
+                                                            <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal_thisYear->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
+                                                        <!--Deatils Modal Start -->
+                                                        <!--Deatils Modal End -->
+                                                    </tr>
+                                                    @endforeach
+                                                    @else
+                                                    <p>Nothing Found</p>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                            <div class="col-md-5 offset-md-5">{{ $appDetails_thisYear_ForHC->links() }}</div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card show_ccNotFound animated onece fadeIn">
+                            <div class="card-header card-header-danger">
+                                    <h4 class="card-title mt-0">{{ __('labels.hc_pendingForCC') }}</strong><span class="float-right"><button type="button" class="close" id="close_ccNotFound" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></span></h4>
+                                          </button>
+                                    <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                            <div class="table-responsive">
+                                            <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
+                                                <thead class="text-primary">
+                                                    <th>{{ __('labels.CC_id') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.CC_case_no') }}</th>
+                                                    {{-- <th>Prisoner Name </th>
+                                                    <th>Prison Name</th>--}}
+                                                    <th style="white-space: nowrap;">{{ __('labels.CC_status') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.CC_view_in_detail') }}</th>
+                                                </thead>
+                                            
+                                                <tbody>
+    
+                                                    @if(count($appDetails_pendingForCC_ForHC) > 0)
+                                                    @foreach($appDetails_pendingForCC_ForHC as $appeal)
+                                                    <tr>
+                                                        <td>{{ $appeal->id }}</td>
+                                                        <td>{{$appeal->case_no}}</td>
+                                                        <td> 
+                                                            <ol class="etapier">
+    
+                                                                @php
+                                                                $apStatus = DB::select('SELECT S.status_name,
+                                                                IFNULL((SELECT statusid FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'"),0)
+                                                                AS statusid,(SELECT state FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'") as updated_at
+                                                                FROM status AS S');
+
+                                                                $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
+                                                                
+                                                                $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
+                                                                
+                                                                $total=$totalrow[0]->status_count;
+                                                              // print_r($totalrow);
+                                                                $total= $total+1;
+                                                                    
+                                                                    @$date1 = date_create(@$last_state[0]->updated_at);
+                                                                    @$date2 = date_create(date('Y-m-d H:i:s'));
+                                                                    @$diff = date_diff($date1,$date2);
+                                                                    @$mydate = $diff->format("%a");
+  
+                                                                @endphp
+                                                                @foreach($status_name as $pp)
+    
+                                                                @php
+                                                                $item = null;
+                                                               
+                                                                @endphp
+                                                                @foreach($apStatus as $key=>$struct)
+                                                                
+                                                                @if ($pp->id == $struct->statusid)
+                                                                @php $item = $struct;
+                                                                break;
+                                                                @endphp
+                                                                @endif
+                                                                @endforeach
+    
+                                                                @if($item)
+                                                                      {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
+                                                                      <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
+                                                                        title="{{ $pp->status_name }}"></li>
+                                                                @else
+                                                                @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') )
+                                                                <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
+                                                                                title="{{ $pp->status_name }}"></li>
+                                                                  @else
+                                                                  <li class="todo" data-toggle="tooltip" data-placement="top"
+                                                                  title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
+                                                                  @endif     
+                                                                @endif
+                                                                @endforeach
+                                                            </ol>
+                                                        </td>
+                                                        <td style="text-align: center;"> 
+                                                            <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
+                                                        <!--Deatils Modal Start -->
+                                                        <!--Deatils Modal End -->
+                                                    </tr>
+                                                    @endforeach
+                                                    @else
+                                                    <p>Nothing Found</p>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                            <div class="col-md-5 offset-md-5">{{ $appDetails_pendingForCC_ForHC->links() }}</div>
+                                        </div>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card show_justUpdate animated onece fadeIn">
+                            <div class="card-header card-header-info">
+                                    <h4 class="card-title mt-0">{{ __('labels.hc_appealResolved') }}</strong><span class="float-right"><button type="button" class="close" id="close_justUpdate" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></span></h4>
+                                          </button>
+                                    <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                            <div class="table-responsive">
+                                            <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
+                                                <thead class="text-primary">
+                                                    <th>{{ __('labels.lastMonth_id') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.lastMonth_case_no') }}</th>
+                                                    {{-- <th>Prisoner Name </th>
+                                                    <th>Prison Name</th>--}}
+                                                    <th style="white-space: nowrap;">{{ __('labels.lastMonth_status') }}</th>
+                                                    <th style="white-space: nowrap;">{{ __('labels.lastMonth_view_in_detail') }}</th>
+                                                </thead>
+                                            
+                                                <tbody>
+    
+                                                    @if(count($appDetails_appealResolved_ForHC) > 0)
+                                                    @foreach($appDetails_appealResolved_ForHC as $appeal)
+                                                    <tr>
+                                                        <td>{{ $appeal->id }}</td>
+                                                        <td>{{$appeal->case_no}}</td>
+                                                        <td> 
+                                                            <ol class="etapier">
+    
+                                                                @php
+                                                                $apStatus = DB::select('SELECT S.status_name,
+                                                                IFNULL((SELECT statusid FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'"),0)
+                                                                AS statusid,(SELECT state FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
+                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'") as updated_at
+                                                                FROM status AS S');
+
+                                                                $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
+                                                                
+                                                                $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
+                                                                
+                                                                $total=$totalrow[0]->status_count;
+                                                              // print_r($totalrow);
+                                                                $total= $total+1;
+                                                                    
+                                                                    @$date1 = date_create(@$last_state[0]->updated_at);
+                                                                    @$date2 = date_create(date('Y-m-d H:i:s'));
+                                                                    @$diff = date_diff($date1,$date2);
+                                                                    @$mydate = $diff->format("%a");
+  
+                                                                @endphp
+                                                                @foreach($status_name as $pp)
+    
+                                                                @php
+                                                                $item = null;
+                                                               
+                                                                @endphp
+                                                                @foreach($apStatus as $key=>$struct)
+                                                                
+                                                                @if ($pp->id == $struct->statusid)
+                                                                @php $item = $struct;
+                                                                break;
+                                                                @endphp
+                                                                @endif
+                                                                @endforeach
+    
+                                                                @if($item)
+                                                                      {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
+                                                                      <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
+                                                                        title="{{ $pp->status_name }}"></li>
+                                                                @else
+                                                                @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') )
+                                                                <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
+                                                                                title="{{ $pp->status_name }}"></li>
+                                                                  @else
+                                                                  <li class="todo" data-toggle="tooltip" data-placement="top"
+                                                                  title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
+                                                                  @endif     
+                                                                @endif
+                                                                @endforeach
+                                                            </ol>
+                                                        </td>
+                                                        <td style="text-align: center;"> 
+                                                            <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
+                                                        <!--Deatils Modal Start -->
+                                                        <!--Deatils Modal End -->
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @else
+                                                    <p>Nothing Found</p>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                            <div class="col-md-5 offset-md-5">{{ $appDetails_appealResolved_ForHC->links() }}</div>
+                                        </div> 
                             </div>
                         </div>
                     </div>
@@ -278,7 +623,7 @@
                                                                     data-tooltip="I am a tooltip">Hover me!</a> --}}
                                                             </td>
                                                             <td>
-                                                                    <form action="/searchs" method="POST"><button name="search" value={{ $no_cc->id }}><span
+                                                                    <form action="/searchs" method="POST"><button name="search" value={{$no_cc->id}}><span
                                                                 class="badge badge-pill badge-warning" style="font-size: 15px !important;"> @csrf()Action</span>
                                                             </button><!-- Button trigger modal -->
                                                             <button type="button" class="badge badge-pill badge-warning" style="font-size: 15px !important;" data-toggle="modal" data-target="#exampleModal">
@@ -290,6 +635,8 @@
                                                 </tr>
 
                                                         @endforeach
+                                                        
+
 
                                                     </tbody>
                                                 </table>
@@ -359,7 +706,7 @@
                                                         <th>Conviction Time</th>
                                                         <td>Action</td>
                                                     </thead>
-                                                                                                       <tbody>
+                                                         <tbody>
                                                             @foreach($PendingOnHearing as $onhearing)
                                                         <tr>
                                                                 <td>{{ $onhearing->caseno }}</td>
@@ -413,11 +760,27 @@
                     </div>
                 </div>
             </div>
-            <?php 
-           
-
-
-            ?> 
+            <!-- -->
+            <div class="modal fade" id="edit_appeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content ">
+                    <div class="modal-header text-center" style="background-color:#00bcd4;">
+                        <h4 class="modal-title w-100 font-weight-bold" style="color:white">Appeal Status</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="appeal_details">
+                                  <!---   Modal Body -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="material-icons">thumb_up</i> GOT IT</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             <footer class="footer">
                 @include('inc.footer')
             </footer>
@@ -553,9 +916,29 @@
 
 
 </html>
-<?php 
+<script>
+ $(document).ready(function () {
+        $("body").on("click", ".edit_appeal", function () {
+            var id = $(this).data('id');
+            console.log(id);
+            $("#edit_appeal").find("input[name='appeal_id']").val(id);
+            $.ajax({
+                url: "/abc/" + id,
+                method: "get",
 
-?>
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    console.log(data);
+                    // $("#edit_appeal").find("input[name='appeal_id']").val(id);
+                    $("#appeal_details").html(data);
+                    //  $(".edit_appeal").modal(show);
+                }
+            });
+        });
+    });
+</script>
 
 
 <script>

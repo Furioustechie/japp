@@ -85,7 +85,7 @@ $laststate = DB::Select ('SELECT max(statusid) AS laststate FROM appealstatus WH
                             </div>
                             <div class="md-form form-group mt-2">
                                 <label class="label text-success font-weight-bold"
-                                    for="">Attachemnts:</label><br>
+                                    for="">Attachments:</label><br>
                                 @foreach($dd as $d)
                                 @if($d->docname == 'BJ_Form')
                                 <label class="md-form form-group">BJ

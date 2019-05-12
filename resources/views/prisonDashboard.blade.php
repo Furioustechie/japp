@@ -30,7 +30,6 @@
 
           </style>
 </head>
-<?php $appealtest=''?>
 <script>
         $(document).ready(function(){
             $('#myselection').click(function() {
@@ -99,9 +98,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">
-                                <div class="card-header card-header-warning card-header-icon">
+                                <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">content_copy</i>
+                                        <i class="material-icons">store</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_totalAppeal') }}</p>
                                     <h3 class="card-title">
@@ -119,9 +118,9 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">
-                                <div class="card-header card-header-success card-header-icon">
+                                <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">store</i>
+                                        <i class="material-icons">filter_none</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_thisYear') }}</p>
                                     <h3 class="card-title">
@@ -141,7 +140,7 @@
                                     <div class="card-icon">
                                         <i class="material-icons">info_outline</i>
                                     </div>
-                                    <p class="card-category">{{ __('labels.prison_pendingForCC') }}</p>
+                                    <p class="card-category">{{ __('labels.prison_ccNotFound') }}</p>
                                     <h3 class="card-title">{{ $cc_missing_count_forPrison[0]->total_cc_missing }}</h3>
                                 </div>
                                 <div class="card-footer">
@@ -168,108 +167,25 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-12">
                         <div class="card show animated onece fadeIn">
-                            <div class="card-header card-header-success">
+                            <div class="card-header card-header-warning">
                                     <h4 class="card-title mt-0">{{ __('labels.prison_inThisMonth') }}</strong><span class="float-right"><button type="button" class="close" id="monthAppeals" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></span></h4>
                                           </button>
                                     <p class="card-category"></p>
                             </div>
                             <div class="card-body">
-                                    <div class="table-responsive">
-                                            <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
-                                                <thead class="text-primary">
-                                                    <th>{{ __('labels.resolved_id') }}</th>
-                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_case_no') }}</th>
-                                                    {{-- <th>Prisoner Name </th>
-                                                    <th>Prison Name</th>--}}
-                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
-                                                    <th style="white-space: nowrap;">{{ __('labels.resolved_view_in_detail') }}</th>
-                                                </thead>
-                                            
-                                                <tbody>
-    
-                                                    @if(count($appDetails_thisYear) > 0)
-                                                    @foreach($appDetails_thisYear as $appeal)
-                                                    <tr>
-                                                        <td>{{ $appeal->id }}</td>
-                                                        <td>{{$appeal->case_no}}</td>
-                                                        <td> 
-                                                            <ol class="etapier">
-    
-                                                                @php
-                                                                $apStatus = DB::select('SELECT S.status_name,
-                                                                IFNULL((SELECT statusid FROM appealstatus WHERE
-                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'"),0)
-                                                                AS statusid,(SELECT state FROM appealstatus WHERE
-                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno, (SELECT updated_at FROM appealstatus WHERE
-                                                                statusid=S.id AND newappeals_id="'.$appeal->id.'") as updated_at
-                                                                FROM status AS S');
-
-                                                                $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
-                                                                
-                                                                $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
-                                                                
-                                                                $total=$totalrow[0]->status_count;
-                                                              // print_r($totalrow);
-                                                                $total= $total+1;
-                                                                    
-                                                                    @$date1 = date_create(@$last_state[0]->updated_at);
-                                                                    @$date2 = date_create(date('Y-m-d H:i:s'));
-                                                                    @$diff = date_diff($date1,$date2);
-                                                                    @$mydate = $diff->format("%a");
-  
-                                                                @endphp
-                                                                @foreach($status_name as $pp)
-    
-                                                                @php
-                                                                $item = null;
-                                                               
-                                                                @endphp
-                                                                @foreach($apStatus as $key=>$struct)
-                                                                
-                                                                @if ($pp->id == $struct->statusid)
-                                                                @php $item = $struct;
-                                                                break;
-                                                                @endphp
-                                                                @endif
-                                                                @endforeach
-    
-                                                                @if($item)
-                                                                      {{-- @if(($mydate > 10 ) AND ($key === key($apStatus)) AND $struct->stateno=='red') --}}
-                                                                      <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
-                                                                        title="{{ $pp->status_name }}"></li>
-                                                                @else
-                                                                @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') )
-                                                                <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
-                                                                                title="{{ $pp->status_name }}"></li>
-                                                                  @else
-                                                                  <li class="todo" data-toggle="tooltip" data-placement="top"
-                                                                  title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>
-                                                                  @endif     
-                                                                @endif
-                                                                @endforeach
-                                                            </ol>
-                                                        </td>
-                                                        <td style="text-align: center;"> 
-                                                            <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
-                                                        <!--Deatils Modal Start -->
-                                                        <!--Deatils Modal End -->
-                                                    </tr>
-                                                    @endforeach
-                                                    @else
-                                                    <p>Nothing Found</p>
-                                                    @endif
-                                                </tbody>
-                                            </table>
-                                            <div class="col-md-5 offset-md-5">{{ $appDetails_thisYear->links() }}</div>
-                                        </div> 
+                                    <div id="table_data">
+                                            @include('pagination_data')
+                                    </div>
+                                   
                             </div>
                     </div>
                 </div>
                 <div class="col-md-12">
-                        <div class="card show_total">
+                        <div class="card show_total animated onece fadeIn">
                             <div class="card-header card-header-danger">
                                     <h4 class="card-title mt-0">{{__('labels.prison_detailsPending') }}</strong><span class="float-right"><button type="button" class="close" id="pendingCC" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></span></h4>
@@ -368,7 +284,7 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                        <div class="card show_resolved">
+                        <div class="card show_resolved animated onece fadeIn">
                             <div class="card-header card-header-info">
                             <h4 class="card-title mt-0">{{ __('labels.prison_detailsOfResolved') }}</strong><span class="float-right"><button type="button" class="close" id="appealsResolved" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></span></h4>
@@ -467,8 +383,8 @@
                     </div>
                 </div>
                     <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-header-primary">
+                                <div class="card animated onece fadeIn">
+                                    <div class="card-header card-header-success">
                                         @php
                                          
                                         // $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.Auth::user()->id.')');
@@ -476,6 +392,17 @@
                                         <h4 class="card-title mt-0">{{ __('labels.prison_appealDetailsFrom') }} <strong>{{ @$district_name[0]->name }}</strong></h4>
                                         <p class="card-category"></p>
                                     </div>
+                                    {{-- <div class="col-md-12">
+                                            <form action="/search" method="POST">
+                                                <div class="input-group">
+                                                <input type="search" data-placeholder="Search by - CaseNO or PrisonName or ID" name="search" id="search"  class="form-control">
+                                                <span class="inut-group-prepend">
+                                                  @csrf();
+                                                <button type="submit" name="btn_search" class="btn btn-primary"><i class="material-icons">search</i></button>
+                                                </span>
+                                                
+                                                </form>
+                                            </div> --}}
                            <div class="card-body">
                            <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >{{ __('labels.create_appeal')}}</button>
                                
@@ -696,6 +623,11 @@
               } );
           } );
       } );
+      $('#dataTable_Details').dataTable( {
+        "deferRender": true,
+        "order": [[ 0, "desc" ]],
+        "pageLength": 2
+} );
       </script>
 <script>
  $(document).ready(function () {
@@ -721,5 +653,33 @@
     });
 </script>
 
+{{-- test for pagination  --}}
+<script>
+    $(document).ready(function(){
+    
+     $(document).on('click', '.pagination a', function(event){
+      event.preventDefault(); 
+      $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+      var page = $(this).attr('href').split('page=')[1];
+      fetch_data(page);
+     });
+    
+     function fetch_data(page)
+     {
+      $.ajax({
+       url:"/prisonDashboard/fetch_data?page="+page,
+       success:function(appDetails_thisYear)
+       {
+        $('#table_data').html(appDetails_thisYear);
+       }
+      });
+     }
+     
+    });
+    </script>
 </body>
 </html>
