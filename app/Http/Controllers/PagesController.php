@@ -65,7 +65,7 @@ class PagesController extends Controller
         $totalAppeals = Newappeal::where('id', '>', 0)->get();
         $countAppeals = $totalAppeals->count();
         //$lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at  AND DATE_SUB(NOW(), INTERVAL 1 MONTH)');
-        $lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10');
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
 
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
@@ -180,12 +180,13 @@ foreach($totalByStatus as $byStatus){
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
     $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
 
-    $appDetails_thisYear_ForHC = DB::table('thisyearappealforprison')
+    $overdue_hc = DB::table('overdue_hc')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
-    //->where('thisyearappealforprison.prison_id', $prison_id )
+    ->where('overdue_hc.mydate', '>', 10 )
+    ->Where('overdue_hc.statusid', '!=', 10 )
     ->paginate(10);
 
-    $appDetails_pendingForCC_ForHC = DB::table('pendingforcc_prison')
+    $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
     //->where('pendingforcc_prison.prison_id', $prison_id )
     ->paginate(10);
@@ -196,7 +197,8 @@ foreach($totalByStatus as $byStatus){
     ->paginate(10);
 
         $send['count']=$countAppeals;
-        $send['count1']=$lastYearAppeals;
+        //$send['count1']=$lastYearAppeals;
+        $send['overdue_count']=$overdue_count;
         $send['totalappealResolved'] = $appealResolved;
         $send['gender']=$gen;
         $send['total']=$tot;
@@ -216,10 +218,10 @@ foreach($totalByStatus as $byStatus){
         $send['bar_chart']=$bar_chart;
         $send['appealsByStatus']=$appealsByStatus;
         $send['pieChartBySentence']=$pieChartBySentence;
-        $send['appDetails_thisYear_ForHC']=$appDetails_thisYear_ForHC;
-        $send['appDetails_pendingForCC_ForHC']=$appDetails_pendingForCC_ForHC;
+        $send['overdue_hc']=$overdue_hc;
+        $send['incompleteApplication_ForHC']=$incompleteApplication_ForHC;
         $send['appDetails_appealResolved_ForHC']=$appDetails_appealResolved_ForHC;
-
+//dd($incompleteApplication_ForHC->count());
 
         // echo "<pre>";
         // print_r($all_appeals);

@@ -736,6 +736,7 @@ public function abc(request $request ,$id){
         }
        
         }
+
         echo '</div>';
         echo '</span>';
         echo '<span class="col-md-5  border border-primary" >';
@@ -835,7 +836,7 @@ public function search(Request $request ){
             ->orWhere('prisons.name', 'like', '%'.$search.'%')
             ->orWhere('cases.caseno', 'like', '%'.$search.'%')
             ->paginate(10);
-            return view('appeals.hcDetails',['appDetails' => $appDetails]);
+            return view('hcDetails',['appDetails' => $appDetails]);
         }
     
         
@@ -848,6 +849,7 @@ public function searchbyID( Request $request ){
   
     if (isset($request->search)){
         $search = $request->search;
+        
         //dd($search);
         $appDetails = DB::table('newappeals AS na')
             ->join('prisons', 'na.prisonid', '=', 'prisons.id')
@@ -866,14 +868,14 @@ public function searchbyID( Request $request ){
                 'na.privacy',
                 'prisons.id AS prison_id'
             )
-            ->where('na.id')
-            ->orWhere('prisons.name', 'like', '%'.$search.'%')
+            ->where('na.id', 'like', '%'.$search.'%')
+            // ->orWhere('prisons.name', 'like', '%'.$search.'%')
             // ->orWhere('cases.caseno', 'like', '%'.$search.'%')
             ->paginate(10);
         return view('appeals.hcDetails', ['appDetails' => $appDetails]);
     }
     else{
-        return redirect('/dashboard')->with('error','Nothing Found!!');
+        return redirect('appeals.hcDetails')->with('error','Nothing Found!!');
     }
     // } else {
     //     return redirect('hcDetails')->with('error', 'Nothing Found!!');

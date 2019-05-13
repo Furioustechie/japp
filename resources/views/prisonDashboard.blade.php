@@ -97,7 +97,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats"><a href="#" id="allAppeal">
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
@@ -111,13 +111,13 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons text-danger">warning</i>
-                                        <a href="#" id="allAppeal">{{ __('labels.prison_seeAll') }}</a>
+                                        {{ __('labels.prison_seeAll') }}
                                     </div>
-                                </div>
+                                </div></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats"><a href="#" id="myselection">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
@@ -129,13 +129,13 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i><a href="#" id="myselection">{{ __('labels.prison_lastMonth') }}</a> 
+                                        <i class="material-icons">date_range</i>{{ __('labels.prison_lastMonth') }} 
                                     </div>
-                                </div>
+                                </div></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats"><a href="#" id="seeAll">
                                 <div class="card-header card-header-danger card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">info_outline</i>
@@ -145,13 +145,13 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> <a href="#" id="seeAll">{{ __('labels.prison_ccNotFound') }}</a>
+                                        <i class="material-icons">local_offer</i>{{ __('labels.prison_ccNotFound') }}
                                     </div>
-                                </div>
+                                </div></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats"><a href="#" id="seeResolved">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
                                         <i class="fa fa-twitter"></i>
@@ -161,10 +161,10 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">update</i><a href="#" id="seeResolved">{{ __('labels.justUpdated') }}</a>
+                                        <i class="material-icons">update</i>{{ __('labels.justUpdated') }}
                                     </div>
                                 </div>
-                            </div>
+                            </div></a>
                         </div>
                     </div>
 

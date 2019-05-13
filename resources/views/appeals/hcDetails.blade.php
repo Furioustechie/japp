@@ -310,14 +310,28 @@
                                   <div class="form-group">
                                   <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
                                   <select class="browser-default custom-select" name="state">
-                                    @if((@$last_state[0]->statusid != 2) AND (@$last_state[0]->statusid != 3))
+                                    @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
+                                    <option value="">Please Select..</option>
+                                    <option value="yellowgreen" >Yes, We did </option>
+                                    <option value="todo" >No, Reminder Sent</option>
+                                    @elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
+                                    {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
                                     <option value="">Please Select..</option>
                                     <option value="yellowgreen" >Yes, We did</option>
-                                    <option value="red" >No, We didn't</option>
-                                    @else
+                                    {{-- <option value="todo" >No, Reminder Sent</option> --}}
+                                    @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
                                     <option value="">Please Select..</option>
-                                    <option value="yellowgreen" >Yes, We did</option>
-                                    <option value="todo" >No, We didn't. Reminder Sent</option>
+                                    <option value="yellowgreen" >Yes, We did </option>
+                                    <option value="todo" >No, Reminder Sent</option>
+                                   
+                                    @elseif(@$last_state[0]->statusid == 3)
+                                    <option value="">Please Select..</option>
+                                    <option value="yellowgreen" >Yes, We did </option>
+                                    <option value="todo" >No, Reminder Sent</option>
+                                    <option value="red" >Reject</option>
+                                    @elseif(@$last_state[0]->statusid == 4)
+                                    <option value="">Please Select..</option>
+                                    <option value="yellowgreen" >Yes, We did </option>
                                     @endif
                                     </select>
                                   </div>
