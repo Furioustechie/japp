@@ -583,6 +583,7 @@ DB::table('newappeals')->insert([
       return view('pagination_data', compact('appDetails_thisYear'))->render();
      }
     }
+   
     public  function getPrisonDB()
     {
         return view('prisonDashboard_data');

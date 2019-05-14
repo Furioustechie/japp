@@ -184,17 +184,17 @@ foreach($totalByStatus as $byStatus){
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
     ->where('overdue_hc.mydate', '>', 10 )
     ->Where('overdue_hc.statusid', '!=', 10 )
-    ->paginate(10);
+    ->paginate(2);
 
     $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
     //->where('pendingforcc_prison.prison_id', $prison_id )
-    ->paginate(10);
+    ->paginate(2);
 
     $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
     //->where('appealresolved_prison.prison_id', $prison_id )
-    ->paginate(10);
+    ->paginate(2);
 
         $send['count']=$countAppeals;
         //$send['count1']=$lastYearAppeals;
@@ -236,6 +236,43 @@ foreach($totalByStatus as $byStatus){
       //return view ('dashboard', [$barlist,$barlist1 ])->with('appeals',json_encode($appeals));
         
         
+    }
+    function fetch_data_ForOverdue(Request $request)
+    {
+    
+     if($request->ajax())
+     {
+        $overdue_hc = DB::table('overdue_hc')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        ->where('overdue_hc.mydate', '>', 10 )
+        ->Where('overdue_hc.statusid', '!=', 10 )
+        ->paginate(2);
+      return view('inc_hc.overdue', compact('overdue_hc'))->render();
+     }
+    }
+    function fetch_data_ForIncompleteAppl(Request $request)
+    {
+    
+     if($request->ajax())
+     {
+        $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        //->where('pendingforcc_prison.prison_id', $prison_id )
+        ->paginate(2);
+      return view('inc_hc.incompleteAppl', compact('incompleteApplication_ForHC'))->render();
+     }
+    }
+    function fetch_data_ForResolvedAppl(Request $request)
+    {
+    
+     if($request->ajax())
+     {
+        $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        //->where('appealresolved_prison.prison_id', $prison_id )
+        ->paginate(2);
+      return view('inc_hc.resolvedAppl', compact('appDetails_appealResolved_ForHC'))->render();
+     }
     }
     public function appealForm(){
         if(!Gate::allows('isUser')){
