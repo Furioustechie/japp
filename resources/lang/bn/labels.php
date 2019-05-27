@@ -14,6 +14,7 @@ return [
     'navbar_hcview' => 'আদালত ড্যাশবোর্ড',
     'navbar_appealDetails' => 'আপীল বিবরণ',
     'navbar_settings' => 'বিন্যাস / সেটিংস',
+    'navbar_stats' => 'পরিসংখ্যান',
     'hc_totalAppeal' => 'সর্বমোট আপিল',
     'hc_overdue' => 'সর্বমোট বিলম্বিত',
     'hc_pendingForCC' => 'অসম্পূর্ণ আপিলের জন্য মুলতুবি',

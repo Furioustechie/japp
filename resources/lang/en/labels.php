@@ -14,6 +14,7 @@ return [
     'navbar_hcview' => 'HC Dashboard',
     'navbar_appealDetails' => 'Appeal Details',
     'navbar_settings' => 'Settings',
+    'navbar_stats' => 'Statistics',
     'hc_totalAppeal' => 'Total Appeals',
     'hc_overdue' => 'Total Overdue',
     'hc_pendingForCC' => 'Incomplete / Failed Application',

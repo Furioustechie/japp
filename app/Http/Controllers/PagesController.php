@@ -18,6 +18,7 @@ use Gate;
 use App\Notifications\jappNotification;
 use App\Notification;
 use Carboon\Carbon;
+//use App\AppDetails;
 
 class PagesController extends Controller
 {
@@ -117,6 +118,8 @@ foreach($totalByStatus as $byStatus){
                         INNER JOIN prisons ON newappeals.prisonid = prisons.id 
                         WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3))'
                      );
+        $incomplete = DB::table('hc_incomplete')->get();
+
                      $cc_missing_count = DB::select('select COUNT(cases.caseno) as total_cc_missing
                      FROM newappeals 
                      INNER JOIN cases ON newappeals.caseid = cases.id
@@ -180,6 +183,9 @@ foreach($totalByStatus as $byStatus){
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
     $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
 
+    // $appDetails_allRecords = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
+    $appDetails_allRecords = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
+
     $overdue_hc = DB::table('overdue_hc')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
     ->where('overdue_hc.mydate', '>', 10 )
@@ -190,6 +196,7 @@ foreach($totalByStatus as $byStatus){
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
     //->where('pendingforcc_prison.prison_id', $prison_id )
     ->paginate(2);
+    $count_incompleteApplication_ForHC = DB::table('pendingforcc_prison')->count();
 
     $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
@@ -207,6 +214,7 @@ foreach($totalByStatus as $byStatus){
         $send['appealStatus']=$appStat;
         $send['appeals'] = $appeals;
         $send['cc_missing']=$cc_missing;
+        $send['incomplete']=$incomplete;
         $send['cc_missing_count']=$cc_missing_count;
         $send['overDue']=$overDue; 
         $send['PendingForAction']=$PendingForAction; 
@@ -221,22 +229,187 @@ foreach($totalByStatus as $byStatus){
         $send['overdue_hc']=$overdue_hc;
         $send['incompleteApplication_ForHC']=$incompleteApplication_ForHC;
         $send['appDetails_appealResolved_ForHC']=$appDetails_appealResolved_ForHC;
-//dd($incompleteApplication_ForHC->count());
+        $send['count_incompleteApplication_ForHC']=$count_incompleteApplication_ForHC;
+        $send['appDetails_allRecords']=$appDetails_allRecords;
 
-        // echo "<pre>";
-        // print_r($all_appeals);
-        // exit;
-        //return view('dashboard', $send);
+
         $send['user'] = User::find(1);
        // User::find(1)->notify(new jappNotification);
        
        return view ('dashboard', $send)->with('appeals',$appeals);
-      // return view ('dashboard', ['count' => $wordCount,'count1' => $wordCount1,'gender' => $gen, 'total' =>$tot,'sentype' => $st, 'stotal' =>$sttotal, 'appealDetails' =>$all_appeals])->with('appeals',$appeals)->with('newappeals',$n_appeals);
-       //return view ('dashboard', ['label' => $barlist1])->with('appeals',$appeals);
-      //return view ('dashboard', [$barlist,$barlist1 ])->with('appeals',json_encode($appeals));
+      
         
         
     }
+    public function dashboardStats(){
+        if(!Gate::allows('isAdmin')){
+            abort(401,'You are not authorized here!');
+        }
+        $appeals = Appeal::all();
+
+        $totalAppeals = Newappeal::where('id', '>', 0)->get();
+        $countAppeals = $totalAppeals->count();
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
+
+        $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
+        $overDue = DB::select('SELECT vid FROM takeaction');
+        $PendingForAction = DB::select('SELECT id, date_of_sentence,datatotakeaction.caseno,name FROM datatotakeaction');
+        $data_PieChart = DB::select('SELECT prisoner_name,prisoner_gender, dob, prisoner.id FROM prisoner   JOIN   newappeals ON newappeals.id = prisoner.id');
+        $totalOnhearing = DB::select('SELECT statusid FROM totalonhearing');
+        $PendingOnHearing = DB::select('SELECT id, date_of_sentence,onhearingdetails.caseno,name FROM onhearingdetails');
+        $totalsByPrison = DB::select('SELECT name, prisonsId, totalsByPrison FROM totalappealbyprison');
+        $totalByStatus = DB::select('SELECT status_name,totalAppeals FROM appealsbystatus');
+        $totalByGender = DB::select('SELECT status_name,totalAppeals FROM appealsbystatus');
+        $pieChartBySentences = DB::select('SELECT sentence_name, totalAppeals FROM appealsbysentence');
+      
+        /* ------------- Data format for charts ---------------- */
+        $pieChartBySentence="";
+        foreach($pieChartBySentences as $pieBySentence){
+
+            $pieChartBySentence.= "['".$pieBySentence->sentence_name."',".$pieBySentence->totalAppeals."],";
+        }
+
+        $data="";
+        foreach($data_PieChart as $dataPie){
+
+            $data.= "['".$dataPie->prisoner_name."','".$dataPie->prisoner_gender."',".$dataPie->dob.",".$dataPie->id."],";
+        }
+        $bar_chart="";
+        foreach ($totalsByPrison as $bar_data) {
+            $bar_chart.="['". $bar_data->name."',". $bar_data->totalsByPrison."],";
+        }
+        $appealsByStatus = "";
+        foreach($totalByStatus as $byStatus){
+            $appealsByStatus.="['". $byStatus->status_name."',". $byStatus->totalAppeals."],";
+        }
+
+
+/* ------------- Data format for charts ---------------- */      
+        $cc_missing = DB::select('select newappeals.id,newappeals.date_of_sentence,cases.caseno,prisons.name
+                        FROM newappeals 
+                        INNER JOIN cases ON newappeals.caseid = cases.id
+                        INNER JOIN documents ON newappeals.id = documents.appealid 
+                        INNER JOIN prisons ON newappeals.prisonid = prisons.id 
+                        WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3))'
+                     );
+        $incomplete = DB::table('hc_incomplete')->get();
+
+                     $cc_missing_count = DB::select('select COUNT(cases.caseno) as total_cc_missing
+                     FROM newappeals 
+                     INNER JOIN cases ON newappeals.caseid = cases.id
+                     INNER JOIN documents ON newappeals.id = documents.appealid 
+                     WHERE newappeals.id IN (select appealid from documents where doctypeid NOT IN (3))');
+        
+        
+         $barlist = DB::table('appeals')
+        ->select('gender')
+        ->groupBy('gender')
+        ->get();
+        //return response()->json($barlist);
+        
+        $barlist1 = DB::table('appeals')
+        ->select(DB::raw('count(*) as total,gender'))
+        ->groupBy('gender')
+        ->get();
+        
+        $sentence = DB::table('appeals')
+        ->select(DB::raw('count(*) as stotal,sentencetype'))
+        ->groupBy('sentencetype')
+        ->get();
+
+        // dd($sentence);
+    
+    
+        //---------------Genderwise data ---------------//
+    
+        $gen="";
+        $tot="";
+
+        foreach($barlist1 as $bar){
+            $gen.="'".$bar->gender."',";
+            $tot.="'".$bar->total."',";
+        }
+        
+        $gen= substr($gen,0, -1);
+        $tot= substr($tot,0, -1);        
+
+
+         //---------------SentenceType data ---------------//
+    
+        $st="";
+        foreach($sentence as $sent){
+            $st.="'".$sent->sentencetype."',";
+        }
+        $st= substr($st,0, -1);
+
+        $sttotal="";
+        foreach($sentence as $sent){
+            $sttotal.="'".$sent->stotal."',";
+        }
+        $sttotal= substr($sttotal,0, -1);
+
+        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name_en as court_name
+        FROM newappeals na
+        INNER JOIN prisons ON na.prisonid = prisons.id
+          INNER JOIN offences ON na.offenceid  = offences.id
+          INNER JOIN courts ON na.courtid  = courts.id
+          INNER JOIN documents ON na.id = documents.appealid
+          INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
+
+
+    $overdue_hc = DB::table('overdue_hc')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    ->where('overdue_hc.mydate', '>', 10 )
+    ->Where('overdue_hc.statusid', '!=', 10 )
+    ->paginate(2);
+
+    $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    //->where('pendingforcc_prison.prison_id', $prison_id )
+    ->paginate(2);
+    $count_incompleteApplication_ForHC = DB::table('pendingforcc_prison')->count();
+
+    $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    //->where('appealresolved_prison.prison_id', $prison_id )
+    ->paginate(2);
+
+        $send['count']=$countAppeals;
+        $send['overdue_count']=$overdue_count;
+        $send['totalappealResolved'] = $appealResolved;
+        $send['gender']=$gen;
+        $send['total']=$tot;
+        $send['sentype']=$st;
+        $send['stotal']=$sttotal;
+        $send['appealStatus']=$appStat;
+        $send['appeals'] = $appeals;
+        $send['cc_missing']=$cc_missing;
+        $send['incomplete']=$incomplete;
+        $send['cc_missing_count']=$cc_missing_count;
+        $send['overDue']=$overDue; 
+        $send['PendingForAction']=$PendingForAction; 
+        $send['data_PieChart']=$data_PieChart;
+        $send['totalOnhearing']=$totalOnhearing;
+        $send['PendingOnHearing']=$PendingOnHearing;
+        $send['totalsByPrison']=$totalsByPrison;
+        $send['data']=$data;
+        $send['bar_chart']=$bar_chart;
+        $send['appealsByStatus']=$appealsByStatus;
+        $send['pieChartBySentence']=$pieChartBySentence;
+        $send['overdue_hc']=$overdue_hc;
+        $send['incompleteApplication_ForHC']=$incompleteApplication_ForHC;
+        $send['appDetails_appealResolved_ForHC']=$appDetails_appealResolved_ForHC;
+        $send['count_incompleteApplication_ForHC']=$count_incompleteApplication_ForHC;
+        //$send['appDetails_allRecords']=$appDetails_allRecords;
+
+
+        $send['user'] = User::find(1);
+  
+       
+       return view ('inc_hc.stats', $send)->with('appeals',$appeals);
+
+    }
+
     function fetch_data_ForOverdue(Request $request)
     {
     
@@ -245,7 +418,7 @@ foreach($totalByStatus as $byStatus){
         $overdue_hc = DB::table('overdue_hc')
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
         ->where('overdue_hc.mydate', '>', 10 )
-        ->Where('overdue_hc.statusid', '!=', 10 )
+        ->where('overdue_hc.statusid', '!=', 10 )
         ->paginate(2);
       return view('inc_hc.overdue', compact('overdue_hc'))->render();
      }
@@ -274,6 +447,25 @@ foreach($totalByStatus as $byStatus){
       return view('inc_hc.resolvedAppl', compact('appDetails_appealResolved_ForHC'))->render();
      }
     }
+
+    function fetch_data_allRecords(request $request)
+    {
+    
+     if($request->ajax())
+     {
+        $sort_by = $request->get('sortby');
+        $sort_type = $request->get('sorttype');
+           $query = $request->get('query');
+           $query = str_replace(" ", "%", $query);
+
+        $appDetails_allRecords = DB::table('appdetails')
+        ->where('id', 'like', '%'.$query.'%')
+        ->orWhere('case_no', 'like', '%'.$query.'%')
+        ->orderBy($sort_by, $sort_type)
+        ->paginate(5);
+      return view('inc_hc.allRecords', compact('appDetails_allRecords'))->render();
+     }
+    }
     public function appealForm(){
         if(!Gate::allows('isUser')){
             abort(401,'You are not authorized here!');
@@ -297,5 +489,28 @@ foreach($totalByStatus as $byStatus){
 
         return view ('prisonDashboard');
     }
+    public function testindex(){
+        $test = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
+        $send['test'] = $test;
+        return view('testindex',$send);
+
+    }
+
+ public function testtable(request $request){
+
+    if($request->ajax()){
+        $sort_by = $request->get('sortby');
+         $sort_type = $request->get('sorttype');
+            $query = $request->get('query');
+            $query = str_replace(" ", "%", $query);
+
+            $test = DB::table('appdetails')
+            ->orderBy($sort_by, $sort_type)->paginate(5);
+            $send['test'] = $test;
+
+            return view('testtable',$send);
+    }
+
+ }
     
 }

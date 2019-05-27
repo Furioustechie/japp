@@ -41,6 +41,14 @@
           </a>
         </li>
         @endcan
+        @can('isAdmin')
+        <li class="nav-item ">
+          <a class="nav-link" href="stats">
+            <i class="material-icons">insert_chart_outlined</i>
+            <p>{{ __('labels.navbar_stats') }}</p>
+          </a>
+        </li>
+        @endcan
         @can('isNothing')
         <li class="nav-item ">
           <a class="nav-link" href="testpage">
