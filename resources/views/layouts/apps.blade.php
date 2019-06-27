@@ -658,13 +658,16 @@
     <script>
     $(document).ready(function(){
     
-     $(document).on('click', '.pagination a', function(event){
+     $('#data_overdue').on('click', '.pagination a', function(event){
+       
       event.preventDefault(); 
       $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
             });
+            var page1 = $(this).attr('href');
+            console.log(page1);
       var page = $(this).attr('href').split('page=')[1];
       fetch_data(page);
      });
@@ -686,7 +689,7 @@
     <script>
     $(document).ready(function(){
     
-     $(document).on('click', '.pagination a', function(event){
+     $('#data_incompleteAppl').on('click', '.pagination a', function(event){
       event.preventDefault(); 
       $.ajaxSetup({
             headers: {
@@ -714,7 +717,7 @@
      <script>
     $(document).ready(function(){
     
-     $(document).on('click', '.pagination a', function(event){
+     $('#data_resolvedAppl').on('click', '.pagination a', function(event){
       event.preventDefault(); 
       $.ajaxSetup({
             headers: {
@@ -805,7 +808,7 @@ $(document).on('keyup', '#search', function(){
  });
 
  //Pagination Block
-    $(document).on('click', '.pagination a', function(event){
+    $('#data_allRecords').on('click', '.pagination a', function(event){
     event.preventDefault(); 
     var page = $(this).attr('href').split('page=')[1];
     $('#hidden_page').val(page);

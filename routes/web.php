@@ -134,6 +134,10 @@ Route::any('/search','AppealsController@search');
 Route::post('/search/{id}','AppealsController@search');
 Route::any('/searchs','AppealsController@searchbyID');
 Route::get('prisonDashboard/fetch_data', 'AppealsController@fetch_data');
+Route::get('prisonDashboard/fetch_appealResolved', 'AppealsController@fetch_appealResolved');
+Route::get('prisonDashboard/fetch_appealResolved', 'AppealsController@fetch_appealResolved');
+Route::post('prisonDashboard/updateFromPrison', 'AppealsController@updateFromPrison');
+
 Route::get('/stats', 'PagesController@dashboardStats');
 Route::get('dashboard/fetch_data_ForOverdue', 'PagesController@fetch_data_ForOverdue');
 Route::get('dashboard/fetch_data_ForIncompleteAppl', 'PagesController@fetch_data_ForIncompleteAppl');

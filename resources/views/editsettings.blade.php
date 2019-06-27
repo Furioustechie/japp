@@ -46,38 +46,38 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#sentences" data-toggle="tab">
                                         <i class="material-icons">account_balance</i>
-                                        Sentences
+                                        {{ __('labels.Sentences') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#courts" data-toggle="tab">
                                         <i class="material-icons">gavel</i>
-                                        Courts
+                                        {{ __('labels.Courts') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#prisons" data-toggle="tab">
                                         <i class="material-icons">supervisor_account</i>
-                                        Prisons
+                                        {{ __('labels.Prisons') }}
                                     </a>
 
                                 </li>
                                 <li class="nav-item">
                                   <a class="nav-link" href="#offences" data-toggle="tab">
                                       <i class="material-icons">local_library</i>
-                                      Offences
+                                      {{ __('labels.Offences') }}
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a class="nav-link" href="#status" data-toggle="tab">
                                       <i class="material-icons">wb_sunny</i>
-                                      Status
+                                      {{ __('labels.Status') }}
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a class="nav-link" href="#uaccount" data-toggle="tab">
                                       <i class="material-icons">wc</i>
-                                      User Account
+                                      {{ __('labels.User_Account') }}
                                   </a>
                               </li>
                             </ul>
@@ -87,7 +87,7 @@
                   <div class="card-body ">
                     <div class="tab-content text-center">
                         <div class="tab-pane active" id="sentences">
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalSentenceForm"  data-id="add_sentence">Add New Sentence</button>     
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalSentenceForm"  data-id="add_sentence">{{ __('labels.Add_New_Sentence') }}</button>     
 
                         <div class="table-responsive">
                               <table id="dataTableSentences" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
@@ -102,7 +102,7 @@
                       </div>
                     </div>
                         <div class="tab-pane" id="courts">
-                          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalCourtForm"  data-id="add_courts">Add New Court</button>     
+                          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalCourtForm"  data-id="add_courts">{{ __('labels.Add_New_Court') }}</button>     
 
                             <table id="dataTableCourts" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
@@ -118,7 +118,7 @@
                                </table> 
                         </div>
                         <div class="tab-pane" id="prisons">
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalPrisonForm"  data-id="add_prison">Add New Prison</button>     
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalPrisonForm"  data-id="add_prison">{{ __('labels.Add_New_Prison') }}</button>     
   
                         <table id="dataTablePrison" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
@@ -132,7 +132,7 @@
                                     </thead>
                                </table>                         </div>
                         <div class="tab-pane" id="offences">
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalOffenceForm"  data-id="add_offence">Add New Offence</button>     
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalOffenceForm"  data-id="add_offence">{{ __('labels.Add_New_Offence') }}</button>     
 
                             <table id="dataTableOffences" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
@@ -148,7 +148,7 @@
                                </table>
                               </div>
                         <div class="tab-pane" id="status">
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalStatusForm"  data-id="add_status">Add New Status</button>     
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalStatusForm"  data-id="add_status">{{ __('labels.Add_New_Status') }}</button>     
 
                             <table id="dataTableStatus" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                 <div class="card-body">
@@ -164,7 +164,7 @@
                                </table>
                          </div>
                          <div class="tab-pane" id="uaccount">
-                           <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add_accountName"  data-id="add_accountName">Add New User</button>     
+                           <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add_accountName"  data-id="add_accountName">{{ __('labels.Add_New_User') }}</button>     
                            <table id="dataTableuaccount" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
                                     <div class="card-body">
                                         <div class="table-responsive">

@@ -345,6 +345,6 @@
               @endif
     </tbody>
   </table>
-  <div class="col-md-5 offset-md-5">  {{ $overdue_hc->links() }}</div>
+  <div class="col-md-5 offset-md-5">  {{ $overdue_hc->appends('other_page')->links() }}</div>
 
 </div>

@@ -361,7 +361,8 @@ foreach($totalByStatus as $byStatus){
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
     ->where('overdue_hc.mydate', '>', 10 )
     ->Where('overdue_hc.statusid', '!=', 10 )
-    ->paginate(2);
+    ->paginate(2)
+    ->setPageName('other_page');
 
     $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
@@ -413,13 +414,14 @@ foreach($totalByStatus as $byStatus){
     function fetch_data_ForOverdue(Request $request)
     {
     
-     if($request->ajax())
+     if($request->ajax() )
      {
         $overdue_hc = DB::table('overdue_hc')
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
         ->where('overdue_hc.mydate', '>', 10 )
         ->where('overdue_hc.statusid', '!=', 10 )
-        ->paginate(2);
+        ->paginate(2)
+        ->setPageName('other_page');
       return view('inc_hc.overdue', compact('overdue_hc'))->render();
      }
     }

@@ -432,6 +432,8 @@ DB::table('newappeals')->insert([
         }
 
     }
+
+   
         // $appeals->save();
         //return redirect('appeals')->with('success','Application Updated');
         $test1 = Newappeal::find($id);
@@ -456,6 +458,7 @@ DB::table('newappeals')->insert([
                         return redirect('appeals.index',$send)->with('appealstatus',$test,$lastStatus);
     }
     
+  
 
     /**
      * Remove the specified resource from storage.
@@ -495,6 +498,7 @@ DB::table('newappeals')->insert([
         // WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1) AND newappeals.prisonid = '.$prison_id.'');
         //dd($prisonid_forAppealStatus);
         $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid FROM `newappeals` WHERE prisonid = '.$prison_id.'');
+        $countAppealsResolved_byPrison = DB::select('SELECT count(id) AS totalid FROM `appealresolved_prison` WHERE prison_id = '.$prison_id.'');
 
         $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at AND DATE_SUB(NOW(), INTERVAL 1 MONTH) AND prisonid = '.$prison_id.'');
         $cc_missing_count_forPrison = DB::select('SELECT COUNT(id) as total_cc_missing  FROM newappeals 
@@ -529,17 +533,18 @@ DB::table('newappeals')->insert([
           $appDetails_thisYear = DB::table('thisyearappealforprison')
           ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
           ->where('thisyearappealforprison.prison_id', $prison_id )
-          ->paginate(1);
+          ->paginate(2);
 
           $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
           ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name','states')
           ->where('pendingforcc_prison.prison_id', $prison_id )
-          ->paginate(20);
+          ->paginate(2);
+          $count_incompleteApplication_Prison = DB::table('pendingforcc_prison')->where('prison_id',$prison_id)->count();
 
           $appDetails_appealResolved_Prison = DB::table('appealresolved_prison')
           ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
           ->where('appealresolved_prison.prison_id', $prison_id )
-          ->paginate(20);
+          ->paginate(1);
 
 
 
@@ -560,6 +565,9 @@ DB::table('newappeals')->insert([
         $send['cc_missing_count_forPrison']=$cc_missing_count_forPrison;
         $send['appDetails_pendingForCC_Prison']=$appDetails_pendingForCC_Prison;
         $send['appDetails_appealResolved_Prison']=$appDetails_appealResolved_Prison;
+        $send['countAppealsResolved_byPrison']=$countAppealsResolved_byPrison;
+        $send['count_incompleteApplication_Prison']=$count_incompleteApplication_Prison;
+
         $send['appDetails_thisYear']=$appDetails_thisYear;
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
@@ -579,8 +587,20 @@ DB::table('newappeals')->insert([
         $appDetails_thisYear = DB::table('thisyearappealforprison')
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
         ->where('thisyearappealforprison.prison_id',$prison_id )
-        ->paginate(1);
-      return view('pagination_data', compact('appDetails_thisYear'))->render();
+        ->paginate(2);
+      return view('inc_prison.thisYearData', compact('appDetails_thisYear'))->render();
+     }
+    }
+    function fetch_appealIncomplete(Request $request)
+    {
+    $prison_id = Auth::user()->prison_id;
+     if($request->ajax())
+     {
+        $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name','states')
+        ->where('pendingforcc_prison.prison_id', $prison_id )
+        ->paginate(2);
+      return view('inc_prison.appealIncomplete', compact('appDetails_pendingForCC_Prison'))->render();
      }
     }
    
@@ -595,7 +615,7 @@ DB::table('newappeals')->insert([
         $test = Appealstatus::all();
       
         $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                         offences.name as offence_name, courts.name_en as court_name, na.privacy, appealstatus.id as appsid
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
                                   INNER JOIN offences ON na.offenceid  = offences.id
@@ -625,15 +645,27 @@ public function abc(request $request ,$id){
     $status_name = DB::select('SELECT * FROM status');
 
     $appDetail = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                         offences.name as offence_name, courts.name_en as court_name, appealstatus.id as appsid
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
                                   INNER JOIN offences ON na.offenceid  = offences.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
-                                  
-                                  WHERE na.id = "'.$id.'"');
+                                  INNER JOIN appealstatus ON appealstatus.newappeals_id = na.id 
+                                  WHERE na.id = "'.$id.'"
+                                  LIMIT 1'  
+                                  );
+    // $appDetail = DB::table('newappeals')
+    // ->join('prisons', 'newappeals.prisonid', '=', 'prisons.id')
+    // ->join('offences', 'newappeals.offenceid', '=', 'offences.id')
+    // ->join('courts', 'newappeals.courtid', '=', 'courts.id')
+    // ->join('prisoner', 'newappeals.prisonerid', '=', 'prisoner.id')
+    // ->join('cases', 'cases.id', '=', 'newappeals.caseid')
+    // ->join('appealstatus', 'newappeals.id', '=', 'appealstatus.newappeals_id')
+    // ->select('newappeals.id', 'prisons.name as prison_name', 'prisoner.prisoner_name as prisoner_name', 'cases.caseno as case_no','offences.name as offence_name','courts.name_en as court_name','appealstatus.id as appsid')
+    // ->where('newappeals.id', '=', $id );
+    // //->take(1);
 
     $dd = DB::select('SELECT doctype.docname, documents.filename
                             FROM newappeals na
@@ -683,10 +715,16 @@ public function abc(request $request ,$id){
     // Custom Query for Max StatusID Status
     foreach ($appDetail as $t) {
         $output .= '';
+        // echo '<form>';
         echo '<span class="col-md-5 offset-sm-1 border border-primary">';
         echo '<legend>Application Details</legend><br>';
         echo '';
+        echo '<form action="prisonDashboard/updateFromPrison" method="post"> <input type="hidden" name="_token" value="' . csrf_token() . '">';
         echo '<div class="md-form form-group mt-2">';
+        echo '<input type="text" class="form-control" id="appStatus_id" name="appStatus_id" value="'.$t->appsid.'"';
+        //echo 'disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">AppStatus ID</label>';
+        echo '</div>';
         echo '<input type="text" class="form-control" id="appeal_id" name="appeal_id" value="'.$t->id.'"';
         echo 'disabled>';
         echo '<label class="label text-success font-weight-bold" for="">Appeal ID</label>';
@@ -719,6 +757,14 @@ public function abc(request $request ,$id){
         echo '<div class="md-form form-group mt-2">';
         echo '<label class="label text-success font-weight-bold" for="">Attachments:</label><br>';
         echo '';
+        echo '<br>';
+        if($last_state[0]->state == 'red'){
+           
+            echo '<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="options" unchecked><span class="form-check-sign"><span class="check" name="check"></span></span><h5 style="color:red;">Requsted Documents Has Sent</h5></label></div>';
+            echo '<button type="submit" value="updateState" name="updateState">Update</button>';
+            
+        }
+        echo '</form>';
         foreach($dd as $d){
         if($d->docname == 'BJ_Form'){
             echo'<label class="md-form form-group">';
@@ -805,12 +851,8 @@ public function abc(request $request ,$id){
         echo '</div>';
         echo '</div>';
         echo '</span>';
-        
-       
-        
-        
-    
-        
+        // echo '</form>';
+
        // echo $output;
 
 
@@ -818,6 +860,17 @@ public function abc(request $request ,$id){
 
         
 
+}
+public function updateFromPrison(Request $request ){
+        if($request->has('submitState')){
+            DB:table('appealstatus')
+            ->where('id',$request->input('appStatus_id'))
+            ->update(['state' => 'todo',
+                        'created_at' => date('Y-m-d h:s:i'),
+                        'updated_at' => date('Y-m-d h:s:i')
+            ]);
+        }
+        return redirect('prisonDashboard')->with('success','Updated Successfully!!');
 }
 public function search(Request $request ){
     //if(!(isset($request))){ 

@@ -90,4 +90,20 @@ return [
      'resolved_case_no' => 'কেস নম্বর',
      'resolved_status' => 'অবস্থা',
      'resolved_view_in_detail' => 'বিস্তারিত দেখুন',
+
+       //Settings Menu
+    'Sentences' => 'দণ্ডাদেশ',
+    'Courts' => 'আদালত',
+    'Prisons' => 'কারাগার',
+    'Offences' => 'অপরাধ',
+    'Status' => 'অবস্থা',
+    'User_Account' => 'ব্যবহারকারীর অ্যাকাউন্ট',
+
+     //Settings Add Label
+     'Add_New_Sentence' => 'নতুন দণ্ডাদেশ সংযোজিত করুন',
+     'Add_New_Court' => 'নতুন আদালত সংযোজিত করুন',
+     'Add_New_Prison' => 'নতুন কারাগার সংযোজিত করুন',
+     'Add_New_Offence' => 'নতুন অপরাধ সংযোজিত করুন',
+     'Add_New_Status' => 'নতুন অবস্থা সংযোজিত করুন',
+     'Add_New_User' => 'নতুন ব্যবহারকারী সংযোজিত করুন',
 ];

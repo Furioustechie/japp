@@ -90,4 +90,20 @@ return [
     'resolved_case_no' => 'CASE NO',
     'resolved_status' => 'STATUS',
     'resolved_view_in_detail' => 'VIEW IN DETAIL',
+
+    //Settings Menu
+    'Sentences' => 'Sentences',
+    'Courts' => 'Courts',
+    'Prisons' => 'Prisons',
+    'Offences' => 'Offences',
+    'Status' => 'Status',
+    'User_Account' => 'User Account',
+
+    //Settings Add Label
+    'Add_New_Sentence' => 'Add New Sentence',
+    'Add_New_Court' => 'Add New Court',
+    'Add_New_Prison' => 'Add New Prison',
+    'Add_New_Offence' => 'Add New Offence',
+    'Add_New_Status' => 'Add New Status',
+    'Add_New_User' => 'Add New User',
 ];
