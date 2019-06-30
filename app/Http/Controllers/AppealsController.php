@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App;
 Use Session;
+use Alert;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Appeal;
@@ -654,6 +655,7 @@ public function abc(request $request ,$id){
                                   INNER JOIN cases ON cases.id = na.caseid
                                   INNER JOIN appealstatus ON appealstatus.newappeals_id = na.id 
                                   WHERE na.id = "'.$id.'"
+                                  ORDER BY appealstatus.id DESC
                                   LIMIT 1'  
                                   );
     // $appDetail = DB::table('newappeals')
@@ -726,7 +728,7 @@ public function abc(request $request ,$id){
         echo '<label class="label text-success font-weight-bold" for="">AppStatus ID</label>';
         echo '</div>';
         echo '<input type="text" class="form-control" id="appeal_id" name="appeal_id" value="'.$t->id.'"';
-        echo 'disabled>';
+        echo 'readonly>';
         echo '<label class="label text-success font-weight-bold" for="">Appeal ID</label>';
         echo '</div>';
         echo '<div class="md-form form-group mt-2">';
@@ -757,14 +759,7 @@ public function abc(request $request ,$id){
         echo '<div class="md-form form-group mt-2">';
         echo '<label class="label text-success font-weight-bold" for="">Attachments:</label><br>';
         echo '';
-        echo '<br>';
-        if($last_state[0]->state == 'red'){
-           
-            echo '<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="options" unchecked><span class="form-check-sign"><span class="check" name="check"></span></span><h5 style="color:red;">Requsted Documents Has Sent</h5></label></div>';
-            echo '<button type="submit" value="updateState" name="updateState">Update</button>';
-            
-        }
-        echo '</form>';
+       
         foreach($dd as $d){
         if($d->docname == 'BJ_Form'){
             echo'<label class="md-form form-group">';
@@ -783,6 +778,15 @@ public function abc(request $request ,$id){
         }
        
         }
+        echo '<br>';
+        echo '<hr>';
+        if($last_state[0]->state == 'red' && $last_state[0]->statusid == 2){
+           
+            echo '<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="options" unchecked required><span class="form-check-sign"><span class="check" name="check"></span></span><h5 style="color:red;">Requsted Documents Has Sent *</h5></label></div>';
+            echo '<button type="submit" value="updateState" name="updateState">Update</button>';
+            
+        }
+        echo '</form>';
 
         echo '</div>';
         echo '</span>';
@@ -852,25 +856,52 @@ public function abc(request $request ,$id){
         echo '</div>';
         echo '</span>';
         // echo '</form>';
-
        // echo $output;
-
-
         }
-
-        
 
 }
 public function updateFromPrison(Request $request ){
-        if($request->has('submitState')){
-            DB:table('appealstatus')
-            ->where('id',$request->input('appStatus_id'))
-            ->update(['state' => 'todo',
-                        'created_at' => date('Y-m-d h:s:i'),
-                        'updated_at' => date('Y-m-d h:s:i')
-            ]);
-        }
-        return redirect('prisonDashboard')->with('success','Updated Successfully!!');
+     
+        $appealStatus_id = $request->input('appStatus_id');
+        //dd($appealStatus_id);
+      
+                            // $appDetail = DB::table('newappeals')
+                            //     ->join('prisons', 'newappeals.prisonid', '=', 'prisons.id')
+                            //     ->join('offences', 'newappeals.offenceid', '=', 'offences.id')
+                            //     ->join('courts', 'newappeals.courtid', '=', 'courts.id')
+                            //     ->join('prisoner', 'newappeals.prisonerid', '=', 'prisoner.id')
+                            //     ->join('cases', 'cases.id', '=', 'newappeals.caseid')
+                            //     ->join('appealstatus', 'newappeals.id', '=', 'appealstatus.newappeals_id')
+                            //     ->select('newappeals.id', 'prisons.name as prison_name', 'prisoner.prisoner_name as prisoner_name', 'cases.caseno as case_no','offences.name as offence_name','courts.name_en as court_name','appealstatus.id as appsid')
+                            //     ->where('newappeals.id', '=', $appealStatus_id )
+                            //     ->orderBy('appealstatus.id', 'desc')
+                            //     ->take(1);
+        
+                                $id_state =  $appealStatus_id;
+                                $update_State = App\Appealstatus::find($id_state);
+                                $update_State->state = 'todo';
+                                $update_State->save();
+
+                                 /*-----------------Notification From Prison--------------------------------------- */
+
+                                    $appl = DB::table('newappeals')->where('id',$request->input('appeal_id'))->first(); // Get Appeal ID
+                                    
+                                    $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
+                                    
+                                    $st_name = DB::table('status')->where('id',2)->first(); //Get StatusId
+                                    
+                                    $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
+                                    
+                                    $arr=array('data'=> $msg,'appeal_id'=>$appl->id);
+                                    
+                                    $applToUser = DB::table('newappeals')->where('id',$appl->id)->select('appeals_to_courtid')->first();
+                                    //dd($applToUser->appeals_to_courtid);
+                                    User::find($applToUser->appeals_to_courtid)->notify(new jappNotification($arr));
+
+    
+                                Alert::success('success', 'Updated Successfully!!');
+
+        return redirect('prisonDashboard'); //->with('success','Updated Successfully!!');
 }
 public function search(Request $request ){
     //if(!(isset($request))){ 
