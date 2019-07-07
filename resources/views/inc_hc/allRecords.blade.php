@@ -91,9 +91,8 @@
                                           </td>
         
         <td class="td-actions text-center">
-          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#abc_{{$appeal->id}}">
-            <i class="material-icons">edit</i>
-          </button>
+          <a href="#" class="editapp" data-toggle="modal" data-target="#abc_{{$appeal->id}}"><i class="material-icons">edit</i>
+          </a>
           <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
 
           
@@ -114,7 +113,8 @@
 
            ?>
         <div class="modal fade " id="abc_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <form  method="POST" enctype="multipart/form-data">
+         <form  method="POST" id="all_Records" onsubmit="return getdata()" name="all_record_{{ $appeal->id }}" action="/appeals/update/{{ $appeal->id }}" enctype="multipart/form-data">
+          @csrf
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -136,14 +136,14 @@
                           <div class="col-md-4">
                                 <div class="form-group">
                                   <label class="bmd-label-floating text-info" style="font-size: 14px;">Case NO</label>
-                                  <input type="text" name="case_no" value="{{$appeal->case_no}}" class="form-control" disabled>
+                                  <input type="text" name="case_no" id="case_no" value="{{$appeal->case_no}}" class="form-control" disabled>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                   <div class="form-group">
                                     <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name</label><br>
 
-                                    <select name="prison_name" class="browser-default custom-select">
+                                    <select name="prison_name" id="prison_name" class="browser-default custom-select prison_name">
                                       @foreach ($prisonName as $pname)
                                           <option value="{{ $pname->id }}" <?php if($pname->id == $appeal->prison_id) echo 'selected="selected"';?>>{{ $pname->name }}</option>
                                       @endforeach
@@ -183,14 +183,14 @@
                 <div class="col-md-6">
                   <div class="form-group">
                       <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
-                      <select id="myselection" class="browser-default custom-select myselection" name="status_id">
+                      <select id="myselection" class="browser-default custom-select myselection" name="status_id" >
 
                       <!-- Custom Query for Option Value -->
                       <?php 
                       //$optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" )');
                      $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red" AND state<>"todo")');
                       ?>
-                          <option value="">Please Select..</option>
+                          <option value="" id="ch">Please Select..</option>
                             <?php $i=1; ?>
                               @foreach ($optt as $sdata)
                                @if($i++ == 1)        
@@ -220,7 +220,7 @@
                 <div class="col-md-6 show">
                 <div class="form-group">
                 <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
-                <select class="browser-default custom-select" name="state">
+                <select class="browser-default custom-select state" id="state" name="state">
                   @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
                   <option value="">Please Select..</option>
                   <option value="yellowgreen" >Yes, We did </option>
@@ -256,10 +256,11 @@
                     @endif
                   </div>
                 </div>
+
               <div class="col-md-12">
                 <div class="form-group">
                   <label class="bmd-label-floating">Remarks- If there any</label>
-                  <input type="text" name="rejectgrant" class="form-control" required>
+                  <input type="text" id="rejectgrant" name="rejectgrant" class="form-control" >
                 </div>
               </div>
               <p>
@@ -300,15 +301,18 @@
                                       // print_r($bs);
            
                             if(!empty($bs))  {
-                              echo '<button type="submit" class="btn btn-warning pull-right" name="courts_submit" value="submit" formaction="appeals/update/{{$appeal->id}}">Save changes</button>';
-
+                             
+                              echo '<button type="submit" class="btn btn-warning pull-right smb" name="courts_submit" id="courts_submit" value="submit">Save</button>';
+                             
                             }     
                             else{
-                             echo  '<button type="submit" class="btn btn-primary pull-right" name="courts_submit" value="submit" formaction="appeals/update/{{$appeal->id}}">Save changes</button>';
-
+                             echo  '<button type="submit" class="btn btn-primary pull-right courts_submit" name="courts_submit" id="courts_submit" value="submit" >Save</button>';
+                             
                             }
                             ?>
-     
+                 
+
+                
                 </div>
               </div>
             </div>
@@ -332,3 +336,9 @@
   <div class="col-md-5 offset-md-5">  {{ $appDetails_allRecords->links() }}</div>
 
 </div>
+ <script>
+    $('.show').hide();
+    $('.myselection').change(function() {
+    $('.show').show();
+});
+</script>

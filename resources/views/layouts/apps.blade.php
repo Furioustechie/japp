@@ -517,7 +517,12 @@
         });
 
     </script>
-
+ <script>
+    $('.show').hide();
+    $('.myselection').change(function() {
+    $('.show').show();
+});
+</script>
     <script>
         $(document).ready(function () {
             // Setup - add a text input to each footer cell
@@ -682,8 +687,11 @@
        }
       });
      }
-     
-    });
+ });
+
+
+
+  
     </script>
     // Script for Incomplete Application
     <script>
@@ -816,10 +824,93 @@ $(document).on('keyup', '#search', function(){
     var sort_type = $('#hidden_sort_type').val();
     var query = $('#search').val();
 
-    $('li').removeClass('active');
-            $(this).parent().addClass('active');
+    // $('li').removeClass('active');
+    //         $(this).parent().addClass('active');
     fetch_data(page,sort_type, sort_by, query);
     });
 
 });
 </script>
+<script>
+$(document).ready(function(){
+
+
+$(document).on('click','.editapp', function() {
+    //  $.ajaxSetup({
+    //       headers: {
+    //           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //       }
+    //   });
+
+var app = $(this).attr('data-target');
+var appeal_id = $(app).find('input[name="appeal_id"]').val();
+var case_no = $(app).find('input[name="case_no"]').val();
+//var prison_name = $(app).find('input[name="prison_name"]').val();
+//var offence_name = $(app).find('input[name="offence_name"]').val();
+var prisoner_name = $(app).find('input[name="prisoner_name"]').val();
+var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
+//var prison_name = $(app).find('select#prison_name option:selected').val();
+//var state = $(app).find('input[name="state"]').val();
+
+
+$(document).on('change','.myselection',function(){
+        var status_id = $(this).val();
+   $(document).on('change','.state', function(){
+        var state = $(this).val();
+        
+    $(document).on('change','.prison_name', function(){
+        //e.preventDefault();
+    var prison_name = $(this).val();
+    
+    $(document).on('click','.courts_submit', function() { 
+    var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_id + '&state='+ state + '&prison_name='+ prison_name + '&rejectgrant='+ rejectgrant;
+    console.log(dataString)
+ //$(document).on('click','.courts_submit', function() { 
+    //  $.ajax({
+    //             url: "/testupdate/"+appeal_id,
+    //             type: 'post',
+    //             dataType: 'application/json',
+    //             data: dataString,
+    //             success: function(data) {
+    //                 alert('success!');
+    //             }
+    //     });
+        //console.log(appeal_id,case_no,offence_name,prisoner_name,status_id,state,prison_name)
+
+    });   
+});    
+});
+});
+    
+ // -------------block for ajax request ------------------///    
+//  $.ajax({
+//         url: "/appeals/update/"+appeal_id,
+//         type: 'POST',
+//         data: {
+//         appeal_id: appeal_id,
+//         case_no: case_no,
+//         offence_name: offence_name,
+//         prisoner_name: prisoner_name,
+//         status_id: status_id,
+//         state: state,
+//         prison_name: prison_name,
+        
+
+//     },
+//                 success: function (data) {
+                  
+//                     console.log(data)
+//                   },
+//                 error: function (xhr, ajaxOptions, thrownError) {
+//                     alert('error');
+//                 }
+//       });
+ // -------------block for ajax request ------------------///    
+
+    })
+ 
+
+});
+</script>
+
+

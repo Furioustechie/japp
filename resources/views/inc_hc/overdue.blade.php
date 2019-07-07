@@ -312,7 +312,6 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 {{ csrf_field() }}
                 
-
                 <?php 
                   $bs = DB::select('SELECT distinct(state)
                                       FROM appealstatus
@@ -345,6 +344,6 @@
               @endif
     </tbody>
   </table>
-  <div class="col-md-5 offset-md-5">  {{ $overdue_hc->appends('other_page')->links() }}</div>
+  <div class="col-md-5 offset-md-5">  {{ $overdue_hc->links() }}</div>
 
 </div>

@@ -145,6 +145,7 @@ Route::get('dashboard/fetch_data_ForResolvedAppl', 'PagesController@fetch_data_F
 Route::get('dashboard/fetch_data_allRecords', 'PagesController@fetch_data_allRecords');
 Route::get('testtable', 'PagesController@testtable');
 Route::get('testindex', 'PagesController@testindex');
+Route::post('/testupdate/{appeal_id}', 'AppealsController@testupdate');
 
 
 

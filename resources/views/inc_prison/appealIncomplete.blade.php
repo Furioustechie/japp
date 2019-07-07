@@ -74,7 +74,11 @@
                     </ol>
                 </td>
                 <td style="text-align: center;"> 
-                    <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
+                    @if(@$last_state[0]->state == 'red' && @$last_state[0]->statusid == 2)
+                    <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">edit</i></a></td>
+                        @else
+                        <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
+                    @endif
                 <!--Deatils Modal Start -->
                 <!--Deatils Modal End -->
             </tr>

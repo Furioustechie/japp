@@ -184,7 +184,7 @@ foreach($totalByStatus as $byStatus){
     $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
 
     // $appDetails_allRecords = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
-    $appDetails_allRecords = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
+    $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'asc')->paginate(5);
 
     $overdue_hc = DB::table('overdue_hc')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
@@ -420,8 +420,7 @@ foreach($totalByStatus as $byStatus){
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
         ->where('overdue_hc.mydate', '>', 10 )
         ->where('overdue_hc.statusid', '!=', 10 )
-        ->paginate(2)
-        ->setPageName('other_page');
+        ->paginate(2);
       return view('inc_hc.overdue', compact('overdue_hc'))->render();
      }
     }
@@ -460,7 +459,7 @@ foreach($totalByStatus as $byStatus){
            $query = $request->get('query');
            $query = str_replace(" ", "%", $query);
 
-        $appDetails_allRecords = DB::table('appdetails')
+        $appDetails_allRecords = DB::table('all_appeals')
         ->where('id', 'like', '%'.$query.'%')
         ->orWhere('case_no', 'like', '%'.$query.'%')
         ->orderBy($sort_by, $sort_type)
