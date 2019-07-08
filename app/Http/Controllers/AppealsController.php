@@ -318,7 +318,7 @@ DB::table('newappeals')->insert([
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) //Update AppealStatus Table
+public function update(Request $request, $id) //Update AppealStatus Table
     {
        //dd($request);
         //
@@ -473,163 +473,133 @@ DB::table('newappeals')->insert([
     }
 public function testupdate(Request $request,$id)
 {
-//dd($request);
-//dd($request->case_no);
+    //dd($request->courts_submit);
+     //
+    //  if($request->hasFile('file_bj')){
 
-// DB::table('appealstatus')->insert([
-//     ['statusid' => $request->status_id, 
-//        'newappeals_id' => $request->appeal_id,
-//        'state' => $request->state,
-//        //'remarks' => $request->input('rejectgrant'),
-//         'created_at' => date('Y-m-d h:s:i'),
-//            'updated_at' => date('Y-m-d h:s:i')]
+    //      //
+    //      $validatedData = $request->validate([
+    //          //'prisonerno' => 'required',
+    //          'file_app' => 'mimes:jpeg,png,jpg,pdf|nullable|max:1999'
+    // ]);
+    //  } else{
 
-// ]);
-
-
-// if($request->hasFile('file_bj')){
-
-//     //
-//     $validatedData = $request->validate([
-//         //'prisonerno' => 'required',
-//         'file_app' => 'mimes:jpeg,png,jpg,pdf|nullable|max:1999'
-// ]);
-// } else{
-
-//     $this->validate($request,[
-
-//         //'rejectgrant' => 'required'
-//     ]);
-// }
-
-
-//$applStatus = DB::table('appealstatus'); // For PRISONER Tables Prisonerid Column
+    //      $this->validate($request,[
+     
+    //          //'rejectgrant' => 'required'
+    //      ]);
+    //  }
+     
     
-    $appeals = Newappeal::find($request->appeal_id);
-    $appealNO =  $appeals->appeal_number;
-    if($request->case_no){
-        $appealNO = $request->case_no;
+     //$applStatus = DB::table('appealstatus'); // For PRISONER Tables Prisonerid Column
+     $ss=1;
+     if ($request->courts_submit == 'submit') {
+         
+         $appeals = Newappeal::find($request->appeal_id);
+         $appealNO =  $appeals->appeal_number;
+         if($request->case_no){
+             $appealNO = $request->case_no;
+         }
+         DB::table('newappeals')
+             ->where('id', $request->appeal_id)
+             ->update(['prisonid' => $request->prison_name, 'appeal_number' => $appealNO ]);
+
+         $has_status_name = DB::table('appealstatus')->where(array('statusid'=>$request->status_id,'newappeals_id'=>$request->appeal_id))->first();
+         //dd($has_status_name);
+         if(empty($has_status_name)){
+             //return redirect('/hcDetails')->with('error','State Remain Same');
+              DB::table('appealstatus')->insert([
+                  ['statusid' => $request->status_id, 
+                     'newappeals_id' => $request->appeal_id,
+                     'state' => $request->state,
+                     //'remarks' => $request->input('rejectgrant'),
+                      'created_at' => date('Y-m-d h:s:i'),
+                         'updated_at' => date('Y-m-d h:s:i')]
+
+     ]);
+ 
+   /*-----------------Notification From High Court To Prison--------------------------------------- */
+
+     $appl = DB::table('newappeals')->where('id',$request->appeal_id)->first();
+    // $notifiable_user = DB::table('SELECT id FROM users WHERE prison_id = "'.$appl->prisonid.'"');
+     //dd($appl->id); // Get Appeal ID
+     $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
+     //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
+     $st_name = DB::table('status')->where('id',$request->status_id)->first(); //Get StatusId
+                 
+
+     $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
+     $arr=array('data'=> $msg, 'appeal_id' => $appl->id);
+     //dd($arr);
+     $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
+     //print_r($users);exit;
+     foreach($users as $userr){
+         User::find($userr->id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+
+     }
+        // \Notification::send($users, new jappNotification($arr));
+  /*-----------------End of Notification From High Court To Prison--------------------------------------- */
+
+     return redirect('/hcDetails')->with('success','State Updated Successfully');
+         }
+//        
+     else{
+         DB::table('appealstatus')->where(array('statusid'=>$request->status_id,'newappeals_id'=>$request->appeal_id))
+                     ->update([
+                         'state' => $request->state, 
+                                'updated_at' => date('Y-m-d h:s:i')
+            ]);
+            //dd( $asdf);
+             /*-----------------Notification From High Court To Prison--------------------------------------- */
+
+     $appl = DB::table('newappeals')->where('id',$request->appeal_id)->first(); // Get Appeal ID
+     $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
+     //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
+     $st_name = DB::table('status')->where('id',$request->status_id)->first(); //Get StatusId
+                 
+
+     $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
+     $arr=array('data'=> $msg,'appeal_id'=>$appl->id);
+    // $users = User::all()->where('prisonid',$appl->prisonid);
+    $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
+    //print_r($users);exit;
+    foreach($users as $userr){
+        User::find($userr->id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+
     }
-    if (empty($request->prison_name)){
+     //\Notification::send($users, new jappNotification($arr));
+    // User::find($appl->prisonid)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+  /*-----------------End of Notification From High Court To Prison--------------------------------------- */
+            return redirect('/hcDetails')->with('success','State Updated Successfully');
+     }
 
-        DB::table('newappeals')
-        ->where('id', $request->appeal_id)
-        ->update(['appeal_number' => $appealNO ]);
-
-    }else{
-        DB::table('newappeals')
-        ->where('id', $request->appeal_id)
-        ->update(['prisonid' => $request->prison_name, 'appeal_number' => $appealNO ]);
-    }
-   
-    $has_status_name = DB::table('appealstatus')->where(array('statusid'=>$request->status_id,'newappeals_id'=>$request->appeal_id))->first();
-    dd($has_status_name);
-    if(empty($has_status_name)){
-        //return redirect('/hcDetails')->with('error','State Remain Same');
-         DB::table('appealstatus')->insert([
-             ['statusid' => $request->status_id, 
-                'newappeals_id' => $request->appeal_id,
-                'state' => $request->state,
-                //'remarks' => $request->input('rejectgrant'),
-                 'created_at' => date('Y-m-d h:s:i'),
-                    'updated_at' => date('Y-m-d h:s:i')]
-
-]);
-//     $update_prisonName = Newappeal::where('id', '=', $request->input('appeal_id') )->first();
+ }
 
 
-
-//    $update_prisonName->prisonid = $request->input('prison_name');
-//           $update_prisonName->save();
-      // dd( $update_prisonName);
-/*-----------------Notification From High Court To Prison--------------------------------------- */
-
-$appl = DB::table('newappeals')->where('id',$request->appeal_id)->first();
-// $notifiable_user = DB::table('SELECT id FROM users WHERE prison_id = "'.$appl->prisonid.'"');
-//dd($appl->id); // Get Appeal ID
-$casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
-//$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
-$st_name = DB::table('status')->where('id',$request->status_id)->first(); //Get StatusId
-            
-
-$msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-$arr=array('data'=> $msg, 'appeal_id' => $appl->id);
-//dd($arr);
-$users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
-//print_r($users);exit;
-foreach($users as $userr){
-    User::find($userr->id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
-
-}
-   // \Notification::send($users, new jappNotification($arr));
-/*-----------------End of Notification From High Court To Prison--------------------------------------- */
-
-return redirect('/hcDetails')->with('success','State Updated Successfully');
-    }
-//         else{
-//             DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))->first()
-//             ->update([
-//                 ['state' => $request->input('state'), 
-//                        'updated_at' => date('Y-m-d h:s:i')]
-//    ]);
-//    return redirect('/hcDetails')->with('success','Application Updated Successfully');
-//         }
-else{
-    DB::table('appealstatus')->where(array('statusid'=>$request->status_id,'newappeals_id'=>$request->appeal_id))
-                ->update([
-                    'state' => $request->state, 
-                           'updated_at' => date('Y-m-d h:s:i')
-       ]);
-       //dd( $asdf);
-        /*-----------------Notification From High Court To Prison--------------------------------------- */
-
-$appl = DB::table('newappeals')->where('id',$request->appeal_id)->first(); // Get Appeal ID
-$casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
-//$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
-$st_name = DB::table('status')->where('id',$request->status_id)->first(); //Get StatusId
-            
-
-$msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-$arr=array('data'=> $msg,'appeal_id'=>$appl->id);
-// $users = User::all()->where('prisonid',$appl->prisonid);
-$users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
-//print_r($users);exit;
-foreach($users as $userr){
-   User::find($userr->id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
-
-}
-//\Notification::send($users, new jappNotification($arr));
-// User::find($appl->prisonid)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
-/*-----------------End of Notification From High Court To Prison--------------------------------------- */
-       return redirect('/hcDetails')->with('success','State Updated Successfully');
-}
-
-
-
-
-// $appeals->save();
-//return redirect('appeals')->with('success','Application Updated');
-$test1 = Newappeal::find($id);
-$test = Appealstatus::find($id);
-
-
-            
-            $apStatuses = DB::select('SELECT status.status_name, appealstatus.statusid
-            FROM newappeals na
-                                                                
-            INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
-            INNER JOIN status ON appealstatus.statusid = status.id
-
-            WHERE appealstatus.newappeals_id="'.$test1.'"');
-
-    //$tt1 = Appealstatus::where('statusid','=', $test)->with('status')->first();
-     //$lastStatus = DB::table('newappeals')->max('statusid')->where($test1);
-
-    $send['apt']=$apStatuses;
-    //$send['aptt']=$lastStatus;
+     // $appeals->save();
+     //return redirect('appeals')->with('success','Application Updated');
+     $test1 = Newappeal::find($id);
+     $test = Appealstatus::find($id);
+  
     
-                return redirect('appeals.index',$send)->with('appealstatus',$test,$lastStatus);
-}
+                 
+                 $apStatuses = DB::select('SELECT status.status_name, appealstatus.statusid
+                 FROM newappeals na
+                                                                     
+                 INNER JOIN appealstatus ON na.id = appealstatus.newappeals_id
+                 INNER JOIN status ON appealstatus.statusid = status.id
+
+                 WHERE appealstatus.newappeals_id="'.$test1.'"');
+
+         //$tt1 = Appealstatus::where('statusid','=', $test)->with('status')->first();
+          //$lastStatus = DB::table('newappeals')->max('statusid')->where($test1);
+
+         $send['apt']=$apStatuses;
+         //$send['aptt']=$lastStatus;
+         
+                     return redirect('appeals.index',$send)->with('appealstatus',$test,$lastStatus);
+ }
+
     // test relationship in eloquent model
     public function user($username){
        // $send['user']=Newappeal::where('user_id',11)->first();

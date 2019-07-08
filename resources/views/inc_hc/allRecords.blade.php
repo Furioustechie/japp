@@ -113,7 +113,7 @@
 
            ?>
         <div class="modal fade " id="abc_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <form  method="POST" id="all_Records" onsubmit="return getdata()" name="all_record_{{ $appeal->id }}" action="/appeals/update/{{ $appeal->id }}" enctype="multipart/form-data">
+         <form  method="POST" id="all_record" class="all_record" name="all_record" action="appeals/update/{{ $appeal->id }}" enctype="multipart/form-data">
           @csrf
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -292,24 +292,10 @@
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 {{ csrf_field() }}
-                
+                <button type="submit" class="btn btn-warning pull-right courts_submit" data-dismiss="modal" name="courts_submit" id="courts_submit" value="submit">Save</button>
 
-                <?php 
-                  $bs = DB::select('SELECT distinct(state)
-                                      FROM appealstatus
-                                        WHERE state="red" and newappeals_id="'.$appId.'"');
-                                      // print_r($bs);
-           
-                            if(!empty($bs))  {
-                             
-                              echo '<button type="submit" class="btn btn-warning pull-right smb" name="courts_submit" id="courts_submit" value="submit">Save</button>';
-                             
-                            }     
-                            else{
-                             echo  '<button type="submit" class="btn btn-primary pull-right courts_submit" name="courts_submit" id="courts_submit" value="submit" >Save</button>';
-                             
-                            }
-                            ?>
+
+                
                  
 
                 
