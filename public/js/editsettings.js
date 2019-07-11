@@ -248,29 +248,19 @@ $('#dataTablePrison').on('click', '.PrisonDelete', function (e) {
                $.ajaxSetup({
                                      headers: {
                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                       
                                      }
                                      });
-             
                var name = $("#edit_prisonName").find("input[name='rename_prison']").val();
-
-
-
                var id = $("#edit_prisonName").find(".edit-id").val();
-
 
                if(name != ''){
                  $.ajax({
-
                url: "editsettings/update_prison/"+id,
                type: 'post',
-              
                data: {
                    "id":id,
                    "rename_prison": name,
-              
                    "_method": 'POST',
-                               
                    },
                    success: function (data) {
                      
@@ -516,47 +506,29 @@ var url = "/editsettings_Sentences"
                               
                                 /* Edit Offence Item */
                                              $("body").on("click",".edit_offenceName",function(){
-                              
-                              
                                              var id = $(this).data('id');
                                             /* var name = $(this).parent("td").prev("td").prev("td").text();*/
                                              var name = $(this).parent("td").prev("td").text();
-                              
-                              
                                              $("#edit_offenceName").find("input[name='rename_offence']").val(name);
-                                           
                                              $("#edit_offenceName").find(".edit-id").val(id);
-                              
-                              
                                              });
                                              /* Updated new Item */
                                              $(".submit-offence").click(function(e){
-                              
                                              e.preventDefault();
                                              $.ajaxSetup({
                                                                    headers: {
                                                                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                                     
                                                                    }
                                                                    });
-                                           
                                              var name = $("#edit_offenceName").find("input[name='rename_offence']").val();
-                              
-                              
-                              
                                              var id = $("#edit_offenceName").find(".edit-id").val();
-                              
-                              
                                              if(name != ''){
                                                $.ajax({
-                              
                                              url: "editsettings/update_offence/"+id,
                                              type: 'post',
-                                            
                                              data: {
                                                  "id":id,
                                                  "rename_offence": name,
-                                            
                                                  "_method": 'POST',
                                                              
                                                  },

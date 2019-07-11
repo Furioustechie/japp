@@ -636,9 +636,9 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        Tipped.create('.simple-tooltip');
-    });
+    // $(document).ready(function () {
+    //     Tipped.create('.simple-tooltip');
+    // });
 
 </script>
 
@@ -841,22 +841,19 @@ $(document).on('click','.editapp', function() {
     var appeal_id = $(app).find('input[name="appeal_id"]').val();
     var case_no = $(app).find('input[name="case_no"]').val();
     var courts_submit = $(app).find('#courts_submit').val();
-    //console.log(courts_submit)
-    //var offence_name = $(app).find('input[name="offence_name"]').val();
     var prisoner_name = $(app).find('input[name="prisoner_name"]').val();
     var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
-
-$(document).on('change','.myselection',function(){
-        var status_id = $(this).val();
-   $(document).on('change','.state', function(){
-        var state = $(this).val();
-    $(document).on('change','.prison_name', function(e){
-        e.preventDefault();
-        var prison_name = $(this).val();
-        var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_id + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant ;
-       console.log(dataString)
-            $(document).on('click','.courts_submit', function() { 
-        
+   
+         $(document).on('click','.courts_submit', function() { 
+                var prison_name = $(app).find('select.prison_name option:selected').val();
+                var status_name = $(app).find('select.myselection option:selected').val();
+                var state = $(app).find('select.state option:selected').val();
+                var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
+                var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_name + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant ;
+                console.log(dataString)
+// if(rejectgrant == ''){
+//     alert('Missing Something');
+// }
             $.ajax({
                         url: "/testupdate/"+appeal_id,
                         type: 'POST',
@@ -867,18 +864,13 @@ $(document).on('change','.myselection',function(){
                             window.location.reload();
                             $('.editapp').modal('hide');
                         },
-                       
                         error: function (xhr, ajaxOptions, thrownError) {
                             swal("Error!", "Check your input,Please!", "error");
                             $('.editapp').modal('hide');
                         }
-                        });
-                    }); 
-                });    
-            });
+                  });
         });
-
-    })
+    });
 });
 </script>
 

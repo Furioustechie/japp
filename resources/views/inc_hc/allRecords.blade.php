@@ -91,7 +91,7 @@
                                           </td>
         
         <td class="td-actions text-center">
-          <a href="#" class="editapp" data-toggle="modal" data-target="#abc_{{$appeal->id}}"><i class="material-icons">edit</i>
+          <a href="#" class="editapp" id="#editapp" data-toggle="modal" data-target="#abc_{{$appeal->id}}"><i class="material-icons">edit</i>
           </a>
           <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
 
@@ -130,7 +130,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                               <label class="bmd-label-floating text-info" style="font-size: 14px;">Appeal ID</label>
-                              <input type="text" name="appeal_id" value="{{ $appeal->id }}" class="form-control" readonly>
+                              <input type="text" name="appeal_id" id="appeal_id" value="{{ $appeal->id }}" class="form-control" readonly>
                             </div>
                           </div>
                           <div class="col-md-4">
@@ -153,13 +153,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                       <label class="bmd-label-floating text-info" style="font-size: 14px;">Offence Name</label>
-                                      <input type="text" name="offence_name" value="{{$appeal->offence_name}}" class="form-control" disabled>
+                                      <input type="text" name="offence_name" id="offence_name" value="{{$appeal->offence_name}}" class="form-control" disabled>
                                     </div>
                                   </div>
                                   <div class="col-md-4">
                                       <div class="form-group">
                                         <label class="bmd-label-floating text-info" style="font-size: 14px;">Prisoner Name</label>
-                                        <input type="text" name="prisoner_name" value="{{$appeal->prisoner_name}}" class="form-control" disabled>
+                                        <input type="text"  name="prisoner_name" id="prisoner_name" value="{{$appeal->prisoner_name}}" class="form-control" disabled>
                                       </div>
                                     </div>
  
@@ -179,27 +179,23 @@
                 <label class="btn btn-info  col-md-3">Application Form </label><a href="{{ asset('/files/') }}/{{$d->filename}}" target="_blank"> <span class = "label label-default col-md-6">{{$d->filename}}</span></a><br><br>
                 @endif
                 @endforeach
+                @php
+                //$optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" )');
+               $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red" AND state<>"todo")');
+               $i=1;
+                @endphp
                <div class="row mb-12">
                 <div class="col-md-6">
                   <div class="form-group">
                       <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
-                      <select id="myselection" class="browser-default custom-select myselection" name="status_id" >
-
-                      <!-- Custom Query for Option Value -->
-                      <?php 
-                      //$optt = DB::select('SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" )');
-                     $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red" AND state<>"todo")');
-                      ?>
-                          <option value="" id="ch">Please Select..</option>
-                            <?php $i=1; ?>
+                      <select id="mystatus" name="status_id" class="browser-default custom-select myselection">
+                          <option value="">Please Select..</option>
                               @foreach ($optt as $sdata)
                                @if($i++ == 1)        
                             <option value="{{ $sdata->id }}" >{{$sdata->status_name}}</option>
-                           
                             @else
                             <option disabled value="{{$sdata->id}}" >{{$sdata->status_name}}</option>
                             @endif
-
                                 @endforeach
                         </select>
 
@@ -252,7 +248,7 @@
                   <div class="form-group">
                       @if(@$last_state[0]->statusid == 4) 
                     <label class="bmd-label-floating">Appeal No.</label>
-                    <input type="text" name="case_no" value="" class="form-control">
+                    <input type="text" name="japp_no" id="japp_no" value="" class="form-control">
                     @endif
                   </div>
                 </div>
@@ -260,7 +256,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label class="bmd-label-floating">Remarks- If there any</label>
-                  <input type="text" id="rejectgrant" name="rejectgrant" class="form-control" >
+                  <input type="text" id="rejectgrant" name="rejectgrant" value="" class="form-control" required>
                 </div>
               </div>
               <p>
@@ -294,11 +290,6 @@
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-warning pull-right courts_submit" data-dismiss="modal" name="courts_submit" id="courts_submit" value="submit">Save</button>
 
-
-                
-                 
-
-                
                 </div>
               </div>
             </div>

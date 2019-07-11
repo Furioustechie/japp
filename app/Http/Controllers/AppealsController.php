@@ -492,7 +492,6 @@ public function testupdate(Request $request,$id)
      
     
      //$applStatus = DB::table('appealstatus'); // For PRISONER Tables Prisonerid Column
-     $ss=1;
      if ($request->courts_submit == 'submit') {
          
          $appeals = Newappeal::find($request->appeal_id);
