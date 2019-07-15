@@ -146,6 +146,8 @@ Route::get('dashboard/fetch_data_allRecords', 'PagesController@fetch_data_allRec
 Route::get('testtable', 'PagesController@testtable');
 Route::get('testindex', 'PagesController@testindex');
 Route::post('testupdate/{appeal_id}', 'AppealsController@testupdate');
+Route::post('/swalReturn/{appeal_id}', 'AppealsController@swalReturn');
+
 
 
 

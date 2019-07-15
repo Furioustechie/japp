@@ -112,7 +112,7 @@
                                       
 
            ?>
-        <div class="modal fade " id="abc_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade edt" id="abc_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <form  method="POST" id="all_record" class="all_record" name="all_record" action="appeals/update/{{ $appeal->id }}" enctype="multipart/form-data">
           @csrf
                 <div class="modal-dialog modal-lg" role="document">
@@ -141,7 +141,7 @@
                               </div>
                               <div class="col-md-4">
                                   <div class="form-group">
-                                    <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name</label><br>
+                                    <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name <span><a href="#" class="JustClick" id="JustClick"><i class="material-icons">info</i></a></span></label><br>
 
                                     <select name="prison_name" id="prison_name" class="browser-default custom-select prison_name">
                                       @foreach ($prisonName as $pname)
@@ -318,4 +318,5 @@
     $('.myselection').change(function() {
     $('.show').show();
 });
+
 </script>

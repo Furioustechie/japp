@@ -13,6 +13,7 @@ use App\Doctype;
 use App\Document;
 use App\Application;
 use App\Newappeal;
+use App\prisoner_transfer_history;
 use App\Status;
 use App\Appealstatus;
 use App\User;
@@ -27,8 +28,7 @@ use Carboon\Carbon;
 use Toastr;
 use phpDocumentor\Reflection\Types\Void_;
 use Illuminate\Notifications\Notifiable;
-
-
+use function GuzzleHttp\json_encode;
 
 class AppealsController extends Controller
 {
@@ -1226,6 +1226,51 @@ return view('test');
     $courts_Name = DB::Select('SELECT id,name_en FROM courts WHERE disid = "'.$district_id.'"');
     echo json_encode($courts_Name);
  }
-          
+    public function swalReturn(Request $request){
+        $id =  $request->appeal_id; 
+       $mydata = DB::Select('SELECT case_no,prison_id,appeal_no,ph.updated_at,prisoner.prisoner_name as prname,prisons.name prison_Name FROM prisoner_transfer_history ph
+       LEFT JOIN prisons ON prisons.id = ph.prison_id
+       LEFT JOIN cases ON cases.id = ph.case_no
+       LEFT JOIN prisoner ON prisoner.id = ph.prisoner_id WHERE appeal_no = "'.$id.'"');
+        // $mydata = DB::table('prisoner_transfer_history ph')
+        // ->join('prisons', 'ph.prison_id', '=', 'prisons.id')
+        // ->join('prisoner', 'ph.prisoner_id', '=', 'prisoner.id')
+        // ->join('cases', 'cases.id', '=', 'ph.case_no')
+        // ->select('ph.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no','prisons.id AS prison_id')
+        // ->where('ph.appeal_id','=', $id);
+        if(!empty($mydata)){
+            echo'<table class="table-bordered display nowrap dtr-inline table-responsive" style="width:100%">';
+            echo'<thead class="text-primary">';
+            echo'<th style="white-space: nowrap;">Prison ID</th>';
+            echo'<th style="white-space: nowrap;">Prison Name</th>';
+            echo'<th style="white-space: nowrap;">Case NO.</th>';
+            echo'<th style="white-space: nowrap;">Updated_At</th>';
+            echo'</thead>';
+            echo'<tbody style="white-space: nowrap;">';
+            foreach ($mydata as $data){
+                echo '';
+                echo'<tr>';
+                echo'<td>'.$data->prison_id.'</td></td>';
+                echo'<td>'.$data->prison_Name.'</td>';
+                echo'<td>'.$data->case_no.'</td>';
+                echo'<td>'.$data->updated_at.'</td>';
+                echo'</tr>';
+                }
+                echo'</tbody>';
+                echo'</table>';
+        }
+        else{
+            echo'This is the First Prison';
+        }
+
+        //echo json_encode($mydata);
+            //  $mydata = DB::table('prisoner_transfer_history')
+            //  ->select('prison_id','case_no')
+            //  ->where('prisoner_transfer_history.appeal_no', $id );
+
+            // echo json_encode($mydata);
+
+             //return json_encode($mydata);
+    }      
 
 }
