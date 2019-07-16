@@ -843,17 +843,17 @@ $(document).on('click','.editapp', function() {
     var courts_submit = $(app).find('#courts_submit').val();
     var prisoner_name = $(app).find('input[name="prisoner_name"]').val();
     var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
-    
-    var dataStr = 'appeal_id='+ appeal_id;
-    $(document).on('click','.JustClick', function(e){
-        e.preventDefault();
-        var appeals_id = appeal_id;
 
-        $.ajax({
-                        url: "/swalReturn/"+appeals_id,
+    var dataStr = 'appeal_id='+ appeal_id;
+    $(document).one('click','.JustClick', function(e){
+        var appeals_id = appeal_id;
+        e.preventDefault(); // default action us stopped here
+             $.ajax({
+                        url: "/prisonHistory/"+appeals_id,
                         type: 'POST',
                         //dataType: 'application/json',
                         data: dataStr,
+                        cache: false,
                         success: function (data) {
                             Swal({
                                 title:'Prison History',
@@ -863,12 +863,9 @@ $(document).on('click','.editapp', function() {
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             swal("Error!", "Check your input,Please!", "error");
-                            $('.editapp').modal('hide');
                         }
                     });
                 });
-
-        
          $(document).on('click','.courts_submit', function() { 
                 var prison_name = $(app).find('select.prison_name option:selected').val();
                 var status_name = $(app).find('select.myselection option:selected').val();
@@ -876,10 +873,8 @@ $(document).on('click','.editapp', function() {
                 var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
                 var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_name + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant ;
                 console.log(dataString)
-
-
             $.ajax({
-                        url: "/testupdate/"+appeal_id,
+                        url: "/updateByHC/"+appeal_id,
                         type: 'POST',
                         //dataType: 'application/json',
                         data: dataString,
@@ -890,7 +885,7 @@ $(document).on('click','.editapp', function() {
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             swal("Error!", "Check your input,Please!", "error");
-                            window.location.reload();
+                            //window.location.reload();
                             $('.editapp').modal('hide');
                         }
                   });
@@ -898,33 +893,6 @@ $(document).on('click','.editapp', function() {
     });
 });
 </script>
-<script>
-// $(document).ready(function(){
-// var test = '1234'
 
-// document.getElementById('#JustClick').onclick = function() {
-//     Swal(
-//                 'Prison History',
-//                 'That thing is still around',
-//                 'info'
-//                 )
-// }​;​
-//$('a#JustClick').click(function(e){
-
-    // $.ajax({
-    //         //url: "ajaxserverpage.aspx?answer=5",
-    //         success: function(data){
-    //             //alert(data)
-    //             Swal(
-    //             'Prison History',
-    //             'That thing is still around'+appeal_id,
-    //             'info'
-    //             )
-    //          }
-    //       });
- 
-//})
-// });
-</script>
 
 

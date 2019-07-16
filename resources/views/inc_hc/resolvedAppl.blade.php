@@ -124,44 +124,45 @@
                 </div>
     
                 <div class="modal-body text-left">
-                <div class="md-form mb-12">
-                    <div class="row">  
-                        <div class="col-md-4">
-                            <div class="form-group">
-                              <label class="bmd-label-floating text-info" style="font-size: 14px;">Appeal ID</label>
-                              <input type="text" name="appeal_id" value="{{ $appeal->id }}" class="form-control" readonly>
-                            </div>
-                          </div>
+                  <div class="md-form mb-12">
+                      <div class="row">  
                           <div class="col-md-4">
-                                <div class="form-group">
-                                  <label class="bmd-label-floating text-info" style="font-size: 14px;">Case NO</label>
-                                  <input type="text" name="case_no" value="{{$appeal->case_no}}" class="form-control" disabled>
-                                </div>
+                              <div class="form-group">
+                                <label class="bmd-label-floating text-info" style="font-size: 14px;">Appeal ID</label>
+                                <input type="text" name="appeal_id" id="appeal_id" value="{{ $appeal->id }}" class="form-control" readonly>
                               </div>
-                              <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
                                   <div class="form-group">
-                                    <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name</label><br>
-                                    {{-- <input type="text" name="prisoner_name" value="{{$appeal->prison_name}}" class="form-control" disabled> --}}
-
-                                    <select name="prison_name" class="browser-default custom-select">
-                                      @foreach ($prisonName as $pname)
-                                          <option value="{{ $pname->id }}" <?php if($pname->id == $appeal->prison_id) echo 'selected="selected"';?>>{{ $pname->name }}</option>
-                                      @endforeach
-                                    </select>
+                                    <label class="bmd-label-floating text-info" style="font-size: 14px;">Case NO</label>
+                                    <input type="text" name="case_no" id="case_no" value="{{$appeal->case_no}}" class="form-control" disabled>
                                   </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                      <label class="bmd-label-floating text-info" style="font-size: 14px;">Offence Name</label>
-                                      <input type="text" name="offence_name" value="{{$appeal->offence_name}}" class="form-control" disabled>
+                                      <label class="bmd-label-floating text-info" style="font-size: 14px;">Prison Name <span><a href="#" class="JustClick" id="JustClick"><i class="material-icons">info</i></a></span></label><br>
+  
+                                      <select name="prison_name" id="prison_name" class="browser-default custom-select prison_name">
+                                        @foreach ($prisonName as $pname)
+                                            <option value="{{ $pname->id }}" <?php if($pname->id == $appeal->prison_id) echo 'selected="selected"';?>>{{ $pname->name }}</option>
+                                        @endforeach
+                                      </select>
                                     </div>
                                   </div>
                                   <div class="col-md-4">
                                       <div class="form-group">
-                                        <label class="bmd-label-floating text-info" style="font-size: 14px;">Prisoner Name</label>
-                                        <input type="text" name="prisoner_name" value="{{$appeal->prisoner_name}}" class="form-control" disabled>
+                                        <label class="bmd-label-floating text-info" style="font-size: 14px;">Offence Name</label>
+                                        <input type="text" name="offence_name" id="offence_name" value="{{$appeal->offence_name}}" class="form-control" disabled>
                                       </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                          <label class="bmd-label-floating text-info" style="font-size: 14px;">Prisoner Name</label>
+                                          <input type="text"  name="prisoner_name" id="prisoner_name" value="{{$appeal->prisoner_name}}" class="form-control" disabled>
+                                        </div>
+                                      </div>
+   
+                              
                                     
                                     {{-- <div class="col-md-4">
                                         <div class="form-group">
