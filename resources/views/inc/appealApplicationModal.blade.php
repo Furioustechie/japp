@@ -72,18 +72,40 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="bmd-label-floating">{{ __('labels.offence_Type') }}</label>
-                                <select class="browser-default custom-select" name="offencetype" required>
-                                    <option selected value="">Please Select..</option>
-                                    @foreach ($offence_name as $offence_names)
-                                    <option value="{{ $offence_names->id }}">{{ $offence_names->name }}</option>
-                                    @endforeach
-                                   
-                                </select>
-                            </div>
+                        <div class="col-md-12">
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">{{ __('labels.offence_details') }}</legend>
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">{{ __('labels.offence_act') }}</label>
+                                                        <select class="browser-default custom-select" name="offencetype" id="act" required>
+                                                            <option selected value="">Please Select..</option>
+                                                            @foreach ($acts as $act)
+                                                            <option value="{{ $act->id }}">{{ $act->name }}</option>
+                                                            @endforeach
+                                                           
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">{{ __('labels.offence_section') }}</label>
+                                                            <select class="browser-default custom-select" name="offencetype" id="section" required>
+                                                                {{-- <option selected value="">Please Select..</option>
+                                                                @foreach ($sections as $section)
+                                                                <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                                                @endforeach --}}
+                                                               
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    <div><label for="sentenceType" id="completeSentence" style="color:black"></label>
+                                </div>
+                            </fieldset>
                         </div>
+                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">{{ __('labels.sentence_Type') }}</label>
@@ -245,6 +267,41 @@ if(district_id == ""){
         }
     });}
 });
+$("#act").change(function(){
+    var act_id = $(this).val();
+    //console.log(act_id);
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 
+    $.ajax({
+        url: '/dynamicSectionList/'+ act_id,
+        type: 'post',
+        //data: {district_id},
+        dataType: 'json',
+        success:function(response){
+            var len = response.length;
+            $("#section").empty();
+            for( var i = 0; i<len; i++){
+                var id = response[i]['id'];
+                var name = response[i]['name'];
+                $("#section").append("<option value='"+id+"'>"+name+"</option>");
+            }
+        }
+    });
+});
 });
 </script>
+<script>
+        $(document).ready(function(){
+            $('#section').change(function(){
+                var act = $('select#act option:selected').text();
+                var section = $('select#section option:selected').text();
+                $('#completeSentence').html('Offence is: '+act+' '+section);
+        });
+        
+        });
+</script>
+

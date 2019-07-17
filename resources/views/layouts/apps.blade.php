@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
-    <!-- CSS Style Sheet -->
     @include('inc.style')
-    <!-- End CSS Style Sheet -->
     <style type="text/css">
-
         .preloader 
         {
             position: fixed;
@@ -28,13 +24,11 @@
                 display:none;
                 }     
                 .modal-backdrop {
-  z-index: -51;
-}        
+                z-index: -51;
+                }        
           </style>
-</head>
 
-<style>
-            
+        <style>        
         .zoom {
           transition: transform .2s;
           width: '100%';
@@ -83,9 +77,8 @@
                
         });
         </script>
-
+</head>
 <body class="">
-
     @include('inc.modals')
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -96,8 +89,6 @@
     -->
             <div class="logo">
                 <a href="#" class="simple-text logo-normal animated onece slideInLeft"><img src="{{URL::asset('assets/img/logo.png')}}">{{ __('labels.logo_title') }}</a>
-
-
             </div>
             <div class="sidebar-wrapper">
                 <!-- Side Navbar -->
@@ -182,7 +173,7 @@
                                 </div>
                             </div></a>
                         </div>
-                    </div>
+                    
                     
                     <div class="row show_datespan">
                         <div class="col-md-12">
@@ -420,33 +411,31 @@
                                         </div>
                                     </div>
                                 </div>
+                    <!-----Block for All Application Deatils ------->
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">TO DO</h4>
+                            <p class="card-category">Deatils Of TODO</p>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <input type="text" placeholder="Search by - CaseNO or PrisonName or ID" name="search" id="search"  class="form-control">
+                                </div>
+                            <div id="data_allRecords">
+                                    @include('inc_hc.allRecords')
+                                </div>
                             </div>
                         </div>
-<!-----Block for All Application Deatils ------->
-
-<div class="col-lg-12 col-md-12">
-    <div class="card">
-        <div class="card-header card-header-info">
-            <h4 class="card-title">TO DO</h4>
-            <p class="card-category">Deatils Of TODO</p>
-        </div>
-        <div class="card-body">
-            <div>
-                <input type="text" placeholder="Search by - CaseNO or PrisonName or ID" name="search" id="search"  class="form-control">
+                    </div>
             </div>
-                <div id="data_allRecords">
-            @include('inc_hc.allRecords')
-       </div>
-    </div>
         </div>
     </div>
 </div>
-
 <!-----End Of Block for All Application Deatils ------->
-                    </div>
-                </div>
-            </div>
-            <!-- -->
+                    
+ <!-- -->
             <div class="modal fade" id="edit_appeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content ">
@@ -467,55 +456,20 @@
                   </div>
                 </div>
               </div>
-            <footer class="footer">
-                @include('inc.footer')
-            </footer>
+
+                    @include('sweet::alert')
+                <footer class="footer">
+                    @include('inc.footer')
+                </footer>
+            </div>
         </div>
-    </div>
-    @include('inc.scriptstyle')
-
-    
-                                                      <!-- Modal -->
-                                                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                              <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                  <h5 class="modal-title" id="exampleModalLabel">Compose Reminder</h5>
-                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                  </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                  ...
-                                                                  <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                          <label class="bmd-label-floating text-info" style="font-size: 14px;">Content</label>
-                                                                          <input type="text" name="name" value="content" class="form-control" disabled>
-                                                                        </div>
-                                                                      </div>
-                                                                      <div class="col-md-12">
-                                                                          <div class="form-group">
-                                                                            <label class="bmd-label-floating text-info" style="font-size: 14px;">Case NO</label>
-                                                                            <input type="text" name="name" value="case no" class="form-control" disabled>
-                                                                          </div>
-                                                                        </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                  <button type="button" class="btn btn-primary">Send</button>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                          @include('sweet::alert')
-
-                                                        </body> 
+        @include('inc.scriptstyle')
+    </body> 
                                                         
     <script>
         $(document).ready(function () {
             // Javascript method's body can be found in assets/js/demos.js
             md.initDashboardPageCharts();
-
         });
 
     </script>
@@ -723,7 +677,6 @@
      
     });
     </script>
-     // Script for Resolved Application
      <script>
     $(document).ready(function(){
     
@@ -752,7 +705,6 @@
     });
     </script>
 
-// Script for All Records 
 <script>
 $(document).ready(function(){
     $.ajaxSetup({
@@ -866,7 +818,7 @@ $(document).on('click','.editapp', function() {
                         }
                     });
                 });
-         $(document).on('click','.courts_submit', function() { 
+         $(document).one('click','.courts_submit', function() { 
                 var prison_name = $(app).find('select.prison_name option:selected').val();
                 var status_name = $(app).find('select.myselection option:selected').val();
                 var state = $(app).find('select.state option:selected').val();
@@ -880,7 +832,7 @@ $(document).on('click','.editapp', function() {
                         data: dataString,
                         success: function (data) {
                             swal("Done!","It was succesfully updated!","success");
-                            window.location.reload();
+                            //window.location.reload();
                             $('.editapp').modal('hide');
                         },
                         error: function (xhr, ajaxOptions, thrownError) {

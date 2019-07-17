@@ -17,6 +17,8 @@ use App\prisoner_transfer_history;
 use App\Status;
 use App\Appealstatus;
 use App\User;
+use App\Sections;
+use App\Acts;
 use App\Prison;
 use App\Sentence;
 use DB;
@@ -364,10 +366,7 @@ public function update(Request $request, $id) //Update AppealStatus Table
 
         ]);
     //     $update_prisonName = Newappeal::where('id', '=', $request->input('appeal_id') )->first();
-       
-
-       
-    //    $update_prisonName->prisonid = $request->input('prison_name');
+    //     $update_prisonName->prisonid = $request->input('prison_name');
     //           $update_prisonName->save();
               // dd( $update_prisonName);
       /*-----------------Notification From High Court To Prison--------------------------------------- */
@@ -1207,6 +1206,10 @@ return view('test');
     $courts_Name = DB::Select('SELECT id,name_en FROM courts WHERE disid = "'.$district_id.'"');
     echo json_encode($courts_Name);
  }
+ public function dynamicSectionList($act_id){
+    $sections = DB::Select('SELECT id,name FROM law_section WHERE act_id = "'.$act_id.'"');
+    echo json_encode($sections);
+ }
     public function prisonHistory(Request $request){
         $id =  $request->appeal_id; 
        $mydata = DB::Select('SELECT case_no,prison_id,appeal_no,ph.updated_at,prisoner.prisoner_name as prname,prisons.name prison_Name FROM prisoner_transfer_history ph
@@ -1245,6 +1248,9 @@ return view('test');
         }
 
        
-    }      
+    }  
+    public function all_sections(){
+        $all_sections = DB::Sections();
+    }    
 
 }

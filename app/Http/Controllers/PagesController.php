@@ -13,6 +13,8 @@ use App\Document;
 use App\Newappeal;
 use App\Status;
 use App\Appealstatus;
+use App\Sections;
+use App\Acts;
 use DB;
 use Gate;
 use App\Notifications\jappNotification;

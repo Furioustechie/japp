@@ -130,6 +130,7 @@ Route::get('/abc/{id}', 'AppealsController@abc');
 Route::get('/hc_details', ['as'=>'get.data6','uses'=>'AppealsController@getDetail']);
 //Route::get('/testt', ['as'=>'get.data7','uses'=>'AppealsController@testt']);
 Route::post('/dynamicCourtsList/{district_id}', 'AppealsController@dynamicCourtsList');
+Route::post('/dynamicSectionList/{act_id}', 'AppealsController@dynamicSectionList');
 Route::any('/search','AppealsController@search');
 Route::post('/search/{id}','AppealsController@search');
 Route::any('/searchs','AppealsController@searchbyID');

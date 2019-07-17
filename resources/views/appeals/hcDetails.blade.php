@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   @include('inc.style')
   <style>
 .myDiv{
 	display:none;
 }  
-
 </style>
-
 </head>
-
-<body class="">
-    
+<body class="">   
  {{-- @include('inc.navbar') --}}
  @include('inc.messages')
  {{-- @include('inc.modals') --}}
@@ -25,9 +20,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo">
-        <a href="#" class="simple-text logo-normal"><img src="assets/img/logo.png">Jail Appeal</a> 
-        
-          
+        <a href="#" class="simple-text logo-normal"><img src="assets/img/logo.png">Jail Appeal</a>     
       </div>
       <div class="sidebar-wrapper">
           @include('inc.sidenav')
@@ -54,11 +47,9 @@
                           @csrf();
                         <button type="submit" name="btn_search" class="btn btn-primary"><i class="material-icons">search</i></button>
                         </span>
-                        
                         </form>
                     </div>
                 <div>
-            
                  <div class="card-body">
                   <div class="table-responsive">
 				            <table class="table table-hover table-light display nowrap" id="dataTable_no" cellspacing="0" style="width: auto !important">
@@ -417,7 +408,6 @@
                       </tbody>
                     </table>
                     <div class="col-md-5 offset-md-5">  {{ $appDetails->links() }}</div>
-                  
                   </div>
                 </div>
               </div>

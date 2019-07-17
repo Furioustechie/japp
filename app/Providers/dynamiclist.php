@@ -11,6 +11,8 @@ use App\Notification;
 use App\Prison;
 use App\Appealstatus;
 use App\Application;
+use App\Sections;
+use App\Acts;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -62,6 +64,14 @@ class dynamiclist extends ServiceProvider
         
         view()->composer('*',function($view){
             $view->with('notifyme', Notification::all());
+
+        });
+        view()->composer('*',function($view){
+            $view->with('acts', Acts::all());
+
+        });
+        view()->composer('*',function($view){
+            $view->with('sections', Sections::all());
 
         });
         
