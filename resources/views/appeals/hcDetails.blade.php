@@ -56,7 +56,7 @@
                       <thead class=" text-primary" style="white-space: nowrap">
                         <th>ID</th>
                         <th>Case No</th>
-                        <th>Offence</th>
+                        <th>Act</th>
                         <th>Prison Name</th>
                         {{-- <th>Appealed On</th> --}}
                         <th>Status</th>
@@ -65,7 +65,7 @@
 					  <tfoot class="text-primary">
 					            	<th>ID</th>
                         <th>Case No</th>
-                        <th>Offence</th>
+                        <th>Act</th>
                         <th>Prison Name</th>
                         {{-- <th>Appealed On</th> --}}
                         <th>Status</th>
@@ -77,7 +77,7 @@
                         <tr>
                           <td>{{$appeal->id}}</td>
                           <td>{{$appeal->case_no}}</td>
-                          <td>{{$appeal->offence_name}}</td>
+                          <td>{{$appeal->act_name}}</td>
                           <td>{{$appeal->prison_name}}</td>
                           <td>
                                                                 <ol class="etapier">
@@ -215,8 +215,8 @@
                                                   </div>
                                                   <div class="col-md-4">
                                                       <div class="form-group">
-                                                        <label class="bmd-label-floating text-info" style="font-size: 14px;">Offence Name</label>
-                                                        <input type="text" name="offence_name" value="{{$appeal->offence_name}}" class="form-control" disabled>
+                                                        <label class="bmd-label-floating text-info" style="font-size: 14px;">Act Name</label>
+                                                        <input type="text" name="act_name" value="{{$appeal->act_name}}" class="form-control" disabled>
                                                       </div>
                                                     </div>
                                                     <div class="col-md-4">

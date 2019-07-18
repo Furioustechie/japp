@@ -153,8 +153,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                              <label class="bmd-label-floating text-info" style="font-size: 14px;">Offence Name</label>
-                                              <input type="text" name="offence_name" id="offence_name" value="{{$appeal->offence_name}}" class="form-control" disabled>
+                                              <label class="bmd-label-floating text-info" style="font-size: 14px;">Act Name</label>
+                                              <input type="text" name="act_name" id="act_name" value="{{$appeal->act_name}}" class="form-control" disabled>
                                             </div>
                                           </div>
                                           <div class="col-md-4">

@@ -53,10 +53,10 @@ class AppealsController extends Controller
         //$document = Document::all();
         //$doctype = Doctype::all();
         $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                         law_acts.name as act_name, courts.name_en as court_name, na.privacy
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
-                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN law_acts ON na.act_id  = law_acts.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
@@ -99,13 +99,13 @@ class AppealsController extends Controller
           
           $appDetails = DB::table('newappeals AS na')
           ->join('prisons', 'na.prisonid', '=', 'prisons.id')
-          ->join('offences', 'na.offenceid', '=', 'offences.id')
+          ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
           ->join('courts', 'na.courtid', '=', 'courts.id')
           ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
           ->join('cases', 'cases.id', '=', 'na.caseid')
 
           ->select('na.id', 'na.prisonid', 'prisons.id AS prison_id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
-          'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy')
+          'law_acts.name AS act_name', 'courts.name_en AS court_name', 'na.privacy')
           ->paginate(10);
           $showlog = DB::table('notifications');
         $send['appeals']=$appeals;
@@ -224,7 +224,8 @@ DB::table('newappeals')->insert([
     'courtid' => $request->input('sentencingcourt'), 
     'appeals_to_courtid' => $request->input('appeals_to_court'), 
     'caseid' => $casesNxtId, 
-    'offenceid' => $request->input('offencetype'),
+    'act_id' => $request->input('act_name'),
+    'section_id' => $request->input('section_name'),
     'sentenceid' => $request->input('sentencetype'), 
     'resultsid' => 1,
     'user_id' => Auth::user()->id, 
@@ -625,10 +626,10 @@ public function updateByHC(Request $request,$id)
         //$document = Document::all();
         //$doctype = Doctype::all();
         $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         offences.name as offence_name, courts.name_en as court_name, na.privacy
+                                         law_acts.name as act_name, courts.name_en as court_name, na.privacy
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
-                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN law_acts ON na.act_id  = law_acts.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
@@ -639,29 +640,29 @@ public function updateByHC(Request $request,$id)
           //$string = implode(' ', $timeInterval);
 
           $appDetails_thisYear = DB::table('thisyearappealforprison')
-          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
           ->where('thisyearappealforprison.prison_id', $prison_id )
-          ->paginate(2);
+          ->paginate(5);
 
           $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
-          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name','states')
+          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name','states')
           ->where('pendingforcc_prison.prison_id', $prison_id )
-          ->paginate(2);
+          ->paginate(5);
           $count_incompleteApplication_Prison = DB::table('pendingforcc_prison')->where('prison_id',$prison_id)->count();
 
           $appDetails_appealResolved_Prison = DB::table('appealresolved_prison')
-          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+          ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
           ->where('appealresolved_prison.prison_id', $prison_id )
-          ->paginate(1);
+          ->paginate(5);
 
 
 
           //dd($string);
           $appDetails_thisYear1 = DB::select('SELECT na.id, prisons.id as prison_id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-          offences.name as offence_name, courts.name_en as court_name, na.privacy
+          law_acts.name as act_name, courts.name_en as court_name, na.privacy
                     FROM newappeals na
                     INNER JOIN prisons ON na.prisonid = prisons.id
-                    INNER JOIN offences ON na.offenceid  = offences.id
+                    INNER JOIN law_acts ON na.act_id  = law_acts.id
                     INNER JOIN courts ON na.courtid  = courts.id
                     INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                     INNER JOIN cases ON cases.id = na.caseid
@@ -693,9 +694,9 @@ public function updateByHC(Request $request,$id)
      if($request->ajax())
      {
         $appDetails_thisYear = DB::table('thisyearappealforprison')
-        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
         ->where('thisyearappealforprison.prison_id',$prison_id )
-        ->paginate(2);
+        ->paginate(5);
       return view('inc_prison.thisYearData', compact('appDetails_thisYear'))->render();
      }
     }
@@ -705,9 +706,9 @@ public function updateByHC(Request $request,$id)
      if($request->ajax())
      {
         $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
-        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name','states')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name','states')
         ->where('pendingforcc_prison.prison_id', $prison_id )
-        ->paginate(2);
+        ->paginate(5);
       return view('inc_prison.appealIncomplete', compact('appDetails_pendingForCC_Prison'))->render();
      }
     }
@@ -723,10 +724,10 @@ public function updateByHC(Request $request,$id)
         $test = Appealstatus::all();
       
         $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         offences.name as offence_name, courts.name_en as court_name, na.privacy, appealstatus.id as appsid
+                                         law_acts.name as act_name, courts.name_en as court_name, na.privacy, appealstatus.id as appsid
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
-                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN law_acts ON na.act_id  = law_acts.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
@@ -754,10 +755,10 @@ public function abc(request $request ,$id){
     $status_name = DB::select('SELECT * FROM status');
 
     $appDetail = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         offences.name as offence_name, courts.name_en as court_name, appealstatus.id as appsid
+                                         law_acts.name as act_name, courts.name_en as court_name, appealstatus.id as appsid
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
-                                  INNER JOIN offences ON na.offenceid  = offences.id
+                                  INNER JOIN law_acts ON na.act_id  = law_acts.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
@@ -855,9 +856,9 @@ public function abc(request $request ,$id){
         echo '<label class="label text-success font-weight-bold" for="">Prisoner Name</label>';
         echo '</div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<input type="text" class="form-control" id="offence_name" name="offence_name" value="'.$t->offence_name.'"';
+        echo '<input type="text" class="form-control" id="act_name" name="act_name" value="'.$t->act_name.'"';
         echo 'disabled>';
-        echo '<label class="label text-success font-weight-bold" for="">Offence Name</label>';
+        echo '<label class="label text-success font-weight-bold" for="">Act Name</label>';
         echo '</div>';
         echo '<div class="md-form form-group mt-2">';
         echo '<input type="text" class="form-control" id="case_no" name="case_no" value="'.$t->case_no.'"';
@@ -1021,13 +1022,13 @@ public function search(Request $request ){
             //dd($search);
             $appDetails = DB::table('newappeals AS na')
             ->join('prisons', 'na.prisonid', '=', 'prisons.id')
-            ->join('offences', 'na.offenceid', '=', 'offences.id')
+            ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
             ->join('courts', 'na.courtid', '=', 'courts.id')
             ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
             ->join('cases', 'cases.id', '=', 'na.caseid')
     
             ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
-            'offences.name AS offence_name', 'courts.name_en AS court_name', 'na.privacy','prisons.id AS prison_id')
+            'law_acts.name AS act_name', 'courts.name_en AS court_name', 'na.privacy','prisons.id AS prison_id')
             ->where('na.id', 'like', '%'.$search.'%')
             ->orWhere('prisons.name', 'like', '%'.$search.'%')
             ->orWhere('cases.caseno', 'like', '%'.$search.'%')
@@ -1049,7 +1050,7 @@ public function searchbyID( Request $request ){
         //dd($search);
         $appDetails = DB::table('newappeals AS na')
             ->join('prisons', 'na.prisonid', '=', 'prisons.id')
-            ->join('offences', 'na.offenceid', '=', 'offences.id')
+            ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
             ->join('courts', 'na.courtid', '=', 'courts.id')
             ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
             ->join('cases', 'cases.id', '=', 'na.caseid')
@@ -1059,7 +1060,7 @@ public function searchbyID( Request $request ){
                 'prisons.name AS prison_name',
                 'prisoner.prisoner_name AS prisoner_name',
                 'cases.caseno AS case_no',
-                'offences.name AS offence_name',
+                'law_acts.name AS act_name',
                 'courts.name_en AS court_name',
                 'na.privacy',
                 'prisons.id AS prison_id'
@@ -1078,23 +1079,20 @@ public function searchbyID( Request $request ){
     //}
 }
 
+    public function hc_appeal_details(){
 
-        public function hc_appeal_details(){
-
-            return 'Nothing' ;
-        }
+        return 'Nothing' ;
+    }
 
         public function getDetail()
         {
-           
-            
-            $user_id = Auth::user()->id;
+          $user_id = Auth::user()->id;
           $appeals = Appeal::all();
           $appDetails = DB::table('newappeals AS na')
           ->select('na.id','cases.caseno AS case_no', 'prisons.name AS prison_name')
 
           ->join('prisons', 'na.prisonid', '=', 'prisons.id')
-          ->join('offences', 'na.offenceid', '=', 'offences.id')
+          ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
           ->join('courts', 'na.courtid', '=', 'courts.id')
           ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
           ->join('cases', 'cases.id', '=', 'na.caseid')
@@ -1119,14 +1117,14 @@ public function searchbyID( Request $request ){
         public function testonly()
         {
            
-            $status_name = Status::all();
+          $status_name = Status::all();
             $user_id = Auth::user()->id;
           $appeals = Appeal::all();
           $appDetails = DB::table('newappeals AS na')
           ->select('na.id','cases.caseno AS case_no', 'prisons.name AS prison_name')
 
           ->join('prisons', 'na.prisonid', '=', 'prisons.id')
-          ->join('offences', 'na.offenceid', '=', 'offences.id')
+          ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
           ->join('courts', 'na.courtid', '=', 'courts.id')
           ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
           ->join('cases', 'cases.id', '=', 'na.caseid')

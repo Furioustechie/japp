@@ -477,7 +477,7 @@
       $('#dataTable_Details').dataTable( {
         "deferRender": true,
         "order": [[ 0, "desc" ]],
-        "pageLength": 2
+        "pageLength": 5
 } );
       </script>
 <script>

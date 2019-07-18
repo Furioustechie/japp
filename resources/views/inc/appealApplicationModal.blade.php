@@ -79,7 +79,7 @@
                                             <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="bmd-label-floating">{{ __('labels.offence_act') }}</label>
-                                                        <select class="browser-default custom-select" name="offencetype" id="act" required>
+                                                        <select class="browser-default custom-select" name="act_name" id="act" required>
                                                             <option selected value="">Please Select..</option>
                                                             @foreach ($acts as $act)
                                                             <option value="{{ $act->id }}">{{ $act->name }}</option>
@@ -91,7 +91,7 @@
                                                 <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="bmd-label-floating">{{ __('labels.offence_section') }}</label>
-                                                            <select class="browser-default custom-select" name="offencetype" id="section" required>
+                                                            <select class="browser-default custom-select" name="section_name" id="section" required>
                                                                 {{-- <option selected value="">Please Select..</option>
                                                                 @foreach ($sections as $section)
                                                                 <option value="{{ $section->id }}">{{ $section->name }}</option>

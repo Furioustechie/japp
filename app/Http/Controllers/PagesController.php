@@ -176,10 +176,10 @@ foreach($totalByStatus as $byStatus){
         }
         $sttotal= substr($sttotal,0, -1);
 
-        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name_en as court_name
+        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, law_acts.name as act_name, courts.name_en as court_name
         FROM newappeals na
         INNER JOIN prisons ON na.prisonid = prisons.id
-          INNER JOIN offences ON na.offenceid  = offences.id
+          INNER JOIN law_acts ON na.act_id  = law_acts.id
           INNER JOIN courts ON na.courtid  = courts.id
           INNER JOIN documents ON na.id = documents.appealid
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
@@ -189,21 +189,21 @@ foreach($totalByStatus as $byStatus){
     $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'asc')->paginate(5);
 
     $overdue_hc = DB::table('overdue_hc')
-    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     ->where('overdue_hc.mydate', '>', 10 )
     ->Where('overdue_hc.statusid', '!=', 10 )
-    ->paginate(2);
+    ->paginate(5);
 
     $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
-    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('pendingforcc_prison.prison_id', $prison_id )
-    ->paginate(2);
+    ->paginate(5);
     $count_incompleteApplication_ForHC = DB::table('pendingforcc_prison')->count();
 
     $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
-    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('appealresolved_prison.prison_id', $prison_id )
-    ->paginate(2);
+    ->paginate(5);
 
         $send['count']=$countAppeals;
         //$send['count1']=$lastYearAppeals;
@@ -350,32 +350,32 @@ foreach($totalByStatus as $byStatus){
         }
         $sttotal= substr($sttotal,0, -1);
 
-        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, offences.name as offence_name, courts.name_en as court_name
+        $appStat = DB::select('SELECT na.id, prisons.name,prisoner.prisoner_name as prisoner_name, law_acts.name as act_name, courts.name_en as court_name
         FROM newappeals na
         INNER JOIN prisons ON na.prisonid = prisons.id
-          INNER JOIN offences ON na.offenceid  = offences.id
+          INNER JOIN law_acts ON na.act_id  = law_acts.id
           INNER JOIN courts ON na.courtid  = courts.id
           INNER JOIN documents ON na.id = documents.appealid
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
 
 
     $overdue_hc = DB::table('overdue_hc')
-    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     ->where('overdue_hc.mydate', '>', 10 )
     ->Where('overdue_hc.statusid', '!=', 10 )
-    ->paginate(2)
+    ->paginate(5)
     ->setPageName('other_page');
 
     $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
-    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('pendingforcc_prison.prison_id', $prison_id )
-    ->paginate(2);
+    ->paginate(5);
     $count_incompleteApplication_ForHC = DB::table('pendingforcc_prison')->count();
 
     $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
-    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+    ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('appealresolved_prison.prison_id', $prison_id )
-    ->paginate(2);
+    ->paginate(5);
 
         $send['count']=$countAppeals;
         $send['overdue_count']=$overdue_count;
@@ -419,10 +419,10 @@ foreach($totalByStatus as $byStatus){
      if($request->ajax() )
      {
         $overdue_hc = DB::table('overdue_hc')
-        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
         ->where('overdue_hc.mydate', '>', 10 )
         ->where('overdue_hc.statusid', '!=', 10 )
-        ->paginate(2);
+        ->paginate(5);
       return view('inc_hc.overdue', compact('overdue_hc'))->render();
      }
     }
@@ -432,9 +432,9 @@ foreach($totalByStatus as $byStatus){
      if($request->ajax())
      {
         $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
-        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
         //->where('pendingforcc_prison.prison_id', $prison_id )
-        ->paginate(2);
+        ->paginate(5);
       return view('inc_hc.incompleteAppl', compact('incompleteApplication_ForHC'))->render();
      }
     }
@@ -444,9 +444,9 @@ foreach($totalByStatus as $byStatus){
      if($request->ajax())
      {
         $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
-        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','offence_name', 'court_name')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
         //->where('appealresolved_prison.prison_id', $prison_id )
-        ->paginate(2);
+        ->paginate(5);
       return view('inc_hc.resolvedAppl', compact('appDetails_appealResolved_ForHC'))->render();
      }
     }
