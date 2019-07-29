@@ -755,14 +755,15 @@ public function abc(request $request ,$id){
     $status_name = DB::select('SELECT * FROM status');
 
     $appDetail = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         law_acts.name as act_name, courts.name_en as court_name, appealstatus.id as appsid
+                                         law_acts.name as act_name,law_section.name as section_name,courts.name_en as court_name, appealstatus.id as appsid
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
                                   INNER JOIN law_acts ON na.act_id  = law_acts.id
+                                  INNER JOIN law_section ON na.section_id  = law_section.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
-                                  INNER JOIN appealstatus ON appealstatus.newappeals_id = na.id 
+                                  LEFT JOIN appealstatus ON appealstatus.newappeals_id = na.id 
                                   WHERE na.id = "'.$id.'"
                                   ORDER BY appealstatus.id DESC
                                   LIMIT 1'  
@@ -856,9 +857,9 @@ public function abc(request $request ,$id){
         echo '<label class="label text-success font-weight-bold" for="">Prisoner Name</label>';
         echo '</div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<input type="text" class="form-control" id="act_name" name="act_name" value="'.$t->act_name.'"';
+        echo '<input type="text" class="form-control" id="act_name" name="act_name" value="'.$t->act_name.' '.$t->section_name.'"';
         echo 'disabled>';
-        echo '<label class="label text-success font-weight-bold" for="">Act Name</label>';
+        echo '<label class="label text-success font-weight-bold" for="">Offence Details</label>';
         echo '</div>';
         echo '<div class="md-form form-group mt-2">';
         echo '<input type="text" class="form-control" id="case_no" name="case_no" value="'.$t->case_no.'"';
