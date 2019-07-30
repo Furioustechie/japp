@@ -11,8 +11,8 @@
         
             <tbody>
     
-                @if(count($appDetails_thisYear) > 0)
-                @foreach($appDetails_thisYear as $appeal)
+                @if(count($overdue_prison) > 0)
+                @foreach($overdue_prison as $appeal)
                 <tr>
                     <td>{{ $appeal->id }}</td>
                     <td>{{$appeal->case_no}}</td>
@@ -84,7 +84,7 @@
                 @endif
             </tbody>
         </table>
-        <div class="col-md-5 offset-md-5">{{ $appDetails_thisYear->links() }}</div>
+        <div class="col-md-5 offset-md-5">{{ $overdue_prison->links() }}</div>
     </div> 
 
     

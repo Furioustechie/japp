@@ -29,7 +29,7 @@ return [
     'tab_onHearing' => 'On Hearing Stage',
     //prison
     'prison_totalAppeal' => 'Total Appeals',
-    'prison_thisYear' => 'This Year',
+    'prison_overDue' => 'Over Due Till To Date',
     //'prison_pendingForCC' => 'Pending for CC',
     'prison_appealResolved' => 'Appeals Resolved',
     'prison_seeAll' => 'See All',
@@ -54,7 +54,7 @@ return [
     'offence_details' => 'Offence Details',
     'offence_act' => 'Act',
     'offence_section' => 'Sections',
-    'sentence_Type' => 'Sentence Type',
+    'sentence_Type' => 'Sentence',
     'appeals_ToCourt' => 'Appeals To Court',
     'conviction_time' => 'Conviction Date',
     'dateOf_appeal' => 'Date Of Appeal',

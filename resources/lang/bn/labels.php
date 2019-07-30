@@ -29,7 +29,7 @@ return [
      'tab_onHearing' => 'শুনানি পর্যায়ে',
     //prison
     'prison_totalAppeal' => 'সর্বমোট আপিল',
-    'prison_thisYear' => 'সর্বমোট এই বছর',
+    'prison_overDue' => 'এখন পর্যন্ত বিলম্বিত',
     'prison_pendingForCC' => 'অসম্পূর্ণ বা ব্যর্থ আপিল',
     'prison_appealResolved' => 'সর্বমোট নিস্পত্তি',
     'prison_seeAll' => 'বিস্তারিত দেখুন',
@@ -54,7 +54,7 @@ return [
     'offence_details' => 'অপরাধের বিবরণ',
     'offence_act' => 'আইন',
     'offence_section' => 'অণুচ্ছেদ',
-    'sentence_Type' => 'দণ্ডাদেশের ধরন',
+    'sentence_Type' => 'দণ্ডাদেশ',
     'appeals_ToCourt' => 'আপীল আদালত',
     'conviction_time' => 'সাজা দেত্তয়ার ব্যাপ্তি',
     'dateOf_appeal' => 'আপিল এর তারিখ',

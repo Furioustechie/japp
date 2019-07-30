@@ -207,14 +207,35 @@ DB::table('prisoner')->insert([
                             DB::table('documents')->insert([
                                 ['appealid' => $nextId1, 
                                 'doctypeid' => $r[0], 
-                                'attached' => '1', 
+                                'attached' => '1', // It is optional and hardcoded
                                 //'filename' => $r[1].time(),
                                 'filename' => $r[1],
                                 'created_at' => date('Y-m-d h:s:i'),
                                 'updated_at' => date('Y-m-d h:s:i')]
                             ]);
                             
-                            }  
+                            }
+                            $sections = $request->input('section_name');//Receive value
+                            $sec_result = array();                      //initialize empty array
+                            $sec_values = array($sections);             //initialize array with received value
+                            foreach($sections as $index=>$key){         //loop through on received value and initialize in index variable with keys
+                                $sectios_arr = array();                 //initialize new empty array    
+                                foreach($sec_values as $val){           //again loop through recieved array value
+                                    $sectios_arr[] = $val[$index];      //store $index in new variable $val in array style
+                                }
+                                $sec_result[$key] = $sectios_arr;       //now store $keys into $sec_result variable which is initailized as empty array
+                            }
+                            // $result = array();
+                            foreach($sec_result as $section_val){
+                                
+                                DB::table('act_sections')->insert([
+                                    'appeal_id' => $nextId1,
+                                    'act_id' => $request->input('act_name'),
+                                    'section_id' => $section_val[0],
+                                    'created_at' => date('Y-m-d h:s:i'),
+                                    'updated_at' => date('Y-m-d h:s:i')
+                                ]);
+                            }
 
 // NewAppeals Table Data Insertion Block
 $casesNxtId = DB::table('cases')->max('id'); // For NEWAPPEALS Tables caseid Column
@@ -225,7 +246,7 @@ DB::table('newappeals')->insert([
     'appeals_to_courtid' => $request->input('appeals_to_court'), 
     'caseid' => $casesNxtId, 
     'act_id' => $request->input('act_name'),
-    'section_id' => $request->input('section_name'),
+    //'section_id' => $request->input('section_name'),
     'sentenceid' => $request->input('sentencetype'), 
     'resultsid' => 1,
     'user_id' => Auth::user()->id, 
@@ -643,7 +664,15 @@ public function updateByHC(Request $request,$id)
           ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
           ->where('thisyearappealforprison.prison_id', $prison_id )
           ->paginate(5);
+       
+          $overdue_prison = DB::table('overdue_hc')
+         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
+         ->where('overdue_hc.prison_id', '=', $prison_id)
+         ->Where('overdue_hc.statusid', '!=', 10 )
+         ->Where('overdue_hc.mydate', '>', 10 )
+         ->paginate(5);
 
+         $overduePrison_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE prison_id = '.$prison_id.' AND statusid !=10 AND mydate > 10');
           $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
           ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name','states')
           ->where('pendingforcc_prison.prison_id', $prison_id )
@@ -678,6 +707,9 @@ public function updateByHC(Request $request,$id)
         $send['count_incompleteApplication_Prison']=$count_incompleteApplication_Prison;
 
         $send['appDetails_thisYear']=$appDetails_thisYear;
+        $send['overdue_prison']=$overdue_prison;
+        $send['overduePrison_count']=$overduePrison_count;
+
         $send['appeals']=$appeals;
         $send['appDetails']=$appDetails;
         $send['district_name']=$district_name;
@@ -759,7 +791,9 @@ public function abc(request $request ,$id){
                                   FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
                                   INNER JOIN law_acts ON na.act_id  = law_acts.id
-                                  INNER JOIN law_section ON na.section_id  = law_section.id
+                                --   INNER JOIN law_section ON na.section_id  = law_section.id
+                                LEFT JOIN act_sections ON na.id = act_sections.appeal_id
+                                LEFT JOIN law_section ON law_section.id = act_sections.section_id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
@@ -891,12 +925,15 @@ public function abc(request $request ,$id){
         echo '<br>';
         echo '<hr>';
 if($user_type == 'user'){
-    if($last_state[0]->state == 'red' && $last_state[0]->statusid == 2){
+    // print_r($last_state);
+    // exit;
+    if(@$last_state[0]->state == 'red' && @$last_state[0]->statusid == 2){
            
         echo '<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="options" unchecked required><span class="form-check-sign"><span class="check" name="check"></span></span><h5 style="color:red;">Requsted Documents Has Sent *</h5></label></div>';
         echo '<button type="submit" value="updateState" name="updateState">Update</button>';
         
     }
+    
 }
         
         echo '</form>';

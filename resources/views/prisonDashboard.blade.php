@@ -139,9 +139,9 @@
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
                                     </div>
-                                    <p class="card-category">{{ __('labels.prison_thisYear') }}</p>
+                                    <p class="card-category">{{ __('labels.prison_overDue') }}</p>
                                     <h3 class="card-title">
-                                            {{ $lastYearAppeals_byPrison[0]->totalAppeal }}
+                                            {{ $overduePrison_count[0]->totalAppeal }}
                                     </h3>
                                 </div>
                                 <div class="card-footer">
@@ -396,7 +396,9 @@
           $('.myselect').select2({
             placeholder: 'Select an option'
           });
-         
+          $('.section').select2({
+            placeholder: 'Select an option'
+          });
           
         });
     
@@ -489,7 +491,7 @@
             $.ajax({
                 url: "/abc/" + id,
                 method: "get",
-
+                cache: false,
                 data: {
                     id: id
                 },
@@ -523,9 +525,9 @@
      {
       $.ajax({
        url:"/prisonDashboard/fetch_data?page="+page,
-       success:function(appDetails_thisYear)
+       success:function(overdue_prison)
        {
-        $('#table_data').html(appDetails_thisYear);
+        $('#table_data').html(overdue_prison);
        }
       });
      }

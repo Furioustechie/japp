@@ -90,8 +90,8 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="bmd-label-floating">{{ __('labels.offence_section') }}</label>
-                                                            <select class="browser-default custom-select"  id="section" name="section_name[]" multiple="multiple" required>
+                                                            <label class="bmd-label-floating">{{ __('labels.offence_section') }}</label><br>
+                                                            <select class="browser-default custom-select section"  style="width:300px important!" id="section" name="section_name[]" multiple="multiple" required>
                                                                 {{-- <option selected value="">Please Select..</option>
                                                                 @foreach ($sections as $section)
                                                                 <option value="{{ $section->id }}">{{ $section->name }}</option>

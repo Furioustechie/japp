@@ -313,7 +313,7 @@
                                     @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
                                     <option value="">Please Select..</option>
                                     <option value="yellowgreen" >Yes, We did </option>
-                                    <option value="todo" >No, Reminder Sent</option>
+                                    <option value="red" >Incomplete, Reminder Sent</option>
                                    
                                     @elseif(@$last_state[0]->statusid == 3)
                                     <option value="">Please Select..</option>
