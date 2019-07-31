@@ -254,7 +254,7 @@
                            <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >{{ __('labels.create_appeal')}}</button>
                                
                                 <div class="table-responsive">
-                                                <table id="dataTable_Details" class="display nowrap dtr-inline" style="width:100%">
+                                                <table id="dataTable_Details" class="display nowrap dtr-inline browser-default" style="width:100%">
                                                     <thead class="text-primary">
                                                         <th>{{ __('labels.id') }}</th>
                                                         <th>{{ __('labels.case_no') }}</th>
@@ -394,10 +394,10 @@
                 dropdownParent: $('#filename')
             });
           $('.myselect').select2({
-            placeholder: 'Select an option'
+            placeholder: 'Please Select'
           });
           $('.section').select2({
-            placeholder: 'Select an option'
+            placeholder: 'Please Select'
           });
           
         });
@@ -473,14 +473,14 @@
                           .search( this.value )
                           .draw();
                   }
-              } );
-          } );
-      } );
-      $('#dataTable_Details').dataTable( {
-        "deferRender": true,
-        "order": [[ 0, "desc" ]],
-        "pageLength": 5
-} );
+              });
+          });
+      });
+//       $('#dataTable_Details').dataTable( {
+//         "deferRender": true,
+//         "order": [[ 0, "desc" ]],
+//         "pageLength": 5
+// } );
       </script>
 <script>
  $(document).ready(function () {

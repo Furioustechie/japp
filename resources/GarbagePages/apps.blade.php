@@ -49,8 +49,6 @@
     -->
             <div class="logo">
                 <a href="#" class="simple-text logo-normal"><img src="assets/img/logo.png">Jail Appeal</a>
-
-
             </div>
             <div class="sidebar-wrapper">
                 <!-- Side Navbar -->

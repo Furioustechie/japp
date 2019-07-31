@@ -71,7 +71,7 @@
               <a class="dropdown-item" style="background-color:cornflowerblue" href="/readnotify"> Mark All as Read</a>
               @if(auth()->user()->user_type=='admin')
               @foreach (auth()->user()->unreadNotifications as $notification)
-               <a class="dropdown-item" href="{{url('/hcDetails')}}">{{$notification->data['data']}}</a>
+               <a class="dropdown-item activeNotify" id="activeNotify"  href="{{url('/hcDetails')}}">{{$notification->data['data']}}</a>
               @endforeach
               @elseif(auth()->user()->user_type=='user')
               @foreach (auth()->user()->unreadNotifications as $notification)
@@ -122,3 +122,4 @@
       </div>
     </div>
   </nav>
+  

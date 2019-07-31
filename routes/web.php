@@ -110,6 +110,8 @@ Route::post('send/mail', 'mailController@sendemail');
 Route::post('send/sms', 'mailController@sendsms');
 Route::get('/notify', 'notifyController@notifyme');
 Route::get('/readnotify', 'notifyController@readnotify');
+//Route::get('/deletenotify', 'notifyController@deletenotify');
+
 Route::get('/read', 'pagesController@readnotify');
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
 //Auth::routes();
@@ -148,6 +150,8 @@ Route::get('testtable', 'PagesController@testtable');
 Route::get('testindex', 'PagesController@testindex');
 Route::post('updateByHC/{appeal_id}', 'AppealsController@updateByHC');
 Route::post('/prisonHistory/{appeal_id}', 'AppealsController@prisonHistory');
+Route::post('/notificationUpdate/{split_id}', 'PagesController@notificationUpdate');
+
 
 
 

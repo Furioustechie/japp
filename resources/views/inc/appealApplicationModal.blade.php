@@ -154,7 +154,7 @@
                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">{{ __('labels.doc_attachment') }}</label>
-                                <select class="browser-default custom-select myselect" id="doctype" name="doctype[]" multiple="multiple" required>
+                                <select class="browser-default custom-select myselect" style="width:300px important!" id="doctype" name="doctype[]" multiple="multiple" required>
                                     
                                         @foreach ($docname as $data)
                                                <option value="{{$data->id}}">{{$data->docname}} </option>

@@ -188,6 +188,7 @@ foreach($totalByStatus as $byStatus){
     // $appDetails_allRecords = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
     $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'asc')->paginate(5);
 
+
     $overdue_hc = DB::table('overdue_hc')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     ->where('overdue_hc.mydate', '>', 10 )
@@ -242,6 +243,18 @@ foreach($totalByStatus as $byStatus){
       
         
         
+    }
+    public function notificationUpdate(Request $request){
+        $case_id = $request->case_no;
+        //Test case for update from notification
+            $notification_Records = DB::table('all_appeals')->where('case_no','=',$case_id)->get();
+            $split = $notification_Records[0]->case_no;
+            echo $split;
+            Auth()->user()->unreadNotifications->first()->markAsRead();
+            //return redirect()->back();
+    //return view ('inc_hc.notifyedit', $notification_Records);
+
+    //end test case
     }
     public function dashboardStats(){
         if(!Gate::allows('isAdmin')){

@@ -416,8 +416,8 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-header card-header-info">
-                            <h4 class="card-title">TO DO</h4>
-                            <p class="card-category">Deatils Of TODO</p>
+                            <h4 class="card-title">Manage Your Appeals</h4>
+                            <p class="card-category">All Appeals Deatils</p>
                         </div>
                         <div class="card-body">
                             <div>
@@ -836,7 +836,7 @@ $(document).on('click','.editapp', function() {
                             $('.editapp').modal('hide');
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
-                            swal("Error!", "Check your input,Please!", "error");
+                            swal("Error!", "Check your input and remarks,Please!", "error");
                             //window.location.reload();
                             $('.editapp').modal('hide');
                         }
@@ -846,5 +846,43 @@ $(document).on('click','.editapp', function() {
 });
 </script>
 
+<script>
+    $(document).ready(function(){
+          $('a#activeNotify').click(function(e) {
+          e.preventDefault();
+          var txt = $(e.target).text();
+          var split_len = $(this).text().length;
+          var split_txt = $(this).text().split('(ON')[1];
+          var split_id = split_txt.split(')')[0];
+          var dt_str = 'case_no='+split_id;
+          console.log(txt,split_len,split_txt,split_id,dt_str);
 
+          $.ajax({
+                        url: "/notificationUpdate/"+split_id,
+                        //url: "/deletenotify/"+split_id
+                        type: 'POST',
+                        //dataType: 'application/json',
+                        data: dt_str,
+                        success: function (data) {
+                                Swal.fire({
+                                    title: "<i>Notes</i>", 
+                                    html: "Case No:"+data+"<br>In Prison For XX days<i>",  
+                                    confirmButtonText: "Ok",
+                                    });  
+                                    location.reload();                      
+                                },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            swal("Error!", "Check your input and remarks,Please!", "error");
+                         window.location.reload();
+                        }
+                  });
+          });
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $('a#activeNotify').click(function(e) {
+            window.location.reload();
+    });
+    </script>
 
