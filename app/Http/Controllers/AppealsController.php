@@ -184,7 +184,7 @@ DB::table('prisoner')->insert([
     $prisonerNxtId = DB::table('prisoner')->max('id'); // For PRISONER Tables Prisonerid Column
      // Cases Table Data Insertion Block
      DB::table('cases')->insert([
-        ['caseno' => $request->input('prisoner_no'), 
+        ['caseno' => $request->input('caseno'), 
             'created_at' => date('Y-m-d h:s:i'),
             'updated_at' => date('Y-m-d h:s:i')]
     ]);
@@ -285,8 +285,9 @@ DB::table('newappeals')->insert([
                         $applToUser = DB::table('newappeals')->where('id',$nextId1)->first();
                          // Get Appeal ID
                         $prison_name = DB::table('prisons')->where('id',$request->input('prison_id'))->first(); //Get Prison ID
-                        $msg='New Appeals From '.$prison_name->name; // Get Prison Name
-                        $arr=array('data'=> $msg, 'appeal_id' =>$applToUser->id);
+                        $caseno = $request->input('caseno');//Get case no
+                        $msg='New Appeals From '.$prison_name->name.'(On Cace:'.$caseno.')'; // Get Prison Name
+                        $arr=array('data'=> $msg, 'appeal_id' =>$applToUser->id,'case_id'=>$caseno);
                        // $auth_user_id= Auth::user()->id;
                         User::find($applToUser->appeals_to_courtid)->notify(new jappNotification($arr));
                         //$appeal->save();  Eloquant Insert
@@ -400,9 +401,9 @@ public function update(Request $request, $id) //Update AppealStatus Table
         //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
         $st_name = DB::table('status')->where('id',$request->input('status_id'))->first(); //Get StatusId
                     
-
+        $caseno = $casename->caseno;    
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-        $arr=array('data'=> $msg, 'appeal_id' => $appl->id);
+        $arr=array('data'=> $msg, 'appeal_id' => $appl->id,'case_id'=>$caseno);
         //dd($arr);
         $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
         //print_r($users);exit;
@@ -437,9 +438,9 @@ public function update(Request $request, $id) //Update AppealStatus Table
         //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
         $st_name = DB::table('status')->where('id',$request->input('status_id'))->first(); //Get StatusId
                     
-
+        $caseno = $casename->caseno; 
         $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-        $arr=array('data'=> $msg,'appeal_id'=>$appl->id);
+        $arr=array('data'=> $msg,'appeal_id'=>$appl->id,'case_id'=>$caseno);
        // $users = User::all()->where('prisonid',$appl->prisonid);
        $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
        //print_r($users);exit;
@@ -542,8 +543,9 @@ public function updateByHC(Request $request,$id)
      $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
      //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
      $st_name = DB::table('status')->where('id',$request->status_id)->first(); //Get StatusId
+     $caseno = $casename->caseno; 
      $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-     $arr=array('data'=> $msg, 'appeal_id' => $appl->id);
+     $arr=array('data'=> $msg, 'appeal_id' => $appl->id,'case_id'=>$caseno);
      //dd($arr);
      $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
      //print_r($users);exit;
@@ -864,46 +866,29 @@ public function abc(request $request ,$id){
         // echo '<form>';
         echo '<span class="col-md-5 offset-sm-1 border border-primary">';
         echo '<legend>Application Details</legend><br>';
-        echo '';
         echo '<form action="prisonDashboard/updateFromPrison" method="post"> <input type="hidden" name="_token" value="' . csrf_token() . '">';
         echo '<div class="md-form form-group mt-2">';
         echo '<input type="text" class="form-control" id="appStatus_id" name="appStatus_id" value="'.$t->appsid.'"';
-        //echo 'disabled>';
-        echo '<label class="label text-success font-weight-bold" for="">AppStatus ID</label>';
-        echo '</div>';
-        echo '<input type="text" class="form-control" id="appeal_id" name="appeal_id" value="'.$t->id.'"';
-        echo 'readonly>';
-        echo '<label class="label text-success font-weight-bold" for="">Appeal ID</label>';
-        echo '</div>';
+        echo '<label class="label text-success font-weight-bold" for="">AppStatus ID</label></div>';
+        echo '<input type="text" class="form-control" id="appeal_id" name="appeal_id" value="'.$t->id.'" readonly>';
+        echo '<label class="label text-success font-weight-bold" for="">Appeal ID</label></div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<input type="text" class="form-control" id="prison_name" name="prison_name" value="'.$t->prison_name.'"';
-        echo 'disabled>';
-        echo '<label class="label text-success font-weight-bold" for="">Prison Name</label>';
-        echo '</div>';
+        echo '<input type="text" class="form-control" id="prison_name" name="prison_name" value="'.$t->prison_name.'" disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Prison Name</label></div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<input type="text" class="form-control" id="court_name" name="court_name" value="'.$t->court_name.'"';
-        echo 'disabled>';
-        echo '<label class="label text-success font-weight-bold" for="">Sentencing Court</label>';
-        echo '</div>';
+        echo '<input type="text" class="form-control" id="court_name" name="court_name" value="'.$t->court_name.'" disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Sentencing Court</label></div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<input type="text" class="form-control" id="prisoner_name" name="prisoner_name" value="'.$t->prisoner_name.'"';
-        echo 'disabled>';
+        echo '<input type="text" class="form-control" id="prisoner_name" name="prisoner_name" value="'.$t->prisoner_name.'" disabled></div>';
         echo '<label class="label text-success font-weight-bold" for="">Prisoner Name</label>';
-        echo '</div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<input type="text" class="form-control" id="act_name" name="act_name" value="'.$t->act_name.' '.$t->section_name.'"';
-        echo 'disabled>';
-        echo '<label class="label text-success font-weight-bold" for="">Offence Details</label>';
-        echo '</div>';
+        echo '<input type="text" class="form-control" id="act_name" name="act_name" value="'.$t->act_name.' '.$t->section_name.'" disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Offence Details</label></div>';
         echo '<div class="md-form form-group mt-2">';
-        echo '<input type="text" class="form-control" id="case_no" name="case_no" value="'.$t->case_no.'"';
-        echo 'disabled>';
-        echo '<label class="label text-success font-weight-bold" for="">Case NO</label>';
-        echo '</div>';
+        echo '<input type="text" class="form-control" id="case_no" name="case_no" value="'.$t->case_no.'" disabled>';
+        echo '<label class="label text-success font-weight-bold" for="">Case NO</label></div>';
         echo '<div class="md-form form-group mt-2">';
         echo '<label class="label text-success font-weight-bold" for="">Attachments:</label><br>';
-        echo '';
-       
         foreach($dd as $d){
         if($d->docname == 'BJ_Form'){
             echo'<label class="md-form form-group">';
@@ -928,86 +913,149 @@ if($user_type == 'user'){
     // print_r($last_state);
     // exit;
     if(@$last_state[0]->state == 'red' && @$last_state[0]->statusid == 2){
-           
         echo '<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="options" unchecked required><span class="form-check-sign"><span class="check" name="check"></span></span><h5 style="color:red;">Requsted Documents Has Sent *</h5></label></div>';
         echo '<button type="submit" value="updateState" name="updateState">Update</button>';
-        
     }
-    
-}
-        
-        echo '</form>';
+} 
 
-        echo '</div>';
-        echo '</span>';
-        echo '<span class="col-md-5  border border-primary" >';
-        echo '<legend>Application Progress</legend><br>';
-        echo '<div class="col-md-12">';
-        echo '<div class="form-group">';
-        echo '<div class="bs-vertical-wizard" id="appeal_details">';
-        echo '<ul>';
-        foreach($status_name as $pp){
-        @$item = null;
-        foreach($apStatus as $struct){
-        if ($pp->id == $struct->statusid)
-        {
-        @$item = $struct;
-        break;
-        }
-        }
-        
-        if($item){
-        if($struct->stateno == 'yellowgreen'){
-            echo '<li class="complete">';
-            echo '<a href="#">'.$pp->status_name.'';
-            echo '<i class="ico fa fa-check ico-check" style="color:green"></i>';
-            echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
-            echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
-            echo '</span>';
-            echo '</a>';
-            echo '</li>';
-        }
-        else{
-            echo '<li class="complete">';
-            echo '<a href="#">'.$pp->status_name.'';
-            echo '<i class="ico fa fa-close ico-close" style="color:red"></i>';
-            echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
-            echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
-            echo '</span>';
-            echo '</a>';
-            echo '</li>';
-        }
-       
-        }else
-        {
-            if(($mydate > 10 ) AND (@$total == @$loop->iteration) AND (@$last_state[0]->state != 'red') ){
-                echo '<li class="complete">';
-                echo '<a href="#">'.$pp->status_name.'';
-                echo '<i class="ico fa fa-exclamation-circle" style="color:orange"></i>';
-                echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
-                echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
-                echo '</span>';
-                echo '</a>';
-                echo '</li>';
-            }
-            else{
-                echo '<li>';
-                echo '<a href="#">'.$pp->status_name.'';
-                echo '<span class="desc">Nothing Yet!</span>';
-                echo '</a>';
-                echo '</li>';
-            }
-       
-        }
-        }
-        echo '</ul>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '</span>';
-        // echo '</form>';
-       // echo $output;
-        }
+echo '</form>';
+echo '</div>';
+echo '</span>';
+
+       echo '<span class="col-md-5 border border-primary">';
+       echo '<legend>Application Progress</legend><br>';
+       echo '<div class="col-md-12">';
+       echo '<div class="form-group">';
+       echo '<div class="bs-vertical-wizard" id="appeal_details">';
+       echo '<ul>';
+       foreach($status_name as $pp){
+       @$item = null;
+       foreach($apStatus as $struct){
+       if ($pp->id == $struct->statusid)
+       {
+       @$item = $struct;
+       break;
+       }
+       }
+       if($item){
+       if($struct->stateno == 'yellowgreen'){
+           echo '<li class="complete">';
+           echo '<a href="#">'.$pp->status_name.'';
+           echo '<i class="ico fa fa-check ico-check" style="color:green"></i>';
+           echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+           echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
+           echo '</span>';
+           echo '</a>';
+           echo '</li>';
+       }
+       else{
+           echo '<li class="complete">';
+           echo '<a href="#">'.$pp->status_name.'';
+           echo '<i class="ico fa fa-close ico-close" style="color:red"></i>';
+           echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+           echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
+           echo '</span>';
+           echo '</a>';
+           echo '</li>';
+       }
+       }else
+       {
+           if(($mydate > 10 ) AND (@$total == @$loop->iteration) AND (@$last_state[0]->state != 'red') ){
+               echo '<li class="complete">';
+               echo '<a href="#">'.$pp->status_name.'';
+               echo '<i class="ico fa fa-exclamation-circle" style="color:orange"></i>';
+               echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
+               echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
+               echo '</span>';
+               echo '</a>';
+               echo '</li>';
+           }
+           else{
+               echo '<li>';
+               echo '<a href="#">'.$pp->status_name.'';
+               echo '<span class="desc">Nothing Yet!</span>';
+               echo '</a>';
+               echo '</li>';
+           }
+       }
+       }
+       echo '</ul>';
+       echo '</div>';
+       echo '</div>';
+       echo '</div>';
+       echo '</span>';
+       $appId = $t->id;  
+       $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" and state<>"red" AND state<>"todo")');
+       $i=1;
+        if($user_type == 'admin'){
+            echo '<span class="col-md-10 offset-sm-1 border border-primary" id="updateSection">';
+            echo '<button type="button" class="btn btn-info font-weight-bold" style="color:white" data-toggle="collapse" data-target="#updateStatus" > Do you want to Update?</button>';
+            echo '<hr>';
+            echo '<div id="updateStatus" class="collapse">';
+            echo '<div class="col-md-12">';
+            echo '<form>';
+                echo '<div class="row">';
+                echo '<div class="col-md-6">';
+                echo '<div class="form-group">';
+                echo '<label class="bmd-label-floating">Status</label>';
+                echo '<select id="mystatus" name="status_id" class="browser-default custom-select myselection">';
+                echo '<option value="">Please Select..</option>';
+                    foreach ($optt as $sdata) {
+                        if ($i++ == 1) {
+                            echo '<option value="'.$sdata->id.'" >'.$sdata->status_name.'</option>';
+                        }
+                        
+                        else{
+                        echo '<option disabled value="'.$sdata->id.'" >'.$sdata->status_name.'</option>';
+                    }
+                    }
+                      echo '</select>';
+                      $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$t->id.'" order by statusid desc limit 1');
+
+                    $option_display = DB::select('SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appId.'" ORDER BY statusid DESC LIMIT 1');
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '<div class="col-md-6">';
+                                            echo '<div class="form-group">';
+                                            echo '<label class="bmd-label-floating">State</label><br>';
+                                               
+                                            echo '<select class="browser-default custom-select state" id="state" name="state">';
+                                            if ((@$last_state[0]->statusid == 6) or (@$last_state[0]->statusid ==7) or (@$last_state[0]->statusid == 8) or (@$last_state[0]->statusid == 9)) {
+                                                echo '<option value="">Please Select..</option>';
+                                                echo '<option value="yellowgreen" >Yes, We did </option>';
+                                                echo '<option value="todo" >No, Reminder Sent</option>';
+                                            }elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )){
+                                            echo '<option value="">Please Select..</option>';
+                                            echo '<option value="yellowgreen" >Yes, We did</option>';
+                                            }elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10)){
+                                            echo '<option value="">Please Select..</option>';
+                                            echo '<option value="yellowgreen" >Yes, We did </option>';
+                                            echo '<option value="red" >Incomplete, Reminder Sent</option>';
+                                           
+                                            }elseif(@$last_state[0]->statusid == 3){
+                                            echo '<option value="">Please Select..</option>';
+                                            echo '<option value="yellowgreen" >Yes, We did </option>';
+                                            echo '<option value="todo" >No, Reminder Sent</option>';
+                                            echo '<option value="red" >Reject</option>';
+                                            }elseif(@$last_state[0]->statusid == 4){
+                                            echo '<option value="">Please Select..</option>';
+                                            echo '<option value="yellowgreen" >Yes, We did </option>';
+                                            }
+                                            echo '</select>';
+                                                echo '</div>';
+                                                echo '</div>';
+                                                echo '</div>';
+                                                echo '</div>';
+                                                echo '</form>';
+                                                echo '</div>';
+                                                echo '</div>';
+                                                echo '</span>'; 
+                                                
+
+    
+                                            }   
+
+    }
 
 }
 public function updateFromPrison(Request $request ){
@@ -1039,10 +1087,10 @@ public function updateFromPrison(Request $request ){
                                     $casename = DB::table('cases')->where('id',$appl->caseid)->first(); //Get caseId from Appeals Table
                                     
                                     $st_name = DB::table('status')->where('id',2)->first(); //Get StatusId
-                                    
+                                    $caseno = $casename->caseno; 
                                     $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
                                     
-                                    $arr=array('data'=> $msg,'appeal_id'=>$appl->id);
+                                    $arr=array('data'=> $msg,'appeal_id'=>$appl->id,'case_id'=>$caseno);
                                     
                                     $applToUser = DB::table('newappeals')->where('id',$appl->id)->select('appeals_to_courtid')->first();
                                     //dd($applToUser->appeals_to_courtid);

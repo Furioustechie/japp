@@ -25,7 +25,8 @@
                 }     
                 .modal-backdrop {
                 z-index: -51;
-                }        
+                }   
+                
           </style>
 
         <style>        
@@ -579,10 +580,10 @@
                 },
                 success: function (data) {
                     console.log(data);
-                    // $("#edit_appeal").find("input[name='appeal_id']").val(id);
                     $("#appeal_details").html(data);
                     //  $(".edit_appeal").modal(show);
                 }
+               
             });
         });
     });
@@ -832,15 +833,17 @@ $(document).on('click','.editapp', function() {
                         data: dataString,
                         success: function (data) {
                             swal("Done!","It was succesfully updated!","success");
-                            //window.location.reload();
-                            $('.editapp').modal('hide');
+                            window.location.reload();
+                            //$('.editapp').modal('hide');
                         },
+                        
                         error: function (xhr, ajaxOptions, thrownError) {
                             swal("Error!", "Check your input and remarks,Please!", "error");
                             //window.location.reload();
-                            $('.editapp').modal('hide');
+                            //$('.editapp').modal('hide');
                         }
                   });
+                 
         });
     });
 });
@@ -881,8 +884,9 @@ $(document).on('click','.editapp', function() {
     </script>
     <script>
     $(document).ready(function(){
-        $('a#activeNotify').click(function(e) {
-            window.location.reload();
+            $(document).on('click','#showModal',function(){
+                $('#updateSection').hide();
+            });
     });
     </script>
-
+    

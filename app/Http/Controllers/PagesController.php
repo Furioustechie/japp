@@ -248,11 +248,10 @@ foreach($totalByStatus as $byStatus){
         $case_id = $request->case_no;
         //Test case for update from notification
             $notification_Records = DB::table('all_appeals')->where('case_no','=',$case_id)->get();
-            $split = $notification_Records[0]->case_no;
-            echo $split;
-            Auth()->user()->unreadNotifications->first()->markAsRead();
+            $split_caseno = $notification_Records[0]->case_no;
+            echo $split_caseno;
+            Auth()->user()->unreadNotifications->where('case_id','=',$split_caseno)->markAsRead();
             //return redirect()->back();
-    //return view ('inc_hc.notifyedit', $notification_Records);
 
     //end test case
     }

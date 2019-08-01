@@ -91,7 +91,7 @@
                                           </td>
         
         <td class="td-actions text-center">
-          <a href="#" class="editapp" id="#editapp" data-toggle="modal" data-target="#abc_{{$appeal->id}}"><i class="material-icons">edit</i>
+          {{-- <a href="#" class="editapp" id="#editapp" data-toggle="modal" data-target="#abc_{{$appeal->id}}"><i class="material-icons">edit</i> --}}
           </a>
           <a href="#" id="showModal" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
 

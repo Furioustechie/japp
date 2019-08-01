@@ -394,10 +394,10 @@
                 dropdownParent: $('#filename')
             });
           $('.myselect').select2({
-            placeholder: 'Please Select'
+            placeholder: 'Please Select ..'
           });
           $('.section').select2({
-            placeholder: 'Please Select'
+            placeholder: 'Please Select ..'
           });
           
         });

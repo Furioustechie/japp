@@ -26,6 +26,7 @@ class CustomDbChannel
         'type' => get_class($notification),
         'data' => $data,
         'appeal_id' =>$data['appeal_id'],
+        'case_id' =>$data['case_id'],
         'read_at' => null,
     ]);
   }
