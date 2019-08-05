@@ -3,6 +3,8 @@ use App\Notifications\jappNotification;
 use App\User;
 use App\Notification;
 use Carboon\Carbon;
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,7 +117,7 @@ Route::get('/readnotify', 'notifyController@readnotify');
 Route::get('/read', 'pagesController@readnotify');
 //Route::get('/editsettings', ['as'=>'get.data','uses'=>'MyDatatablesController@getData']);
 //Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('login');
 
 //Route::get('/home', 'PagesController@dashboard');
 Auth::routes();
@@ -151,6 +153,7 @@ Route::get('testindex', 'PagesController@testindex');
 Route::post('updateByHC/{appeal_id}', 'AppealsController@updateByHC');
 Route::post('/prisonHistory/{appeal_id}', 'AppealsController@prisonHistory');
 Route::post('/notificationUpdate/{split_id}', 'PagesController@notificationUpdate');
+Route::post('updateTest/{appeal_id}', 'AppealsController@updateTest');
 
 
 

@@ -389,15 +389,22 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-          $('.fup').hide();
+            $('.mysection').hide();
+            $('.fup').hide();
+
           $('#doctype').select2({
                 dropdownParent: $('#filename')
             });
+           $('.myact').on('change',function(){
+            $('.mysection').show();
+           }) ;
+           
           $('.myselect').select2({
-            placeholder: 'Please Select ..'
+            placeholder: 'Please Select..'
           });
+
           $('.section').select2({
-            placeholder: 'Please Select ..'
+            placeholder: 'Please Select..'
           });
           
         });

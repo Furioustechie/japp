@@ -26,7 +26,10 @@
                 .modal-backdrop {
                 z-index: -51;
                 }   
-                
+                .modal-body {
+    max-height: calc(100vh - 150px);
+    overflow-y: scroll;
+}
           </style>
 
         <style>        
@@ -820,20 +823,27 @@ $(document).on('click','.editapp', function() {
                     });
                 });
          $(document).one('click','.courts_submit', function() { 
+             
                 var prison_name = $(app).find('select.prison_name option:selected').val();
                 var status_name = $(app).find('select.myselection option:selected').val();
                 var state = $(app).find('select.state option:selected').val();
                 var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
-                var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_name + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant ;
+                var japp_no = $(app).find('input[name="japp_no"]').val();
+                // if(state != ''){
+                //     alert('Empty');
+                // }
+                var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_name + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant +'&japp_no='+ japp_no ;
                 console.log(dataString)
             $.ajax({
-                        url: "/updateByHC/"+appeal_id,
+                        url: "/updateTest/"+appeal_id,
                         type: 'POST',
                         //dataType: 'application/json',
                         data: dataString,
                         success: function (data) {
-                            swal("Done!","It was succesfully updated!","success");
-                            window.location.reload();
+                            Swal({
+                                
+                                html: data,
+                            })
                             //$('.editapp').modal('hide');
                         },
                         
@@ -883,10 +893,13 @@ $(document).on('click','.editapp', function() {
     });
     </script>
     <script>
-    $(document).ready(function(){
-            $(document).on('click','#showModal',function(){
-                $('#updateSection').hide();
-            });
-    });
-    </script>
+            $(document).ready(function(){
+                document.body.style.position = 'fixed';
+                 $(document).on('click','a#mycollapse',function(){
+                     $('.gotit').toggle();
+                     console.log('toggled');
+                 });
+             });
+             </script>
+ 
     
