@@ -168,7 +168,7 @@
                         <!-- File Uploader open for DocType -->
                             @foreach ($docname as $datas)
                             <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
-                                <input type="file" id="filename" name="filename[]" class="form-control btn-info">
+                                <input type="file" id="filename" name="filename[]" style="color:black" class="form-control btn-info">
                                 {{-- <div class="input-group-btn"> 
                                   <button class="btn btn-success" type="button" ><!--For modern browsers-->
                                     <i class="material-icons">open_in_browser</i></i>{{ __('labels.browse') }}</button>
@@ -189,7 +189,7 @@
                         </div>
                     </div>
                     <!-- boleto__wrapper -->
-                    <div class="form-check">
+                    {{-- <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" type="checkbox" name="options" unchecked>
                             <span class="form-check-sign">
@@ -197,7 +197,7 @@
                             </span>
                             <h5 class="w-100 font-weight-bold" style="color:black">{{__('labels.cc_attached') }}</h5>
                         </label>
-                    </div>
+                    </div> --}}
                     <div class="form-check">
                             <label class="form-check-label" data-toggle="tooltip" data-placement="top" title="">
                               <input class="form-check-input" type="checkbox"  name="options"  unchecked>
@@ -207,10 +207,7 @@
                               <h5 class="w-100 font-weight-bold" style="color:black">The prisoner has been informed about the implications of electronic data processing and the fact that it is not mandatory. He or she has given their consent to the electronic processing of their jail appeal application.</h5>
                             </label>
                           </div>
-                       
-
-            
-                                   
+                        
                                    <div class="form-group">
                                     <div class="progress">
                                       <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">

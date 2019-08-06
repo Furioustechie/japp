@@ -30,6 +30,8 @@
     max-height: calc(100vh - 150px);
     overflow-y: scroll;
 }
+
+
           </style>
 
         <style>        
@@ -82,7 +84,9 @@
         });
         </script>
 </head>
-<body class="">
+<body>
+        <div id="preloaders" class="preloader"></div>
+
     @include('inc.modals')
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">

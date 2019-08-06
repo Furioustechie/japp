@@ -334,7 +334,7 @@
                                                                 @if(@$last_state[0]->state == 'red' && @$last_state[0]->statusid == 2)
                                                                 <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">edit</i></a></td>
                                                                     @else
-                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">touch_app</i></a></td>
+                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
                                                                  @endif
                                                                 <!--Deatils Modal Start -->
                                                             <!--Deatils Modal End -->
@@ -398,7 +398,9 @@
                 dropdownParent: $('#filename')
             });
            $('.myact').on('change',function(){
+
             $('.mysection').show();
+             // $('.section').prepend($('<option></option>').html('Loading...'));
            }) ;
            
           $('.myselect').select2({
@@ -418,14 +420,17 @@
                 $('.progress').show();
                 var current_progress = 0;
                 var interval = setInterval(function() {
-                    current_progress += 10;
+                    current_progress += 5;
                     $("#dynamic")
                     .css("width", current_progress + "%")
                     .attr("aria-valuenow", current_progress)
                     .text(current_progress + "% Complete");
                     if (current_progress >= 100)
                         clearInterval(interval);
-                }, 1000);
+                }, 100);
+                //$('.progress').hide();
+                
+                //swal('success!','Upload Finish');
               });
                                      </script>
                                       <script>
@@ -576,7 +581,8 @@
     <!-- Block table_appealIncomplete -->
 <script>
     $(document).ready(function(){
-    
+       
+
      $('#table_appealIncomplete').on('click', '.pagination a', function(event){
       event.preventDefault(); 
       $.ajaxSetup({

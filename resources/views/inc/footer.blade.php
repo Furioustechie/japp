@@ -29,6 +29,6 @@
     <script>
       document.write(new Date().getFullYear())
     </script>, All Rights Reserved <i class="material-icons">favorite</i> To
-    <a href="" target="_blank">Bangladesh XXXX Authority.
+    <a href="" target="_blank">Bangladesh XYZ Authority.
   </div>
 </div>

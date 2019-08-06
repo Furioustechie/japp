@@ -10,7 +10,6 @@
 
 <body class="">
     <div id="preloaders" class="preloader"></div>
-
  @include('inc.messages')
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
