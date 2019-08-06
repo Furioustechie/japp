@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <nav class="float-left">
-    <ul>
+    {{-- <ul>
       <li>
         <a href="#">
             {{ __('labels.pro_name') }}
@@ -21,14 +21,14 @@
         {{ __('labels.licenses') }}
         </a>
       </li>
-    </ul>
+    </ul> --}}
   </nav>
   
-  <div class="copyright float-right">
+  <div class="copyright float-center">
     &copy;
     <script>
       document.write(new Date().getFullYear())
-    </script>, made with <i class="material-icons">favorite</i> by
-    <a href="" target="_blank">FuriousTechie@RoL.
+    </script>, All Rights Reserved <i class="material-icons">favorite</i> To
+    <a href="" target="_blank">Bangladesh XXXX Authority.
   </div>
 </div>

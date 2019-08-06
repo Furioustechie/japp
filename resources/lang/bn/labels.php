@@ -22,7 +22,7 @@ return [
     'seeAll' => 'বিস্তারিত দেখুন',
     'overdue_appeals' => 'এখন পর্যন্ত বিলম্বিত',
     'ccNotFound' => 'সর্বমোট অসম্পূর্ণ বা ব্যর্থ আপিল',
-    'justUpdated' => 'মাত্র আপডেট',
+    'justUpdated' => 'সর্বশেষ আপডেট',
      //tabbed panel
      'tab_cc' => 'প্রত্যয়িত কপি সংযুক্ত নাই',
      'tab_longTime' => 'অবিলম্বে ক্রিয়া প্রয়োজন',
@@ -75,6 +75,7 @@ return [
     //Prison Appeals Details Table
     'id' => 'আইডি',
     'case_no' => 'কেস নম্বর',
+    'prisoner_name' => 'কারাবন্দীর নাম',
     'status' => 'অবস্থা',
     'view_in_detail' => 'বিস্তারিত দেখুন',
     //Prison - lastMonth Table

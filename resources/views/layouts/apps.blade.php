@@ -165,7 +165,9 @@
                             <div class="card card-stats"><a href="#" id="justUpdate">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
-                                        <i class="fa fa-twitter"></i>
+                                        <i class="material-icons">
+                                            cloud_done
+                                            </i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_appealResolved') }}</p>
                                     <h3 class="card-title">{{ $totalappealResolved[0]->totalAppealResolved }}</h3>

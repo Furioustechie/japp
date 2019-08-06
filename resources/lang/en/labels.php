@@ -22,7 +22,7 @@ return [
     'seeAll' => 'See All',
     'overdue_appeals' => 'Overdue So Far',
     'ccNotFound' => 'Incomplete / Failed Application',
-    'justUpdated' => 'Just Updated',
+    'justUpdated' => 'Last Updated',
     //tabbed panel
     'tab_cc' => 'Incomplete Application / Failed',
     'tab_longTime' => 'Long Time No Actions',
@@ -75,6 +75,7 @@ return [
     //Prison Appeals Details Table
     'id' => 'ID',
     'case_no' => 'CASE NO',
+    'prisoner_name' => 'Prisoner Name',
     'status' => 'STATUS',
     'view_in_detail' => 'VIEW IN DETAIL',
     //Prison - lastMonth Table

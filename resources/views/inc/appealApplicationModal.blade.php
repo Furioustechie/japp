@@ -133,14 +133,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating text-info">{{ __('labels.conviction_time') }} *</label>
+                                <label class="text-info">{{ __('labels.conviction_time') }} *</label>
                                 <input type="date" name="convictiondate" class="form-control">
                                 <!-- <input type="text" name="convictiondate" class="datepicker">  -->
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating text-info">{{ __('labels.dateOf_appeal') }} *</label>
+                                <label class="text-info">{{ __('labels.dateOf_appeal') }} *</label>
                                 <input type="date" name="dateofappeal" class="form-control">
                             </div>
                         </div>
@@ -164,7 +164,19 @@
                           </div>
                <!-- Dropdown End for Documents type -->
                     </div>
-
+                    <div class="row">
+                        <!-- File Uploader open for DocType -->
+                            @foreach ($docname as $datas)
+                            <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
+                                <input type="file" id="filename" name="filename[]" class="form-control btn-info">
+                                {{-- <div class="input-group-btn"> 
+                                  <button class="btn btn-success" type="button" ><!--For modern browsers-->
+                                    <i class="material-icons">open_in_browser</i></i>{{ __('labels.browse') }}</button>
+                                </div> --}}
+                              </div>
+                              @endforeach  
+                              
+                           </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -197,20 +209,7 @@
                           </div>
                        
 
-                        <div class="row">
-                                <!-- File Uploader open for DocType -->
-                                    @foreach ($docname as $datas)
-                                    <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
-                                        <input type="file" id="filename" name="filename[]" class="form-control">
-                                        <div class="input-group-btn"> 
-                                          <button class="btn btn-success" type="button" ><!--For modern browsers-->
-
-                                            <i class="material-icons">open_in_browser</i></i>{{ __('labels.browse') }}</button>
-                                        </div>
-                                      </div>
-                                      @endforeach  
-                                      
-                                   </div>
+            
                                    
                                    <div class="form-group">
                                     <div class="progress">

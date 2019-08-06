@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i>{{ __('labels.prison_lastMonth') }} 
+                                        <i class="material-icons">date_range</i>{{ __('labels.prison_overDue') }} 
                                     </div>
                                 </div></a>
                             </div>
@@ -171,7 +171,9 @@
                             <div class="card card-stats"><a href="#" id="seeResolved">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
-                                        <i class="fa fa-twitter"></i>
+                                        <i class="material-icons">
+                                            cloud_done
+                                            </i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_appealResolved') }}</p>
                                     <h3 class="card-title">{{ $countAppealsResolved_byPrison[0]->totalid }}</h3>
@@ -258,8 +260,7 @@
                                                     <thead class="text-primary">
                                                         <th>{{ __('labels.id') }}</th>
                                                         <th>{{ __('labels.case_no') }}</th>
-                                                        {{-- <th>Prisoner Name </th>
-                                                        <th>Prison Name</th>--}}
+                                                        <th>{{ __('labels.prisoner_name') }} </th>
                                                         <th>{{ __('labels.status') }}</th>
                                                         <th>{{ __('labels.view_in_detail') }}</th>
                                                     </thead>
@@ -271,6 +272,7 @@
                                                         <tr>
                                                             <td>{{ $appeal->id }}</td>
                                                             <td>{{$appeal->case_no}}</td>
+                                                            <td>{{$appeal->prisoner_name}}</td>
                                                             <td> 
                                                                 <ol class="etapier">
         
@@ -332,7 +334,7 @@
                                                                 @if(@$last_state[0]->state == 'red' && @$last_state[0]->statusid == 2)
                                                                 <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">edit</i></a></td>
                                                                     @else
-                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
+                                                                <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">touch_app</i></a></td>
                                                                  @endif
                                                                 <!--Deatils Modal Start -->
                                                             <!--Deatils Modal End -->
