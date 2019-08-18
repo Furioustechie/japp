@@ -186,7 +186,7 @@ foreach($totalByStatus as $byStatus){
     $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
 
     // $appDetails_allRecords = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
-    $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'asc')->paginate(5);
+    $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'asc')->paginate(10);
 
 
     $overdue_hc = DB::table('overdue_hc')
@@ -388,7 +388,7 @@ foreach($totalByStatus as $byStatus){
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('appealresolved_prison.prison_id', $prison_id )
     ->paginate(5);
-
+ 
         $send['count']=$countAppeals;
         $send['overdue_count']=$overdue_count;
         $send['totalappealResolved'] = $appealResolved;
@@ -477,7 +477,7 @@ foreach($totalByStatus as $byStatus){
         ->where('id', 'like', '%'.$query.'%')
         ->orWhere('case_no', 'like', '%'.$query.'%')
         ->orderBy($sort_by, $sort_type)
-        ->paginate(5);
+        ->paginate(10);
       return view('inc_hc.allRecords', compact('appDetails_allRecords'))->render();
      }
     }

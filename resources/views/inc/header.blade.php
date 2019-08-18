@@ -71,8 +71,9 @@
               <a class="dropdown-item" style="background-color:cornflowerblue" href="/readnotify"> Mark All as Read</a>
               @if(auth()->user()->user_type=='admin')
               @foreach (auth()->user()->unreadNotifications as $notification)
-               <a class="dropdown-item activeNotify" id="activeNotify"  href="{{url('/hcDetails')}}">{{$notification->data['data']}}</a>
-              @endforeach
+               {{-- <a class="dropdown-item activeNotify" id="activeNotify"  href="#" data-toggle="modal" data-target="#edit_appeal_{{$notification->data['appeal_id']}}">{{$notification->data['data']}}</a> --}}
+               <a href="#" class="editapp" id="#editapp" data-toggle="modal" data-target="#edit_appeals_{{$notification->data['appeal_id']}}"><i class="material-icons">remove_red_eye</i>
+               @endforeach
               @elseif(auth()->user()->user_type=='user')
               @foreach (auth()->user()->unreadNotifications as $notification)
               <a class="dropdown-item" href="{{url('prisonDashboard')}}">{{$notification->data['data']}}</a>

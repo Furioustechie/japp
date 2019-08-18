@@ -75,7 +75,7 @@ return [
     //Prison Appeals Details Table
     'id' => 'ID',
     'case_no' => 'CASE NO',
-    'prisoner_name' => 'Prisoner Name',
+    'prisoner_name' => 'PRISONER NAME',
     'status' => 'STATUS',
     'view_in_detail' => 'VIEW IN DETAIL',
     //Prison - lastMonth Table

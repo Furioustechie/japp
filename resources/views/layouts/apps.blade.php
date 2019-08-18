@@ -11,7 +11,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background: url('assets/img/loader.gif') 50% 50% no-repeat rgb(249,249,249);
+            /* background: url('assets/img/loader.gif') 50% 50% no-repeat rgb(249,249,249); */
             opacity: .8;
         }
         div.show_datespan {        /* this will hide div with id div_id_name */
@@ -27,8 +27,8 @@
                 z-index: -51;
                 }   
                 .modal-body {
-    max-height: calc(100vh - 150px);
-    overflow-y: scroll;
+            max-height: calc(100vh - 150px);
+            overflow-y: scroll;
 }
 
 
@@ -47,29 +47,75 @@
           -webkit-transform: scale(1.5); /* Safari 3-8 */
           transform: scale(1.5); 
         }
-        
+        .spanLeft{
+  position: absolute;
+  left:-7px;
+  opacity:0;
+  transition:0.25s;
+}
+
+.spanRight{
+  position: absolute;
+  right:-7px;
+  opacity:0;
+  transition:0.25s;
+}
+
+a:hover .spanLeft{
+  position: absolute;
+  left:-20px;
+  opacity:1;
+}
+
+a:hover .spanRight{
+  position: absolute;
+  right:-20px;
+  opacity:1;
+}
         </style>
         <script>
         $(document).ready(function(){
+            var data_incomplete = $('#data_incomplete').text()
+            var data_due = $('#data_due').text()
+            var data_resolved = $('#data_resolved').text()
+            var data_all = $('#data_all').text()
             $('#seeAll').click(function() {
-                $('.show_All').show();
+                if(data_all != 0){
+                    $('.show_All').show();                
+                }else{
+                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                }
                 $('.show_total').hide();
                 $('.show_resolved').hide();          
                  });
             $('#datespan').click(function() {
                 $('.show_ccNotFound').hide();
                 $('.show_justUpdate').hide();
-                $('.show_datespan').show();  
+                if(data_due != 0){
+                    $('.show_datespan').toggle();               
+                }else{
+                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                }
+               
+
                     });
            $('#ccNotFound').click(function() {
                 $('.show_datespan').hide();
                 $('.show_justUpdate').hide(); 
-                $('.show_ccNotFound').show(); 
+                if(data_incomplete != 0){
+                    $('.show_ccNotFound').toggle();
+                }else{
+                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                }
                     });
            $('#justUpdate').click(function() {
                 $('.show_datespan').hide();
                 $('.show_ccNotFound').hide(); 
-                $('.show_justUpdate').show(); 
+                if(data_resolved != 0){
+                    $('.show_justUpdate').toggle(); 
+                }else{
+                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                }
                     });
            $('#close_datespan').click(function() {
                 $('.show_datespan').hide();
@@ -80,12 +126,11 @@
            $('#close_justUpdate').click(function() {
                 $('.show_justUpdate').hide(); 
                     }); 
-               
         });
         </script>
 </head>
 <body>
-        <div id="preloaders" class="preloader"></div>
+        {{-- <div id="preloaders" class="preloader"></div> --}}
 
     @include('inc.modals')
     <div class="wrapper ">
@@ -112,25 +157,22 @@
                 <div class="container-fluid">
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card card-stats"> <a href="/hcDetails" >
+                            <div class="card card-stats"> <a href="/hcDetails" ><span class="spanLeft" style="height: 50px;">[</span>
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_totalAppeal') }}</p>
-                                    <h3 class="card-title">
-                                        {{$count}}
-                                        <small></small>
-                                    </h3>
+                                    <h3 class="card-title" id="data_all" value="{{$count}}">{{$count}}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons text-danger">warning</i>
                                        {{ __('labels.seeAll') }}
                                     </div>
-                                </div></a>
+                                </div><span class="spanRight">]</span></a>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats"><a href="#" id="datespan">
                                 <div class="card-header card-header-warning card-header-icon">
@@ -138,9 +180,7 @@
                                         <i class="material-icons">filter_none</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_overdue') }}</p>
-                                    <h3 class="card-title">
-                                        {{$overdue_count[0]->totalAppeal}}
-                                    </h3>
+                                    <h3 class="card-title" id="data_due" value={{$overdue_count[0]->totalAppeal}}>{{$overdue_count[0]->totalAppeal}}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -156,7 +196,7 @@
                                         <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_pendingForCC') }}</p>
-                                    <h3 class="card-title">{{ $count_incompleteApplication_ForHC}} </h3>
+                                    <h3 id="data_incomplete" value="{{ $count_incompleteApplication_ForHC }}" class="card-title">{{ $count_incompleteApplication_ForHC}} </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -174,16 +214,17 @@
                                             </i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_appealResolved') }}</p>
-                                    <h3 class="card-title">{{ $totalappealResolved[0]->totalAppealResolved }}</h3>
+                                    <h3 class="card-title" id="data_resolved" value={{ $totalappealResolved[0]->totalAppealResolved }}>{{ $totalappealResolved[0]->totalAppealResolved }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">update</i> {{ __('labels.justUpdated') }}
                                     </div>
                                 </div>
-                            </div></a>
+                            </div>
+                        </a>
                         </div>
-                    
+                    </div>
                     
                     <div class="row show_datespan">
                         <div class="col-md-12">
@@ -202,7 +243,7 @@
                         </div>
                     </div>
                 </div>
-
+               
                 <div class="row show_ccNotFound">
                     <div class="col-md-12">
                       <div class="card">
@@ -220,7 +261,7 @@
                         </div>
                     </div>
                 </div> 
-                    
+               
                 <div class="row show_justUpdate">
                     <div class="col-md-12">
                       <div class="card">
@@ -275,9 +316,9 @@
                                 <div class="card-body">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="profile">
-                                            <div class="card-body table-responsive">
+                                            {{-- <div class="card-body table-responsive"> --}}
                                                 @if(count($appeals) > 0)
-                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_cc" width="100%"
+                                                <table class="table table-striped table-bordered animated fadeInUp table-responsive" id="dataTable_cc" width="100%"
                                                     cellspacing="0">
                                                     <thead class=" text-primary">
 
@@ -327,7 +368,7 @@
                                                 <p>Nothing Found</p>
                                                 @endif
                                             </div>
-                                        </div>
+                                        {{-- </div> --}}
                                         <div class="tab-pane" id="messages">
                                             @if(count($appeals) > 0)
                                                 <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_pending" width="100%"
@@ -421,9 +462,12 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-----Block for All Application Deatils ------->
-
-                <div class="col-lg-12 col-md-12">
+                <div class="row">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-info">
                             <h4 class="card-title">Manage Your Appeals</h4>
@@ -440,9 +484,9 @@
                         </div>
                     </div>
             </div>
-        </div>
+        {{-- </div>
     </div>
-</div>
+</div> --}}
 <!-----End Of Block for All Application Deatils ------->
                     
  <!-- -->
@@ -866,46 +910,50 @@ $(document).on('click','.editapp', function() {
 </script>
 
 <script>
-    $(document).ready(function(){
-          $('a#activeNotify').click(function(e) {
-          e.preventDefault();
-          var txt = $(e.target).text();
-          var split_len = $(this).text().length;
-          var split_txt = $(this).text().split('(ON')[1];
-          var split_id = split_txt.split(')')[0];
-          var dt_str = 'case_no='+split_id;
-          console.log(txt,split_len,split_txt,split_id,dt_str);
+    // $(document).ready(function(){
+    //       $('a#activeNotify').click(function(e) {
+    //       e.preventDefault();
+    //       var txt = $(e.target).text();
+    //       var txt_id = $('#notify_appl_id').val();
+    //       var split_len = $(this).text().length;
+    //       var split_txt = $(this).text().split('(ON')[1];
+    //       var split_id = split_txt.split(')')[0];
+    //       var dt_str = 'case_no='+split_id;
+    //       var dt_applId = 'notify_'+txt_id;
+    //       console.log(txt,split_len,split_txt,split_id,dt_str,dt_applId);
 
-          $.ajax({
-                        url: "/notificationUpdate/"+split_id,
-                        //url: "/deletenotify/"+split_id
-                        type: 'POST',
-                        //dataType: 'application/json',
-                        data: dt_str,
-                        success: function (data) {
-                                Swal.fire({
-                                    title: "<i>Notes</i>", 
-                                    html: "Case No:"+data+"<br>In Prison For XX days<i>",  
-                                    confirmButtonText: "Ok",
-                                    });  
-                                    location.reload();                      
-                                },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            swal("Error!", "Check your input and remarks,Please!", "error");
-                         window.location.reload();
-                        }
-                  });
-          });
-    });
+        //   $.ajax({
+        //                 url: "/notificationUpdate/"+split_id,
+        //                 //url: "/deletenotify/"+split_id
+        //                 type: 'POST',
+        //                 //dataType: 'application/json',
+        //                 data: dt_str,
+        //                 success: function (data) {
+        //                         Swal.fire({
+        //                             title: "<i>Notes</i>", 
+        //                             html: "Case No:"+data+"<br>In Prison For XX days<i>",  
+        //                             confirmButtonText: "Ok",
+        //                             });  
+        //                             location.reload();                      
+        //                         },
+        //                 error: function (xhr, ajaxOptions, thrownError) {
+        //                     swal("Error!", "Check your input and remarks,Please!", "error");
+        //                  window.location.reload();
+        //                 }
+        //           });
+          //});
+   // });
     </script>
     <script>
             $(document).ready(function(){
-                document.body.style.position = 'fixed';
+                //document.body.style.position = 'fixed';
                  $(document).on('click','a#mycollapse',function(){
                      $('.gotit').toggle();
                      console.log('toggled');
                  });
+
              });
-             </script>
+    </script>
+    
  
     

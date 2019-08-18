@@ -3,8 +3,8 @@
       <thead class="text-primary">
           <th class="sorting" data-sorting_type="asc" data-column_name="id" style="cursor: pointer">{{ __('labels.resolved_id') }}<span id="id_icon"></span></th>
           <th class="sorting" data-sorting_type="asc" data-column_name="case_no" style="cursor: pointer;white-space: nowrap;">{{ __('labels.resolved_case_no') }}<span id="case_icon"></span></th>
-
-          <th style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
+          <th style="white-space: nowrap;">{{ __('labels.prisoner_name') }}</th>
+          <th class="text-center" style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
           <th style="white-space: nowrap;">{{ __('labels.resolved_view_in_detail') }}</th>
       </thead>
  
@@ -14,8 +14,7 @@
     <tr>
       <td>{{$appeal->id}}</td>
       <td>{{$appeal->case_no}}</td>
-      {{-- <td>{{$appeal->offence_name}}</td>
-      <td>{{$appeal->prison_name}}</td> --}}
+      <td>{{$appeal->prisoner_name}}</td> 
       <td>
                                             <ol class="etapier">
 
@@ -92,7 +91,7 @@
                                         </td>
       
       <td class="td-actions text-center">
-        <a href="#" class="editapp" id="#editapp" data-toggle="modal" data-target="#abc_{{$appeal->id}}"><i class="material-icons">remove_red_eye</i>
+        <a href="#" class="editapp" id="#editapp" data-toggle="modal" data-target="#edit_appeals_{{$appeal->id}}"><i class="material-icons">remove_red_eye</i>
         </a>
         {{-- <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td> --}}
 
@@ -113,7 +112,7 @@
                                     
 
          ?>
-      <div class="modal fade edt" id="abc_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
+      <div class="modal fade edt" id="edit_appeals_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
        <form  method="POST" id="all_record" class="all_record" name="all_record" action="appeals/update/{{ $appeal->id }}" enctype="multipart/form-data">
         @csrf
               <div class="modal-dialog modal-lg" role="document">
