@@ -412,6 +412,8 @@ DB::table('newappeals')->insert([
                 /*-----------------End of Notification From High Court To Prison--------------------------------------- */
 
                 return redirect('/hcDetails')->with('success', 'State Updated Successfully');
+                //return redirect('/dashboard')->with('success', 'State Updated Successfully');
+
             }
 //         else{
 //             DB::table('appealstatus')->where(array('statusid'=>$request->input('status_id'),'newappeals_id'=>$request->input('appeal_id')))->first()
@@ -448,6 +450,8 @@ DB::table('newappeals')->insert([
                 // User::find($appl->prisonid)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
                 /*-----------------End of Notification From High Court To Prison--------------------------------------- */
                 return redirect('/hcDetails')->with('success', 'State Updated Successfully');
+                //return redirect('/dashboard')->with('success', 'State Updated Successfully');
+
             }
         }
 
@@ -1215,6 +1219,24 @@ public function search(Request $request ){
         return redirect('hcDetails')->with('error','Nothing Found!!');
 
     }
+}
+public function testedit($id){
+    $search = $id;
+
+    $Details_appeal = DB::table('newappeals AS na')
+    ->join('prisons', 'na.prisonid', '=', 'prisons.id')
+    ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
+    ->join('courts', 'na.courtid', '=', 'courts.id')
+    ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
+    ->join('cases', 'cases.id', '=', 'na.caseid')
+
+    ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
+    'law_acts.name AS act_name', 'courts.name_en AS court_name', 'na.privacy','prisons.id AS prison_id')
+    ->where('na.id', 'like', '%'.$search.'%')
+    ->orWhere('prisons.name', 'like', '%'.$search.'%')
+    ->orWhere('cases.caseno', 'like', '%'.$search.'%')
+    ->paginate(10);
+    return view('testpage',['Details_appeal' => $Details_appeal]);
 }
 public function searchbyID( Request $request ){
   

@@ -955,5 +955,27 @@ $(document).on('click','.editapp', function() {
              });
     </script>
     
- 
+ <script>
+ $(document).ready(function(){
+                //document.body.style.position = 'fixed';
+                 $(document).on('click','a#admin_update',function(){
+                    var appeal_id = $('#appeal_id').val();
+                    var dataString = appeal_id ;
+                   
+                    $.ajax({
+                          url: "/testpage/"+appeal_id,
+                          type: 'get',
+                          
+                          //dataType: 'application/json',
+                        //   data: dataString,
+                        //   success:function(data)
+                        //                 {
+                        //                 $('#testpage').html(data);
+                        //                 }
+                         
+                 });
+                 console.log(url);
+                });
+             });
+ </script>
     
