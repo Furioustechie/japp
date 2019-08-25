@@ -20,6 +20,7 @@ use Gate;
 use App\Notifications\jappNotification;
 use App\Notification;
 use Carboon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 //use App\AppDetails;
 
 class PagesController extends Controller
@@ -57,10 +58,21 @@ class PagesController extends Controller
     //     // });
     // }
 
-    public function dashboard(){
+    public function dashboard(Request $request){
         if(!Gate::allows('isAdmin')){
             abort(401,'You are not authorized here!');
         }
+
+        $notify_appeal_id = $request->appsid;
+    
+    
+    $send['abcd']= 555;
+    
+        // $myvar = '';
+        // if($request){
+        //     $myvar =$request->appsid;
+        // }
+        
         //App::setLocale($lang);
        // Session::put('locale',$lang);
         $appeals = Appeal::all();
@@ -205,6 +217,15 @@ foreach($totalByStatus as $byStatus){
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('appealresolved_prison.prison_id', $prison_id )
     ->paginate(5);
+    // if($request->ajax()){
+    //     dd($request->id);
+    // }
+    
+    //$myvar = $request->id;
+    $Details_appeal = DB::table('all_appeals')->where('id','=', $notify_appeal_id )->get();
+    
+
+    // dd($Details_appeal);
 
         $send['count']=$countAppeals;
         //$send['count1']=$lastYearAppeals;
@@ -234,12 +255,24 @@ foreach($totalByStatus as $byStatus){
         $send['appDetails_appealResolved_ForHC']=$appDetails_appealResolved_ForHC;
         $send['count_incompleteApplication_ForHC']=$count_incompleteApplication_ForHC;
         $send['appDetails_allRecords']=$appDetails_allRecords;
+        $send['Details_appeal']=$Details_appeal;
+        $send['notify_appeal_id']=$notify_appeal_id;
 
 
         $send['user'] = User::find(1);
        // User::find(1)->notify(new jappNotification);
+      
+       if(!empty($notify_appeal_id)){
+        $notification_Records = DB::table('all_appeals')->select('id')->where('id','=',$notify_appeal_id)->get();
+       $split_caseId = $notification_Records[0]->id;
+       Auth()->user()->unreadNotifications->where('appeal_id','=',$split_caseId)->markAsRead();
+       $abcd = 666;
+       return redirect()->back()->with(compact($abcd));
        
-       return view ('dashboard', $send)->with('appeals',$appeals);
+   }
+    return view ('dashboard', $send)->with('appeals',$appeals);
+  
+       
       
         
         
@@ -416,6 +449,7 @@ foreach($totalByStatus as $byStatus){
         $send['appDetails_appealResolved_ForHC']=$appDetails_appealResolved_ForHC;
         $send['count_incompleteApplication_ForHC']=$count_incompleteApplication_ForHC;
         //$send['appDetails_allRecords']=$appDetails_allRecords;
+
 
 
         $send['user'] = User::find(1);

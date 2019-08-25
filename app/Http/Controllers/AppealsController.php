@@ -1220,23 +1220,26 @@ public function search(Request $request ){
 
     }
 }
-public function testedit($id){
-    $search = $id;
+public function testedit(Request $request){
+    //$search = $id;
+    $Details_appeal = DB::table('all_appeals')->where('id','=', $request->id)->get();
+    $value = $request->session()->get('key');
+    echo $value;
 
-    $Details_appeal = DB::table('newappeals AS na')
-    ->join('prisons', 'na.prisonid', '=', 'prisons.id')
-    ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
-    ->join('courts', 'na.courtid', '=', 'courts.id')
-    ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
-    ->join('cases', 'cases.id', '=', 'na.caseid')
+    // $Details_appeal = DB::table('newappeals AS na')
+    // ->join('prisons', 'na.prisonid', '=', 'prisons.id')
+    // ->join('law_acts', 'na.act_id', '=', 'law_acts.id')
+    // ->join('courts', 'na.courtid', '=', 'courts.id')
+    // ->join('prisoner', 'na.prisonerid', '=', 'prisoner.id')
+    // ->join('cases', 'cases.id', '=', 'na.caseid')
 
-    ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
-    'law_acts.name AS act_name', 'courts.name_en AS court_name', 'na.privacy','prisons.id AS prison_id')
-    ->where('na.id', 'like', '%'.$search.'%')
-    ->orWhere('prisons.name', 'like', '%'.$search.'%')
-    ->orWhere('cases.caseno', 'like', '%'.$search.'%')
-    ->paginate(10);
-    return view('testpage',['Details_appeal' => $Details_appeal]);
+    // ->select('na.id', 'prisons.name AS prison_name','prisoner.prisoner_name AS prisoner_name','cases.caseno AS case_no', 
+    // 'law_acts.name AS act_name', 'courts.name_en AS court_name', 'na.privacy','prisons.id AS prison_id')
+    // ->where('na.id', '=', $search);
+    // ->orWhere('prisons.name', 'like', '%'.$search.'%')
+    // ->orWhere('cases.caseno', 'like', '%'.$search.'%')
+    // ->paginate(10);
+    return view('inc_hc.editAppeals',['Details_appeal' => $Details_appeal]);
 }
 public function searchbyID( Request $request ){
   

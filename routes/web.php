@@ -24,14 +24,19 @@ Route::get('/about', function () {
 });});
 
 */
-/* Localtion controller settings*/
+/* Localization controller settings*/
 Route::get('locale/{locale}', function ($locale){Session::put('locale',$locale);return redirect()->back();});
+// Route::get('testpage/{id}', function ($id){
+//     Session::put('id',$id);
+//     return redirect()->back();
+//     });
 /* ------   */
 Route::get('/index', 'PagesController@index');//AppealList->index method
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/form', 'PagesController@form');
-Route::get('/dashboard', 'PagesController@dashboard');// pagesController->dashboard method
+Route::any('/dashboard', 'PagesController@dashboard');// pagesController->dashboard method
+
 Route::get('/prisonDashboard', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
 //Route::get('/prisonDashboard/{locale}', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
 
@@ -74,7 +79,8 @@ Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsCon
 //Route::post('appeals/store', 'AppealsController@store');
 Route::get('appeals/modals', 'SettingsController@view');
 //Route::get('/testpage', 'SettingsController@testpage'); //Delete Sentence Name
-Route::any('/testpage/{id}', 'AppealsController@testedit'); //Delete Sentence Name
+//Route::any('/testpage/{id}', 'AppealsController@testedit'); //Delete Sentence Name dashboard
+Route::any('/testpages/{id}', 'PagesController@dashboard'); //Delete Sentence Name dashboard
 
 Route::post('/testedit/{id}', 'SettingsController@update_court');  // Update Courts Name
 

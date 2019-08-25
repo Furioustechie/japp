@@ -41,6 +41,7 @@
  <script src="{{URL::asset('js/sweetalert2.min.js')}}"></script>
  <script src="{{URL::asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 <script src="{{URL::asset('js/confirm.js')}}"></script>
+{{-- <script src="{{URL::asset('js/ddtf.js')}}"></script> --}}
 <script src="{{URL::asset('js/editsettings.js')}}"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 

@@ -1,3 +1,6 @@
+<?php
+echo $myvar;
+?>
 <!--Top navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
@@ -20,10 +23,10 @@
             </button> --}}
           </div>
         </form>
-        <?php
+        @php
          $value = Session::get('locale');
          //echo $value;
-        ?>
+        @endphp
         <ul class="navbar-nav">
             @if(auth()->user()->user_type=='admin')
             <ul class="navbar-nav">
@@ -71,14 +74,11 @@
               <a class="dropdown-item" style="background-color:cornflowerblue" href="/readnotify"> Mark All as Read</a>
               @if(auth()->user()->user_type=='admin')
               @foreach (auth()->user()->unreadNotifications as $notification)
-               {{-- <a class="dropdown-item activeNotify" href="/testpage/{{ $notification->data['appeal_id'] }}">{{$notification->data['data']}}</a> --}}
-               <form action="" id="{{ $notification->data['appeal_id'] }}" name="myform" method="post">
+              <form action="/testpage/{{ $notification->data['appeal_id'] }}" id="{{ $notification->data['appeal_id'] }}" name="myform">
                 @csrf
                 <input type="hidden" value="{{ $notification->data['appeal_id'] }}" name="appsid">
-               <button type="submit" class="dropdown-item" style="cursor: pointer;width:96%" name="submit" id="activeNotify">{{ $notification->data['data'] }}</button>
-               </form>              
-                
-               
+               <button type="submit" >Abc_{{$notification->data['data']}}</button>
+               </form>
                 @endforeach
               @elseif(auth()->user()->user_type=='user')
               @foreach (auth()->user()->unreadNotifications as $notification)
@@ -87,7 +87,7 @@
               @endif
               {{-- @if(auth()->user()->readNotifications->count(['read_at' != null]))
               @foreach (auth()->user()->readNotifications as $notification)
-              <a  style="backgroud-color:green" class="dropdown-item" href="{{url('/read')}}">{{$notification->data['data']}}</a>
+              <a  style="backgroud-color:green" class="dropdown-item" href="{{url('/read')}}">{{$notification->data['data']}}</button>
                 @endforeach
                 @endif --}}
 

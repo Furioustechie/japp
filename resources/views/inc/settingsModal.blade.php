@@ -5,6 +5,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Courts Name
                 </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
             </div>
 
 
@@ -39,6 +42,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Courts Name
                 </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
             </div>
 
 
@@ -68,6 +74,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Sentence
                     Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
             </div>
 
 
@@ -96,6 +105,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Offence
                     Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
             </div>
 
 
@@ -125,6 +137,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify Status Name
                 </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
             </div>
 
 
@@ -153,6 +168,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify User
                     Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
             </div>
 
 
@@ -196,6 +214,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Modify User
                     Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
             </div>
 
 
@@ -227,6 +248,9 @@
             <div class="modal-header text-center" style="background-color:#00bcd4;">
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">Add New User
                     Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
             </div>
 
 
@@ -348,7 +372,9 @@
             <div class="modal-content">
                 <div class="modal-header text-center" style="background-color:#00bcd4;">
                     <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Sentence Name</h4>
-
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                 </div>
                 <br>
                 <div class="col-md-12 ">
@@ -379,7 +405,9 @@
             <div class="modal-content">
                 <div class="modal-header text-center" style="background-color:#00bcd4;">
                     <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Court Name</h4>
-
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                 </div>
                 <br>
                 <div class="col-md-12 ">
@@ -422,7 +450,9 @@
             <div class="modal-content">
                 <div class="modal-header text-center" style="background-color:#00bcd4;">
                     <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Status</h4>
-
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                 </div>
                 <br>
                 <div class="col-md-12 ">
@@ -453,7 +483,9 @@
             <div class="modal-content">
                 <div class="modal-header text-center" style="background-color:#00bcd4;">
                     <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Offence Name</h4>
-
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                 </div>
                 <br>
                 <div class="col-md-12 ">
@@ -482,7 +514,9 @@
             <div class="modal-content">
                 <div class="modal-header text-center" style="background-color:#00bcd4;">
                     <h4 class="modal-title w-100 font-weight-bold" style="color:white">Add New Prison Name</h4>
-
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                 </div>
                 <br>
                 <div class="col-md-12 ">
