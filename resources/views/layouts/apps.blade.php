@@ -158,13 +158,13 @@ a:hover .spanRight{
                 <div class="container-fluid">
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card card-stats"> <a href="/hcDetails" ><span class="spanLeft" style="height: 50px;">[</span>
+                            <div class="card card-stats hvr-grow-shadow"> <a href="/hcDetails" ><span class="spanLeft" style="color: green;">[</span>
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_totalAppeal') }}</p>
-                                    <h3 class="card-title" id="data_all" value="{{$count}}">{{$count}}</h3>
+                                    <h3 class="card-title"  id="data_all" value="{{$count}}">{{$count}}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -175,7 +175,7 @@ a:hover .spanRight{
                             </div>
                         </div> 
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="datespan">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan" >
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
@@ -191,7 +191,7 @@ a:hover .spanRight{
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="ccNotFound">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="ccNotFound">
                                 <div class="card-header card-header-danger card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">info_outline</i>
@@ -207,7 +207,7 @@ a:hover .spanRight{
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="justUpdate">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="justUpdate">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">
@@ -314,6 +314,14 @@ a:hover .spanRight{
                                         </div>
                                     </div>
                                 </div>
+
+
+                    {{-- @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif --}}
+
                                 <div class="card-body">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="profile">
@@ -490,9 +498,7 @@ a:hover .spanRight{
 <!-----End Of Block for All Application Deatils ------->
                     
  <!-- -->
- <?php
-      if ($abcd) { print_r($abcd);}
- ?>
+ 
 
             <div class="modal fade edit_Myappeal" id="edit_Myappeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div id="editapps">
@@ -801,11 +807,20 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
         $(document).ready(function () {
             // Javascript method's body can be found in assets/js/demos.js
             md.initDashboardPageCharts();
-  
-
         });
-
     </script>
+    @if($notify_appeal_id)
+    <script>
+    $(window).on('load',function() {
+        $('#edit_Myappeal').modal('show');
+    });
+    $('#edit_Myappeal').on('hidden.bs.modal', function () {
+     location.reload();
+    })
+    
+    </script>
+    @endif
+    
  <script>
     $('.show').hide();
     $('.myselection').change(function() {

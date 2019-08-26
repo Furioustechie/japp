@@ -263,19 +263,14 @@ foreach($totalByStatus as $byStatus){
        // User::find(1)->notify(new jappNotification);
       
        if(!empty($notify_appeal_id)){
-        $notification_Records = DB::table('all_appeals')->select('id')->where('id','=',$notify_appeal_id)->get();
+       $notification_Records = DB::table('all_appeals')->select('id')->where('id','=',$notify_appeal_id)->get();
        $split_caseId = $notification_Records[0]->id;
        Auth()->user()->unreadNotifications->where('appeal_id','=',$split_caseId)->markAsRead();
-       $abcd = 666;
-       return redirect()->back()->with(compact($abcd));
-       
+       //return view ('dashboard', $send)->with('appeals',$appeals);
+       //return redirect('dashboard')->with('status','Information Updated!');
    }
     return view ('dashboard', $send)->with('appeals',$appeals);
-  
-       
-      
-        
-        
+   
     }
     public function notificationUpdate(Request $request){
         $case_id = $request->case_no;

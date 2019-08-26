@@ -1,7 +1,7 @@
 <ul class="nav">
     @can('isAdmin')
         <li class="nav-item">
-          <a class="nav-link" href="dashboard">
+          <a class="nav-link " href="dashboard">
             <span class="sr-only"></span>
             <i class="material-icons">dashboard</i>
             <p>{{ __('labels.navbar_hcview') }}</p>
@@ -9,8 +9,8 @@
         </li>
         @endcan
         @can('isNothing')
-        <li class="nav-item">
-          <a class="nav-link" href="appealForm">
+        <li class="nav-item ">
+          <a class="nav-link " href="appealForm">
             <i class="material-icons">content_paste</i>
             <p>Appeal Now</p>
           </a>

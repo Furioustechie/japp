@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <a class="navbar-brand" href="#" id="projectTitle">@lang('labels.project_name')</a>
+        <a class="navbar-brand " href="#" id="projectTitle">@lang('labels.project_name')</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
@@ -49,17 +49,17 @@
         </li>
         @else
         <li class="nav-item bn">
-          <a class="nav-link" href="{{URL::asset('locale/bn')}}">
+          <a class="nav-link hvr-grow-shadow" href="{{URL::asset('locale/bn')}}">
             <i class="material-icons">dashboard</i>BN
           </a>
         </li>
         @endif
           @endif
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link hvr-grow-shadow" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               @if(auth()->user()->unreadNotifications->count()>0)
               <i class="material-icons">notifications_active</i>
-              <span class="notification animated infinite flash delay-2s">{{ auth()->user()->unreadNotifications->count() }}</span>
+              <span class="notification animated infinite flash delay-2s" id="countid">{{ auth()->user()->unreadNotifications->count() }}</span>
               @else
               <i class="material-icons">notifications</i>
               @endif

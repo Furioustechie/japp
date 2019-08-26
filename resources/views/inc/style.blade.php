@@ -23,6 +23,7 @@
   <link  rel="stylesheet" type="text/css" href="{{URL::asset('../css/horizontal_progress_bar.css')}}" />
   <link  rel="stylesheet" type="text/css" href="{{URL::asset('css/sweetalert2.min.css')}}"/>
   <link  rel="stylesheet" type="text/css" href="{{URL::asset('css/animate.css')}}"/>
+  <link  rel="stylesheet" type="text/css" href="{{URL::asset('css/hover.css')}}"/>
   <link href="{{URL::asset('dist/css/fs-modal.min.css')}}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
