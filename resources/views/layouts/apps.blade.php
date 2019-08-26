@@ -809,14 +809,14 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
             md.initDashboardPageCharts();
         });
     </script>
-    @if($notify_appeal_id)
+    @if(@$notify_appeal_id)
     <script>
     $(window).on('load',function() {
         $('#edit_Myappeal').modal('show');
     });
-    $('#edit_Myappeal').on('hidden.bs.modal', function () {
-     location.reload();
-    })
+    // $('#edit_Myappeal').on('hidden.bs.modal', function () {
+    //  location.reload();
+    // })
     
     </script>
     @endif
