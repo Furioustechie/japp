@@ -24,8 +24,8 @@ return [
     'ccNotFound' => 'Incomplete / Failed Application',
     'justUpdated' => 'Last Updated',
     //tabbed panel
-    'tab_cc' => 'Incomplete Application / Failed',
-    'tab_longTime' => 'Long Time No Actions',
+    'tab_maxLength' => 'Convicted > 10',
+    'tab_jappNoAssigned' => 'Appeal NO. Assigned',
     'tab_onHearing' => 'On Hearing Stage',
     //prison
     'prison_totalAppeal' => 'Total Appeals',

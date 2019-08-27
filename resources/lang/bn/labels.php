@@ -24,8 +24,8 @@ return [
     'ccNotFound' => 'সর্বমোট অসম্পূর্ণ বা ব্যর্থ আপিল',
     'justUpdated' => 'সর্বশেষ আপডেট',
      //tabbed panel
-     'tab_cc' => 'প্রত্যয়িত কপি সংযুক্ত নাই',
-     'tab_longTime' => 'অবিলম্বে ক্রিয়া প্রয়োজন',
+     'tab_maxLength' => '১০ বছরেরও বেশি দণ্ডিত',
+     'tab_jappNoAssigned' => 'আরোপিত আপিল নং ',
      'tab_onHearing' => 'শুনানি পর্যায়ে',
     //prison
     'prison_totalAppeal' => 'সর্বমোট আপিল',

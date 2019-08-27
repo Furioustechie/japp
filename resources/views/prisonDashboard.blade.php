@@ -48,39 +48,58 @@
           </style>
 </head>
 <script>
+            
         $(document).ready(function(){
-            $('#myselection').click(function() {
-                $('.show').show();
+            var overdue_appeals = $('#prison_overdue').text()
+            var incomplete_appeals = $('#prison_incomplete').text()
+            var seeResolved = $('#prison_resolved').text()
+            var allAppeal = $('#prison_all_appeals').text()
+
+            $('#overdue_appeals').click(function() {
+                if(overdue_appeals != 0){
+                $('.show').toggle();
+                }else{
+                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                }
                 $('.show_total').hide();
                 $('.show_resolved').hide();          
                  });
-            $('#seeAll').click(function() {
+            $('#incomplete_appeals').click(function() {
                 $('.show').hide();
                 $('.show_resolved').hide();
-                $('.show_total').show();  
+                if(incomplete_appeals != 0){
+                $('.show_total').toggle();  
+                }else{
+                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                }
                     });
            $('#seeResolved').click(function() {
                 $('.show').hide();
                 $('.show_total').hide(); 
-                $('.show_resolved').show(); 
+                if(seeResolved != 0){
+                $('.show_resolved').toggle(); 
+                }else{
+                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                }
                     });
            $('#allAppeal').click(function() {
                 $('.show').hide();
                 $('.show_total').hide(); 
                 $('.show_resolved').hide(); 
                     });
-                $('#monthAppeals').click(function() {
+           $('#monthAppeals').click(function() {
                 $('.show').hide();
                     });   
-                $('#pendingCC').click(function() {
+           $('#pendingCC').click(function() {
                 $('.show_total').hide(); 
                     });   
-                $('#appealsResolved').click(function() {
+           $('#appealsResolved').click(function() {
                 $('.show_resolved').hide(); 
                     }); 
         //   $('.bn').click(function() {
         //         $('.bn').hide(); 
-        //             });                
+        //             });   
+        //console.log(overdue_appeals,incomplete_appeals,seeResolved)             
         });
         </script>
 
@@ -114,13 +133,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="allAppeal">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="allAppeal">
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_totalAppeal') }}</p>
-                                    <h3 class="card-title">
+                                    <h3 class="card-title" id="prison_all_appeals">
                                        {{ $countAppeals_byPrison[0]->totalid }}
                                         <small></small>
                                     </h3>
@@ -134,13 +153,13 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="myselection">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="overdue_appeals">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_overDue') }}</p>
-                                    <h3 class="card-title">
+                                    <h3 class="card-title" id="prison_overdue">
                                             {{ $overduePrison_count[0]->totalAppeal }}
                                     </h3>
                                 </div>
@@ -152,13 +171,13 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="seeAll">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="incomplete_appeals">
                                 <div class="card-header card-header-danger card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_ccNotFound') }}</p>
-                                    <h3 class="card-title">{{ $count_incompleteApplication_Prison}}</h3>
+                                    <h3 class="card-title" id="prison_incomplete">{{ $count_incompleteApplication_Prison}}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -168,7 +187,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="seeResolved">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="seeResolved">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">
@@ -176,7 +195,7 @@
                                             </i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_appealResolved') }}</p>
-                                    <h3 class="card-title">{{ $countAppealsResolved_byPrison[0]->totalid }}</h3>
+                                    <h3 class="card-title" id="prison_resolved">{{ $countAppealsResolved_byPrison[0]->totalid }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">

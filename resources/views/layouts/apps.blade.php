@@ -158,7 +158,7 @@ a:hover .spanRight{
                 <div class="container-fluid">
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card card-stats hvr-grow-shadow"> <a href="/hcDetails" ><span class="spanLeft" style="color: green;">[</span>
+                            <div class="card card-stats hvr-grow-shadow"> <a href="/hcDetails" ><span class="spanLeft" style="color: green;">..</span>
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
@@ -171,7 +171,7 @@ a:hover .spanRight{
                                         <i class="material-icons text-danger">warning</i>
                                        {{ __('labels.seeAll') }}
                                     </div>
-                                </div><span class="spanRight">]</span></a>
+                                </div><span class="spanRight">..</span></a>
                             </div>
                         </div> 
                         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -286,31 +286,32 @@ a:hover .spanRight{
                                 <div class="card-header card-header-tabs card-header-primary">
                                     <div class="nav-tabs-navigation">
                                         <div class="nav-tabs-wrapper">
-                                            <span class="nav-tabs-title">Tasks:</span>
+                                            <span class="nav-tabs-title">Look At Also:</span>
                                             <ul class="nav nav-tabs" data-tabs="tabs">
                                                 <li class="nav-item">
                                                     <a class="nav-link active" href="#profile" data-toggle="tab">
 
-                                                        <i class="material-icons">bug_report</i>{{ __('labels.tab_cc') }}
+                                                        <i class="material-icons">group</i>{{ __('labels.tab_maxLength') }}
                                                         <span class="badge badge-pill badge-danger" style="font-size: 15px !important;">{{ $incomplete->count() }}</span>
                                                         <div class="ripple-container"> </div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#messages" data-toggle="tab">
-                                                        <i class="material-icons">code</i> {{ __('labels.tab_longTime') }} <span
+                                                        <i class="material-icons">assignment_ind</i> {{ __('labels.tab_jappNoAssigned') }} <span
                                                             class="badge badge-pill badge-warning" style="font-size: 15px !important;">{{ $overDue[0]->vid }}</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#settings" data-toggle="tab">
-                                                        <i class="material-icons">cloud</i>{{ __('labels.tab_onHearing') }} <span
+                                                        <i class="material-icons">watch_later</i>{{ __('labels.tab_onHearing') }} <span
                                                             class="badge badge-pill badge-info" style="font-size: 15px !important;">{{ $totalOnhearing[0]->statusid }}</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
-                                                </li>
-                                            </ul>
+                                                </li><span class="nav-tabs-title">Data Still Is Prepration ...</span>
+                                            </ul> 
+
                                         </div>
                                     </div>
                                 </div>
