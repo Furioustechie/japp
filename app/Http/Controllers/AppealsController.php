@@ -676,11 +676,12 @@ DB::table('newappeals')->insert([
     }
 
     //test Prison Dashboard
-    public function prisonDashboardData($lang=null)
+    public function prisonDashboardData(Request $request, $lang=null)
     {
         if (!Gate::allows('isUser')) {
             abort(401, 'You are not authorized here!');
         }
+        $notify_appeal_id = $request->appsid;
         // Session::put('Locale',$lang);
         //App::setLocale($lang);
         //Session::put('locale',$lang);
@@ -691,8 +692,8 @@ DB::table('newappeals')->insert([
         // INNER JOIN users ON users.prison_id = newappeals.prisonid
         // WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1) AND newappeals.prisonid = '.$prison_id.'');
         //dd($prisonid_forAppealStatus);
-        $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid FROM `newappeals` WHERE prisonid = '.$prison_id.'');
-        $countAppealsResolved_byPrison = DB::select('SELECT count(id) AS totalid FROM `appealresolved_prison` WHERE prison_id = '.$prison_id.'');
+        $countAppeals_byPrison = DB::select('SELECT count(id) AS totalid, max(created_at) as maxDate FROM `newappeals` WHERE prisonid = '.$prison_id.'');
+        $countAppealsResolved_byPrison = DB::select('SELECT count(id) AS totalid, max(updated_at) as maxUpdatedDate FROM `appealresolved_prison` WHERE prison_id = '.$prison_id.'');
 
         $lastYearAppeals_byPrison = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at AND DATE_SUB(NOW(), INTERVAL 1 MONTH) AND prisonid = '.$prison_id.'');
         $cc_missing_count_forPrison = DB::select('SELECT COUNT(id) as total_cc_missing  FROM newappeals 
@@ -736,12 +737,13 @@ DB::table('newappeals')->insert([
          ->Where('overdue_hc.mydate', '>', 10)
          ->paginate(5);
 
-        $overduePrison_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE prison_id = '.$prison_id.' AND statusid !=10 AND mydate > 10');
+        $overduePrison_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE prison_id = '.$prison_id.' AND statusid !=10 AND mydate > 10');
         $appDetails_pendingForCC_Prison = DB::table('pendingforcc_prison')
           ->select('id', 'prison_id', 'prison_name', 'prisoner_name', 'case_no', 'act_name', 'court_name', 'states')
           ->where('pendingforcc_prison.prison_id', $prison_id)
           ->paginate(5);
-        $count_incompleteApplication_Prison = DB::table('pendingforcc_prison')->where('prison_id', $prison_id)->count();
+        $count_incompleteApplication_Prison = DB::select('SELECT count(id) as totalAppeal, max(updated_at) as maxDate FROM pendingforcc_prison WHERE prison_id = '.$prison_id.'');
+
 
         $appDetails_appealResolved_Prison = DB::table('appealresolved_prison')
           ->select('id', 'prison_id', 'prison_name', 'prisoner_name', 'case_no', 'act_name', 'court_name')
@@ -761,6 +763,7 @@ DB::table('newappeals')->insert([
                     INNER JOIN cases ON cases.id = na.caseid
                     WHERE  na.created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() AND na.prisonid = "'.$prison_id.'" ');
                  
+        $Details_appeal = DB::table('all_appeals')->where('id','=', $notify_appeal_id )->get();
 
         $send['countAppeals_byPrison']=$countAppeals_byPrison;
         $send['lastYearAppeals_byPrison']=$lastYearAppeals_byPrison;
@@ -778,7 +781,9 @@ DB::table('newappeals')->insert([
         $send['appDetails']=$appDetails;
         $send['district_name']=$district_name;
         $send['courts_Name']=$courts_Name;
-        
+        $send['Details_appeal']=$Details_appeal;
+        $send['notify_appeal_id']=$notify_appeal_id;
+
         //return redirect()->back();
         return view('prisonDashboard', $send);
         // return view ('appeals.modals')->with('appeals',$appeals);
@@ -974,7 +979,7 @@ if($user_type == 'user'){
     // print_r($last_state);
     // exit;
     if(@$last_state[0]->state == 'red' && @$last_state[0]->statusid == 2){
-        echo '<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="options" unchecked required><span class="form-check-sign"><span class="check" name="check"></span></span><h5 style="color:red;">Requsted Documents Has Sent *</h5></label></div>';
+        echo '<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="options" unchecked required><span class="form-check-sign"><span class="check" name="check"></span></span><h5 style="color:red;">Requested Documents have been sent *</h5></label></div>';
         echo '<button type="submit" value="updateState" name="updateState">Update</button>';
     }
 } 

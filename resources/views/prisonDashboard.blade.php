@@ -43,7 +43,11 @@
                     width:auto;
                     padding:0 10px;
                     border-bottom:none;
-                }       
+                }  
+                div.progress {        /* this will hide div with id div_id_name */
+                display:none;
+                }    
+                
 
           </style>
 </head>
@@ -146,8 +150,8 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        {{ __('labels.prison_seeAll') }}
+                                        <i class="material-icons">update</i>
+                                        {{ __('labels.justUpdated') }} {{ date('Y-m-d h:i:s', strtotime($countAppeals_byPrison[0]->maxDate)) }}
                                     </div>
                                 </div></a>
                             </div>
@@ -165,8 +169,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i>{{ __('labels.prison_overDue') }} 
-                                    </div>
+                                        <i class="material-icons">update</i>{{ __('labels.prison_oldestEntries') }} {{ $overduePrison_count[0]->maxDay }}  Days Ago                             </div>
                                 </div></a>
                             </div>
                         </div>
@@ -177,11 +180,11 @@
                                         <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_ccNotFound') }}</p>
-                                    <h3 class="card-title" id="prison_incomplete">{{ $count_incompleteApplication_Prison}}</h3>
+                                    <h3 class="card-title" id="prison_incomplete">{{ $count_incompleteApplication_Prison[0]->totalAppeal}}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i>{{ __('labels.prison_ccNotFound') }}
+                                        <i class="material-icons">update</i>{{ __('labels.justUpdated') }} {{ $count_incompleteApplication_Prison[0]->maxDate}}
                                     </div>
                                 </div></a>
                             </div>
@@ -199,7 +202,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">update</i>{{ __('labels.justUpdated') }}
+                                        <i class="material-icons">update</i>{{ __('labels.justUpdated') }} {{ $countAppealsResolved_byPrison[0]->maxUpdatedDate }}
                                     </div>
                                 </div>
                             </div></a>
@@ -371,6 +374,7 @@
                 </div>
             </div>
             <!-- -->
+           
             <div class="modal fade" id="edit_appeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content ">
@@ -391,7 +395,8 @@
                   </div>
                 </div>
               </div>
-          
+             
+              @include('inc_prison.prison_Appeals')
               <footer class="footer">
                 @include('inc.footer')
             </footer>
@@ -407,6 +412,17 @@
     $("#abc").attr("abc_"+itemid)
  });
     </script>
+    @if(@$notify_appeal_id)
+    <script>
+    $(window).on('load',function() {
+        $('#edit_Myappeal').modal('show');
+    });
+    // $('#edit_Myappeal').on('hidden.bs.modal', function () {
+    //  location.reload();
+    // })
+    
+    </script>
+    @endif
     <script type="text/javascript">
 
         $(document).ready(function() {
@@ -434,24 +450,39 @@
     
     </script>
     <script>
-                $('.progress').hide();
-                $('input[type=file]').change(function() { 
-                $('.progress').show();
-                var current_progress = 0;
-                var interval = setInterval(function() {
-                    current_progress += 5;
-                    $("#dynamic")
-                    .css("width", current_progress + "%")
-                    .attr("aria-valuenow", current_progress)
-                    .text(current_progress + "% Complete");
-                    if (current_progress >= 100)
-                        clearInterval(interval);
-                }, 100);
-                //$('.progress').hide();
+            $('.progress').hide();
+            $('input[type=file]').change(function() { 
+                let timerInterval
+Swal.fire({
+  title: 'File Is Being Loading ..',
+  html: 'Time Left <strong></strong> Milliseconds.',
+  timer: 4000,
+  onBeforeOpen: () => {
+    Swal.showLoading()
+    timerInterval = setInterval(() => {
+      Swal.getContent().querySelector('strong')
+        .textContent = Swal.getTimerLeft()
+    }, 100)
+  },
+  onClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.timer
+  ) {
+    Swal.fire(
+  'File Is Been Attached For Upload',
+  '',
+  'success'
+)
+  }
+})
                 
-                //swal('success!','Upload Finish');
-              });
-                                     </script>
+          });
+    </script>
+    
                                       <script>
                                           // $("#fileinput").hide();
                                           $("#fileinput1").hide();

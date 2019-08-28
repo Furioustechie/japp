@@ -37,7 +37,7 @@ Route::get('/services', 'PagesController@services');
 Route::get('/form', 'PagesController@form');
 Route::any('/dashboard', 'PagesController@dashboard');// pagesController->dashboard method
 
-Route::get('/prisonDashboard', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
+Route::any('/prisonDashboard', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
 //Route::get('/prisonDashboard/{locale}', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
 
 Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsController->create method->appealForm
@@ -81,6 +81,7 @@ Route::get('appeals/modals', 'SettingsController@view');
 //Route::get('/testpage', 'SettingsController@testpage'); //Delete Sentence Name
 //Route::any('/testpage/{id}', 'AppealsController@testedit'); //Delete Sentence Name dashboard
 Route::any('/testpages/{id}', 'PagesController@dashboard'); //Delete Sentence Name dashboard
+Route::any('/testpages/{id}', 'AppealsController@prisonDashboardData'); //Delete Sentence Name dashboard
 
 Route::post('/testedit/{id}', 'SettingsController@update_court');  // Update Courts Name
 

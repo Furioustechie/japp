@@ -22,9 +22,9 @@ return [
     'seeAll' => 'See All',
     'overdue_appeals' => 'Overdue So Far',
     'ccNotFound' => 'Incomplete / Failed Application',
-    'justUpdated' => 'Last Updated',
+    'justUpdated' => 'Last Updated @',
     //tabbed panel
-    'tab_maxLength' => 'Convicted > 10',
+    'tab_maxLength' => 'Convicted > 10 Years',
     'tab_jappNoAssigned' => 'Appeal NO. Assigned',
     'tab_onHearing' => 'On Hearing Stage',
     //prison
@@ -35,7 +35,7 @@ return [
     'prison_seeAll' => 'See All',
     'prison_lastMonth' => 'Last Year',
     'prison_ccNotFound' => 'Incomplete / Failed Application',
-    'prison_justUpdated' => 'Just Updated',
+    'prison_oldestEntries' => 'Latest Entries @',
     'prison_appealDetailsFrom' => 'Appeal Details From',
     'create_appeal' => 'create new appeal',
      //Prison appeal details

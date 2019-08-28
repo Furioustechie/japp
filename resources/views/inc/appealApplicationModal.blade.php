@@ -153,7 +153,7 @@
                         <!-- Dropdown data from Doctype model and dynamiclist providers -->
                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating text-info">{{ __('labels.doc_attachment') }}</label>
+                                <label class="bmd-label-floating text-info">{{ __('labels.doc_attachment') }} (Max. Limit 20 MB)</label>
                                 <select class="browser-default custom-select myselect" style="width:300px important!" id="doctype" name="doctype[]" multiple="multiple" required>
                                     
                                         @foreach ($docname as $data)
@@ -168,7 +168,7 @@
                         <!-- File Uploader open for DocType -->
                             @foreach ($docname as $datas)
                             <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
-                                <input type="file" id="filename" name="filename[]" style="color:black" class="form-control btn-info">
+                                <input type="file" id="filename" name="filename[]" style="color:black" class="form-control btn-info" onclick="myFunction();">
                                 {{-- <div class="input-group-btn"> 
                                   <button class="btn btn-success" type="button" ><!--For modern browsers-->
                                     <i class="material-icons">open_in_browser</i></i>{{ __('labels.browse') }}</button>
@@ -177,6 +177,13 @@
                               @endforeach  
                               
                            </div>
+                           <div class="form-group">
+                                <div class="progress">
+                                  <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                    <span id="current-progress"></span>
+                                  </div>
+                                </div>
+                        </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -198,6 +205,7 @@
                             <h5 class="w-100 font-weight-bold" style="color:black">{{__('labels.cc_attached') }}</h5>
                         </label>
                     </div> --}}
+                   
                     <div class="form-check">
                             <label class="form-check-label" data-toggle="tooltip" data-placement="top" title="">
                               <input class="form-check-input" type="checkbox"  name="options"  unchecked>
@@ -208,13 +216,7 @@
                             </label>
                           </div>
                         
-                                   <div class="form-group">
-                                    <div class="progress">
-                                      <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                        <span id="current-progress"></span>
-                                      </div>
-                                    </div>
-                            </div>
+                                   
                     <!-- End Section -->
                     {{ csrf_field() }}
                     <!-- button to trigger the action -->
