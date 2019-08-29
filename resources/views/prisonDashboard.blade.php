@@ -395,7 +395,26 @@
                   </div>
                 </div>
               </div>
-             
+              <div class="modal fade" id="notification_edit_appeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content ">
+                    <div class="modal-header text-center" style="background-color:#00bcd4;">
+                        <h4 class="modal-title w-100 font-weight-bold" style="color:white">Appeal Status</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="appeal_detail">
+                                  <!---   Modal Body -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="material-icons">thumb_up</i> GOT IT</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               @include('inc_prison.prison_Appeals')
               <footer class="footer">
                 @include('inc.footer')
@@ -553,7 +572,7 @@ Swal.fire({
             console.log(id);
             $("#edit_appeal").find("input[name='appeal_id']").val(id);
             $.ajax({
-                url: "/abc/" + id,
+                url: "/updateFrmPrison/" + id,
                 method: "get",
                 cache: false,
                 data: {
@@ -569,7 +588,29 @@ Swal.fire({
         });
     });
 </script>
-
+<script>
+    $(document).ready(function () {
+           $("body").on("click", ".notification_edit_appeal", function () {
+               var id = $(this).data('id');
+               console.log(id);
+               $("#notification_edit_appeal").find("input[name='appeal_id']").val(id);
+               $.ajax({
+                   url: "/updateFrmPrison/" + id,
+                   method: "get",
+                   cache: false,
+                   data: {
+                       id: id
+                   },
+                   success: function (data) {
+                       console.log(data);
+                       $('#appeal_detail').html(data);
+                       //  $(".edit_appeal").modal(show);
+                       //alert(data);
+                   }
+               });
+           });
+       });
+   </script>
 <!-- Block thisYearData -->
 <script>
     $(document).ready(function(){

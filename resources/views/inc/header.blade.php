@@ -82,13 +82,9 @@
                 @endforeach
               @elseif(auth()->user()->user_type=='user')
               @foreach (auth()->user()->unreadNotifications as $notification)
-
-              {{-- <a class="dropdown-item" href="{{url('prisonDashboard')}}">{{$notification->data['data']}}</a> --}}
-              <form action="" id="{{ $notification->data['appeal_id'] }}" name="myform" method="post">
-                @csrf
-                <input type="hidden" value="{{ $notification->data['appeal_id'] }}" name="appsid">
-               <button type="submit" class="dropdown-item" style="cursor: pointer;width:96%" name="submit" id="activeNotify">{{ $notification->data['data'] }}</button>
-               </form>              
+              <a href="#" data-toggle="modal" data-target="#notification_edit_appeal"  data-id="{{ $notification->data['appeal_id'] }}" class="dropdown-item notification_edit_appeal">{{$notification->data['data']}}</a>
+              {{-- <a class="dropdown-item" href="{{url('prisonDashboard')}}" id="{{ $notification->data['appeal_id'] }}">{{$notification->data['data']}}</a> --}}
+              
              @endforeach
               @endif
               {{-- @if(auth()->user()->readNotifications->count(['read_at' != null]))

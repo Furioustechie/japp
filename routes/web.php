@@ -136,7 +136,7 @@ Route::get('/testforgot', 'loginController@testforgot');
 //test route page for master blade
 Route::get('/master', 'pagesController@masterpage');
 Route::get('/profile/{username}', 'AppealsController@user');
-Route::get('/abc/{id}', 'AppealsController@abc');
+Route::get('/updateFrmPrison/{id}', 'AppealsController@updateFrmPrison');
 Route::get('/hc_details', ['as'=>'get.data6','uses'=>'AppealsController@getDetail']);
 //Route::get('/testt', ['as'=>'get.data7','uses'=>'AppealsController@testt']);
 Route::post('/dynamicCourtsList/{district_id}', 'AppealsController@dynamicCourtsList');

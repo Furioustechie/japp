@@ -845,7 +845,7 @@ DB::table('newappeals')->insert([
     
 
 
-    public function abc(request $request, $id)
+    public function updateFrmPrison(request $request, $id)
     {
         $user_type = Auth::user()->user_type;
         //dd($user_type);
