@@ -39,7 +39,7 @@ return [
     'prison_appealDetailsFrom' => 'আপীল বিবরণ:',
     'create_appeal' => 'নতুন আবেদন তৈরি করুন',
     //Prison appeal details
-    'prison_inThisMonth' => 'এই মাসের বিস্তারিত',
+    'prison_overdueDetails' => 'এখন পর্যন্ত সর্বমোট বিলম্বিত',
     'prison_detailsPending' => ' প্রত্যয়িত কপির জন্য মুলতুবি বিস্তারিত',
     'prison_detailsOfResolved' => 'আপিল নিস্পত্তি বিস্তারিত',
     // Prison Modal Details

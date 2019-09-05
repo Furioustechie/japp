@@ -25,6 +25,8 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/login/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets/login/css/main.css')}}">
+	<!-- Include Bootstrap Datepicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
 	
 	
 <!--===============================================================================================-->
@@ -77,6 +79,7 @@
                                 </a>
 					</div>
 				</form>
+				<input class="datepicker" id="datepicker" name="datepicker">
 			</div>
 		</div>
 	</div>
@@ -100,11 +103,20 @@
 <script src="{{URL::asset('assets/login/vendor/select2/select2.min.js')}}"></script>
 <!--===============================================================================================-->
 <script src="{{URL::asset('assets/login/vendor/daterangepicker/moment.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/plugins/bootstrap-datetimepicker.min.js')}}"></script>
+
 <script src="{{URL::asset('assets/login/vendor/daterangepicker/daterangepicker.js')}}"></script>
 <!--===============================================================================================-->
 <script src="{{URL::asset('assets/login/vendor/countdowntime/countdowntime.js')}}"></script>
 <!--===============================================================================================-->
 <script src="{{URL::asset('assets/login/js/main.js')}}"></script>
-	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+		<script>
+		// $(document).ready(function(){
+		// 		$("#datepicker").datepicker();
+					
+		// 	});
+	</script>
 </body>
 </html>

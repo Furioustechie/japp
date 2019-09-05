@@ -733,6 +733,7 @@ DB::table('newappeals')->insert([
         $overdue_prison = DB::table('overdue_hc')
          ->select('id', 'prison_id', 'prison_name', 'prisoner_name', 'case_no', 'act_name', 'court_name')
          ->where('overdue_hc.prison_id', '=', $prison_id)
+         ->where('overdue_hc.states', '!=', 'red')
          ->Where('overdue_hc.statusid', '!=', 10)
          ->Where('overdue_hc.mydate', '>', 10)
          ->paginate(5);
@@ -792,11 +793,15 @@ DB::table('newappeals')->insert([
     {
         $prison_id = Auth::user()->prison_id;
         if ($request->ajax()) {
-            $appDetails_thisYear = DB::table('thisyearappealforprison')
-        ->select('id', 'prison_id', 'prison_name', 'prisoner_name', 'case_no', 'act_name', 'court_name')
-        ->where('thisyearappealforprison.prison_id', $prison_id)
+       
+        $overdue_prison = DB::table('overdue_hc')
+        ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
+        ->where('overdue_hc.prison_id', $prison_id)
+        ->where('overdue_hc.states','!=', 'red')
+        ->where('overdue_hc.mydate', '>', 10 )
+        ->Where('overdue_hc.statusid', '!=', 10 )
         ->paginate(5);
-            return view('inc_prison.thisYearData', compact('appDetails_thisYear'))->render();
+            return view('inc_prison.thisYearData', compact('overdue_prison'))->render();
         }
     }
     public function fetch_appealIncomplete(Request $request)
@@ -814,6 +819,11 @@ DB::table('newappeals')->insert([
     public function getPrisonDB()
     {
         return view('prisonDashboard_data');
+    }
+    public function getDocName()
+    {
+        $docname = Doctype::all();
+        return view('prisonDashboard',compact('docname'));
     }
     public function getAppealHistory()
     {
@@ -850,7 +860,9 @@ DB::table('newappeals')->insert([
         $user_type = Auth::user()->user_type;
         //dd($user_type);
         $output = '';
-  
+        $split_Id = $id;
+        Auth()->user()->unreadNotifications->where('appeal_id','=',$split_Id)->markAsRead();
+
         $status_name = DB::select('SELECT * FROM status');
 
         $appDetail = DB::select(

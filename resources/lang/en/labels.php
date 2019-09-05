@@ -39,7 +39,7 @@ return [
     'prison_appealDetailsFrom' => 'Appeal Details From',
     'create_appeal' => 'create new appeal',
      //Prison appeal details
-    'prison_inThisMonth' => 'Details of This Month',
+    'prison_overdueDetails' => 'Details Over Due Appeals',
     'prison_detailsPending' => 'Details of Incomplete/Failed Appeals',
     'prison_detailsOfResolved' => 'Details of Appeals Resolved',
     // Prison Modal Details

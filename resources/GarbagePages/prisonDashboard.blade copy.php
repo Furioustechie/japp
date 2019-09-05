@@ -27,6 +27,7 @@
         div.show_resolved {        /* this will hide div with id div_id_name */
                 display:none;
                 }   
+
                 fieldset.scheduler-border {
                     border: 1px groove #ddd !important;
                     padding: 0 1.4em 1.4em 1.4em !important;
@@ -34,6 +35,7 @@
                     -webkit-box-shadow:  0px 0px 0px 0px #000;
                             box-shadow:  0px 0px 0px 0px #000;
                 }
+
                 legend.scheduler-border {
                     font-size: 1.2em !important;
                     font-weight: bold !important;
@@ -45,9 +47,10 @@
                 div.progress {        /* this will hide div with id div_id_name */
                 display:none;
                 }    
+                
                 .select2 {
-                width:100%!important;
-                }
+width:100%!important;
+}
           </style>
 </head>
 <script>
@@ -452,19 +455,18 @@
              // $('.section').prepend($('<option></option>').html('Loading...'));
            }) ;
            
-        //   $('.myselect').select2({
-        //     placeholder: 'Please Select..',
-        //     allowClear: true
-           
-        //   });
-
+          $('.myselect').select2({
+            placeholder: 'Please Select..'
+          });
         //   $('.myselect').select2({
         //         dropdownParent: $('#filename')
         //     });
           $('.section').select2({
             placeholder: 'Please Select..'
           });
-          
+          $(".js-example-placeholder-multiple").select2({
+    placeholder: "Select a state"
+});
         });
     </script>
     <script>
@@ -727,79 +729,7 @@ Swal.fire({
      
     });
     </script>
-    <script>
-        $(document).ready(function(){
-            $('.myselect').select2({
-          placeholder: "Please Select..",
-          allowClear: true
-        });
-        
-        $("#sentencingDistrict").change(function(){
-            var district_id = $(this).val();
-            console.log(district_id);
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        if(district_id == ""){
-            $("#sentencingcourt").empty();
-        }else{
-            $.ajax({
-                url: '/dynamicCourtsList/'+ district_id,
-                type: 'post',
-                //data: {district_id},
-                dataType: 'json',
-                success:function(response){
-                    var len = response.length;
-                    $("#sentencingcourt").empty();
-                    $("#sentencingcourt").prepend("<option value=''>"+'Please Select ..'+"</option>");
-                    for( var i = 0; i<len; i++){
-                        var id = response[i]['id'];
-                        var name = response[i]['name_en'];
-                        $("#sentencingcourt").append("<option value='"+id+"'>"+name+"</option>");
-                    }
-                }
-            });}
-        });
-        $("#act").change(function(){
-            var act_id = $(this).val();
-            //console.log(act_id);
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        
-            $.ajax({
-                url: '/dynamicSectionList/'+ act_id,
-                type: 'post',
-                //data: {district_id},
-                dataType: 'json',
-                success:function(response){
-                    var len = response.length;
-                    $("#section").empty();
-                    for( var i = 0; i<len; i++){
-                        var id = response[i]['id'];
-                        var name = response[i]['name'];
-                        $("#section").append("<option value='"+id+"'>"+name+"</option>");
-                    }
-                }
-            });
-        });
-        
-        });
-        </script>
-        <script>
-                $(document).ready(function(){
-                    $('#section').change(function(){
-                        var act = $('select#act option:selected').text();
-                        var section = $('select#section option:selected').text();
-                        $('#completeSentence').html('Offence is: '+act+' '+section);
-                });
-                
-                });
-        </script>
+    
       @include('sweet::alert')
     <script type="text/>javascript">
    

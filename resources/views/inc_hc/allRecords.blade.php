@@ -206,7 +206,14 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
             <span class="desc">Remarks: {{ $struct->remarks }}</span>
             </a>
             </li>
-      
+            @elseif($struct->stateno == 'todo')
+            <li class="complete">
+            <a href="#" class="text-muted">{{ $pp->status_name }}
+            <i class="ico fa fa-edit ico-edit" style="color:todo"></i>
+            <span class="desc">Update on {{ $struct->status_updated_at }}</span>
+            <span class="desc">Remarks: {{ $struct->remarks }}</span>
+            </a>
+            </li>
           @else
             <li class="complete">
             <a href="#" class="text-danger">{{ $pp->status_name }}
@@ -264,7 +271,7 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
               <div class="col-md-6">
                 <div class="form-group">
                     <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
-                    <select id="myselection" class="browser-default custom-select myselection" name="status_id" required>
+                    <select id="myselection_hc_all" class="browser-default custom-select myselection_hc_all" name="status_id" required>
 
                     <!-- Custom Query for Option Value -->
                     <?php 
@@ -296,7 +303,7 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
               @endphp  
 
              
-              <div class="col-md-6 show">
+              <div class="col-md-6 show_all_appl">
               <div class="form-group">
               <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
               <select class="browser-default custom-select state" id="state" name="state" required>
@@ -304,7 +311,7 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
                 <option value="">Please Select..</option>
                 <option value="yellowgreen" >Milestone Complete </option>
                 <option value="todo" >No, Reminder Sent</option>
-                @elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
+                @elseif(empty($last_state[0]->statusid)  OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
                 {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
                 <option value="">Please Select..</option>
                 <option value="yellowgreen" >Milestone Complete</option>
@@ -313,7 +320,16 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
                 <option value="">Please Select..</option>
                 <option value="yellowgreen" >Milestone Complete </option>
                 <option value="red" >Incomplete, Reminder Sent</option>
-               
+                @elseif(@$last_state[0]->statusid == 2)
+                      @if(@$last_state[0]->state != 'red')
+                      <option value="">Please Select..</option>
+                      <option value="yellowgreen" >Milestone Complete </option>
+                      <option value="todo" >Incomplete, Reminder Sent</option>
+                      @else
+                      <script>$('.myselection_hc_all').on('change',function(){
+                            swal('Wait a while','For Update From Prison','error');
+                      });</script>
+                      @endif
                 @elseif(@$last_state[0]->statusid == 3)
                 <option value="">Please Select..</option>
                 <option value="yellowgreen" >Milestone Complete </option>
@@ -402,8 +418,8 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
 
 </div>
 <script>
-  $('.show').hide();
-  $('.myselection').change(function() {
-  $('.show').show();
+  $('.show_all_appl').hide();
+  $('.myselection_hc_all').change(function() {
+  $('.show_all_appl').show();
 });
 </script>

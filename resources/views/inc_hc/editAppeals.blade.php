@@ -111,8 +111,15 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                         <span class="desc">Remarks: {{ $struct->remarks }}</span>
                         </a>
                         </li>
-                  
-                      @else
+                        @elseif($struct->stateno == 'todo')
+                        <li class="complete">
+                        <a href="#" class="text-muted">{{ $pp->status_name }}
+                        <i class="ico fa fa-edit ico-edit" style="color:todo"></i>
+                        <span class="desc">Update on {{ $struct->status_updated_at }}</span>
+                        <span class="desc">Remarks: {{ $struct->remarks }}</span>
+                        </a>
+                        </li>
+                        @else
                         <li class="complete">
                         <a href="#" class="text-danger">{{ $pp->status_name }}
                         <i class="ico fa fa-close ico-close" style="color:red"></i>
@@ -207,26 +214,26 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <select class="browser-default custom-select state" id="state" name="state" required>
                             @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
                             <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
+                            <option value="yellowgreen" >Milestone Complete </option>
                             <option value="todo" >No, Reminder Sent</option>
-                            @elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
+                            @elseif(empty($last_state[0]->statusid)  OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
                             {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
                             <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did</option>
+                            <option value="yellowgreen" >Milestone Complete</option>
                             {{-- <option value="todo" >No, Reminder Sent</option> --}}
-                            @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
+                            @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 10))
                             <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
+                            <option value="yellowgreen" >Milestone Complete </option>
                             <option value="red" >Incomplete, Reminder Sent</option>
                            
                             @elseif(@$last_state[0]->statusid == 3)
                             <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
-                            <option value="todo" >No, Reminder Sent</option>
+                            <option value="yellowgreen" >Milestone Complete </option>
+                            <option value="todo" >Incomplete, Reminder Sent</option>
                             <option value="red" >Reject</option>
                             @elseif(@$last_state[0]->statusid == 4)
                             <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
+                            <option value="yellowgreen" >Milestone Complete </option>
                             @endif
                             </select>
                           </div>

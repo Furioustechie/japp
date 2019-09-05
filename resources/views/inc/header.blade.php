@@ -59,12 +59,25 @@
             <a class="nav-link hvr-grow-shadow" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               @if(auth()->user()->unreadNotifications->count()>0)
               <i class="material-icons">notifications_active</i>
-              <span class="notification animated infinite flash delay-2s" id="countid">{{ auth()->user()->unreadNotifications->count() }}</span>
+              <span id="myid">
+              <span class="notification" id="countid">{{ auth()->user()->unreadNotifications->count() }}</span>
+            </span>
+              <script>
+                // var timeisup = null;
+                // $(document).ready(function(){
+                //   setInterval(function(){
+                //     $("#myid").load(location.href + " #countid"); // this will run after every 2 seconds
+                //     //clearInterval(timeisup);
+                //       }, 2000);
+                     
+                //       });
+                </script>
+           
               @else
               <i class="material-icons">notifications</i>
               @endif
               <p class="d-lg-none d-md-block">
-                Some Actions
+                Nothing Pending!
               </p>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

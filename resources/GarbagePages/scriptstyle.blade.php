@@ -19,6 +19,7 @@
 
 <!--  Notifications Plugin    -->
 <script src="{{URL::asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
+
 <!--  Google Maps Plugin    -->
 
 <!-- Chartist JS -->

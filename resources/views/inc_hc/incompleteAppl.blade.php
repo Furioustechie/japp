@@ -256,16 +256,16 @@
                             <span class="col-md-10 offset-sm-1 border border-info">
                             <div class="card">
                             <div class="card-header bg-info">
-                            <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus{{ $appeal->id }}" > Do you want to Update?</a>
+                            <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus_incomplete{{ $appeal->id }}" > Do you want to Update?</a>
                             </div>
                             <div class="card-body">
-                            <div id="updateStatus{{ $appeal->id }}" class="panel-collapse collapse">
+                            <div id="updateStatus_incomplete{{ $appeal->id }}" class="panel-collapse collapse">
               
                            <div class="row mb-12">
                             <div class="col-md-6">
                               <div class="form-group">
                                   <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
-                                  <select id="myselection" class="browser-default custom-select myselection" name="status_id" required>
+                                  <select id="myselection_inc" class="browser-default custom-select myselection_inc" name="status_id" required>
               
                                   <!-- Custom Query for Option Value -->
                                   <?php 
@@ -305,7 +305,7 @@
                               <option value="">Please Select..</option>
                               <option value="yellowgreen" >Milestone Complete </option>
                               <option value="todo" >No, Reminder Sent</option>
-                              @elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
+                              @elseif(empty($last_state[0]->statusid)  OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
                               {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
                               <option value="">Please Select..</option>
                               <option value="yellowgreen" >Milestone Complete</option>
@@ -314,7 +314,12 @@
                               <option value="">Please Select..</option>
                               <option value="yellowgreen" >Milestone Complete </option>
                               <option value="red" >Incomplete, Reminder Sent</option>
-                             
+                              @elseif(@$last_state[0]->statusid == 2 AND @$last_state[0]->state == 'red')
+                              <script>$('#myselection_inc').on('change',function(){swal('Wait a while','Pending For Prison Update','error');});</script>
+                              @elseif(@$last_state[0]->statusid == 2 AND @$last_state[0]->state == 'todo')
+                              <option value="">Please Select..</option>
+                              <option value="yellowgreen" >Milestone Complete </option>
+                              <option value="todo" >Incomplete, Reminder Sent</option>
                               @elseif(@$last_state[0]->statusid == 3)
                               <option value="">Please Select..</option>
                               <option value="yellowgreen" >Milestone Complete </option>
@@ -344,14 +349,14 @@
                             </div>
                           </div>
                           <p>
-                            <a class="btn btn-info" data-toggle="collapse" href="#log_{{ $appeal->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <a class="btn btn-info" data-toggle="collapse" href="#log_inc{{ $appeal->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                               Show Log
                             </a>
                           </p>
                           <?php
                             $showlog = DB::select('SELECT * FROM notifications WHERE appeal_id="'.$appeal->id.'" ORDER BY updated_at');  
                           ?>
-                          <div class="collapse" id="log_{{ $appeal->id }}">
+                          <div class="collapse" id="log_inc{{ $appeal->id }}">
                             <div class="card card-body">
                                 <div class="card-header card-header-success">
                                 @foreach ($showlog as $log)
@@ -400,7 +405,7 @@
 </div>
 <script>
   $('.show').hide();
-  $('.myselection').change(function() {
+  $('.myselection_inc').change(function() {
   $('.show').show();
 });
 </script>

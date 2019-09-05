@@ -1,5 +1,5 @@
 @include('inc.messages')
-<div class="modal" data-backdrop="static" tabindex="-1" id="appealModal" role="dialog" aria-labelledby="myModalAppeal" aria-hidden="true" data-keyboard="false">
+<div class="modal fade" data-backdrop="static" tabindex="-1" id="appealModal" role="dialog" aria-labelledby="myModalAppeal" aria-hidden="true" data-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-center" style="background-color:#00bcd4;">
@@ -152,28 +152,17 @@
                         </div>
                        
                         <!-- Dropdown data from Doctype model and dynamiclist providers -->
-                       {{-- <div class="col-md-6">
+                       <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating text-info">{{ __('labels.doc_attachment') }} (Max. Limit 20 MB)</label>
                                 <select class="browser-default custom-select myselect"  id="doctype" name="doctype[]" multiple="multiple" required>
-                                    <option value="">Please wait..</option>
-                                    @foreach ($docname as $data)
+                                        @foreach ($docname as $data)
                                                <option value="{{$data->id}}">{{$data->docname}} </option>
                                           @endforeach
                                   </select>
                             </div>
-                          </div> --}}
-                          <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="bmd-label-floating text-info">{{ __('labels.doc_attachment') }} *</label>
-                                <select class="browser-default custom-select myselect " id="doctype" name="doctype[]" multiple="multiple" required>
-                                    <option selected value=""></option>
-                                    @foreach ($docname as $data)
-                                               <option value="{{$data->id}}">{{$data->docname}} </option>
-                                          @endforeach                                  
-                                   </select>
-                            </div>
-                        </div>
+                          </div>
+                          <select class="js-example-placeholder-multiple js-states form-control" id="xyz" multiple="multiple"></select>
                <!-- Dropdown End for Documents type -->
                     </div>
                     <div class="row">
@@ -246,5 +235,72 @@
    
 </div>
 
+<script>
+$(document).ready(function(){
 
+$("#sentencingDistrict").change(function(){
+    var district_id = $(this).val();
+    console.log(district_id);
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+if(district_id == ""){
+    $("#sentencingcourt").empty();
+}else{
+    $.ajax({
+        url: '/dynamicCourtsList/'+ district_id,
+        type: 'post',
+        //data: {district_id},
+        dataType: 'json',
+        success:function(response){
+            var len = response.length;
+            $("#sentencingcourt").empty();
+            $("#sentencingcourt").prepend("<option value=''>"+'Please Select ..'+"</option>");
+            for( var i = 0; i<len; i++){
+                var id = response[i]['id'];
+                var name = response[i]['name_en'];
+                $("#sentencingcourt").append("<option value='"+id+"'>"+name+"</option>");
+            }
+        }
+    });}
+});
+$("#act").change(function(){
+    var act_id = $(this).val();
+    //console.log(act_id);
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+    $.ajax({
+        url: '/dynamicSectionList/'+ act_id,
+        type: 'post',
+        //data: {district_id},
+        dataType: 'json',
+        success:function(response){
+            var len = response.length;
+            $("#section").empty();
+            for( var i = 0; i<len; i++){
+                var id = response[i]['id'];
+                var name = response[i]['name'];
+                $("#section").append("<option value='"+id+"'>"+name+"</option>");
+            }
+        }
+    });
+});
+});
+</script>
+<script>
+        $(document).ready(function(){
+            $('#section').change(function(){
+                var act = $('select#act option:selected').text();
+                var section = $('select#section option:selected').text();
+                $('#completeSentence').html('Offence is: '+act+' '+section);
+        });
+        
+        });
+</script>
 
