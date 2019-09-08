@@ -265,7 +265,208 @@ a:hover .spanRight{
                
                 <div class="row show_justUpdate">
                     <div class="col-md-12">
-                     <!-----apps.blade.php in garbage collection directory ------->
+                     <!-- <div class="card">
+                            <div class="card-header card-header-info">
+                                <h4 class="card-title mt-0">{{ __('labels.hc_appealResolved') }}</strong><span class="float-right"><button type="button" class="close" id="close_justUpdate" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></span></h4>
+                                  </button>
+                            <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                                <div id="data_resolvedAppl">
+                                    @include('inc_hc.resolvedAppl')
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-tabs card-header-primary">
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <span class="nav-tabs-title">Look At Also:</span>
+                                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active hvr-underline-from-center" href="#profile" data-toggle="tab">
+
+                                                        <i class="material-icons">group</i>{{ __('labels.tab_maxLength') }}
+                                                        <span class="badge badge-pill badge-danger" style="font-size: 15px !important;">{{ $incomplete->count() }}</span>
+                                                        <div class="ripple-container"> </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link hvr-underline-from-center" href="#messages" data-toggle="tab">
+                                                        <i class="material-icons">assignment_ind</i> {{ __('labels.tab_jappNoAssigned') }} <span
+                                                            class="badge badge-pill badge-warning" style="font-size: 15px !important;">{{ $overDue[0]->vid }}</span>
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link hvr-underline-from-center" href="#settings" data-toggle="tab">
+                                                        <i class="material-icons">watch_later</i>{{ __('labels.tab_onHearing') }} <span
+                                                            class="badge badge-pill badge-info" style="font-size: 15px !important;">{{ $totalOnhearing[0]->statusid }}</span>
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li><span class="nav-tabs-title">Data Still Is Prepration ...</span>
+                                            </ul> 
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+             
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="profile">
+                                            {{-- <div class="card-body table-responsive"> --}}
+                                                @if(count($appeals) > 0)
+                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_cc" width="100%" cellspacing="0">
+
+                                                    <thead class=" text-primary">
+
+                                                        <th>Case No</th>
+                                                        <th>Prison Name</th>
+                                                        <th>Conviction Time</th>
+                                                        <td>Action</td>
+                                                    </thead>
+                                                   
+                                                    <tbody>
+
+                                                        @foreach($incomplete as $no_cc)
+                                                        <!-- ToolTip value  -->
+                                                        <?php
+                                                           // $output ="ID :".$no_cc->id."&#009;"."Case No :".$no_cc->caseno."&#10;"."Sentence Type : ".$appeal->date_of_sentence ;
+                                                        ?>
+                                                        <tr>
+
+                                                            <td>{{ $no_cc->caseno }}</td>
+                                                            <td>{{$no_cc->name}}</td>
+                                                            <td> <a rel="tooltip" data-placement="right" title="">
+                                                                @if(!empty($no_cc->date_of_sentence))
+                                                                    {{ $no_cc->date_of_sentence }}</a>
+                                                                    @else
+                                                                    No Date Found
+                                                                    @endif
+                                                                {{-- <a class="btn tooltipped" data-position="bottom"
+                                                                    data-tooltip="I am a tooltip">Hover me!</a> --}}
+                                                            </td>
+                                                            <td>
+                                                                    <form action="/searchs" method="POST"><button name="search" value={{$no_cc->id}}><span
+                                                                class="badge badge-pill badge-warning" style="font-size: 15px !important;"> @csrf()Take Action</span>
+                                                            </button><!-- Button trigger modal -->
+                                                           
+                                                        </form>
+                                                        
+                                                    </td>
+                                                </tr>
+
+                                                        @endforeach
+                                                        
+
+
+                                                    </tbody>
+                                                </table>
+                                                @else
+                                                <p>Nothing Found</p>
+                                                @endif
+                                            </div>
+                                        {{-- </div> --}}
+                                        <div class="tab-pane" id="messages">
+                                            @if(count($appeals) > 0)
+                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_pending" width="100%" cellspacing="0">
+                                                    
+                                                    <thead class="text-primary">
+
+                                                        <th>Case No</th>
+                                                        <th>Prison Name</th>
+                                                        <th>Conviction Time</th>
+                                                        <td>Action</td>
+                                                    </thead>
+                                                   
+                                                    <tbody>
+
+                                                        @foreach($PendingForAction as $action)
+                                                        <!-- ToolTip value  -->
+                                                        <?php
+                                                           // $output ="ID :".$no_cc->id."&#009;"."Case No :".$no_cc->caseno."&#10;"."Sentence Type : ".$appeal->date_of_sentence ;
+                                                        ?>
+                                                        <tr>
+
+                                                            <td>{{ $action->caseno }}</td>
+                                                            <td>{{$action->name}}</td>
+                                                            <td> <a rel="tooltip" data-placement="right" title="">
+                                                                @if(!empty($action->date_of_sentence))
+                                                                    {{ $action->date_of_sentence }}</a>
+                                                                    @else
+                                                                    No Date Found
+                                                                    @endif
+                                                                {{-- <a class="btn tooltipped" data-position="bottom"
+                                                                    data-tooltip="I am a tooltip">Hover me!</a> --}}
+                                                            </td>
+                                                            <td>
+                                                                <form action="/searchs" method="POST">
+                                                                    <button name="search" value={{ $action->id }}><span
+                                                                class="badge badge-pill badge-danger" style="font-size: 15px !important;"> @csrf()Action</span>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                               
+                                                     
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                                @else
+                                                <p>Nothing Found</p>
+                                                @endif
+                                        </div>
+                                        <div class="tab-pane" id="settings">
+                                            @if(count($appeals) > 0)
+                                                <table class="table table-striped table-bordered animated fadeInUp" id="dataTable_onhearing" width="100%" cellspacing="0">
+                                                    <thead class=" text-primary">
+
+                                                        <th>Case No</th>
+                                                        <th>Prison Name</th>
+                                                        <th>Conviction Time</th>
+                                                        <td>Action</td>
+                                                    </thead>
+                                                         <tbody>
+                                                            @foreach($PendingOnHearing as $onhearing)
+                                                        <tr>
+                                                                <td>{{ $onhearing->caseno }}</td>
+                                                                <td>{{$onhearing->name}}</td>
+                                                                <td> <a rel="tooltip" data-placement="right" title="">
+                                                                        @if(!empty($onhearing->date_of_sentence))
+                                                                            {{ $onhearing->date_of_sentence }}</a>
+                                                                            @else
+                                                                            No Date Found
+                                                                            @endif
+                                                                        {{-- <a class="btn tooltipped" data-position="bottom"
+                                                                            data-tooltip="I am a tooltip">Hover me!</a> --}}
+                                                                    </td>
+                                                                    <td>
+                                                                        <form action="/searchs" method="POST">
+                                                                            <button name="search" value={{ $onhearing->id }}><span
+                                                                        class="badge badge-pill badge-danger" style="font-size: 15px !important;"> @csrf()Action</span>
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                         </tr>
+                                                                    @endforeach
+
+                                                                </tbody>
+                                                            </table>
+                                                            @else
+                                                            <p>Nothing Found</p>
+                                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                     <!-----Block for All Application Deatils ------->

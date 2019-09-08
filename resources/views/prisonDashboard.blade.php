@@ -801,8 +801,19 @@ Swal.fire({
                 });
         </script>
       @include('sweet::alert')
-    <script type="text/>javascript">
-   
-    </script>
+ 
+<script type="text/javascript">
+    // $(document).ready(function(){
+    //     $('input[type="submit"]').click(function(){
+    //         if($("checked") == true){
+    //             alert("Checkbox is checked.");
+    //         }
+    //         else if($("checked") == false){
+    //             alert("Checkbox is unchecked.");
+    //         }
+    //     });
+    // });
+</script>
+    
 </body>
 </html>
