@@ -66,7 +66,6 @@ class PagesController extends Controller
         $notify_appeal_id = $request->appsid;
     
     
-    $send['abcd']= 555;
     
         // $myvar = '';
         // if($request){
@@ -77,12 +76,13 @@ class PagesController extends Controller
        // Session::put('locale',$lang);
         $appeals = Appeal::all();
 
-        $totalAppeals = Newappeal::where('id', '>', 0)->get();
-        $countAppeals = $totalAppeals->count();
+        //$totalAppeals = Newappeal::select((count('id')) as 'total', max('created_at') as 'maxDate')->where('id', '>', 0)->get();
+        $countAppeals = DB::select('SELECT count(id) as total, max(created_at) as maxDate FROM newappeals WHERE id > 0');
+        //$countAppeals = $totalAppeals->count();
         //$lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at  AND DATE_SUB(NOW(), INTERVAL 1 MONTH)');
-        $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
 
-        $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
+        $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved,max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
         $PendingForAction = DB::select('SELECT id, date_of_sentence,datatotakeaction.caseno,name FROM datatotakeaction');
         $data_PieChart = DB::select('SELECT prisoner_name,prisoner_gender, dob, prisoner.id FROM prisoner   JOIN   newappeals ON newappeals.id = prisoner.id');
@@ -211,8 +211,7 @@ foreach($totalByStatus as $byStatus){
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('pendingforcc_prison.prison_id', $prison_id )
     ->paginate(5);
-    $count_incompleteApplication_ForHC = DB::table('pendingforcc_prison')->count();
-
+    $count_incompleteApplication_ForHC = DB::select('SELECT count(id) as totalIncompleteAppeal, max(updated_at) as maxDate FROM pendingforcc_prison');
     $appDetails_appealResolved_ForHC = DB::table('appealresolved_prison')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('appealresolved_prison.prison_id', $prison_id )
@@ -293,7 +292,7 @@ foreach($totalByStatus as $byStatus){
         $countAppeals = $totalAppeals->count();
         $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
 
-        $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
+        $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved, max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
         $PendingForAction = DB::select('SELECT id, date_of_sentence,datatotakeaction.caseno,name FROM datatotakeaction');
         $data_PieChart = DB::select('SELECT prisoner_name,prisoner_gender, dob, prisoner.id FROM prisoner   JOIN   newappeals ON newappeals.id = prisoner.id');

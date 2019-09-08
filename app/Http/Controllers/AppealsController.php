@@ -192,32 +192,34 @@ class AppealsController extends Controller
             'created_at' => date('Y-m-d h:s:i'),
             'updated_at' => date('Y-m-d h:s:i')]
     ]);
+
         $typeid = $request->input('doctype'); //doctype ID
-        $result = array();
-        $values = array($typeid, $data);
-                        
-        foreach ($typeid as $index => $key) {
-            $t = array();
-            foreach ($values as $value) {
-                $t[] = $value[$index];
+        if(!empty($typeid)){
+            $result = array();
+            $values = array($typeid, $data);
+                            
+            foreach ($typeid as $index => $key) {
+                $t = array();
+                foreach ($values as $value) {
+                    $t[] = $value[$index];
+                }
+                $result[$key]  = $t;
+            }// end of doctype
+            foreach ($result as $r) {                     //Loop for Doctype and Filename Column
+                DB::table('documents')->insert([
+                    ['appealid' => $nextId1,
+                    'doctypeid' => $r[0],
+                    'attached' => '1', // It is optional and hardcoded
+                    //'filename' => $r[1].time(),
+                    'filename' => $r[1],
+                    'created_at' => date('Y-m-d h:s:i'),
+                    'updated_at' => date('Y-m-d h:s:i')]
+                ]);
             }
-            $result[$key]  = $t;
-        }// end of doctype
-                     
-                        
-                                                      
+        }
+                                                     
         // Documents Table Data Insertion Block
-                        foreach ($result as $r) {                     //Loop for Doctype and Filename Column
-                            DB::table('documents')->insert([
-                                ['appealid' => $nextId1,
-                                'doctypeid' => $r[0],
-                                'attached' => '1', // It is optional and hardcoded
-                                //'filename' => $r[1].time(),
-                                'filename' => $r[1],
-                                'created_at' => date('Y-m-d h:s:i'),
-                                'updated_at' => date('Y-m-d h:s:i')]
-                            ]);
-                        }
+                        
         $sections = $request->input('section_name');//Receive value
                             $sec_result = array();                      //initialize empty array
                             $sec_values = array($sections);             //initialize array with received value
@@ -514,7 +516,7 @@ DB::table('newappeals')->insert([
                             ['statusid' => $request->status_id,
                             'newappeals_id' => $request->appeal_id,
                             'state' => $request->state,
-                            //'remarks' => $request->input('rejectgrant'),
+                            'remarks' => $request->input('rejectgrant'),
                                 'created_at' => date('Y-m-d h:s:i'),
                                 'updated_at' => date('Y-m-d h:s:i')]
                         ]);

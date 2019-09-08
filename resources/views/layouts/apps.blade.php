@@ -158,18 +158,18 @@ a:hover .spanRight{
                 <div class="container-fluid">
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card card-stats hvr-grow-shadow"> <a href="/hcDetails" ><span class="spanLeft" style="color: green;">..</span>
+                            <div class="card card-stats hvr-grow-shadow"> <a href="#" ><span class="spanLeft" style="color: green;">..</span>
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_totalAppeal') }}</p>
-                                    <h3 class="card-title"  id="data_all" value="{{$count}}">{{$count}}</h3>
+                                    <h3 class="card-title"  id="data_all" value="{{$count[0]->total}}">{{$count[0]->total}}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                       {{ __('labels.seeAll') }}
+                                        <i class="material-icons">update</i>
+                                       {{ __('labels.justUpdated') }}{{$count[0]->maxDate}}
                                     </div>
                                 </div><span class="spanRight">..</span></a>
                             </div>
@@ -185,7 +185,7 @@ a:hover .spanRight{
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i> {{ __('labels.overdue_appeals') }}
+                                        <i class="material-icons">update</i> {{ __('labels.justUpdated') }}{{$overdue_count[0]->maxDay}} Days Ago
                                     </div>
                                 </div></a>
                             </div>
@@ -197,11 +197,11 @@ a:hover .spanRight{
                                         <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_pendingForCC') }}</p>
-                                    <h3 id="data_incomplete" value="{{ $count_incompleteApplication_ForHC }}" class="card-title">{{ $count_incompleteApplication_ForHC}} </h3>
+                                    <h3 id="data_incomplete" value="{{ $count_incompleteApplication_ForHC[0]->totalIncompleteAppeal }}" class="card-title">{{ $count_incompleteApplication_ForHC[0]->totalIncompleteAppeal}} </h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> {{ __('labels.ccNotFound') }}
+                                        <i class="material-icons">update</i> {{ __('labels.justUpdated') }}{{ $count_incompleteApplication_ForHC[0]->maxDate}}
                                     </div>
                                 </div></a>
                             </div>
@@ -219,7 +219,7 @@ a:hover .spanRight{
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">update</i> {{ __('labels.justUpdated') }}
+                                        <i class="material-icons">update</i> {{ __('labels.justUpdated') }}{{ date('Y-m-d h:i:s', strtotime($totalappealResolved[0]->maxDate)) }}
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +289,7 @@ a:hover .spanRight{
                                             <span class="nav-tabs-title">Look At Also:</span>
                                             <ul class="nav nav-tabs" data-tabs="tabs">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" href="#profile" data-toggle="tab">
+                                                    <a class="nav-link active hvr-underline-from-center" href="#profile" data-toggle="tab">
 
                                                         <i class="material-icons">group</i>{{ __('labels.tab_maxLength') }}
                                                         <span class="badge badge-pill badge-danger" style="font-size: 15px !important;">{{ $incomplete->count() }}</span>
@@ -297,14 +297,14 @@ a:hover .spanRight{
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#messages" data-toggle="tab">
+                                                    <a class="nav-link hvr-underline-from-center" href="#messages" data-toggle="tab">
                                                         <i class="material-icons">assignment_ind</i> {{ __('labels.tab_jappNoAssigned') }} <span
                                                             class="badge badge-pill badge-warning" style="font-size: 15px !important;">{{ $overDue[0]->vid }}</span>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#settings" data-toggle="tab">
+                                                    <a class="nav-link hvr-underline-from-center" href="#settings" data-toggle="tab">
                                                         <i class="material-icons">watch_later</i>{{ __('labels.tab_onHearing') }} <span
                                                             class="badge badge-pill badge-info" style="font-size: 15px !important;">{{ $totalOnhearing[0]->statusid }}</span>
                                                         <div class="ripple-container"></div>
@@ -542,27 +542,27 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                   <!-- <form action="prisonDashboard/updateFromPrison" method="post"> <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
                   <div class="md-form form-group mt-2">
                   
-                  <input type="text" class="form-control" id="appeal_id" name="appeal_id" value="{{$appeal->id}}" readonly>
+                  <input type="text" class="form-control" id="notif_appeal_id" name="appeal_id" value="{{$appeal->id}}" readonly>
                   <label class="label text-info font-weight-bold" for="">Appeal ID</label></div>
                   <div class="md-form form-group mt-2">
                   <label class="label text-info font-weight-bold" for="">Prison Name</label><br>
-                    <select name="prison_name" id="prison_name" class="browser-default custom-select prison_name">
+                    <select name="prison_name" id="notif_prison_name" class="browser-default custom-select notif_prison_name">
                       @foreach ($prisonName as $pname)
                           <option value="{{ $pname->id }}" <?php if($pname->id == $appeal->prison_id) echo 'selected="selected"';?>>{{ $pname->name }}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="md-form form-group mt-2">
-                  <input type="text" class="form-control" id="court_name" name="court_name" value="{{$appeal->court_name}}" disabled>
+                  <input type="text" class="form-control" id="notif_court_name" name="court_name" value="{{$appeal->court_name}}" disabled>
                   <label class="label text-info font-weight-bold" for="">Sentencing Court</label></div>
                   <div class="md-form form-group mt-2">
-                  <input type="text" class="form-control" id="prisoner_name" name="prisoner_name" value="{{$appeal->prisoner_name}}" disabled>
+                  <input type="text" class="form-control" id="notif_prisoner_name" name="prisoner_name" value="{{$appeal->prisoner_name}}" disabled>
                   <label class="label text-info font-weight-bold" for="">Prisoner Name</label></div>
                   <div class="md-form form-group mt-2">
-                  <input type="text" class="form-control" id="act_name" name="act_name" value="{{$appeal->act_name}}" disabled>
+                  <input type="text" class="form-control" id="notif_act_name" name="act_name" value="{{$appeal->act_name}}" disabled>
                   <label class="label text-info font-weight-bold" for="">Offence Details</label></div>
                   <div class="md-form form-group mt-2">
-                  <input type="text" class="form-control" id="case_no" name="case_no" value="{{$appeal->case_no}}" disabled>
+                  <input type="text" class="form-control" id="notif_case_no" name="case_no" value="{{$appeal->case_no}}" disabled>
                   <label class="label text-info font-weight-bold" for="">Case NO</label></div>  
                   <label class="bmd-label-floating text-info" style="font-size: 14px;">Attachments :</label><br>
                                @foreach($ddd as $d)
@@ -607,7 +607,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                        ?>
                   
                   @if($item)
-                      @if($struct->stateno == 'yellowgreen')
+                    @if($struct->stateno == 'yellowgreen')
                         <li class="complete">
                         <a href="#" class="text-success">{{ $pp->status_name }}
                         <i class="ico fa fa-check ico-check" style="color:green"></i>
@@ -615,8 +615,15 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                         <span class="desc">Remarks: {{ $struct->remarks }}</span>
                         </a>
                         </li>
-                  
-                      @else
+                    @elseif($struct->stateno == 'todo')
+                        <li class="complete">
+                        <a href="#" class="text-muted">{{ $pp->status_name }}
+                        <i class="ico fa fa-edit ico-edit" style="color:todo"></i>
+                        <span class="desc">Update on {{ $struct->status_updated_at }}</span>
+                        <span class="desc">Remarks: {{ $struct->remarks }}</span>
+                        </a>
+                        </li>
+                    @else
                         <li class="complete">
                         <a href="#" class="text-danger">{{ $pp->status_name }}
                         <i class="ico fa fa-close ico-close" style="color:red"></i>
@@ -624,7 +631,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                         <span class="desc">Remarks: {{ $struct->remarks }}</span>
                         </a>
                         </li>
-                      @endif
+                    @endif
                  
                   @else
                   
@@ -673,7 +680,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
-                                <select id="myselection" class="browser-default custom-select myselection" name="status_id" required>
+                                <select id="notif_myselection_hc" class="browser-default custom-select notif_myselection_hc" name="status_id" required>
             
                                 <!-- Custom Query for Option Value -->
                                 <?php 
@@ -708,31 +715,40 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <div class="col-md-6 show">
                           <div class="form-group">
                           <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
-                          <select class="browser-default custom-select state" id="state" name="state" required>
-                            @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
-                            <option value="todo" >No, Reminder Sent</option>
-                            @elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
-                            {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did</option>
-                            {{-- <option value="todo" >No, Reminder Sent</option> --}}
-                            @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
-                            <option value="red" >Incomplete, Reminder Sent</option>
-                           
-                            @elseif(@$last_state[0]->statusid == 3)
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
-                            <option value="todo" >No, Reminder Sent</option>
-                            <option value="red" >Reject</option>
-                            @elseif(@$last_state[0]->statusid == 4)
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Yes, We did </option>
-                            @endif
-                            </select>
+                          <select class="browser-default custom-select notif_state_hc" id="state" name="state" required>
+                                @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
+                                <option value="">Please Select..</option>
+                                <option value="yellowgreen" >Milestone Complete </option>
+                                <option value="todo" >No, Reminder Sent</option>
+                                @elseif(empty($last_state[0]->statusid)  OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
+                                {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
+                                <option value="">Please Select..</option>
+                                <option value="yellowgreen" >Milestone Complete</option>
+                                {{-- <option value="todo" >No, Reminder Sent</option> --}}
+                                @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
+                                <option value="">Please Select..</option>
+                                <option value="yellowgreen" >Milestone Complete </option>
+                                <option value="red" >Incomplete, Reminder Sent</option>
+                                @elseif(@$last_state[0]->statusid == 2)
+                                      @if(@$last_state[0]->state != 'red')
+                                      <option value="">Please Select..</option>
+                                      <option value="yellowgreen" >Milestone Complete </option>
+                                      <option value="todo" >Incomplete, Reminder Sent</option>
+                                      @else
+                                      <script>$('.notif_myselection_hc').on('change',function(){
+                                            swal('Wait a while','For Update From Prison','error');
+                                      });</script>
+                                      @endif
+                                @elseif(@$last_state[0]->statusid == 3)
+                                <option value="">Please Select..</option>
+                                <option value="yellowgreen" >Milestone Complete </option>
+                                <option value="todo" >Incomplete, Reminder Sent</option>
+                                <option value="red" >Reject</option>
+                                @elseif(@$last_state[0]->statusid == 4)
+                                <option value="">Please Select..</option>
+                                <option value="yellowgreen" >Milestone Complete </option>
+                                @endif
+                                </select>
                           </div>
                           </div> 
                           </div>
@@ -740,7 +756,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                             <div class="form-group">
                                 @if(@$last_state[0]->statusid == 4) 
                               <label class="bmd-label-floating">Appeal No.</label>
-                              <input type="text" name="japp_no" id="japp_no" value="" class="form-control">
+                              <input type="text" name="japp_no" id="notif_japp_no" value="" class="form-control">
                               @endif
                             </div>
                           </div>
@@ -748,7 +764,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="bmd-label-floating text-info">Remarks- If there any</label>
-                            <input type="text" id="rejectgrant" name="rejectgrant" value="" class="form-control" required>
+                            <input type="text" id="notif_rejectgrant" name="rejectgrant" value="" class="form-control" required>
                           </div>
                         </div>
                         <p>
@@ -776,8 +792,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                         </div>
                         <button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Close</button>
                           {{ csrf_field() }}
-                          <button type="submit" class="btn btn-success pull-right courts_submit" data-dismiss="modal" name="courts_submit" id="courts_submit" value="submit">Update</button>
-            
+                          <button type="submit" class="btn btn-success pull-right notif_courts_submit" data-dismiss="modal" name="courts_submits" id="notif_courts_submit" value="submit">Update</button>
                           </div>
                           </div>
                           </div>
@@ -785,7 +800,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           </span>  
                           <div class="modal-footer">
                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                          <button type="button" class="btn btn-warning pull-right gotit" data-dismiss="modal" value="Close Without Modify !">Close Without Modify !</button>
+                          <button type="button" class="btn btn-warning pull-right gotit" data-dismiss="modal" value="Close Without Modify !">Close Without Modification!</button>
             
                           </div>
                         </div>
@@ -824,7 +839,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
     
  <script>
     $('.show').hide();
-    $('.myselection').change(function() {
+    $('.notif_myselection_hc').change(function() {
     $('.show').show();
 });
 </script>
@@ -1177,7 +1192,7 @@ $(document).on('click','.editapp', function() {
          $(document).one('click','.courts_submit', function() { 
              
                 var prison_name = $(app).find('select.prison_name option:selected').val();
-                var status_name = $(app).find('select.myselection option:selected').val();
+                var status_name = $(app).find('select.myselection_hc_all option:selected').val();
                 var state = $(app).find('select.state option:selected').val();
                 var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
                 var japp_no = $(app).find('input[name="japp_no"]').val();
@@ -1247,6 +1262,14 @@ $(document).on('click','.editapp', function() {
 //    });
     </script>
     <script>
+         $(document).ready(function(){
+
+            
+
+         });
+    
+    </script>
+    <script>
             $(document).ready(function(){
                 //document.body.style.position = 'fixed';
                  $(document).on('click','a#mycollapse',function(){
@@ -1276,23 +1299,19 @@ $(document).on('click','.editapp', function() {
  </script>
   <script>
     $(document).ready(function(){
-      $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
+      
     
-             $(document).one('click','.courts_submits', function(e) { 
+             $(document).one('click','.notif_courts_submit', function(e) { 
                e.preventDefault();
-                    var appeal_id = $('#appeal_id').val();
-                    var case_no = $('#case_no').val();
-                    var prisoner_name = $('#prisoner_name').val();
-                    var prison_name = $('select.prison_name option:selected').val();
-                    var status_name = $('select.myselection option:selected').val();
-                    var state = $('select.state option:selected').val();
-                    var rejectgrant = $('#rejectgrant').val();
-                    var japp_no = $('#japp_no').val();
-                    var courts_submit = $('#courts_submits').val();
+                    var appeal_id = $('#notif_appeal_id').val();
+                    var case_no = $('#notif_case_no').val();
+                    var prisoner_name = $('#notif_prisoner_name').val();
+                    var prison_name = $('select.notif_prison_name option:selected').val();
+                    var status_name = $('select.notif_myselection_hc option:selected').val();
+                    var state = $('select.notif_state_hc option:selected').val();
+                    var rejectgrant = $('#notif_rejectgrant').val();
+                    var japp_no = $('#notif_japp_no').val();
+                    var courts_submit = $('#notif_courts_submit').val();
                     // if(state != ''){
                     //     alert('Empty');
                     // }

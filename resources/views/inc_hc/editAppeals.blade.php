@@ -103,33 +103,33 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                        ?>
                   
                   @if($item)
-                      @if($struct->stateno == 'yellowgreen')
-                        <li class="complete">
-                        <a href="#" class="text-success">{{ $pp->status_name }}
-                        <i class="ico fa fa-check ico-check" style="color:green"></i>
-                        <span class="desc">Update on {{ $struct->status_updated_at }}</span>
-                        <span class="desc">Remarks: {{ $struct->remarks }}</span>
-                        </a>
-                        </li>
-                        @elseif($struct->stateno == 'todo')
-                        <li class="complete">
-                        <a href="#" class="text-muted">{{ $pp->status_name }}
-                        <i class="ico fa fa-edit ico-edit" style="color:todo"></i>
-                        <span class="desc">Update on {{ $struct->status_updated_at }}</span>
-                        <span class="desc">Remarks: {{ $struct->remarks }}</span>
-                        </a>
-                        </li>
-                        @else
-                        <li class="complete">
-                        <a href="#" class="text-danger">{{ $pp->status_name }}
-                        <i class="ico fa fa-close ico-close" style="color:red"></i>
-                        <span class="desc">Update on {{ $struct->status_updated_at }}</span>
-                        <span class="desc">Remarks: {{ $struct->remarks }}</span>
-                        </a>
-                        </li>
-                      @endif
-                 
+                  @if($struct->stateno == 'yellowgreen')
+                    <li class="complete">
+                    <a href="#" class="text-success">{{ $pp->status_name }}
+                    <i class="ico fa fa-check ico-check" style="color:green"></i>
+                    <span class="desc">Update on {{ $struct->status_updated_at }}</span>
+                    <span class="desc">Remarks: {{ $struct->remarks }}</span>
+                    </a>
+                    </li>
+                    @elseif($struct->stateno == 'todo')
+                    <li class="complete">
+                    <a href="#" class="text-muted">{{ $pp->status_name }}
+                    <i class="ico fa fa-edit ico-edit" style="color:todo"></i>
+                    <span class="desc">Update on {{ $struct->status_updated_at }}</span>
+                    <span class="desc">Remarks: {{ $struct->remarks }}</span>
+                    </a>
+                    </li>
                   @else
+                    <li class="complete">
+                    <a href="#" class="text-danger">{{ $pp->status_name }}
+                    <i class="ico fa fa-close ico-close" style="color:red"></i>
+                    <span class="desc">Update on {{ $struct->status_updated_at }}</span>
+                    <span class="desc">Remarks: {{ $struct->remarks }}</span>
+                    </a>
+                    </li>
+                  @endif
+             
+              @else
                   
                       @if((@$mydate > 10 ) AND (@$appealotal == @$loop->iteration) AND (@$last_state[0]->state != 'red') )
                           <li class="complete">
@@ -176,7 +176,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>
-                                <select id="myselection" class="browser-default custom-select myselection" name="status_id" required>
+                                <select id="myselection_hc_all" class="browser-default custom-select myselection_hc_all" name="status_id" required>
             
                                 <!-- Custom Query for Option Value -->
                                 <?php 
@@ -211,7 +211,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <div class="col-md-6 show">
                           <div class="form-group">
                           <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
-                          <select class="browser-default custom-select state" id="state" name="state" required>
+                          <select class="browser-default custom-select state_hc" id="state_hc" name="state" required>
                             @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
                             <option value="">Please Select..</option>
                             <option value="yellowgreen" >Milestone Complete </option>
@@ -221,11 +221,20 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                             <option value="">Please Select..</option>
                             <option value="yellowgreen" >Milestone Complete</option>
                             {{-- <option value="todo" >No, Reminder Sent</option> --}}
-                            @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 2 ) OR (@$last_state[0]->statusid == 10))
+                            @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
                             <option value="">Please Select..</option>
                             <option value="yellowgreen" >Milestone Complete </option>
                             <option value="red" >Incomplete, Reminder Sent</option>
-                           
+                            @elseif(@$last_state[0]->statusid == 2)
+                                  @if(@$last_state[0]->state != 'red')
+                                  <option value="">Please Select..</option>
+                                  <option value="yellowgreen" >Milestone Complete </option>
+                                  <option value="todo" >Incomplete, Reminder Sent</option>
+                                  @else
+                                  <script>$('.myselection_hc_all').on('change',function(){
+                                        swal('Wait a while','For Update From Prison','error');
+                                  });</script>
+                                  @endif
                             @elseif(@$last_state[0]->statusid == 3)
                             <option value="">Please Select..</option>
                             <option value="yellowgreen" >Milestone Complete </option>
@@ -288,7 +297,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           </span>  
                           <div class="modal-footer">
                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                          <button type="button" class="btn btn-warning pull-right gotit" data-dismiss="modal" value="Close Without Modify !">Close Without Modify !</button>
+                          <button type="button" class="btn btn-warning pull-right gotit" data-dismiss="modal" value="Close Without Modify !">Close Without Modification!</button>
             
                           </div>
                         </div>

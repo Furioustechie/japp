@@ -392,7 +392,7 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
               </span>  
               <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-              <button type="button" class="btn btn-warning pull-right gotit" data-dismiss="modal" value="Close Without Modify !">Close Without Modify !</button>
+              <button type="button" class="btn btn-warning pull-right gotit" data-dismiss="modal" value="Close Without Modify !">Close Without Modification !</button>
 
               </div>
             </div>
