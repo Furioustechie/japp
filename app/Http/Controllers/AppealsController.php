@@ -133,6 +133,19 @@ class AppealsController extends Controller
     {
         return view('appeals.appealForm');
     }
+    public function fetchme(Request $request){
+        if ($request->ajax()) {
+            $xv = $request->filter;
+            $appDetails = DB::table('filterByStatus')
+                ->Where('prison_id', '=', 2)
+                ->Where('maxStatus', '=', $xv)
+                ->get();
+        //    $send['myDetails']=$myDetails; 
+        //     return view('prisonDashboard',$send);
+           
+            echo $appDetails;
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -714,16 +727,18 @@ DB::table('newappeals')->insert([
         //$document = Document::all();
         //$doctype = Doctype::all();
         $appDetails = DB::select('SELECT na.id, prisons.name as prison_name,prisoner.prisoner_name as prisoner_name,cases.caseno as case_no, 
-                                         law_acts.name as act_name, courts.name_en as court_name, na.privacy
-                                  FROM newappeals na
+                                         law_acts.name as act_name, courts.name_en as court_name, na.privacy, max(appealstatus.statusid) as maxStatus                                  FROM newappeals na
                                   INNER JOIN prisons ON na.prisonid = prisons.id
                                   INNER JOIN law_acts ON na.act_id  = law_acts.id
                                   INNER JOIN courts ON na.courtid  = courts.id
                                   INNER JOIN prisoner ON na.prisonerid  = prisoner.id
                                   INNER JOIN cases ON cases.id = na.caseid
+                                  LEFT JOIN appealstatus on appealstatus.newappeals_id = na.id
                                 --   INNER JOIN users ON users.prison_id = na.prisonid
                                   
-                                  WHERE  na.prisonid = "'.$prison_id.'" ');
+                                  WHERE  na.prisonid = "'.$prison_id.'"
+                                  GROUP BY na.id');
+        
         // $timeInterval = DB::select('SELECT created_at from newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
         //$string = implode(' ', $timeInterval);
 

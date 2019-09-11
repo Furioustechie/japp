@@ -452,7 +452,12 @@ foreach($totalByStatus as $byStatus){
        return view ('inc_hc.stats', $send)->with('appeals',$appeals);
 
     }
+        function filterByStatus(Request $request){
+            $status_id = 1;
+            $appDetails_allRecords = DB::table('filterByStatus')->where('maxStatus','=',$status_id);
+            //echo 'Return From Controller';
 
+        }
     function fetch_data_ForOverdue(Request $request)
     {
     
@@ -493,19 +498,28 @@ foreach($totalByStatus as $byStatus){
 
     function fetch_data_allRecords(request $request)
     {
-    
      if($request->ajax())
      {
         $sort_by = $request->get('sortby');
         $sort_type = $request->get('sorttype');
            $query = $request->get('query');
            $query = str_replace(" ", "%", $query);
+           $filter = $request->get('filter');
+          
+        if ($filter != '') {
+            $appDetails_allRecords = DB::table('filterByStatus')
+                ->Where('maxStatus', '=', $filter)
+                ->orderBy($sort_by, $sort_type)
+                ->paginate(10);
+        }elseif($filter == ''){
+            $appDetails_allRecords = DB::table('all_appeals')
+                //->Where('id', 'like', '%'.$query.'%')
+                ->Where('case_no','like', '%'.$query.'%')
+                //->Where('maxStatus', '=', $filter)
+                ->orderBy($sort_by, $sort_type)
+                ->paginate(10);
+        }
 
-        $appDetails_allRecords = DB::table('all_appeals')
-        ->where('id', 'like', '%'.$query.'%')
-        ->orWhere('case_no', 'like', '%'.$query.'%')
-        ->orderBy($sort_by, $sort_type)
-        ->paginate(10);
       return view('inc_hc.allRecords', compact('appDetails_allRecords'))->render();
      }
     }

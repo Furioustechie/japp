@@ -48,6 +48,10 @@
                 .select2 {
                 width:100%!important;
                 }
+                .table-filter-container {
+                        text-align: left;
+                    }
+                    
           </style>
 </head>
 <script>
@@ -259,31 +263,47 @@
                                          
                                         // $district_name = DB::Select('SELECT name FROM prisons where disid = (select district_id from users where id='.Auth::user()->id.')');
                                         @endphp
-                                        <h4 class="card-title mt-0">{{ __('labels.prison_appealDetailsFrom') }} <strong>{{ @$district_name[0]->name }}</strong></h4>
+                                        <h4 class="card-title mt-0">{{ __('labels.prison_appealDetailsFrom') }} <strong>{{ @$district_name[0]->name }}</strong>
+                                        <span class="col-md-4 pull-right">                           
+                                            <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >{{ __('labels.create_appeal')}}</button>
+                                        </span></h4>
+                                            {{-- <span class="col-md-4 pull-right">Filter Records By Status:</span>
+                                            </h4>
+                                            <span>
+                                                <div class="col-md-4 pull-right">
+                                                    <select class="browser-default custom-select filterByStatus">
+                                            <option  selected value="">View All..</option>
+                                            @foreach($status_name as $status)
+                                            <option value="{{ $status->id }}">{{ $status->status_name }}</option>
+                                            @endforeach
+                                          </select>
+                                        </div>
+                                    </span> --}}
                                         <p class="card-category"></p>
                                     </div>
-                                    {{-- <div class="col-md-12">
-                                            <form action="/search" method="POST">
-                                                <div class="input-group">
-                                                <input type="search" data-placeholder="Search by - CaseNO or PrisonName or ID" name="search" id="search"  class="form-control">
-                                                <span class="inut-group-prepend">
-                                                  @csrf();
-                                                <button type="submit" name="btn_search" class="btn btn-primary"><i class="material-icons">search</i></button>
-                                                </span>
-                                                
-                                                </form>
-                                            </div> --}}
+                                  
                            <div class="card-body">
-                           <button type="button" class="btn btn-raised btn-primary pull-right" data-toggle="modal" data-target="#appealModal"  data-id="appealModal" >{{ __('labels.create_appeal')}}</button>
                                
-                                <div class="table-responsive">
+                                <div class="table-responsive" id="filterRecords">
+                                        <p id="table-filter" style="display:none">
+                                                Filter By Status:
+                                                <select class="browser-default custom-select">
+                                                <option value="">View All..</option>
+                                                @foreach($status_name as $status)
+                                                <option value="{{ $status->id }}">{{ $status->status_name }}</option>
+                                                @endforeach
+                                                </select>
+                                                </p>
                                                 <table id="dataTable_Details" class="display nowrap dtr-inline browser-default" style="width:100%">
                                                     <thead class="text-primary">
+                                                   
                                                         <th>{{ __('labels.id') }}</th>
                                                         <th>{{ __('labels.case_no') }}</th>
                                                         <th>{{ __('labels.prisoner_name') }} </th>
                                                         <th>{{ __('labels.status') }}</th>
                                                         <th>{{ __('labels.view_in_detail') }}</th>
+                                                        <th style="display:none;"></th>
+                                                   
                                                     </thead>
                                                 
                                                     <tbody>
@@ -293,7 +313,7 @@
                                                         <tr>
                                                             <td>{{ $appeal->id }}</td>
                                                             <td>{{$appeal->case_no}}</td>
-                                                            <td>{{$appeal->prisoner_name}}</td>
+                                                            <td>{{ $appeal->prisoner_name }}</td>
                                                             <td> 
                                                                 <ol class="etapier">
         
@@ -357,6 +377,7 @@
                                                                     @else
                                                                 <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td>
                                                                  @endif
+                                                                 <td style="display:none;">{{ $appeal->maxStatus }}</td>
                                                                 <!--Deatils Modal Start -->
                                                             <!--Deatils Modal End -->
                                                         </tr>
@@ -424,6 +445,31 @@
    {{-- @include('inc.appealHistoryModal') --}}
     
     @include('inc.scriptstyle')
+    <script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+       headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+       });
+    //    $('.filterByStatus').on('change',function(){
+    //        var filter = $('.filterByStatus').val();
+    //     $.ajax({
+    //             url: "/PrisonDashboard/fetchme/" + filter,
+    //             method: "POST",
+    //             cache: false,
+                
+    //             success: function (data) {
+    //                 //console.log(data);
+    //                 // $("#edit_appeal").find("input[name='appeal_id']").val(id);
+    //                 $("#dataTable_Details tbody").html(data);
+    //                 //  $(".edit_appeal").modal(show);
+    //             }
+    //         });
+    //    });
+       
+    });
+</script>
     <script>
      $(document).on("click", ".show", function () {
     var itemid= $(this).attr('data-id');
@@ -563,14 +609,36 @@ Swal.fire({
 <script>
       $(document).ready(function() {
           // Setup - add a text input to each footer cell
-          $('#dataTable_Details tfoot th').each( function () {
-              var title = $(this).text();
-              $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
-          } );
+        //   $('#dataTable_Details tfoot th').each( function () {
+        //       var title = $(this).text();
+        //       $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+        //   } );
        
           // DataTable
-          var table = $('#dataTable_Details').DataTable();
-       
+          var table = $('#dataTable_Details').DataTable({
+            //responsive: true,
+            //dom: 'lrtip'
+            sDom:'fl<"table-filter-container">tipr',
+            //dom: 'lr<"table-filter-container">tip',
+            initComplete: function(settings){
+            var api = new $.fn.dataTable.Api( settings );
+            $('.table-filter-container', api.table().container()).append(
+             $('#table-filter').detach().show()
+            );
+            $('#table-filter select').on('change', function(){
+            var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+             table
+             .columns( 5 )
+             .search(  val ? '^'+val+'$' : '', true, false).draw();   
+          });       
+       }
+ 
+          });
+        //   $('.filterByStatus').on('change', function(){
+        //         table.search(this.value).draw();   
+        //         });
           // Apply the search
           table.columns().every( function () {
               var that = this;
@@ -589,6 +657,7 @@ Swal.fire({
 //         "order": [[ 0, "desc" ]],
 //         "pageLength": 5
 // } );
+
       </script>
 <script>
  $(document).ready(function () {

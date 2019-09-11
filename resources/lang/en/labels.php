@@ -109,4 +109,5 @@ return [
     'Add_New_Offence' => 'Add New Offence',
     'Add_New_Status' => 'Add New Status',
     'Add_New_User' => 'Add New User',
+    'Wanna Update' => 'Click Here To Update',
 ];

@@ -272,8 +272,13 @@ a:hover .spanRight{
                 <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-info">
-                            <h4 class="card-title">Manage Your Appeals</h4>
+                        <div class="card-header card-header-success">
+                            <h4 class="card-title">Manage Your Appeals <span class="col-md-4 pull-right">Filter Records By Status:</span></h4><span><div class="col-md-4 pull-right"><select class="browser-default custom-select filterByStatus">
+                                <option  selected value="">View All..</option>
+                                @foreach($status_name as $status)
+                                <option value="{{ $status->id }}">{{ $status->status_name }}</option>
+                                @endforeach
+                              </select></div></span>
                             <p class="card-category">All Appeals Deatils</p>
                         </div>
                         <div class="card-body">
@@ -465,7 +470,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <span class="col-md-10 offset-sm-1 border border-info">
                           <div class="card">
                           <div class="card-header bg-info">
-                          <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus{{ $appeal->id }}" > Do you want to Update?</a>
+                          <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus{{ $appeal->id }}" >{{ __('labels.Wanna Update') }}</a>
                           </div>
                           <div class="card-body">
                           <div id="updateStatus{{ $appeal->id }}" class="panel-collapse collapse">
@@ -878,75 +883,92 @@ $(document).ready(function(){
        }
        });
 
-function clear_icon()
- {
-  $('#id_icon').html('');
-  $('#case_no_icon').html('');
- }
+                function clear_icon()
+                {
+                $('#id_icon').html('');
+                $('#case_no_icon').html('');
+                }
 
- function fetch_data(page, sort_type, sort_by, query)
-{
- $.ajax({
-  url:"/dashboard/fetch_data_allRecords?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query,
-  success:function(data)
-  {
-    $('#data_allRecords').html('');
-   $('#data_allRecords').html(data);
-  }
- });
-}
+                function fetch_data(page, sort_type, sort_by, query, filter)
+                {
+                    var filter = $('.filterByStatus').val();
+                    //var x = "page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query+"&filter="+filter;
+                $.ajax({
+                url:"/dashboard/fetch_data_allRecords?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query+"&filter="+filter,
+                success:function(data)
+                {
+                    //alert(x);
+                    $('#data_allRecords').html('');
+                $('#data_allRecords').html(data);
+                }
+                });
+                }
 
 
 
-$(document).on('keyup', '#search', function(){
-  var query = $('#search').val();
-  var sort_by = $('#hidden_column_name').val();
-  var sort_type = $('#hidden_sort_type').val();
-  var page = $('#hidden_page').val();
-  fetch_data(page,sort_type, sort_by, query);
- });
+                $(document).on('keyup', '#search', function(){
+                var query = $('#search').val();
+                var sort_by = $('#hidden_column_name').val();
+                var sort_type = $('#hidden_sort_type').val();
+                var page = $('#hidden_page').val();
+                fetch_data(page,sort_type, sort_by, query);
+                });
 
- //Sorting Block
+                $(document).on('change', '.filterByStatus', function(){
+                var filter = $('.filterByStatus').val();
+               // console.log(filter);
 
- $(document).on('click', '.sorting', function(){
-  var sort_by = $(this).data('column_name');
-  var order_type = $(this).data('sorting_type');
-  
-  var reverse_order = '';
-  if(order_type == 'asc')
-  {
-   $(this).data('sorting_type', 'desc');
-   reverse_order = 'desc';
-   //clear_icon();
-   $('#'+sort_by+'_icon').html('<span class="fa fa-angle-down"></span>');
-  }
-  if(order_type == 'desc')
-  {
-   $(this).data('sorting_type', 'asc');
-   reverse_order = 'asc';
-  // clear_icon();
-   $('#'+sort_by+'_icon').html('<span class="fa fa-angle-up"></span>');
-  }
-  $('#hidden_column_name').val(sort_by);
-  $('#hidden_sort_type').val(reverse_order);
-  var page = $('#hidden_page').val();
-  var query = $('#search').val();
-  fetch_data(page, reverse_order, sort_by, query);
- });
+                var sort_by = $('#hidden_column_name').val();
+                var sort_type = $('#hidden_sort_type').val();
+                var page = $('#hidden_page').val();
+                fetch_data(page,sort_type, sort_by, filter);
+                });
 
- //Pagination Block
-    $('#data_allRecords').on('click', '.pagination a', function(event){
-    event.preventDefault(); 
-    var page = $(this).attr('href').split('page=')[1];
-    $('#hidden_page').val(page);
-    var sort_by = $('#hidden_column_name').val();
-    var sort_type = $('#hidden_sort_type').val();
-    var query = $('#search').val();
+                //Sorting Block
 
-    // $('li').removeClass('active');
-    //         $(this).parent().addClass('active');
-    fetch_data(page,sort_type, sort_by, query);
-    });
+                $(document).on('click', '.sorting', function(){
+                var sort_by = $(this).data('column_name');
+                var order_type = $(this).data('sorting_type');
+                
+                var reverse_order = '';
+                if(order_type == 'asc')
+                {
+                $(this).data('sorting_type', 'desc');
+                reverse_order = 'desc';
+                //clear_icon();
+                $('#'+sort_by+'_icon').html('<span class="fa fa-angle-down"></span>');
+                }
+                if(order_type == 'desc')
+                {
+                $(this).data('sorting_type', 'asc');
+                reverse_order = 'asc';
+                // clear_icon();
+                $('#'+sort_by+'_icon').html('<span class="fa fa-angle-up"></span>');
+                }
+                $('#hidden_column_name').val(sort_by);
+                $('#hidden_sort_type').val(reverse_order);
+                var page = $('#hidden_page').val();
+                var query = $('#search').val();
+                var filter = $('.filterByStatus').val();
+
+                fetch_data(page, reverse_order, sort_by, query, filter);
+                });
+
+                //Pagination Block
+                    $('#data_allRecords').on('click', '.pagination a', function(event){
+                    event.preventDefault(); 
+                    var page = $(this).attr('href').split('page=')[1];
+                    $('#hidden_page').val(page);
+                    var sort_by = $('#hidden_column_name').val();
+                    var sort_type = $('#hidden_sort_type').val();
+                    var query = $('#search').val();
+                    var filter = $('.filterByStatus').val();
+
+
+                    // $('li').removeClass('active');
+                    //         $(this).parent().addClass('active');
+                    fetch_data(page,sort_type, sort_by, query, filter);
+                    });
 
 });
 </script>
@@ -1139,3 +1161,39 @@ $(document).on('click','.editapp', function() {
         });
    
     </script>  
+     <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+                 $('.filterByStatus').on('change', function() { 
+                  // e.preventDefault();
+                  var status_id = document.getElementById('');
+                       var x = 'Hey! I am Here.'
+                       //alert(x);
+                    // $.ajax({
+                    //             url: "/filterByStatus/"+status_id,
+                    //             type: 'POST',
+                    //             //dataType: 'application/json',
+                    //             data: status_id,
+                    //             success: function (data) {
+                    //                 // $('#data_allRecords').html('');
+                    //                 // $('#data_allRecords').html(data);
+                    //                alert(data);
+                    //                 //$('.editapp').modal('hide');
+                    //             },
+                                    
+                                                        
+                    //             error: function (xhr, ajaxOptions, thrownError) {
+                    //                 swal("Error!", "Check your input and remarks,Please!", "error");
+                    //                 //window.location.reload();
+                    //                 //$('.editapp').modal('hide');
+                    //             }
+                    //       });
+                         
+                });
+            });
+       
+        </script> 

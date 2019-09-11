@@ -41,6 +41,7 @@ Route::any('/prisonDashboard', 'AppealsController@prisonDashboardData');// pages
 //Route::get('/prisonDashboard/{locale}', 'AppealsController@prisonDashboardData');// pagesController->dashboard method
 
 Route::get('/appealForm', 'PagesController@appealForm'); //AppealNow->appealsController->create method->appealForm
+Route::post('/filterByStatus/{status_id}', 'PagesController@filterByStatus'); //AppealNow->appealsController->create method->appealForm
 
  Route::resource('appeals', 'AppealsController'); //For Appeal Data Insert Update Delete and Retrieve 
  Route::get('/hcDetails', 'AppealsController@hcDetails'); //For HcDashboard 
@@ -161,6 +162,7 @@ Route::post('updateByHC/{appeal_id}', 'AppealsController@updateByHC');
 Route::post('/prisonHistory/{appeal_id}', 'AppealsController@prisonHistory');
 Route::post('/notificationUpdate/{split_id}', 'PagesController@notificationUpdate');
 Route::post('updateTest/{appeal_id}', 'AppealsController@updateTest');
+Route::post('/PrisonDashboard/fetchme/{filter}', 'AppealsController@fetchme');
 
 
 
