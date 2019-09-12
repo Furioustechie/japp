@@ -554,6 +554,38 @@ DB::table('newappeals')->insert([
                         /*-----------------End of Notification From High Court To Prison--------------------------------------- */
                         echo 'Status Updated Successfully';
                       }
+                      elseif(!empty($has_status_name)) {
+                       
+                                $query = DB::select(' SELECT *,appealstatus.id as appsid FROM `all_appeals` 
+                                LEFT JOIN appealstatus ON appealstatus.newappeals_id = all_appeals.id
+                                WHERE all_appeals.id="'.$request->appeal_id.'"
+                                ORDER BY appealstatus.id DESC
+                                LIMIT 1');
+                                $id_state =  $query[0]->appsid;
+                                $update_State = App\Appealstatus::find($id_state);
+                                $update_State->state = $request->state;
+                                $update_State->save();
+                                //   }
+                                /*-----------------Notification From High Court To Prison--------------------------------------- */
+                                $appl = DB::table('newappeals')->where('id', $request->appeal_id)->first();
+                                // $notifiable_user = DB::table('SELECT id FROM users WHERE prison_id = "'.$appl->prisonid.'"');
+                                //dd($appl->id); // Get Appeal ID
+                                $casename = DB::table('cases')->where('id', $appl->caseid)->first(); //Get caseId from Appeals Table
+                                //$pname = DB::table('prisons')->where('id',$appl->prisonid)->first(); //Get caseId from Appeals Table
+                                $st_name = DB::table('status')->where('id', $request->status_id)->first(); //Get StatusId
+                                $caseno = $casename->caseno;
+                                $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
+                                $arr=array('data'=> $msg, 'appeal_id' => $appl->id,'case_id'=>$caseno);
+                                //dd($arr);
+                                $users = DB::select('select id from users where prison_id= "'.$appl->prisonid.'"');
+                                //print_r($users);exit;
+                                foreach ($users as $userr) {
+                                    User::find($userr->id)->notify(new jappNotification($arr)); // ** Find value needed to be dynamic
+                                }
+                                // \Notification::send($users, new jappNotification($arr));
+                                /*-----------------End of Notification From High Court To Prison--------------------------------------- */
+                                echo 'Status Updated! Complete Successfully';
+                              }
      
                     }elseif((!empty($request->status_id)) && (empty($request->state))) {
                         echo 'Sorry! Please Select State';

@@ -265,6 +265,19 @@ a:hover .spanRight{
                
                 <div class="row show_justUpdate">
                     <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <h4 class="card-title mt-0">{{ __('labels.hc_appealResolved') }}</strong><span class="float-right"><button type="button" class="close" id="close_justUpdate" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></span></h4>
+                                  </button>
+                            <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                                <div id="data_resolvedAppl">
+                                    @include('inc_hc.resolvedAppl')
+                               </div>
+                            </div>
+                        </div>
                      <!-----apps.blade.php in garbage collection directory ------->
                         </div>
                     </div>
@@ -819,7 +832,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
 
   
     </script>
-    // Script for Incomplete Application
+   
     <script>
     $(document).ready(function(){
     

@@ -452,12 +452,12 @@ foreach($totalByStatus as $byStatus){
        return view ('inc_hc.stats', $send)->with('appeals',$appeals);
 
     }
-        function filterByStatus(Request $request){
-            $status_id = 1;
-            $appDetails_allRecords = DB::table('filterByStatus')->where('maxStatus','=',$status_id);
-            //echo 'Return From Controller';
+        // function filterByStatus(Request $request){
+        //     $status_id = 1;
+        //     $appDetails_allRecords = DB::table('filterByStatus')->where('maxStatus','=',$status_id);
+        //     //echo 'Return From Controller';
 
-        }
+        // }
     function fetch_data_ForOverdue(Request $request)
     {
     
@@ -507,7 +507,7 @@ foreach($totalByStatus as $byStatus){
            $filter = $request->get('filter');
           
         if ($filter != '') {
-            $appDetails_allRecords = DB::table('filterByStatus')
+            $appDetails_allRecords = DB::table('filterbystatus')
                 ->Where('maxStatus', '=', $filter)
                 ->orderBy($sort_by, $sort_type)
                 ->paginate(10);
