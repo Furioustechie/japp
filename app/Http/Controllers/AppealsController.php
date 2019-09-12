@@ -769,7 +769,9 @@ DB::table('newappeals')->insert([
                                 --   INNER JOIN users ON users.prison_id = na.prisonid
                                   
                                   WHERE  na.prisonid = "'.$prison_id.'"
-                                  GROUP BY na.id');
+                                  
+                                  GROUP BY na.id
+                                  ORDER BY na.id DESC');
         
         // $timeInterval = DB::select('SELECT created_at from newappeals WHERE created_at BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
         //$string = implode(' ', $timeInterval);

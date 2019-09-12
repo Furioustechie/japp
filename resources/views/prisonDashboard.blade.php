@@ -613,12 +613,14 @@ Swal.fire({
         //       var title = $(this).text();
         //       $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
         //   } );
-       
+  
           // DataTable
           var table = $('#dataTable_Details').DataTable({
             //responsive: true,
             //dom: 'lrtip'
+            "order": [[ 0, "desc" ]],
             sDom:'fl<"table-filter-container">tipr',
+            
             //dom: 'lr<"table-filter-container">tip',
             initComplete: function(settings){
             var api = new $.fn.dataTable.Api( settings );
@@ -630,17 +632,21 @@ Swal.fire({
                             $(this).val()
                         );
              table
+            //   .order( [ 0, 'desc' ] )
+            //   .draw();  
              .columns( 5 )
-             .search(  val ? '^'+val+'$' : '', true, false).draw();   
+             .search(  val ? '^'+val+'$' : '', true, false).draw(); 
+             
           });       
        }
- 
           });
         //   $('.filterByStatus').on('change', function(){
         //         table.search(this.value).draw();   
         //         });
           // Apply the search
+         
           table.columns().every( function () {
+
               var that = this;
        
               $( 'input', this.footer() ).on( 'keyup change', function () {

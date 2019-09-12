@@ -4,7 +4,11 @@
 <head>
   @include('inc.style')
   
-  
+  <style>
+  span.mycus-class2 {
+    color: red;
+}
+  </style>
   
 </head>
 

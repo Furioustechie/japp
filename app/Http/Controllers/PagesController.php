@@ -198,7 +198,7 @@ foreach($totalByStatus as $byStatus){
     $appealStates = DB::select('SELECT statusid, newappeals_id, state FROM appealstatus ');
 
     // $appDetails_allRecords = DB::table('appdetails')->orderBy('id', 'asc')->paginate(5);
-    $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'asc')->paginate(10);
+    $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'desc')->paginate(10);
 
 
     $overdue_hc = DB::table('overdue_hc')
@@ -510,6 +510,7 @@ foreach($totalByStatus as $byStatus){
             $appDetails_allRecords = DB::table('filterbystatus')
                 ->Where('maxStatus', '=', $filter)
                 ->orderBy($sort_by, $sort_type)
+                //->orderBy('id', 'desc')
                 ->paginate(10);
         }elseif($filter == ''){
             $appDetails_allRecords = DB::table('all_appeals')
@@ -517,6 +518,7 @@ foreach($totalByStatus as $byStatus){
                 ->Where('case_no','like', '%'.$query.'%')
                 //->Where('maxStatus', '=', $filter)
                 ->orderBy($sort_by, $sort_type)
+                //->orderBy('id', 'desc')
                 ->paginate(10);
         }
 
@@ -568,6 +570,13 @@ foreach($totalByStatus as $byStatus){
             return view('testtable',$send);
     }
 
+ }
+ public function countryData(){
+    $query = DB::select('SELECT newappeals.*, prisons.disid, districts.divid 
+                         FROM newappeals , prisons, districts
+                         Left JOIN prisons ON prisons.disid = districts.id
+                         WHERE newappeals.prisonid = prisons.id AND prisons.disid = districts.id');
+   $query = DB::select('SELECT prisons.name, newappeals.id FROM `prisons` Left JOIN newappeals ON newappeals.prisonid = prisons.id');
  }
     
 }
