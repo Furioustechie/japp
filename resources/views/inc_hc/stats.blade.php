@@ -559,12 +559,40 @@
 
                         <div class="col-lg-12 col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-default">
-                                    <h4 class="card-title">TO DO</h4>
+                                <div class="card-header card-header-info">
+                                    <h4 class="card-title" style="font-color:black;">TO DO <span class="pull-right"><a class="btn btn-danger" href="/generate-pdf" >Generate PDF</a></span></h4>
                                     <p class="card-category">Deatils Of TODO</p>
                                 </div>
                                 <div class="card-body table-responsive">
                                   <!--   Content goes here -->
+                                  <table class="table table-striped table-bordered" id="countryWiseData" style="width:100%">
+                                    
+                                        <thead>
+                                        <tr>
+                                            <th>Prison Name</th>
+                                            <th>Total Appeals</th>
+                                            <th>District Name</th>
+                                            <th>Division Name</th>
+                                        </tr>
+                                        </thead>
+                                    
+                                    <tbody>
+                                            @foreach($queryAll as $row)
+                                        <tr>
+                                            <td>{{ $row->name }}</td>
+                                            <td>{{ $row->TotalAppeals }}</td>
+                                            <td>{{ $row->districtName }}</td>
+                                            <td>{{ $row->divisionName }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                            <tr>
+                                                <th colspan="1" style="text-align:right">Grand Total:</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                  </table>
                                 </div>
                             </div>
                         </div>
@@ -644,7 +672,57 @@
         });
 
     </script>
+<script>
+    $(document).ready(function() {
+    var table = $('#countryWiseData').DataTable({
+        // "language": {
+        //     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+        // },
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 1 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 1, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 1 ).footer() ).html(
+                ''+pageTotal +' ( Overall '+ total +')'
+            );
+        },
+        order: [[ 1, "desc" ]],
+        stateSave: true
+    });
 
+    $('#countryWiseData tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    } );
+ 
+    
+    
+   
+} );
+    </script>
     <script>
         $(document).ready(function () {
             // Setup - add a text input to each footer cell

@@ -163,6 +163,8 @@ Route::post('/prisonHistory/{appeal_id}', 'AppealsController@prisonHistory');
 Route::post('/notificationUpdate/{split_id}', 'PagesController@notificationUpdate');
 Route::post('updateTest/{appeal_id}', 'AppealsController@updateTest');
 Route::post('/PrisonDashboard/fetchme/{filter}', 'AppealsController@fetchme');
+Route::get('generate-pdf','pdfController@generatePDF');
+Route::any('/test','pdfController@test');
 
 
 

@@ -415,6 +415,12 @@ foreach($totalByStatus as $byStatus){
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     //->where('appealresolved_prison.prison_id', $prison_id )
     ->paginate(5);
+
+    $queryAll = DB::select('SELECT prisons.name, count(newappeals.id) TotalAppeals, districts.name as districtName, divisions.name as divisionName FROM `prisons` 
+                            Left JOIN newappeals ON newappeals.prisonid = prisons.id
+                            INNER JOIN districts ON districts.id = prisons.disid
+                            INNER JOIN divisions ON divisions.id = districts.divid
+                            GROUP BY prisons.name');
  
         $send['count']=$countAppeals;
         $send['overdue_count']=$overdue_count;
@@ -442,6 +448,8 @@ foreach($totalByStatus as $byStatus){
         $send['incompleteApplication_ForHC']=$incompleteApplication_ForHC;
         $send['appDetails_appealResolved_ForHC']=$appDetails_appealResolved_ForHC;
         $send['count_incompleteApplication_ForHC']=$count_incompleteApplication_ForHC;
+        $send['queryAll']=$queryAll;
+
         //$send['appDetails_allRecords']=$appDetails_allRecords;
 
 
@@ -576,7 +584,15 @@ foreach($totalByStatus as $byStatus){
                          FROM newappeals , prisons, districts
                          Left JOIN prisons ON prisons.disid = districts.id
                          WHERE newappeals.prisonid = prisons.id AND prisons.disid = districts.id');
-   $query = DB::select('SELECT prisons.name, newappeals.id FROM `prisons` Left JOIN newappeals ON newappeals.prisonid = prisons.id');
+   $queryAll = DB::select('SELECT prisons.name, count(newappeals.id) TotalAppeals, districts.id as districtID, divisions.id as divisionID FROM `prisons` 
+   Left JOIN newappeals ON newappeals.prisonid = prisons.id
+   INNER JOIN districts ON districts.id = prisons.disid
+   INNER JOIN divisions ON divisions.id = districts.divid
+   GROUP BY prisons.name');
+
+    $send['queryAll'] = $queryAll;
+
+    //return view('inc_hc.stats',$send);
  }
     
 }
