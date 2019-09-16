@@ -47,7 +47,7 @@
     <body>
             <header>
                     <h5 style="font-color:black;text-align:center;"><img src="{{URL::asset('assets/img/bdj.png')}}" style="height:60px;"  alt="Bangladesh Govt."/></h5>
-                    <h4>Bangladesh Jail </h4><span id="time">Date: <?php echo $mytime->toDateTimeString();?></span>
+                    <h4>Bangladesh Jail</h4><span id="time">Date: <?php echo $mytime->toDateTimeString();?></span>
                 </header>
                 <footer>
                         Confidentail &copy; Supreme Court of Bangladesh

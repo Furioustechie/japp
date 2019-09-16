@@ -21,6 +21,8 @@ class pdfController extends Controller
         $send['queryAll']=$queryAll;
         $send['mytime']=$mytime;
 
+        
+
         $pdf = PDF::loadView('myPDF', $send);
         $filename = base_path('public\files\all_records.pdf');
         $pdf->save($filename); 

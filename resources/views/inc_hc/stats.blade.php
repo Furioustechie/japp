@@ -5,6 +5,12 @@
     <!-- CSS Style Sheet -->
     @include('inc.style')
     <!-- End CSS Style Sheet -->
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    
     <style type="text/css">
 
         .preloader 
@@ -26,13 +32,8 @@
                 }
         div.show_justUpdate {        /* this will hide div with id div_id_name */
                 display:none;
-                }          
-          </style>
-</head>
-
-<style>
-            
-        .zoom {
+                }   
+                .zoom {
           transition: transform .2s;
           width: '100%';
           height: '100%';
@@ -44,8 +45,11 @@
           -webkit-transform: scale(1.5); /* Safari 3-8 */
           transform: scale(1.5); 
         }
-        
-        </style>
+
+                   
+          </style>
+</head>
+
         <script>
         $(document).ready(function(){
             $('#seeAll').click(function() {
@@ -110,7 +114,7 @@
                 <div class="container-fluid">
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card card-stats">
+                            <div class="card card-stats hvr-grow-shadow">
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
@@ -123,14 +127,14 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="/hcDetails" >{{ __('labels.seeAll') }}</a>
+                                        <i class="material-icons">update</i>
+                                        {{ __('labels.justUpdated') }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="datespan">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
@@ -142,13 +146,14 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i> {{ __('labels.overdue_appeals') }}
+                                        <i class="material-icons">update</i>
+                                        {{ __('labels.overdue_appeals') }}
                                     </div>
                                 </div></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="ccNotFound">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="ccNotFound">
                                 <div class="card-header card-header-danger card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">info_outline</i>
@@ -158,13 +163,14 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">local_offer</i> {{ __('labels.ccNotFound') }}
+                                        <i class="material-icons">update</i>
+                                         {{ __('labels.ccNotFound') }}
                                     </div>
                                 </div></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats"><a href="#" id="justUpdate">
+                            <div class="card card-stats hvr-grow-shadow"><a href="#" id="justUpdate">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
                                         <i class="fa fa-twitter"></i>
@@ -174,7 +180,8 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">update</i> {{ __('labels.justUpdated') }}
+                                        <i class="material-icons">update</i>
+                                        {{ __('labels.justUpdated') }}
                                     </div>
                                 </div>
                             </div></a>
@@ -504,7 +511,7 @@
                         </div> --}}
                         <div class="col-md-6">
                             <div class="card card-chart">
-                                <div class="card-header card-header-success">
+                                <div class="card-header card-header-success  hvr-grow-shadow">
                                         {{-- <div id="piechart_3d" class="zoom"></div> --}}
                                         {{-- <div  id="dashboard_div">
                                             <div id="slider_div" style="float:left;"></div>
@@ -526,7 +533,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card card-chart">
-                                <div class="card-header card-header-success">
+                                <div class="card-header card-header-success  hvr-grow-shadow">
                                     <div class="ct-chart" id="bar_Vchart"></div>
                                 </div>
                                 <div class="card-body">
@@ -540,7 +547,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="card border-primary">
+                            <div class="card border-primary ">
                                 <div class="card-header card-header-default">
                                     <div class="ct-chart" id="barchart"></div>
                                 </div>
@@ -559,7 +566,7 @@
 
                         <div class="col-lg-12 col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-info">
+                                <div class="card-header card-header-info  hvr-underline-from-center">
                                     <h4 class="card-title" style="font-color:black;">TO DO <span class="pull-right"><a class="btn btn-danger" href="/generate-pdf" >Generate PDF</a></span></h4>
                                     <p class="card-category">Deatils Of TODO</p>
                                 </div>
@@ -678,6 +685,19 @@
         // "language": {
         //     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
         // },
+       
+        dom: 'lBfrtip',
+        buttons: [
+
+            { extend: 'pdf', title: 'Bangladesh Jail', className: 'btn btn-success',
+                customize: function (doc) {
+                    doc.content[1].table.widths = 
+                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                } },
+            { extend: 'print',title: 'Bangladesh Jail', className: 'btn btn-warning', },
+            
+        ],
+    
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
  
@@ -723,6 +743,7 @@
    
 } );
     </script>
+    
     <script>
         $(document).ready(function () {
             // Setup - add a text input to each footer cell
