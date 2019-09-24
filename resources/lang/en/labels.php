@@ -66,6 +66,9 @@ return [
     'browse' => 'BROWSE',
     'submit' => 'SUBMIT',
     'close' => 'CLOSE',
+    //Milestone label
+
+
     // Footer Line Labels  
     'about_us' => 'About Us',
     'pro_name' => 'Jail Appeal',
@@ -73,9 +76,13 @@ return [
     'licenses' => 'Licenses',
     'copyright' =>'',
     //Prison Appeals Details Table
+    'manageYourAppeals' => 'Manage Your Appeals',
+    'filterRecordbyStatus' => 'Filter Records By Status',
+    'totalAppealsDetails' => 'All Appeals Deatils',
     'id' => 'ID',
     'case_no' => 'CASE NO',
     'prisoner_name' => 'PRISONER NAME',
+    'prison_name' => 'PRISON',
     'status' => 'STATUS',
     'view_in_detail' => 'VIEW IN DETAIL',
     //Prison - lastMonth Table

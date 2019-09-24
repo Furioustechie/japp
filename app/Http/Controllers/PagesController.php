@@ -524,6 +524,7 @@ foreach($totalByStatus as $byStatus){
             $appDetails_allRecords = DB::table('all_appeals')
                 //->Where('id', 'like', '%'.$query.'%')
                 ->Where('case_no','like', '%'.$query.'%')
+                ->orWhere('prison_name','like', '%'.$query.'%')
                 //->Where('maxStatus', '=', $filter)
                 ->orderBy($sort_by, $sort_type)
                 //->orderBy('id', 'desc')

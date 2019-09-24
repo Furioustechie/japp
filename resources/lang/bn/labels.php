@@ -66,6 +66,9 @@ return [
     'browse' => 'সংযুক্তি',
     'submit' => 'জমা দিন',
     'close' => 'বাতিল',
+    //Milestone label
+
+
     // Footer Line Labels  
     'about_us' => 'আমাদের সম্পর্কে জানতে',
     'pro_name' => 'জেল আপিল',
@@ -73,9 +76,13 @@ return [
     'licenses' => 'লাইসেন্স',
     'copyright' =>'',
     //Prison Appeals Details Table
+    'manageYourAppeals' => 'আপিল পরিচালনা',
+    'filterRecordbyStatus' => 'পর্যায়ক্রমে রেকর্ড ফিল্টার',
+    'totalAppealsDetails' => 'সর্বমোট আপিলের বিস্তারিত',
     'id' => 'আইডি',
     'case_no' => 'কেস নম্বর',
     'prisoner_name' => 'কারাবন্দীর নাম',
+    'prison_name' => 'কারাগার',
     'status' => 'অবস্থা',
     'view_in_detail' => 'বিস্তারিত দেখুন',
     //Prison - lastMonth Table

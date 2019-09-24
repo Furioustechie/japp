@@ -161,7 +161,7 @@ a:hover .spanRight{
                             <div class="card card-stats hvr-grow-shadow"> <a href="#" ><span class="spanLeft" style="color: green;">..</span>
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">store</i>
+                                        <i class="material-icons">check_circle</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_totalAppeal') }}</p>
                                     <h3 class="card-title"  id="data_all" value="{{$count[0]->total}}">{{$count[0]->total}}</h3>
@@ -178,7 +178,7 @@ a:hover .spanRight{
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan" >
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">filter_none</i>
+                                        <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_overdue') }}</p>
                                     <h3 class="card-title" id="data_due" value={{$overdue_count[0]->totalAppeal}}>{{$overdue_count[0]->totalAppeal}}</h3>
@@ -194,7 +194,7 @@ a:hover .spanRight{
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="ccNotFound">
                                 <div class="card-header card-header-danger card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">info_outline</i>
+                                        <i class="material-icons">cancel</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_pendingForCC') }}</p>
                                     <h3 id="data_incomplete" value="{{ $count_incompleteApplication_ForHC[0]->totalIncompleteAppeal }}" class="card-title">{{ $count_incompleteApplication_ForHC[0]->totalIncompleteAppeal}} </h3>
@@ -211,7 +211,7 @@ a:hover .spanRight{
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">
-                                            cloud_done
+                                            flag
                                             </i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_appealResolved') }}</p>
@@ -286,13 +286,13 @@ a:hover .spanRight{
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-success">
-                            <h4 class="card-title">Manage Your Appeals <span class="col-md-4 pull-right">Filter Records By Status:</span></h4><span><div class="col-md-4 pull-right"><select class="browser-default custom-select filterByStatus">
+                            <h4 class="card-title">{{ __('labels.manageYourAppeals') }} <span class="col-md-4 pull-right">{{ __('labels.filterRecordbyStatus') }}:</span></h4><span><div class="col-md-4 pull-right"><select class="browser-default custom-select filterByStatus">
                                 <option  selected value="">View All..</option>
                                 @foreach($status_name as $status)
                                 <option value="{{ $status->id }}">{{ $status->status_name }}</option>
                                 @endforeach
                               </select></div></span>
-                            <p class="card-category">All Appeals Deatils</p>
+                            <p class="card-category">{{ __('labels.totalAppealsDetails') }}</p>
                         </div>
                         <div class="card-body">
                             <div>
@@ -545,7 +545,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                                       @if(@$last_state[0]->state != 'red')
                                       <option value="">Please Select..</option>
                                       <option value="yellowgreen" >Milestone Complete </option>
-                                      <option value="todo" >Incomplete, Reminder Sent</option>
+                                      <option value="red" >Incomplete</option>
                                       @else
                                       <script>$('.notif_myselection_hc').on('change',function(){
                                             swal('Wait a while','For Update From Prison','error');

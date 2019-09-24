@@ -212,9 +212,9 @@ class AppealsController extends Controller
             $values = array($typeid, $data);
                             
             foreach ($typeid as $index => $key) {
-                $t = array();
+                @$t = array();
                 foreach ($values as $value) {
-                    $t[] = $value[$index];
+                    @$t[] = $value[$index];
                 }
                 $result[$key]  = $t;
             }// end of doctype
@@ -990,7 +990,11 @@ DB::table('newappeals')->insert([
         //dd($dd);
             
         // Custom Query for Max StatusID Status
+        
         foreach ($appDetail as $t) {
+            
+            $showlog = DB::select('SELECT * FROM notifications WHERE appeal_id="'.$t->id.'" ORDER BY updated_at');  
+                       
             $output .= '';
             //echo '<form>';
             echo '<span class="col-md-5 offset-sm-1 border border-primary">';
@@ -1057,8 +1061,12 @@ echo '</span>';
        echo '<div class="form-group">';
        echo '<div class="bs-vertical-wizard" id="appeal_details">';
        echo '<ul>';
-       foreach($status_name as $pp){
+       $k=1;
+       $i=$k+1;
+       foreach($status_name as $key=> $pp){
+           $customLoop = $key+1;
        @$item = null;
+      
        foreach($apStatus as $struct){
        if ($pp->id == $struct->statusid)
        {
@@ -1089,15 +1097,15 @@ echo '</span>';
        }
        }else
        {
-           if(($mydate > 10 ) AND (@$total == @$loop->iteration) AND (@$last_state[0]->state != 'red') ){
+        if(($mydate > 10 ) AND ($total == $customLoop) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) {
+
                echo '<li class="complete">';
-               echo '<a href="#">'.$pp->status_name.'';
+               echo '<a href="#" class="text-warning">"'.$pp->status_name.'"';
                echo '<i class="ico fa fa-exclamation-circle" style="color:orange"></i>';
-               echo '<span class="desc">Update on '. $struct->status_updated_at.'</span>';
-               echo '<span class="desc">Remarks: '. $struct->remarks.'</span>';
-               echo '</span>';
+               echo '<span class="desc">Nothing Yet! Something</span>';
                echo '</a>';
                echo '</li>';
+               
            }
            else{
                echo '<li>';
@@ -1113,105 +1121,26 @@ echo '</span>';
        echo '</div>';
        echo '</div>';
        echo '</span>';
+       echo '<span class="col-md-10 offset-sm-1 border border-info">';
+       echo '<a class="btn btn-success" class="font-weight-bold" style="color:white" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Detail Log</a>
+            <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+            <div class="card-header card-header-success">
+        ';
+            foreach ($showlog as $log) {
+                $logview = json_decode($log->data);
+                echo '
+            <p><i class="material-icons" style="vertical-align: middle;">calendar_today</i> On "'.$log->updated_at.'"</p>
+            <p><i class="material-icons" style="vertical-align: middle;">check_circle</i>"'.$logview->data.'"</p>
+            <hr>
+            ';
+            }
+            echo '
+            </div>
+            </div>
+           </div>';
 
-            // echo '<span class="col-md-10 offset-sm-1 border border-info">';
-            // echo '<div class="card">';
-            // echo '<div class="card-header bg-info">';
-            // echo '<a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus" > Do you want to Update?</a>';
-            // echo '</div>';
-            // echo '<div class="card-body">';
-            // echo '<div id="updateStatus" class="panel-collapse collapse">';
-            // echo '<div class="row mb-12">';
-            // echo '<div class="col-md-6">';
-            // echo '<div class="form-group">';
-            // echo '<label class="bmd-label-floating text-info" style="font-size: 14px;">Update Status</label><br>';
-            // echo '<select id="myselection" class="browser-default custom-select myselection" name="status_id" >';
-            // echo '';
-            
-            // $optt = DB::select(' SELECT * FROM status WHERE id NOT IN (SELECT statusid FROM appealstatus WHERE newappeals_id="'.$appeal->id.'" and state<>"red" AND state<>"todo")');
-            // $i=1;
-            // echo '<option value="">Please Select..</option>';
-            // foreach ($optt as $sdata) {
-            //     if ($i++ == 1) {
-            //         echo '<option value="'.$sdata->id.'" >'.$sdata->status_name.'</option>';
-            //     } else {
-            //         echo '<option disabled value="'.$sdata->id.'" >'.$sdata->status_name.'</option>';
-            //     }
-            // }
-            // echo '</select>';
-            // echo '</div>';
-            // echo '</div>';
-
-            // echo '<div class="col-md-6 show">';
-            // echo '<div class="form-group">';
-            // echo '<label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>';
-            // echo '<select class="browser-default custom-select state" id="state" name="state">';
-            // if ((@$last_state[0]->statusid == 6) or (@$last_state[0]->statusid ==7) or (@$last_state[0]->statusid == 8) or (@$last_state[0]->statusid == 9)) {
-            //     echo '<option value="">Please Select..</option>';
-            //     echo '<option value="yellowgreen" >Yes, We did </option>';
-            //     echo '<option value="todo" >No, Reminder Sent</option>';
-            // } elseif (empty($last_state[0]->statusid) or (@$last_state[0]->statusid == 2) or (@$last_state[0]->statusid == 5) or (@$last_state[0]->statusid == 6)) {
-            //     echo '<option value="">Please Select..</option>';
-            //     echo '<option value="yellowgreen" >Yes, We did</option>';
-            // } elseif ((@$last_state[0]->statusid == 1) or (@$last_state[0]->statusid == 10)) {
-            //     echo '<option value="">Please Select..</option>';
-            //     echo '<option value="yellowgreen" >Yes, We did </option>';
-            //     echo '<option value="red" >Incomplete, Reminder Sent</option>';
-            // } elseif (@$last_state[0]->statusid == 3) {
-            //     echo '<option value="">Please Select..</option>';
-            //     echo '<option value="yellowgreen" >Yes, We did </option>';
-            //     echo '<option value="todo" >No, Reminder Sent</option>';
-            //     echo '<option value="red" >Reject</option>';
-            // } elseif (@$last_state[0]->statusid == 4) {
-            //     echo '<option value="">Please Select..</option>';
-            //     echo '<option value="yellowgreen" >Yes, We did </option>';
-            // }
-            // echo '</select>';
-            // echo '</div>';
-            // echo '</div>';
-            // echo '<div class="col-md-12">';
-            // echo '<div class="form-group">';
-            // if (@$last_state[0]->statusid == 4) {
-            //     echo '<label class="bmd-label-floating">Appeal No.</label>';
-            //     echo '<input type="text" name="japp_no" id="japp_no" value="" class="form-control">';
-            // }
-            // echo '</div>';
-            // echo '</div>';
-            // echo '<div class="col-md-12">';
-            // echo '<div class="form-group">';
-            // echo '<label class="bmd-label-floating text-info">Remarks- If there any</label>';
-            // echo '<input type="text" id="rejectgrant" name="rejectgrant" value="" class="form-control" required>';
-            // echo '</div>';
-            // echo '</div>';
-            // echo '</div>';
-            // echo '<p>';
-            // echo '<a class="btn btn-info" data-toggle="collapse" href="#log_'.$appeal->id.'" role="button" aria-expanded="false" aria-controls="collapseExample">';
-            // echo 'Show Log';
-            // echo '</a>';
-            // echo '</p>';
-            // $showlog = DB::select('SELECT * FROM notifications WHERE appeal_id="'.$appeal->id.'" ORDER BY updated_at');
-            // echo '<div class="collapse" id="log_'.$appeal->id.'">';
-            // echo '<div class="card card-body">';
-            // echo '<div class="card-header card-header-success">';
-            // foreach ($showlog as $log) {
-            //     $logview = json_decode($log->data);
-            //     echo '//print_r($logview);';
-            //     echo '<p><i class="material-icons" style="vertical-align: middle;">calendar_today</i> On '.$log->updated_at.'</p>';
-            //     echo '<p><i class="material-icons" style="vertical-align: middle;">check_circle</i> '.$logview->data.'</p>';
-            //     echo '<hr>';
-            // }
-            // echo '</div>';
-            // echo '</div>';
-            // echo '</div>';
-            // echo '{{ csrf_field() }}';
-            // echo '<button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Close</button>';
-            // echo '<button type="submit" class="btn btn-success pull-right"  data-dismiss="modal" name="courts_submit" id="courts_submit" value="submit">Update</button>';
-            // echo '</div>';
-            // echo '</div>';
-            // echo '</div>';
-            // echo '</div>';
-           
-            // echo '</span>';
+            echo '</span>';
             // echo '</form>';
             
         }

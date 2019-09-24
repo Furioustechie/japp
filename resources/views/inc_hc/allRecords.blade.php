@@ -1,9 +1,10 @@
 <div class="table-responsive">
   <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
       <thead class="text-primary">
-          <th class="sorting" data-sorting_type="asc" data-column_name="id" style="cursor: pointer">{{ __('labels.resolved_id') }}<span id="id_icon"></span></th>
-          <th class="sorting" data-sorting_type="asc" data-column_name="case_no" style="cursor: pointer;white-space: nowrap;">{{ __('labels.resolved_case_no') }}<span id="case_icon"></span></th>
-          <th style="white-space: nowrap;">{{ __('labels.prisoner_name') }}</th>
+          <th class="sorting" data-sorting_type="asc" data-column_name="id" style="cursor: pointer; width:2%"">{{ __('labels.resolved_id') }}<span id="id_icon"></span></th>
+          <th class="sorting" data-sorting_type="asc" data-column_name="case_no" style="cursor: pointer;white-space: nowrap;width:5%">{{ __('labels.resolved_case_no') }}<span id="case_icon"></span></th>
+          <th style="white-space: nowrap; width:5%">{{ __('labels.prison_name') }}</th>
+          <th style="white-space: nowrap; width:5%">{{ __('labels.prisoner_name') }}</th>
           <th class="text-center" style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
           <th style="white-space: nowrap;">{{ __('labels.resolved_view_in_detail') }}</th>
       </thead>
@@ -14,7 +15,8 @@
     <tr>
       <td>{{$appeal->id}}</td>
       <td>{{$appeal->case_no}}</td>
-      <td>{{$appeal->prisoner_name}}</td> 
+      <td>{{$appeal->prison_name}}</td>  
+      <td>{{$appeal->prisoner_name}}</td>
       <td>
                                             <ol class="etapier">
 
@@ -34,7 +36,7 @@
                                                 
                                                 $total=$totalrow[0]->status_count;
                                               // print_r($totalrow);
-                                              $current_state = $total;
+                                                $current_state = $total;
                                                 $total= $total+1;
                                                     
                                                     @$date1 = date_create(@$last_state[0]->updated_at);
@@ -198,6 +200,9 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
            ?>
       
       @if($item)
+      
+          
+     
           @if($struct->stateno == 'yellowgreen')
             <li class="complete">
             <a href="#" class="text-success">{{ $pp->status_name }}
@@ -226,12 +231,11 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
      
       @else
       
-          @if(($mydate > 10 ) AND (@$appealotal == @$loop->iteration) AND (@$last_state[0]->state != 'red') )
+      @if(($mydate > 10 ) AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
               <li class="complete">
               <a href="#" class="text-warning">{{ $pp->status_name }}
               <i class="ico fa fa-exclamation-circle" style="color:orange"></i>
-              <span class="desc">Update on {{ $struct->status_updated_at }}</span>
-              <span class="desc">Remarks: {{ $struct->remarks }}</span>
+              <span class="desc">Nothing Yet!</span>
               </a>
               </li>
           
@@ -324,7 +328,7 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
                       @if(@$last_state[0]->state != 'red')
                       <option value="">Please Select..</option>
                       <option value="yellowgreen" >Milestone Complete </option>
-                      <option value="todo" >Incomplete, Reminder Sent</option>
+                      <option value="red" >Incomplete</option>
                       @else
                       <script>$('.myselection_hc_all').on('change',function(){
                             swal('Wait a while','For Update From Prison','error');

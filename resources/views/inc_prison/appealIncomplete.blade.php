@@ -1,10 +1,10 @@
 <div class="table-responsive">
     <table id="dataTable_thisYear" class="display nowrap dtr-inline" style="width:100%">
         <thead class="text-primary">
-            <th>{{ __('labels.CC_id') }}</th>
-            <th style="white-space: nowrap;">{{ __('labels.CC_case_no') }}</th>
-            {{-- <th>Prisoner Name </th>
-            <th>Prison Name</th>--}}
+            <th style="width:2%"">{{ __('labels.CC_id') }}</th>
+            <th style="white-space: nowrap; width:5%"">{{ __('labels.CC_case_no') }}</th>
+            <th style="white-space: nowrap; width:10%">{{ __('labels.prison_name') }}</th>
+            <th style="white-space: nowrap; width:5%">{{ __('labels.prisoner_name') }}</th>
             <th style="white-space: nowrap;">{{ __('labels.CC_status') }}</th>
             <th style="white-space: nowrap;">{{ __('labels.CC_view_in_detail') }}</th>
         </thead>
@@ -16,6 +16,8 @@
             <tr>
                 <td>{{ $appeal->id }}</td>
                 <td>{{$appeal->case_no}}</td>
+                <td>{{$appeal->prison_name}}</td>
+                <td>{{$appeal->prisoner_name}}</td>
                 <td> 
                     <ol class="etapier">
 

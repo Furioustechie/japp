@@ -75,11 +75,11 @@ ol.etapier li.orange:before {
       color: white;
       }
     ol.etapier li.red:before {
-    content: ' \2940';
+    content: ' \1F5D9';
     color: white;
     }
     ol.etapier li.orange:before {
-        content: ' \2763';
+        content: ' \0021';
         color: white;
         }
   ol.etapier li.todo:before {

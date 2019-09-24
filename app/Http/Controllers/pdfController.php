@@ -24,7 +24,8 @@ class pdfController extends Controller
         
 
         $pdf = PDF::loadView('myPDF', $send);
-        $filename = base_path('public\files\all_records.pdf');
+       // $filename = base_path('public\files\all_records.pdf');
+        $filename = public_path('all_records.pdf', ['disk' => 'my_files']);
         $pdf->save($filename); 
         
 

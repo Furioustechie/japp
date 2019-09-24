@@ -143,7 +143,7 @@
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="allAppeal">
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">store</i>
+                                        <i class="material-icons">check_circle</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_totalAppeal') }}</p>
                                     <h3 class="card-title" id="prison_all_appeals">
@@ -163,7 +163,7 @@
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="overdue_appeals">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">filter_none</i>
+                                        <i class="material-icons">info_outline</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_overDue') }}</p>
                                     <h3 class="card-title" id="prison_overdue">
@@ -180,7 +180,7 @@
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="incomplete_appeals">
                                 <div class="card-header card-header-danger card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">info_outline</i>
+                                        <i class="material-icons">cancel</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_ccNotFound') }}</p>
                                     <h3 class="card-title" id="prison_incomplete">{{ $count_incompleteApplication_Prison[0]->totalAppeal}}</h3>
@@ -197,7 +197,7 @@
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">
-                                            cloud_done
+                                            flag
                                             </i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_appealResolved') }}</p>
@@ -299,6 +299,7 @@
                                                    
                                                         <th>{{ __('labels.id') }}</th>
                                                         <th>{{ __('labels.case_no') }}</th>
+                                                        <th>{{ __('labels.prison_name') }} </th>
                                                         <th>{{ __('labels.prisoner_name') }} </th>
                                                         <th>{{ __('labels.status') }}</th>
                                                         <th>{{ __('labels.view_in_detail') }}</th>
@@ -313,6 +314,7 @@
                                                         <tr>
                                                             <td>{{ $appeal->id }}</td>
                                                             <td>{{$appeal->case_no}}</td>
+                                                            <td>{{ $appeal->prison_name }}</td>
                                                             <td>{{ $appeal->prisoner_name }}</td>
                                                             <td> 
                                                                 <ol class="etapier">
@@ -429,6 +431,7 @@
                                   <!---   Modal Body -->
                         </div>
                     </div>
+                    
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="material-icons">thumb_up</i> GOT IT</button>
                     </div>
@@ -447,6 +450,7 @@
     @include('inc.scriptstyle')
     <script>
     $(document).ready(function(){
+      
         $.ajaxSetup({
        headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -634,7 +638,7 @@ Swal.fire({
              table
             //   .order( [ 0, 'desc' ] )
             //   .draw();  
-             .columns( 5 )
+             .columns( 6 )
              .search(  val ? '^'+val+'$' : '', true, false).draw(); 
              
           });       
@@ -889,6 +893,14 @@ Swal.fire({
     //     });
     // });
 </script>
-    
+    <script>
+    $(document).ready(function(){
+        $('#mycollapse').on('click',function(){
+            
+            console.log('clicked');
+        })
+     
+    });
+    </script>
 </body>
 </html>
