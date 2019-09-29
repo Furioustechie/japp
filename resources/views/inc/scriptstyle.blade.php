@@ -36,6 +36,8 @@
  <script type="text/javascript" src="{{URL::asset('assets/DataTablesx/datatables.min.js')}}"></script>
  <script src="{{URL::asset('js/select2.min.js')}}"></script>
  <script src="{{URL::asset('js/sweetalert2.min.js')}}"></script>
+    {{-- <script src="{{URL::asset('js/parsley.min.js')}}"></script> --}}
+ {{-- <script src="{{URL::asset('js/previewForm.js')}}"></script> --}}
  <script src="{{URL::asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 <script src="{{URL::asset('js/confirm.js')}}"></script>
 {{-- <script src="{{URL::asset('js/ddtf.js')}}"></script> --}}

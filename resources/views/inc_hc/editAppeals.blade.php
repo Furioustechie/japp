@@ -213,37 +213,41 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
                           <select class="browser-default custom-select state_hc" id="state_hc" name="state" required>
                             @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Milestone Complete </option>
-                            <option value="todo" >No, Reminder Sent</option>
-                            @elseif(empty($last_state[0]->statusid)  OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
-                            {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Milestone Complete</option>
-                            {{-- <option value="todo" >No, Reminder Sent</option> --}}
-                            @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Milestone Complete </option>
-                            <option value="red" >Incomplete, Reminder Sent</option>
-                            @elseif(@$last_state[0]->statusid == 2)
-                                  @if(@$last_state[0]->state != 'red')
-                                  <option value="">Please Select..</option>
-                                  <option value="yellowgreen" >Milestone Complete </option>
-                                  <option value="todo" >Incomplete, Reminder Sent</option>
-                                  @else
-                                  <script>$('.myselection_hc_all').on('change',function(){
-                                        swal('Wait a while','For Update From Prison','error');
-                                  });</script>
-                                  @endif
-                            @elseif(@$last_state[0]->statusid == 3)
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Milestone Complete </option>
-                            <option value="todo" >Incomplete, Reminder Sent</option>
-                            <option value="red" >Reject</option>
-                            @elseif(@$last_state[0]->statusid == 4)
-                            <option value="">Please Select..</option>
-                            <option value="yellowgreen" >Milestone Complete </option>
-                            @endif
+                        <option value="">Please Select..</option>
+                        <option value="yellowgreen" >Milestone Complete </option>
+                        <option value="todo" >No, Reminder Sent</option>
+                        @elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
+                        <option value="">Please Select..</option>
+                        <option value="yellowgreen" >Milestone Complete</option>
+                        @elseif(@$last_state[0]->statusid == 10)
+                        <option value="">Please Select..</option>
+                        <option value="yellowgreen">Milestone Complete</option>
+                        @elseif(@$last_state[0]->statusid == 4)
+                        <option value="">Please Select..</option>
+                        <option value="yellowgreen">Milestone Complete </option>
+                        @elseif(@$last_state[0]->statusid == 3)
+                        <option value="">Please Select..</option>
+                        <option value="yellowgreen" >Milestone Complete </option>
+                        <option value="todo" >Incomplete, Reminder Sent</option>
+                        <option value="red" >Reject</option>
+                        {{-- @elseif(@$last_state[0]->statusid == 1)
+                        <option value="">Please Select..</option>
+                        <option value="yellowgreen" >Milestone Complete </option> --}}
+                        @elseif(@$last_state[0]->statusid == 2)
+                              @if(@$last_state[0]->state != 'red')
+                                <option value="">Please Select..</option>
+                                <option value="yellowgreen" >Milestone Complete </option>
+                                <option value="red" >Incomplete</option>
+                              @else
+                                <script>
+                                $('.myselection_hc_all').on('change',function(){
+                                      swal('Wait a while','For Update From Prison','error');
+                                });
+                                </script>
+                              @endif
+                @else
+                      I don't have any records!
+                @endif
                             </select>
                           </div>
                           </div> 

@@ -31,7 +31,9 @@
             max-height: calc(100vh - 150px);
             overflow-y: scroll;
 }
-
+.gotit{
+    display:none;
+}
 
           </style>
 
@@ -178,7 +180,7 @@ a:hover .spanRight{
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan" >
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">info_outline</i>
+                                        <i class="material-icons">error</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_overdue') }}</p>
                                     <h3 class="card-title" id="data_due" value={{$overdue_count[0]->totalAppeal}}>{{$overdue_count[0]->totalAppeal}}</h3>
@@ -483,10 +485,10 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <span class="col-md-10 offset-sm-1 border border-info">
                           <div class="card">
                           <div class="card-header bg-info">
-                          <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus{{ $appeal->id }}" >{{ __('labels.Wanna Update') }}</a>
+                          <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#notify_updateStatus{{ $appeal->id }}" >{{ __('labels.Wanna Update') }}</a>
                           </div>
                           <div class="card-body">
-                          <div id="updateStatus{{ $appeal->id }}" class="panel-collapse collapse">
+                          <div id="notify_updateStatus{{ $appeal->id }}" class="panel-collapse collapse">
             
                          <div class="row mb-12">
                           <div class="col-md-6">
@@ -528,38 +530,39 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <div class="form-group">
                           <label class="bmd-label-floating text-info" style="font-size: 14px;">Update State for selected Status*</label><br>
                           <select class="browser-default custom-select notif_state_hc" id="state" name="state" required>
-                                @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
-                                <option value="">Please Select..</option>
-                                <option value="yellowgreen" >Milestone Complete </option>
-                                <option value="todo" >No, Reminder Sent</option>
-                                @elseif(empty($last_state[0]->statusid)  OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
-                                {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
-                                <option value="">Please Select..</option>
-                                <option value="yellowgreen" >Milestone Complete</option>
-                                {{-- <option value="todo" >No, Reminder Sent</option> --}}
-                                @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 10))
-                                <option value="">Please Select..</option>
-                                <option value="yellowgreen" >Milestone Complete </option>
-                                <option value="red" >Incomplete, Reminder Sent</option>
-                                @elseif(@$last_state[0]->statusid == 2)
-                                      @if(@$last_state[0]->state != 'red')
-                                      <option value="">Please Select..</option>
-                                      <option value="yellowgreen" >Milestone Complete </option>
-                                      <option value="red" >Incomplete</option>
-                                      @else
-                                      <script>$('.notif_myselection_hc').on('change',function(){
-                                            swal('Wait a while','For Update From Prison','error');
-                                      });</script>
-                                      @endif
-                                @elseif(@$last_state[0]->statusid == 3)
-                                <option value="">Please Select..</option>
-                                <option value="yellowgreen" >Milestone Complete </option>
-                                <option value="todo" >Incomplete, Reminder Sent</option>
-                                <option value="red" >Reject</option>
-                                @elseif(@$last_state[0]->statusid == 4)
-                                <option value="">Please Select..</option>
-                                <option value="yellowgreen" >Milestone Complete </option>
-                                @endif
+                            @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
+                            <option value="">Please Select..</option>
+                            <option value="yellowgreen" >Milestone Complete </option>
+                            <option value="todo" >No, Reminder Sent</option>
+                            @elseif(empty($last_state[0]->statusid) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
+                            <option value="">Please Select..</option>
+                            <option value="yellowgreen" >Milestone Complete xx</option>
+                            @elseif(@$last_state[0]->statusid == 10)
+                            <option value="">Please Select..</option>
+                            <option value="yellowgreen" >Milestone Complete </option>
+                            @elseif(@$last_state[0]->statusid == 4)
+                            <option value="">Please Select..</option>
+                            <option value="yellowgreen" >Milestone Complete </option>
+                            @elseif(@$last_state[0]->statusid == 3)
+                            <option value="">Please Select..</option>
+                            <option value="yellowgreen" >Milestone Complete </option>
+                            <option value="todo" >Incomplete, Reminder Sent</option>
+                            <option value="red" >Reject</option>
+                            @elseif(@$last_state[0]->statusid == 1)
+                            <option value="">Please Select..</option>
+                            <option value="yellowgreen" >Milestone Complete </option>
+                            <option value="red" >Incomplete</option>
+                            @elseif(@$last_state[0]->statusid == 2)
+                                  @if(@$last_state[0]->state != 'red')
+                                    <option value="">Please Select..</option>
+                                    <option value="yellowgreen" >Milestone Complete </option>
+                                    <option value="red" >Incomplete</option>
+                                  @else
+                                  <option disabled value="" style="color:red">!! Waiting For Prison Update !!</option>
+                                  @endif
+                            @else
+                                  I don't have any records!
+                            @endif
                                 </select>
                           </div>
                           </div> 
@@ -1100,9 +1103,10 @@ $(document).on('click','.editapp', function() {
     </script>
     <script>
             $(document).ready(function(){
+              
                 //document.body.style.position = 'fixed';
                  $(document).on('click','a#mycollapse',function(){
-                     $('.gotit').toggle();
+                    // $('.gotit').toggle();
                      console.log('toggled');
                  });
 

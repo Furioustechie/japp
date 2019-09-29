@@ -178,9 +178,14 @@ class SettingsController extends Controller
                 return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$accountName->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
                 .'<a href="#" class="accountNameDelete delete" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>'.'<a href="#" data-toggle="modal" data-target="#edit_accountStatus"  data-id="'.$accountName->id.'" class="edit_accountStatus"><i class="material-icons">vpn_key</i></a>';
             })
-           
+            ->addColumn('actions', function($row){
+   
+                $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+
+                 return $btn;
+         })
             ->editColumn('id', 'ID: {{$id}}')
-            ->rawColumns(['delete' => 'delete','action' => 'action'])
+            ->rawColumns(['delete' => 'delete','action' => 'action', 'actions'])
             ->make(true);
     }
 

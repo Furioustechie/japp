@@ -304,7 +304,7 @@
                               @if((@$last_state[0]->statusid == 6) OR (@$last_state[0]->statusid ==7 ) OR (@$last_state[0]->statusid == 8) OR (@$last_state[0]->statusid == 9))
                               <option value="">Please Select..</option>
                               <option value="yellowgreen" >Milestone Complete </option>
-                              <option value="todo" >No, Reminder Sent</option>
+                              <option value="todo" >Incomplete, Reminder Sent</option>
                               @elseif(empty($last_state[0]->statusid)  OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 ))
                               {{-- @elseif((@$last_state[0]->statusid == 1) OR (@$last_state[0]->statusid == 3 ) OR (@$last_state[0]->statusid == 5) OR (@$last_state[0]->statusid == 6 )) --}}
                               <option value="">Please Select..</option>
@@ -315,7 +315,7 @@
                               <option value="yellowgreen" >Milestone Complete </option>
                               <option value="red" >Incomplete</option>
                               @elseif(@$last_state[0]->statusid == 2 AND @$last_state[0]->state == 'red')
-                              <script>$('#myselection_inc').on('change',function(){swal('Wait a while','Pending For Prison Update','error');});</script>
+                              <script>$('#myselection_inc').on('change',function(){swal('Wait a while','Waiting For Prison Update','error');});</script>
                               @elseif(@$last_state[0]->statusid == 2 AND @$last_state[0]->state == 'todo')
                               <option value="">Please Select..</option>
                               <option value="yellowgreen" >Milestone Complete </option>

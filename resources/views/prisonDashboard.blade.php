@@ -163,7 +163,7 @@
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="overdue_appeals">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">info_outline</i>
+                                        <i class="material-icons">error</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.prison_overDue') }}</p>
                                     <h3 class="card-title" id="prison_overdue">
@@ -473,6 +473,32 @@
     //    });
        
     });
+</script>
+    <script>
+    // $('#form').parsley();
+    </script>
+        <script>
+        $(document).ready(function() {
+        $(document).on("click", "#submit_appeal", function () {
+            if(document.getElementById('options').checked == false)
+        {
+            Swal.fire({
+            title: 'Attention!',
+            text: "You must agree on data privacy clause before submitting an appeal.",
+            type: 'warning'
+            // swal('Attention!','You must agree on data privacy clause before submitting an appeal.','info');
+        })
+        }
+        
+        
+        });
+        });
+        </script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#form').previewForm({ show_password : false });
+});
 </script>
     <script>
      $(document).on("click", ".show", function () {
@@ -893,14 +919,6 @@ Swal.fire({
     //     });
     // });
 </script>
-    <script>
-    $(document).ready(function(){
-        $('#mycollapse').on('click',function(){
-            
-            console.log('clicked');
-        })
-     
-    });
-    </script>
+   
 </body>
 </html>

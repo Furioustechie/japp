@@ -65,8 +65,7 @@
                                     title="{{ $pp->status_name }}"></li>
                             @else
                             @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red')AND (@$last_state[0]->state != 'todo') )
-                            <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
-                                            title="{{ $pp->status_name }}"></li>
+                            <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top" title="{{ $pp->status_name }}"></li>
                               @else
                               <li class="todo" data-toggle="tooltip" data-placement="top"
                               title="{{ $pp->status_name }}"><span class="d-none d-sm-block"><a href=""></a></span></li>

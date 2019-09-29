@@ -707,13 +707,16 @@ $(function() {
             processing: true,
             serverSide: true,
             ajax: url,
+            
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
                 { data: 'phone', name: 'phone' },
                 { data: 'status', name: 'status'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+                {data: 'actions', name: 'actions', orderable: false, searchable: false},
+
             ]
     
         });

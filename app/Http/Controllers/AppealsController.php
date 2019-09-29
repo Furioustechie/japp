@@ -1100,7 +1100,7 @@ echo '</span>';
         if(($mydate > 10 ) AND ($total == $customLoop) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) {
 
                echo '<li class="complete">';
-               echo '<a href="#" class="text-warning">"'.$pp->status_name.'"';
+               echo '<a href="#" class="text-warning">'.$pp->status_name.'';
                echo '<i class="ico fa fa-exclamation-circle" style="color:orange"></i>';
                echo '<span class="desc">Nothing Yet! Something</span>';
                echo '</a>';
@@ -1177,8 +1177,8 @@ public function updateFromPrison(Request $request ){
                                     
                                     $st_name = DB::table('status')->where('id',2)->first(); //Get StatusId
                                     $caseno = $casename->caseno; 
-                                    $msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
-                                    
+                                    //$msg='Update : '.$st_name->status_name.' (ON '.$casename->caseno.')';
+                                    $msg = 'Requested Document Has Been Sent'.'(ON '.$casename->caseno.')';
                                     $arr=array('data'=> $msg,'appeal_id'=>$appl->id,'case_id'=>$caseno);
                                     
                                     $applToUser = DB::table('newappeals')->where('id',$appl->id)->select('appeals_to_courtid')->first();

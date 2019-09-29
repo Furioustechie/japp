@@ -6,18 +6,18 @@
                 <h5 class="modal-title w-100 font-weight-bold" style="color:white" id="myModalLabel">{{ __('labels.applicationForm_name') }}</h5><span class="float-right"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
             </div>
             <div class="modal-body" >
-                <form action="{{url('appeals')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('appeals')}}" method="POST" enctype="multipart/form-data" id="form">
                     <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating text-info">{{ __('labels.prisoners_No') }} *</label>
-                                    <input type="text" name="prisoner_no" class="form-control" required>
+                                    <label for="{{ __('labels.prisoners_No') }} *" class="bmd-label-floating text-info">{{ __('labels.prisoners_No') }} *</label>
+                                    <input type="text" name="prisoner_no" class="form-control" id="{{ __('labels.prisoners_No') }} *" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating text-info">{{ __('labels.prisoners_Name') }} *</label>
-                                    <input type="text" name="prisoner_name" class="form-control" required>
+                                    <label for="{{ __('labels.prisoners_Name') }} *" class="bmd-label-floating text-info">{{ __('labels.prisoners_Name') }} *</label>
+                                    <input type="text" name="prisoner_name" class="form-control" id="{{ __('labels.prisoners_Name') }} *" required>
                                 </div>
                             </div>
     
@@ -235,10 +235,11 @@
                     {{-- <button class="btn btn-primary" onclick="md.showNotification('top','right')">Top Right
                         Notification</button> --}}
                     <a href="#"><button type="button" class="btn btn-warning pull-right" data-dismiss="modal">{{ __('labels.close') }}</button></a>
-                    <button type="submit" class="btn btn-success pull-right" name="submit" value="submit"><i class="material-icons">send</i> {{ __('labels.submit') }}</button>
+                    <button type="submit" class="btn btn-success pull-right" name="submit" id="submit_appeal" value="submit"><i class="material-icons">send</i> {{ __('labels.submit') }}</button>
 
                     <div class="clearfix"></div>
                 </form>
+               
             </div>
         </div>
     </div>
