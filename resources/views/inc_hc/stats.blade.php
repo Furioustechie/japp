@@ -48,6 +48,133 @@
 
                    
           </style>
+<style>
+:root{
+    --white: #fff;
+    --black: #000;
+    --color_1: #89b743;
+    --color_2: #ff9933;
+    --color_3: #EA2027;
+    --color_4: #00bfff;
+}
+
+
+.main-timeline{ font-family: 'Niramit', sans-serif; }
+
+.main-timeline:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.timeline{ margin: 0 -15px; }
+
+.timeline-content{
+    color: var(--color_1);
+    text-align: left;
+    display: block;
+    position: relative;
+}
+
+.timeline-content:hover{ text-decoration: none; }
+
+.timeline-icon{
+    font-size: 70px;
+    text-align: center;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+}
+
+.timeline:hover .timeline-icon{ transform: rotateY(360deg); }
+
+.timeline-year{
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+ .timeline-year:after{
+    content: '';
+    height: 60px;
+    width: 107%;
+    background-color: var(--color_1);
+    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: -1;
+    -webkit-clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+}
+
+.timeline-year span{
+    color: var(--white);
+    background-color: var(--color_1);
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 120px;
+    height: 120px;
+    width: 120px;
+    margin: 0 auto;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #999, 0 0 0 15px var(--white);
+    display: block;
+}
+
+.inner-content{
+    padding: 0 10px 10px 15px;
+    border-left: 15px solid var(--color_1);
+}
+
+ .title{
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+}
+
+.description{
+    color: #333;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+ .timeline.blue .timeline-icon,
+.main-timeline .timeline.blue .title{
+    color: var(--color_2);
+}
+.timeline.blue .timeline-year:after,
+.timeline.blue .timeline-year span{
+    background-color: var(--color_2);
+}
+.timeline.blue .inner-content{ border-left-color: var(--color_2); }
+
+ .timeline.green .timeline-icon,
+ .timeline.green .title{
+    color: var(--color_3);
+}
+.timeline.green .timeline-year:after,
+ .timeline.green .timeline-year span{
+    background-color: var(--color_3);
+}
+ .timeline.green .inner-content{ border-left-color: var(--color_3); }
+
+ .timeline.pink .timeline-icon,
+.timeline.pink .title{
+    color: var(--color_4);
+}
+ .timeline.pink .timeline-year:after,
+ .timeline.pink .timeline-year span{
+    background-color: var(--color_4);
+}
+.timeline.pink .inner-content{ border-left-color: var(--color_4); }
+
+@media screen and (max-width:767px){
+    .timeline{ margin: 0 0 15px; }
+
+     .timeline-year:after{ width: 100%; }
+}
+          </style>
 </head>
 
         <script>
@@ -86,7 +213,7 @@
         </script>
 
 <body class="">
-
+      
     @include('inc.modals')
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -117,7 +244,7 @@
                             <div class="card card-stats hvr-grow-shadow">
                                 <div class="card-header card-header-success card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">store</i>
+                                        <i class="material-icons">check_circle</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_totalAppeal') }}</p>
                                     <h3 class="card-title">
@@ -137,7 +264,7 @@
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan">
                                 <div class="card-header card-header-warning card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">filter_none</i>
+                                        <i class="material-icons">error</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_overdue') }}</p>
                                     <h3 class="card-title">
@@ -156,7 +283,7 @@
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="ccNotFound">
                                 <div class="card-header card-header-danger card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">info_outline</i>
+                                        <i class="material-icons">cancel_outline</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_pendingForCC') }}</p>
                                     <h3 class="card-title">{{ $incompleteApplication_ForHC->count() }}</h3>
@@ -173,7 +300,7 @@
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="justUpdate">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
-                                        <i class="fa fa-twitter"></i>
+                                        <i class="material-icons">flag</i>
                                     </div>
                                     <p class="card-category">{{ __('labels.hc_appealResolved') }}</p>
                                     <h3 class="card-title">{{ $totalappealResolved[0]->totalAppealResolved }}</h3>
@@ -187,6 +314,82 @@
                             </div></a>
                         </div>
                     </div>
+                    <div class="container-fluid">
+                    <div class="row">
+                            {{-- <div class="main-timeline"> --}}
+                            <div class="col-md-3 col-sm-4">
+                                    <div class="timeline">
+                                        <a href="#" class="timeline-content">
+                                            <div class="timeline-icon">
+                                                <i class="fa fa-check"></i>
+                                            </div>
+                                            <div class="timeline-year">
+                                                <span>{{$count}}</span>
+                                            </div>
+                                            <div class="inner-content">
+                                                <h3 class="title">{{ __('labels.hc_totalAppeal') }}</h3>
+                                                <p class="description">
+                                                        Total Number of Appeals for All Prison
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4">
+                                        <div class="timeline blue">
+                                            <a href="#" class="timeline-content">
+                                                <div class="timeline-icon">
+                                                    <i class="fa fa-warning"></i>
+                                                </div>
+                                                <div class="timeline-year">
+                                                    <span> {{$overdue_count[0]->totalAppeal}}</span>
+                                                </div>
+                                                <div class="inner-content">
+                                                    <h3 class="title">{{ __('labels.hc_overdue') }}</h3>
+                                                    <p class="description">
+                                                            No action has taken since last status update for a given period of time                                                    </p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                            <div class="timeline green">
+                                                <a href="#" class="timeline-content">
+                                                    <div class="timeline-icon">
+                                                        <i class="fa fa-close"></i>
+                                                    </div>
+                                                    <div class="timeline-year">
+                                                        <span>{{ $incompleteApplication_ForHC->count() }}</span>
+                                                    </div>
+                                                    <div class="inner-content">
+                                                        <h3 class="title">{{ __('labels.hc_pendingForCC') }}</h3>
+                                                        <p class="description">
+                                                                Appeal is rejected or marked as incomplete by HCJAS                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-4">
+                                                <div class="timeline pink">
+                                                    <a href="#" class="timeline-content">
+                                                        <div class="timeline-icon">
+                                                            <i class="fa fa-flag"></i>
+                                                        </div>
+                                                        <div class="timeline-year">
+                                                            <span>{{ $totalappealResolved[0]->totalAppealResolved }}</span>
+                                                        </div>
+                                                        <div class="inner-content">
+                                                            <h3 class="title">{{ __('labels.hc_appealResolved') }}</h3>
+                                                            <p class="description">
+                                                                    Number of appeal resolved till to date                                                            </p>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                {{-- </div> --}}
                     <div class="col-md-12">
                         <div class="card show_datespan animated onece fadeIn">
                             <div class="card-header card-header-warning">

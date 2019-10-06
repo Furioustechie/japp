@@ -11,7 +11,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="{{ __('labels.prisoners_No') }} *" class="bmd-label-floating text-info">{{ __('labels.prisoners_No') }} *</label>
-                                    <input type="text" name="prisoner_no" class="form-control" id="{{ __('labels.prisoners_No') }} *" required>
+                                    <input type="text" name="prisoner_no" class="form-control" id="{{ __('labels.prisoners_No') }} *" required="">
                                 </div>
                             </div>
                             <div class="col-md-6">

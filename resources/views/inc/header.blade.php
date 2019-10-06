@@ -30,13 +30,13 @@
               @if($value =='bn')
                 <li class="nav-item en">
                   <a class="nav-link" href="{{URL::asset('locale/en')}}">
-                    <i class="material-icons">dashboard</i>EN
+                    <i class="material-icons">language</i>EN
                   </a>
                 </li>
                 @else
                 <li class="nav-item bn">
                   <a class="nav-link" href="{{URL::asset('locale/bn')}}">
-                    <i class="material-icons">dashboard</i>BN
+                    <i class="material-icons">language</i>BN
                   </a>
                 </li>
                 @endif
@@ -44,13 +44,13 @@
         @if($value =='bn')
         <li class="nav-item en">
           <a class="nav-link" href="{{URL::asset('locale/en')}}">
-            <i class="material-icons">dashboard</i>EN
+            <i class="material-icons">language</i>EN
           </a>
         </li>
         @else
         <li class="nav-item bn">
           <a class="nav-link hvr-grow-shadow" href="{{URL::asset('locale/bn')}}">
-            <i class="material-icons">dashboard</i>BN
+            <i class="material-icons">language</i>BN
           </a>
         </li>
         @endif

@@ -297,6 +297,16 @@ a:hover .spanRight{
                             <p class="card-category">{{ __('labels.totalAppealsDetails') }}</p>
                         </div>
                         <div class="card-body">
+                                <table border="0" cellspacing="5" cellpadding="5" align="center">
+                                        <tbody ><tr>
+                                            <td style="font-weight:bold">DATE FROM:</td>
+                                            <td><input type="date" id="from_date" name="from_date"></td>
+                                            <td style="font-weight:bold">DATE TO:</td>
+                                            <td><input type="date" id="to_date" name="to_date"></td>
+                                            <td><input type="button" id="dateFilter" name="dateFilter" value="Filter By Date"></td>
+
+                                        </tr>
+                                    </tbody></table>
                             <div>
                                 <input type="text" placeholder="Search by - CaseNO or PrisonName or ID" name="search" id="search"  class="form-control">
                                 </div>

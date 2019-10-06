@@ -33,18 +33,23 @@ class LoginController extends Controller
         // User role
         
     $role = Auth::user()->user_type; 
-    
+    $status = Auth::user()->status;
     // Check user role
-    switch ($role) {
+    if ($status == 0) {
+        switch ($role) {
         case 'admin':
                 return '/dashboard';
             break;
         case 'user':
                 return '/prisonDashboard';
-            break; 
-        default:
-                return '/login'; 
             break;
+        default:
+                return '/login';
+            break;
+    }
+    }
+    else{
+        return '/changepass';
     }
     }
     /**
@@ -66,11 +71,12 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         // return $request->only($this->username(), 'password');
-    return ['email' =>$request{$this->username()}, 'password' => $request->password, 'status' => 0];
+    return ['email' =>$request{$this->username()}, 'password' => $request->password];
     }
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/login');
       }
+     
       
 }

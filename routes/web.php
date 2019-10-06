@@ -115,6 +115,7 @@ Route::get('/rotate', 'SettingsController@rotate');
 Route::get('services/upload', 'settingsController@upload');
 Route::get('/mail', 'mailController@firemail');
 Route::get('/sms', 'mailController@firesms');
+Route::get('/changepassword', 'mailController@pass');
 Route::post('send/mail', 'mailController@sendemail');
 Route::post('send/sms', 'mailController@sendsms');
 Route::get('/notify', 'notifyController@notifyme');
@@ -164,6 +165,8 @@ Route::post('/notificationUpdate/{split_id}', 'PagesController@notificationUpdat
 Route::post('updateTest/{appeal_id}', 'AppealsController@updateTest');
 Route::post('/PrisonDashboard/fetchme/{filter}', 'AppealsController@fetchme');
 Route::get('generate-pdf','pdfController@generatePDF');
+Route::get('changepass', 'SettingsController@pass');
+Route::post('updatepasswd', 'SettingsController@updatepasswd');
 Route::any('/test','pdfController@test');
 
 

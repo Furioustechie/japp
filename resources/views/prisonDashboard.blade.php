@@ -6,7 +6,6 @@
     @include('inc.style')
     <!-- End CSS Style Sheet -->
     <style type="text/css">
-
         .preloader 
         {
             position: fixed;
@@ -27,104 +26,95 @@
         div.show_resolved {        /* this will hide div with id div_id_name */
                 display:none;
                 }   
-                fieldset.scheduler-border {
-                    border: 1px groove #ddd !important;
-                    padding: 0 1.4em 1.4em 1.4em !important;
-                    margin: 0 0 1.5em 0 !important;
-                    -webkit-box-shadow:  0px 0px 0px 0px #000;
-                            box-shadow:  0px 0px 0px 0px #000;
-                }
-                legend.scheduler-border {
-                    font-size: 1.2em !important;
-                    font-weight: bold !important;
-                    text-align: left !important;
-                    width:auto;
-                    padding:0 10px;
-                    border-bottom:none;
-                }  
-                div.progress {        /* this will hide div with id div_id_name */
-                display:none;
-                }    
-                .select2 {
-                width:100%!important;
-                }
-                .table-filter-container {
-                        text-align: left;
-                    }
+        fieldset.scheduler-border {
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow:  0px 0px 0px 0px #000;
+                    box-shadow:  0px 0px 0px 0px #000;
+        }
+        legend.scheduler-border {
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+            width:auto;
+            padding:0 10px;
+            border-bottom:none;
+        }  
+        div.progress {        /* this will hide div with id div_id_name */
+        display:none;
+        }    
+        .select2 {
+        width:100%!important;
+        }
+        .table-filter-container {
+                text-align: left;
+            }
                     
-          </style>
-</head>
-<script>
+    </style>
+    <script>
             
-        $(document).ready(function(){
-            var overdue_appeals = $('#prison_overdue').text()
-            var incomplete_appeals = $('#prison_incomplete').text()
-            var seeResolved = $('#prison_resolved').text()
-            var allAppeal = $('#prison_all_appeals').text()
-
-            $('#overdue_appeals').click(function() {
-                if(overdue_appeals != 0){
-                $('.show').toggle();
-                }else{
-                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
-                }
-                $('.show_total').hide();
-                $('.show_resolved').hide();          
-                 });
-            $('#incomplete_appeals').click(function() {
-                $('.show').hide();
-                $('.show_resolved').hide();
-                if(incomplete_appeals != 0){
-                $('.show_total').toggle();  
-                }else{
-                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
-                }
-                    });
-           $('#seeResolved').click(function() {
-                $('.show').hide();
-                $('.show_total').hide(); 
-                if(seeResolved != 0){
-                $('.show_resolved').toggle(); 
-                }else{
-                    swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
-                }
-                    });
-           $('#allAppeal').click(function() {
-                $('.show').hide();
-                $('.show_total').hide(); 
-                $('.show_resolved').hide(); 
-                    });
-           $('#monthAppeals').click(function() {
-                $('.show').hide();
-                    });   
-           $('#pendingCC').click(function() {
-                $('.show_total').hide(); 
-                    });   
-           $('#appealsResolved').click(function() {
-                $('.show_resolved').hide(); 
-                    }); 
-        //   $('.bn').click(function() {
-        //         $('.bn').hide(); 
-        //             });   
-        //console.log(overdue_appeals,incomplete_appeals,seeResolved)             
-        });
-        </script>
+            $(document).ready(function(){
+                var overdue_appeals = $('#prison_overdue').text()
+                var incomplete_appeals = $('#prison_incomplete').text()
+                var seeResolved = $('#prison_resolved').text()
+                var allAppeal = $('#prison_all_appeals').text()
+    
+                $('#overdue_appeals').click(function() {
+                    if(overdue_appeals != 0){
+                    $('.show').toggle();
+                    }else{
+                        swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                    }
+                    $('.show_total').hide();
+                    $('.show_resolved').hide();          
+                     });
+                $('#incomplete_appeals').click(function() {
+                    $('.show').hide();
+                    $('.show_resolved').hide();
+                    if(incomplete_appeals != 0){
+                    $('.show_total').toggle();  
+                    }else{
+                        swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                    }
+                        });
+               $('#seeResolved').click(function() {
+                    $('.show').hide();
+                    $('.show_total').hide(); 
+                    if(seeResolved != 0){
+                    $('.show_resolved').toggle(); 
+                    }else{
+                        swal("No Data Avaliable!", "Nothing To Show Here!", "warning");
+                    }
+                        });
+               $('#allAppeal').click(function() {
+                    $('.show').hide();
+                    $('.show_total').hide(); 
+                    $('.show_resolved').hide(); 
+                        });
+               $('#monthAppeals').click(function() {
+                    $('.show').hide();
+                        });   
+               $('#pendingCC').click(function() {
+                    $('.show_total').hide(); 
+                        });   
+               $('#appealsResolved').click(function() {
+                    $('.show_resolved').hide(); 
+                        }); 
+            });
+    </script>
+</head>
 
 <body class="">
-
-   
     @include('inc.appealApplicationModal')
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-            <!--
+        <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
         Tip 2: you can also add an image using data-image tag
-    -->
+        -->
             <div class="logo">
                 <a href="#" class="simple-text logo-normal"><img src="{{URL::asset('assets/img/logo.png')}}">{{ __('labels.logo_title') }}</a>
-
-
             </div>
             <div class="sidebar-wrapper">
                 <!-- Side Navbar -->
@@ -224,7 +214,6 @@
                                     <div id="table_data">
                                             @include('inc_prison.thisYearData')
                                     </div>
-                                   
                             </div>
                     </div>
                 </div>
@@ -294,6 +283,17 @@
                                                 @endforeach
                                                 </select>
                                                 </p>
+                                                <table border="0" cellspacing="5" cellpadding="5" align="center">
+                                                    <tbody ><tr>
+                                                        <td style="font-weight:bold">DATE FROM:</td>
+                                                        <td><input type="date" id="from_date" name="from_date"></td>
+                                                        <td style="font-weight:bold">DATE TO:</td>
+                                                        <td><input type="date" id="to_date" name="to_date"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        
+                                                    </tr>
+                                                </tbody></table>
                                                 <table id="dataTable_Details" class="display nowrap dtr-inline browser-default" style="width:100%">
                                                     <thead class="text-primary">
                                                    
@@ -301,6 +301,7 @@
                                                         <th>{{ __('labels.case_no') }}</th>
                                                         <th>{{ __('labels.prison_name') }} </th>
                                                         <th>{{ __('labels.prisoner_name') }} </th>
+                                                        <th>APPEAL DATE </th>
                                                         <th>{{ __('labels.status') }}</th>
                                                         <th>{{ __('labels.view_in_detail') }}</th>
                                                         <th style="display:none;"></th>
@@ -308,7 +309,7 @@
                                                     </thead>
                                                 
                                                     <tbody>
-        
+                                                          
                                                         @if(count($appDetails) > 0)
                                                         @foreach($appDetails as $appeal)
                                                         <tr>
@@ -316,6 +317,7 @@
                                                             <td>{{$appeal->case_no}}</td>
                                                             <td>{{ $appeal->prison_name }}</td>
                                                             <td>{{ $appeal->prisoner_name }}</td>
+                                                            <td>{{ date('M-d-Y',strtotime($appeal->created_at)) }}</td>
                                                             <td> 
                                                                 <ol class="etapier">
         
@@ -449,8 +451,10 @@
     
     @include('inc.scriptstyle')
     <script>
+            $('#form').parsley();
+    </script>
+    <script>
     $(document).ready(function(){
-      
         $.ajaxSetup({
        headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -474,9 +478,7 @@
        
     });
 </script>
-    <script>
-    // $('#form').parsley();
-    </script>
+
         <script>
         $(document).ready(function() {
         $(document).on("click", "#submit_appeal", function () {
@@ -489,31 +491,20 @@
             // swal('Attention!','You must agree on data privacy clause before submitting an appeal.','info');
         })
         }
-        
-        
         });
         });
         </script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-	$('#form').previewForm({ show_password : false });
-});
-</script>
     <script>
      $(document).on("click", ".show", function () {
     var itemid= $(this).attr('data-id');
     $("#abc").attr("abc_"+itemid)
- });
+    });
     </script>
     @if(@$notify_appeal_id)
     <script>
     $(window).on('load',function() {
         $('#edit_Myappeal').modal('show');
     });
-    // $('#edit_Myappeal').on('hidden.bs.modal', function () {
-    //  location.reload();
-    // })
     
     </script>
     @endif
@@ -600,43 +591,61 @@ Swal.fire({
   }
 })
                 
-          });
-    </script>
+});
+</script>
     
-                                      <script>
-                                          // $("#fileinput").hide();
-                                          $("#fileinput1").hide();
-                                          // $('#appealcourt').on('click', function () {
-                                          //   console.log(this.val());
-                                          // });
-                                          
-                                          $('#doctype').on('change', function () {
-                                            // console.log();
-                                            $('.fup').hide();
-                                           var fupload = $(this).val();
-                                            $.each(fupload, function( index, value ) {
-                                              console.log( value );
-                                              $("#fileinput_"+value).show();
-                                          });
-                                          return false;
-                                            if(this.value==1){
-                                              $("#fileinput").show();
-                                             
-                                            }else if(this.value==2){
-                                              $("#fileinput1").show();
-                                            }else{
-                                              //
-                                            }
-                                              
-                                          });
-                                          
-                                          
-                                          </script>
+<script>
+    // $("#fileinput").hide();
+    $("#fileinput1").hide();
+    // $('#appealcourt').on('click', function () {
+    //   console.log(this.val());
+    // });
+    
+    $('#doctype').on('change', function () {
+    // console.log();
+    $('.fup').hide();
+    var fupload = $(this).val();
+    $.each(fupload, function( index, value ) {
+        console.log( value );
+        $("#fileinput_"+value).show();
+    });
+    return false;
+    if(this.value==1){
+        $("#fileinput").show();
+        
+    }else if(this.value==2){
+        $("#fileinput1").show();
+    }else{
+        //
+    }
+        
+    });
+    
+    
+    </script>
                                           
                                       
-                   {!! Toastr::message() !!}
-</body>
+{!! Toastr::message() !!}
+{{-- </body> --}}
 <script>
+/* Custom filtering function which will search data in column four between two values */
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = Date.parse( $('#from_date').val(), 10 );
+        console.log(min);
+        var max = Date.parse( $('#to_date').val(), 10 );
+        var age = Date.parse( data[4] ) || 0; // use data for the age column
+ 
+        if ( ( isNaN( min ) && isNaN( max ) ) ||
+             ( isNaN( min ) && age <= max ) ||
+             ( min <= age   && isNaN( max ) ) ||
+             ( min <= age   && age <= max ) )
+        {
+            return true;
+        }
+        return false;
+    }
+);
       $(document).ready(function() {
           // Setup - add a text input to each footer cell
         //   $('#dataTable_Details tfoot th').each( function () {
@@ -645,6 +654,7 @@ Swal.fire({
         //   } );
   
           // DataTable
+
           var table = $('#dataTable_Details').DataTable({
             //responsive: true,
             //dom: 'lrtip'
@@ -664,15 +674,21 @@ Swal.fire({
              table
             //   .order( [ 0, 'desc' ] )
             //   .draw();  
-             .columns( 6 )
+             .columns( 7 )
              .search(  val ? '^'+val+'$' : '', true, false).draw(); 
              
-          });       
-       }
+                });       
+              }
           });
-        //   $('.filterByStatus').on('change', function(){
-        //         table.search(this.value).draw();   
-        //         });
+        // Event listener to the two range filtering inputs to redraw on input
+            $('#from_date, #to_date').on('change',  function() {
+                var min = Date.parse( $('#min').val(), 10 );
+        console.log(min);
+                table.draw();
+                 } );
+          $('.filterByStatus').on('change', function(){
+                table.search(this.value).draw();   
+                });
           // Apply the search
          
           table.columns().every( function () {
@@ -694,7 +710,7 @@ Swal.fire({
 //         "pageLength": 5
 // } );
 
-      </script>
+</script>
 <script>
  $(document).ready(function () {
         $("body").on("click", ".edit_appeal", function () {
@@ -907,18 +923,7 @@ Swal.fire({
         </script>
       @include('sweet::alert')
  
-<script type="text/javascript">
-    // $(document).ready(function(){
-    //     $('input[type="submit"]').click(function(){
-    //         if($("checked") == true){
-    //             alert("Checkbox is checked.");
-    //         }
-    //         else if($("checked") == false){
-    //             alert("Checkbox is unchecked.");
-    //         }
-    //     });
-    // });
-</script>
+
    
 </body>
 </html>

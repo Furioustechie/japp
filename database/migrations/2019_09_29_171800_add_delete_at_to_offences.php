@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOffencesTable extends Migration
+class AddDeleteAtToOffences extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateOffencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('offences', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
-            $table->timestamps('deleted_at');
+        Schema::table('offences', function (Blueprint $table) {
+            //
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +26,8 @@ class CreateOffencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offences');
+        Schema::table('offences', function (Blueprint $table) {
+            //
+        });
     }
 }

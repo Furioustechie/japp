@@ -7,7 +7,10 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+use Auth;
 use App\Appeal;
 use App\Doctype;
 use App\Document;
@@ -146,7 +149,8 @@ class SettingsController extends Controller
 
     public function getOffenceData()
     {
-        $offenceName = DB::table('offences')->select('id', 'name')->get();
+        $offenceName = Offence::select('id', 'name')->get();
+        //$offenceName = DB::table('offences')->select('id', 'name')->get();
         return Datatables::of($offenceName)
             ->addColumn('action', function ($offenceName) {
                 return '<a href="#" data-toggle="modal" data-target="#edit_offenceName"  data-id="'.$offenceName->id.'" class="edit_offenceName"><i class="material-icons">edit</i></a> '
@@ -338,15 +342,16 @@ class SettingsController extends Controller
     // ------------------------Offence Name  Delete ------------------>
     public function offence_name_destroy($id)
     {
+        Offence::destroy($id);
         // echo $id;  
-        try {
-         DB::table('offences')->where('id',$id)->delete();
+        // try {
+        //  DB::table('offences')->where('id',$id)->delete();
         
-            return redirect('/editsettings')->with('success','Offence Name Deleted Successdully');
-        } catch (\Exception $e) { 
-            // if an exception happened in the try block above 
-            return redirect('/editsettings')->with('error','Offence Courts Name is Being Used and Can Not Be Deleted Now!!');
-        }
+        //     return redirect('/editsettings')->with('success','Offence Name Deleted Successdully');
+        // } catch (\Exception $e) { 
+        //     // if an exception happened in the try block above 
+        //     return redirect('/editsettings')->with('error','Offence Courts Name is Being Used and Can Not Be Deleted Now!!');
+        // }
     }
     // ------------------------Status Name  Delete ------------------>
     public function status_name_destroy($id)
@@ -547,4 +552,27 @@ class SettingsController extends Controller
         }
         return view('editsettings');
     }
+    public function pass(){
+
+        if(empty(Auth::user()->email)){
+            return redirect('/login') ;
+        }
+         return view('changepassword');
+     }
+     public function updatepasswd(Request $request){
+ 
+         
+         $password = $request->input('password');
+         $email =  $request->input('email');
+         //dd($password);
+         $update_user = User::where('email', $email)->first();
+         $update_user->password = Hash::make($password);
+         $update_user->setRememberToken(Str::random(60));
+         $update_user->created_at = date('Y-m-d h:i:s');
+         $update_user->updated_at = date('Y-m-d h:i:s');
+         $update_user->status = $request->input('token');;
+ 
+         $update_user->save();   
+         return view('home')->with('Change Successful');
+     }
 }

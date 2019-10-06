@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
 use Mail;
 use App\Mail\sendemail;
 use Session;
 use Tzsk\Sms\Facade\Sms;
 use App\User;
-
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
 
 class mailController extends Controller
 {
@@ -23,6 +27,29 @@ class mailController extends Controller
 
        
         return view('sms');
+    }
+    public function pass(){
+
+       if(empty(Auth::user()->email)){
+           return redirect('/login') ;
+       }
+        return view('changepassword');
+    }
+    public function updatepasswd(Request $request){
+
+        
+        $password = $request->input('password');
+        $email =  $request->input('email');
+        //dd($password);
+        $update_user = User::where('email', $email)->first();
+        $update_user->password = Hash::make($password);
+        $update_user->setRememberToken(Str::random(60));
+        $update_user->created_at = date('Y-m-d h:i:s');
+        $update_user->updated_at = date('Y-m-d h:i:s');
+        $update_user->status = $request->input('token');;
+
+        $update_user->save();   
+        return view('home')->with('Change Successful');
     }
     public function sendemail(Request $get){
         

@@ -4,7 +4,8 @@
           <th class="sorting" data-sorting_type="asc" data-column_name="id" style="cursor: pointer; width:2%"">{{ __('labels.resolved_id') }}<span id="id_icon"></span></th>
           <th class="sorting" data-sorting_type="asc" data-column_name="case_no" style="cursor: pointer;white-space: nowrap;width:5%">{{ __('labels.resolved_case_no') }}<span id="case_icon"></span></th>
           <th style="white-space: nowrap; width:5%">{{ __('labels.prison_name') }}</th>
-          <th style="white-space: nowrap; width:5%">{{ __('labels.prisoner_name') }}</th>
+          <th style="white-space: nowrap; width:7%">{{ __('labels.prisoner_name') }}</th>
+          <th style="white-space: nowrap; width:7%">APPEAL DATE</th>
           <th class="text-center" style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
           <th style="white-space: nowrap;">{{ __('labels.resolved_view_in_detail') }}</th>
       </thead>
@@ -17,6 +18,7 @@
       <td>{{$appeal->case_no}}</td>
       <td>{{$appeal->prison_name}}</td>  
       <td>{{$appeal->prisoner_name}}</td>
+      <td>{{ date('M-d-Y',strtotime($appeal->created_at)) }}</td>
       <td>
                                             <ol class="etapier">
 
