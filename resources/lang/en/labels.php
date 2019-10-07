@@ -83,6 +83,7 @@ return [
     'case_no' => 'CASE NO',
     'prisoner_name' => 'PRISONER NAME',
     'prison_name' => 'PRISON',
+    'appeal_date' => 'APPEAL DATE',
     'status' => 'STATUS',
     'view_in_detail' => 'VIEW IN DETAIL',
     //Prison - lastMonth Table
@@ -117,4 +118,10 @@ return [
     'Add_New_Status' => 'Add New Status',
     'Add_New_User' => 'Add New User',
     'Wanna Update' => 'Click Here To Update',
+
+     //Date filter Label
+     'From_date' => 'DATE FROM',
+     'To_date' => 'DATE TO',
+     'DateFilter' => 'FILTER BY DATE',
+     'DateFilterRefresh' => 'REFRESH',
 ];

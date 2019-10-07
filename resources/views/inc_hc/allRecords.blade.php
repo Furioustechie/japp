@@ -5,7 +5,7 @@
           <th class="sorting" data-sorting_type="asc" data-column_name="case_no" style="cursor: pointer;white-space: nowrap;width:5%">{{ __('labels.resolved_case_no') }}<span id="case_icon"></span></th>
           <th style="white-space: nowrap; width:5%">{{ __('labels.prison_name') }}</th>
           <th style="white-space: nowrap; width:7%">{{ __('labels.prisoner_name') }}</th>
-          <th style="white-space: nowrap; width:7%">APPEAL DATE</th>
+          <th style="white-space: nowrap; width:7%">{{ __('labels.appeal_date') }}</th>
           <th class="text-center" style="white-space: nowrap;">{{ __('labels.resolved_status') }}</th>
           <th style="white-space: nowrap;">{{ __('labels.resolved_view_in_detail') }}</th>
       </thead>

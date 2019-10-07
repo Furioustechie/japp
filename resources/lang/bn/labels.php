@@ -83,6 +83,7 @@ return [
     'case_no' => 'কেস নম্বর',
     'prisoner_name' => 'কারাবন্দীর নাম',
     'prison_name' => 'কারাগার',
+    'appeal_date' => 'আপিলের তারিখ',
     'status' => 'অবস্থা',
     'view_in_detail' => 'বিস্তারিত দেখুন',
     //Prison - lastMonth Table
@@ -117,4 +118,10 @@ return [
      'Add_New_Status' => 'নতুন অবস্থা সংযোজিত করুন',
      'Add_New_User' => 'নতুন ব্যবহারকারী সংযোজিত করুন',
      'Wanna Update' => 'আপডেট করতে এখানে ক্লিক করুন',
+
+     //Date filter Label
+     'From_date' => 'তারিখ হইতে',
+     'To_date' => 'তারিখ পর্যন্ত',
+     'DateFilter' => 'ফিল্টার প্রয়োগ করুন',
+     'DateFilterRefresh' => 'রিফ্রেশ',
 ];

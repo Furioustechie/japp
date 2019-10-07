@@ -299,11 +299,11 @@ a:hover .spanRight{
                         <div class="card-body">
                                 <table border="0" cellspacing="5" cellpadding="5" align="center">
                                         <tbody ><tr>
-                                            <td style="font-weight:bold">DATE FROM:</td>
+                                            <td style="font-weight:bold">{{ __('labels.From_date') }}:</td>
                                             <td><input type="date" id="from_date" name="from_date"></td>
-                                            <td style="font-weight:bold">DATE TO:</td>
+                                            <td style="font-weight:bold">{{ __('labels.To_date') }}:</td>
                                             <td><input type="date" id="to_date" name="to_date"></td>
-                                            <td><input type="button" id="dateFilter" name="dateFilter" value="Filter By Date"></td>
+                                            <td><input class="btn btn-success" type="button" id="dateFilter" name="dateFilter" value="{{ __('labels.DateFilter') }}"><input class="btn btn-default" type="button" id="dateFilterRefresh" name="dateFilterRefresh" value="{{ __('labels.DateFilterRefresh') }}"></td>
 
                                         </tr>
                                     </tbody></table>
@@ -915,17 +915,20 @@ $(document).ready(function(){
                 $('#case_no_icon').html('');
                 }
 
-                function fetch_data(page, sort_type, sort_by, query, filter)
+                function fetch_data(page, sort_type, sort_by, query, filter,from_date,to_date)
                 {
                     var filter = $('.filterByStatus').val();
+                    var from_date = $('#from_date').val();
+                    var to_date = $('#to_date').val();
+
                     //var x = "page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query+"&filter="+filter;
                 $.ajax({
-                url:"/dashboard/fetch_data_allRecords?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query+"&filter="+filter,
+                url:"/dashboard/fetch_data_allRecords?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&query="+query+"&filter="+filter+"&from_date="+from_date+"&to_date="+to_date,
                 success:function(data)
                 {
                     //alert(x);
                     $('#data_allRecords').html('');
-                $('#data_allRecords').html(data);
+                    $('#data_allRecords').html(data);
                 }
                 });
                 }
@@ -943,13 +946,23 @@ $(document).ready(function(){
                 $(document).on('change', '.filterByStatus', function(){
                 var filter = $('.filterByStatus').val();
                // console.log(filter);
-
                 var sort_by = $('#hidden_column_name').val();
                 var sort_type = $('#hidden_sort_type').val();
                 var page = $('#hidden_page').val();
                 fetch_data(page,sort_type, sort_by, filter);
                 });
-
+                $(document).on('click', '#dateFilter', function(){
+                var from_date = $('#from_date').val();
+                var to_date = $('#to_date').val();
+                console.log(from_date,to_date);
+                var sort_by = $('#hidden_column_name').val();
+                var sort_type = $('#hidden_sort_type').val();
+                var page = $('#hidden_page').val();
+                fetch_data(page,sort_type, sort_by, from_date,to_date);
+                });
+                $(document).on('click', '#dateFilterRefresh', function(){
+                location.reload();
+                });
                 //Sorting Block
 
                 $(document).on('click', '.sorting', function(){

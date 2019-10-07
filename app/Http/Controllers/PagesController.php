@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App;
 use Session;
 use App\Appeal;
@@ -513,6 +514,9 @@ foreach($totalByStatus as $byStatus){
            $query = $request->get('query');
            $query = str_replace(" ", "%", $query);
            $filter = $request->get('filter');
+           $from_date = $request->get('from_date');
+           $to_date = $request->get('to_date');
+
           
         if ($filter != '') {
             $appDetails_allRecords = DB::table('filterbystatus')
@@ -525,7 +529,7 @@ foreach($totalByStatus as $byStatus){
                 //->Where('id', 'like', '%'.$query.'%')
                 ->Where('case_no','like', '%'.$query.'%')
                 ->orWhere('prison_name','like', '%'.$query.'%')
-                //->Where('maxStatus', '=', $filter)
+                ->orWhereBetween('created_at',array($from_date,$to_date))
                 ->orderBy($sort_by, $sort_type)
                 //->orderBy('id', 'desc')
                 ->paginate(10);

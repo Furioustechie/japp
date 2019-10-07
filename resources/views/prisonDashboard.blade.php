@@ -285,13 +285,10 @@
                                                 </p>
                                                 <table border="0" cellspacing="5" cellpadding="5" align="center">
                                                     <tbody ><tr>
-                                                        <td style="font-weight:bold">DATE FROM:</td>
+                                                        <td style="font-weight:bold">{{ __('labels.From_date') }}:</td>
                                                         <td><input type="date" id="from_date" name="from_date"></td>
-                                                        <td style="font-weight:bold">DATE TO:</td>
+                                                        <td style="font-weight:bold">{{ __('labels.To_date') }}:</td>
                                                         <td><input type="date" id="to_date" name="to_date"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        
                                                     </tr>
                                                 </tbody></table>
                                                 <table id="dataTable_Details" class="display nowrap dtr-inline browser-default" style="width:100%">
@@ -301,7 +298,7 @@
                                                         <th>{{ __('labels.case_no') }}</th>
                                                         <th>{{ __('labels.prison_name') }} </th>
                                                         <th>{{ __('labels.prisoner_name') }} </th>
-                                                        <th>APPEAL DATE </th>
+                                                        <th>{{ __('labels.appeal_date') }}</th>
                                                         <th>{{ __('labels.status') }}</th>
                                                         <th>{{ __('labels.view_in_detail') }}</th>
                                                         <th style="display:none;"></th>

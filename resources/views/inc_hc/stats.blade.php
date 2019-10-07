@@ -897,6 +897,7 @@
                     doc.content[1].table.widths = 
                         Array(doc.content[1].table.body[0].length + 1).join('*').split('');
                 } },
+                { extend: 'excel',title: 'Bangladesh Jail', className: 'btn btn-danger', },
             { extend: 'print',title: 'Bangladesh Jail', className: 'btn btn-warning', },
             
         ],
