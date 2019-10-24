@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use App\Appealstatus;
+use DB;
 
 class mailController extends Controller
 {
@@ -25,32 +27,19 @@ class mailController extends Controller
     }
     public function firesms(){
 
-       
-        return view('sms');
-    }
-    public function pass(){
-
-       if(empty(Auth::user()->email)){
-           return redirect('/login') ;
-       }
-        return view('changepassword');
-    }
-    public function updatepasswd(Request $request){
-
+        $query = Appealstatus::all();
         
-        $password = $request->input('password');
-        $email =  $request->input('email');
-        //dd($password);
-        $update_user = User::where('email', $email)->first();
-        $update_user->password = Hash::make($password);
-        $update_user->setRememberToken(Str::random(60));
-        $update_user->created_at = date('Y-m-d h:i:s');
-        $update_user->updated_at = date('Y-m-d h:i:s');
-        $update_user->status = $request->input('token');;
+        $median = DB::table('median')->get();
+        $medianCollection = collect($median);
+        // $valuesMedian = $medianCollection->avg('diffrence');
+        $valuesMedian = $medianCollection->median('diffrence');
 
-        $update_user->save();   
-        return view('home')->with('Change Successful');
+        $send['valuesMedian'] =  $valuesMedian;
+
+        return view('sms',$send);
     }
+    
+    
     public function sendemail(Request $get){
         
         $email   = $get->email;
@@ -85,6 +74,7 @@ class mailController extends Controller
         //$sendstatus = $p[0];
         // print_r($p);
         // exit;
+        
         return redirect ('/sms')->with('success', 'Message Sent');
 
        /* Sms::via('gateway')->send("this message")->to(['Number 1', 'Number 2'])->dispatch();
@@ -136,7 +126,9 @@ class mailController extends Controller
             curl_close($ch);
             return redirect ('/sms')->with('success', 'Message Sent');*/
             
+
     }
+
    
     
     

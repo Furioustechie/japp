@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'BDPrison' => 'বাংলাদেশ জেল',
     'project_name' => 'জেল আপিল অ্যাপ্লিকেশন  সিস্টেম',
     'logo_title' => 'জেল আপিল',
     //login Page

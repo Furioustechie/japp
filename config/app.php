@@ -148,7 +148,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\dynamiclist::class,
         App\Providers\prisonlist::class,
-        
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         
         /*
          * Package Service Providers...
@@ -158,7 +158,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Tzsk\Sms\Provider\SmsServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+        //Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -221,7 +221,8 @@ return [
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Sms' => Tzsk\Sms\Facade\Sms::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+       // 'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
 
     ],
 

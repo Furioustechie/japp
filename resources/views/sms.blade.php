@@ -118,6 +118,10 @@
                      </div>
               </form>
         </div>   
+       
+        {{  $valuesMedian }}
+      <br>
+
     </div>  
   <!-- JavaScripts Styles    -->
   @include('inc.scriptstyle')

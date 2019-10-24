@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use PDF;
+
 use DB;
 use URL;
 use Carbon;
@@ -11,7 +12,7 @@ class pdfController extends Controller
 {
     public function generatePDF()
     {
-        $data = ['title' => 'Bangladesh Prison Authority'];
+        $data = ['title' => 'Bangladesh Prison Authority XX'];
         $queryAll = DB::select('SELECT prisons.name, count(newappeals.id) TotalAppeals, districts.name as districtName, divisions.name as divisionName FROM `prisons` 
                             Left JOIN newappeals ON newappeals.prisonid = prisons.id
                             INNER JOIN districts ON districts.id = prisons.disid
@@ -21,12 +22,17 @@ class pdfController extends Controller
         $send['queryAll']=$queryAll;
         $send['mytime']=$mytime;
 
-        
+       
 
         $pdf = PDF::loadView('myPDF', $send);
-       // $filename = base_path('public\files\all_records.pdf');
-        $filename = public_path('all_records.pdf', ['disk' => 'my_files']);
-        $pdf->save($filename); 
+        $filename = public_path('files/all_records.pdf');
+        $pdf->save($filename);
+
+        //$filename = base_path('public\files\all_records.pdf');
+        //return $pdf->stream('test');
+        //$filename = public_path('all_records.pdf', ['disk' => 'my_files']);
+       
+        //$pdf->save($filename); 
         
 
        
@@ -35,6 +41,7 @@ class pdfController extends Controller
         //return PDF::loadFile(public_path().'test')->save(URL::asset('assets/img/all_Record.pdf'))->stream('all_Record.pdf');
         return view('test');
     }
+    
     function test(){
         return view('test');
     }

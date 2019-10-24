@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'BDPrison' => 'Bangladesh Jail',
     'project_name' => 'Jail Appeal Application System',
     'logo_title' => 'Jail Appeal',
     //login Page
