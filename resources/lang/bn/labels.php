@@ -125,4 +125,10 @@ return [
      'To_date' => 'তারিখ পর্যন্ত',
      'DateFilter' => 'ফিল্টার প্রয়োগ করুন',
      'DateFilterRefresh' => 'রিফ্রেশ',
+     //Pdf Label
+     'prisons_name' => 'কারাগারের নাম',
+     'total_appeals' => 'সর্বমোট আপিল',
+     'districts_name' => 'জেলার নাম',
+     'divisions_name' => 'বিভাগের নাম',
+     'copyrights' => 'গোপনীয় @ বাংলাদেশের সুপ্রিম কোর্ট',
 ];

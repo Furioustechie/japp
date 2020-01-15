@@ -62,6 +62,7 @@
               <span id="myid">
               <span class="notification" id="countid">{{ auth()->user()->unreadNotifications->count() }}</span>
             </span>
+            <!-- This script will reload notification div in every 2 seconds --> 
               <script>
                 // var timeisup = null;
                 // $(document).ready(function(){

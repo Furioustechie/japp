@@ -132,7 +132,7 @@
               <div class="md-form mb-12">
                   <div class="row">  
       <span class="col-md-5 offset-sm-1 border border-info">
-      <legend>Application Details</legend><br>
+      <legend class="modal-title w-100 font-weight-bold" style="color:black">Application Details</legend><br>
       
       <!-- <form action="prisonDashboard/updateFromPrison" method="post"> <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
       <div class="md-form form-group mt-2">
@@ -140,7 +140,7 @@
       <input type="text" class="form-control" id="appeal_id" name="appeal_id" value="{{$appeal->id}}" readonly>
       <label class="label text-info font-weight-bold" for="">Appeal ID</label></div>
       <div class="md-form form-group mt-2">
-      <label class="label text-info font-weight-bold" for="">Prison Name</label><br>
+      <label class="label text-info font-weight-bold" for="">Prison Name</label><a href="#myModal" class="JustClick" data-toggle="modal" title="Prison Transfer" ><i class="material-icons">info</i></a><br>
         <select name="prison_name" id="prison_name" class="browser-default custom-select prison_name">
           @foreach ($prisonName as $pname)
               <option value="{{ $pname->id }}" <?php if($pname->id == $appeal->prison_id) echo 'selected="selected"';?>>{{ $pname->name }}</option>
@@ -175,7 +175,7 @@
       </span>
 
       <span class="col-md-5  border border-info" >
-      <legend>Application Progress</legend><br>
+      <legend class="modal-title w-100 font-weight-bold" style="color:black">Application Progress</legend><br>
       <div class="col-md-12">
       <div class="form-group">
       <div class="bs-vertical-wizard" >
@@ -430,3 +430,25 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
   $('.show_all_appl').show();
 });
 </script>
+<div id="myPopoverContent">
+  <table class="table table-striped" id="tblGrid">
+    <thead id="tblHead">
+      <tr class="label text-info font-weight-bold">
+        <th>Prison Name</th>
+        <th class="text-right">Tranfer On</th>
+        {{-- <th class="text-right">Mean</th> --}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Prison X</td>
+        <td class="text-right">01-01-0000</td>
+      </tr>
+      <tr><td>Prison Y</td>
+        <td class="text-right">01-01-0000</td>
+      </tr>
+      <tr><td>Prison Z</td>
+        <td class="text-right">01-01-0000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

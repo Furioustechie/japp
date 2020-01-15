@@ -33,7 +33,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                           <div class="md-form mb-12">
                               <div class="row">  
                   <span class="col-md-5 offset-sm-1 border border-info">
-                  <legend>Application Details</legend><br>
+                  <legend class="modal-title w-100 font-weight-bold" style="color:black">Application Details</legend><br>
                   
                   <!-- <form action="prisonDashboard/updateFromPrison" method="post"> <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
                   <div class="md-form form-group mt-2">

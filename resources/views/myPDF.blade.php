@@ -52,22 +52,22 @@
 
  </style>
  <style>
-        #customers {
+        #tablehead {
           font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
           border-collapse: collapse;
           width: 100%;
         }
         
-        #customers td, #customers th {
+        #tablehead td, #tablehead th {
           border: 1px solid #ddd;
           padding: 8px;
         }
         
-        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        #tablehead tr:nth-child(even){background-color: #f2f2f2;}
         
-        #customers tr:hover {background-color: #ddd;}
+        #tablehead tr:hover {background-color: #ddd;}
         
-        #customers th {
+        #tablehead th {
           padding-top: 12px;
           padding-bottom: 12px;
           text-align: left;
@@ -88,7 +88,7 @@
                         
                          <table style="width:100%">
                            <tr>
-                               <td>Confidentail &copy; Supreme Court of Bangladesh</td>
+                               <td style="font-family:SolaimanLipi;text-align:left;">{{ __('labels.copyrights') }}</td>
                                <td></td>
                                <td style="text-align: right;">Page {PAGENO} of {nb}</td>
                            </tr>
@@ -97,17 +97,15 @@
 
                 </htmlpagefooter>
            
-                
-               
-                      
-                      <table id="customers">
+                               
+                      <table id="tablehead">
                         
                             <thead>
                             <tr>
-                                <th style="text-align:left;">Prison Name</th>
-                                <th style="text-align: center;">Total Appeals</th>
-                                <th>District Name</th>
-                                <th>Division Name</th>
+                                <th style="font-family:SolaimanLipi;text-align:left;">{{ __('labels.prisons_name') }}</th>
+                                <th style="font-family:SolaimanLipi;text-align: center;">{{ __('labels.total_appeals') }}</th>
+                                <th style="font-family:SolaimanLipi;">{{ __('labels.districts_name') }}</th>
+                                <th style="font-family:SolaimanLipi;">{{ __('labels.divisions_name') }}</th>
                             </tr>
                             </thead>
                         
@@ -128,7 +126,7 @@
                                 <td>{{ $row->divisionName }}</td>
                             </tr>
                             @endforeach --}}
-                            
+
                         </tbody>
                        
                       </table>

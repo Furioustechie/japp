@@ -81,6 +81,7 @@ class PagesController extends Controller
         $countAppeals = DB::select('SELECT count(id) as total, max(created_at) as maxDate FROM newappeals WHERE id > 0');
         //$countAppeals = $totalAppeals->count();
         //$lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at  AND DATE_SUB(NOW(), INTERVAL 1 MONTH)');
+        //$overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
         $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
 
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved,max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
@@ -204,8 +205,9 @@ foreach($totalByStatus as $byStatus){
 
     $overdue_hc = DB::table('overdue_hc')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-    ->where('overdue_hc.mydate', '>', 10 )
+    ->Where('overdue_hc.mydate', '>', 10 )
     ->Where('overdue_hc.statusid', '!=', 10 )
+    ->Where('overdue_hc.states', '!=', 'red' )
     ->paginate(5);
 
     $incompleteApplication_ForHC = DB::table('pendingforcc_prison')

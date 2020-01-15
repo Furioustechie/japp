@@ -320,3 +320,62 @@
 });
 
 </script>
+<div id="myPopoverContent">
+  <table class="table table-striped" id="tblGrid">
+    <thead id="tblHead">
+      <tr class="label text-info font-weight-bold">
+        <th>Prison Name</th>
+        <th class="text-right">Tranfer On</th>
+        {{-- <th class="text-right">Mean</th> --}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>{{$appeal->prison_name}}</td>
+        <td class="text-right">01-01-0000</td>
+      </tr>
+      <tr><td>Prison Y</td>
+        <td class="text-right">01-01-0000</td>
+      </tr>
+      <tr><td>Prison Z</td>
+        <td class="text-right">01-01-0000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Prison Transfer History</h3>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped" id="tblGrid">
+              <thead id="tblHead">
+                <tr>
+                  <th>Prison Name</th>
+                  <th>Tranfer On</th>
+                  {{-- <th class="text-right">Mean</th> --}}
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Prison X</td>
+                  <td class="text-right">01-01-0000</td>
+                </tr>
+                <tr><td>Prison Y</td>
+                  <td class="text-right">01-01-0000</td>
+                </tr>
+                <tr><td>Prison Z</td>
+                  <td class="text-right">01-01-0000</td>
+                </tr>
+              </tbody>
+            </table>
+            
+      </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

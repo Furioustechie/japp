@@ -4,6 +4,13 @@
 <head>
     @include('inc.style')
     <style type="text/css">
+
+        .card .card-title{
+            font-size: 22px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0;
+        }
         .preloader 
         {
             position: fixed;
@@ -34,7 +41,13 @@
 .gotit{
     display:none;
 }
-
+#myPopoverContent {
+    display: none;
+}
+    
+a:hover + div#myPopoverContent {
+    display: block;
+}
           </style>
 
         <style>        
@@ -75,6 +88,13 @@ a:hover .spanRight{
   right:-20px;
   opacity:1;
 }
+
+.modal-dialog .modal-content .close:hover{
+    color: #fff;
+    background-color:red;
+   
+}
+
         </style>
         <script>
         $(document).ready(function(){
@@ -130,7 +150,23 @@ a:hover .spanRight{
                 $('.show_justUpdate').hide(); 
                     }); 
         });
-        </script>
+// This Script for Popover on Prisoner Transfer Only
+// $(document).ready(function() {
+//    $('[data-toggle="popover"]').popover({
+//         content: $('#myPopoverContent').html(),
+//         html: true,
+//         placement: 'right',
+//         trigger: 'hover'
+      
+//    });
+   
+// });
+</script>
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
+    </script>
 </head>
 <body>
         <div id="preloaders" class="preloader"></div>
@@ -161,7 +197,7 @@ a:hover .spanRight{
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card card-stats hvr-grow-shadow"> <a href="#" ><span class="spanLeft" style="color: green;">..</span>
-                                <div class="card-header card-header-success card-header-icon">
+                                <div class="card-header card-header-success card-header-icon" data-toggle="tooltip" title="Total Number of Appeals for All Prisons">
                                     <div class="card-icon">
                                         <i class="material-icons">check_circle</i>
                                     </div>
@@ -178,7 +214,7 @@ a:hover .spanRight{
                         </div> 
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan" >
-                                <div class="card-header card-header-warning card-header-icon">
+                                <div class="card-header card-header-warning card-header-icon" data-toggle="tooltip" title="No action has taken since last status update for a given period of time">
                                     <div class="card-icon">
                                         <i class="material-icons">error</i>
                                     </div>
@@ -194,7 +230,7 @@ a:hover .spanRight{
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="ccNotFound">
-                                <div class="card-header card-header-danger card-header-icon">
+                                <div class="card-header card-header-danger card-header-icon" data-toggle="tooltip" title="Appeal is rejected or marked as incomplete by HCJAS">
                                     <div class="card-icon">
                                         <i class="material-icons">cancel</i>
                                     </div>
@@ -210,7 +246,7 @@ a:hover .spanRight{
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="justUpdate">
-                                <div class="card-header card-header-info card-header-icon">
+                                <div class="card-header card-header-info card-header-icon" data-toggle="tooltip" title="Number of appeals resolved till to date">
                                     <div class="card-icon">
                                         <i class="material-icons">
                                             flag
@@ -1023,9 +1059,11 @@ $(document).on('click','.editapp', function() {
     var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
 
     var dataStr = 'appeal_id='+ appeal_id;
-    $(document).one('click','.JustClick', function(e){
+     
+ 
+$(document).one('click','.JustClick', function(e){
         var appeals_id = appeal_id;
-        e.preventDefault(); // default action us stopped here
+        e.preventDefault(); // default action is stopped here
              $.ajax({
                         url: "/prisonHistory/"+appeals_id,
                         type: 'POST',

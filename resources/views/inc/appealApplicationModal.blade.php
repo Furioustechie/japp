@@ -179,7 +179,7 @@
                             <!-- File Uploader open for DocType -->
                                 @foreach ($docname as $datas)
                                 <div class="input-group control-group increment fup" id= <?php echo "fileinput_{$datas->id}";?> name="fileid[]">
-                                    <input type="file" id="filename" name="filename[]" style="color:black" class="form-control btn-info" onclick="myFunction();">
+                                    <input type="file" id="filename" name="filename[]" style="color:black" class="form-control btn-info">
                                     {{-- <div class="input-group-btn"> 
                                       <button class="btn btn-success" type="button" ><!--For modern browsers-->
                                         <i class="material-icons">open_in_browser</i></i>{{ __('labels.browse') }}</button>

@@ -125,4 +125,10 @@ return [
      'To_date' => 'DATE TO',
      'DateFilter' => 'FILTER BY DATE',
      'DateFilterRefresh' => 'REFRESH',
+    //Pdf Label
+    'prisons_name' => 'Prison Name',
+    'total_appeals' => 'Total Appeals',
+    'districts_name' => 'District Name',
+    'divisions_name' => 'Divison Name',
+    'copyrights' => 'Confidential @ Supreme Court of Bangladesh',
 ];

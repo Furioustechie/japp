@@ -629,7 +629,7 @@ Swal.fire({
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = Date.parse( $('#from_date').val(), 10 );
-        console.log(min);
+        //console.log(min);
         var max = Date.parse( $('#to_date').val(), 10 );
         var age = Date.parse( data[4] ) || 0; // use data for the age column
  

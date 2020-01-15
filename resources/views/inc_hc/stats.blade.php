@@ -242,7 +242,7 @@
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card card-stats hvr-grow-shadow">
-                                <div class="card-header card-header-success card-header-icon">
+                                <div class="card-header card-header-success card-header-icon" data-toggle="tooltip" title="Total Number of Appeals for All Prisons">
                                     <div class="card-icon">
                                         <i class="material-icons">check_circle</i>
                                     </div>
@@ -262,7 +262,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan">
-                                <div class="card-header card-header-warning card-header-icon">
+                                <div class="card-header card-header-warning card-header-icon" data-toggle="tooltip" title="No action has taken since last status update for a given period of time">
                                     <div class="card-icon">
                                         <i class="material-icons">error</i>
                                     </div>
@@ -281,7 +281,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="ccNotFound">
-                                <div class="card-header card-header-danger card-header-icon">
+                                <div class="card-header card-header-danger card-header-icon" data-toggle="tooltip" title="Appeal is rejected or marked as incomplete by HCJAS">
                                     <div class="card-icon">
                                         <i class="material-icons">cancel_outline</i>
                                     </div>
@@ -298,7 +298,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="justUpdate">
-                                <div class="card-header card-header-info card-header-icon">
+                                <div class="card-header card-header-info card-header-icon" data-toggle="tooltip" title="Number of appeals resolved till to date">
                                     <div class="card-icon">
                                         <i class="material-icons">flag</i>
                                     </div>
@@ -347,7 +347,7 @@
                                                 <div class="inner-content">
                                                     <h3 class="title">{{ __('labels.hc_overdue') }}</h3>
                                                     <p class="description">
-                                                            No action has taken since last status update for a given period of time                                                    </p>
+                                                            No action has taken since last status update for a given period of time </p>
                                                 </div>
                                             </a>
                                         </div>
@@ -381,7 +381,7 @@
                                                         <div class="inner-content">
                                                             <h3 class="title">{{ __('labels.hc_appealResolved') }}</h3>
                                                             <p class="description">
-                                                                    Number of appeal resolved till to date                                                            </p>
+                                                                    Number of appeals resolved till to date                                                            </p>
                                                         </div>
                                                     </a>
                                                 </div>
@@ -874,6 +874,11 @@
                                                             </div>
                                                           </div>
                                                         </body> 
+                                                        <script>
+                                                            $(document).ready(function(){
+                                                              $('[data-toggle="tooltip"]').tooltip();   
+                                                            });
+                                                            </script>
     <script>
         $(document).ready(function () {
             // Javascript method's body can be found in assets/js/demos.js
