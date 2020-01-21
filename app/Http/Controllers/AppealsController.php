@@ -755,12 +755,14 @@ class AppealsController extends Controller
           ->where('thisyearappealforprison.prison_id', $prison_id)
           ->paginate(5);
        
-        $overdue_prison = DB::table('overdue_hc')
+        //$overdue_prison = DB::table('overdue_hc')
+        $overdue_prison = DB::table('testoverdue')
          ->select('id', 'prison_id', 'prison_name', 'prisoner_name', 'case_no', 'act_name', 'court_name')
-         ->where('overdue_hc.prison_id', '=', $prison_id)
-         ->where('overdue_hc.states', '!=', 'red')
-         ->Where('overdue_hc.statusid', '!=', 10)
-         ->Where('overdue_hc.mydate', '>', 10)
+         ->where('testoverdue.prison_id', '=', $prison_id)
+         ->where('testoverdue.states', '!=', 'red')
+         ->Where('testoverdue.statusid', '!=', 10)
+         ->Where('testoverdue.overdue', '=', 'yes')
+         //->Where('testoverdue.mydate', '>', 10)
          ->paginate(5);
 
         $overduePrison_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE prison_id = '.$prison_id.' AND statusid !=10 AND mydate > 10');
@@ -819,12 +821,14 @@ class AppealsController extends Controller
         $prison_id = Auth::user()->prison_id;
         if ($request->ajax()) {
        
-        $overdue_prison = DB::table('overdue_hc')
+        //$overdue_prison = DB::table('overdue_hc')
+        $overdue_prison = DB::table('testoverdue') // testoverdue (table name) have to be changed
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-        ->where('overdue_hc.prison_id', $prison_id)
-        ->where('overdue_hc.states','!=', 'red')
-        ->where('overdue_hc.mydate', '>', 10 )
-        ->Where('overdue_hc.statusid', '!=', 10 )
+        ->where('testoverdue.prison_id', $prison_id)
+        ->where('testoverdue.states','!=', 'red')
+        //->where('overdue_hc.mydate', '>', 10 )
+        ->where('testoverdue.oversue', '=', 'yes' )
+        ->Where('testoverdue.statusid', '!=', 10 )
         ->paginate(5);
             return view('inc_prison.thisYearData', compact('overdue_prison'))->render();
         }

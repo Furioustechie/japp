@@ -25,12 +25,12 @@
           </li>
           @endcan
           @can('isAdmin')
-          <li class="nav-item ">
+          {{-- <li class="nav-item ">
             <a class="nav-link" href="hcDetails">
               <i class="material-icons">person</i>
               <p class="hvr-underline-from-center">{{ __('labels.navbar_appealDetails') }}</p>
             </a>
-          </li>
+          </li> --}}
           @endcan
 
        @can('isAdmin')

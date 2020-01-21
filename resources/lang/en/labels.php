@@ -131,4 +131,9 @@ return [
     'districts_name' => 'District Name',
     'divisions_name' => 'Divison Name',
     'copyrights' => 'Confidential @ Supreme Court of Bangladesh',
+    // Tooltips
+    'TopBox1' =>'Total Number of Appeals for All Prisons',
+    'TopBox2' =>'No Action Has Taken Since Last Status Update For a Given Period of Time',
+    'TopBox3' =>'Appeal Is Rejected Or Marked As Incomplete By HCJAS',
+    'TopBox4' =>'Number of Appeals Resolved Till To Date',
 ];

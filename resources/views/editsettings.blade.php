@@ -160,6 +160,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Status Name</th>
+                                                <th>Expires In Days</th>
                                                 <th>Action</th>
                                         </tr>
                                     </thead>

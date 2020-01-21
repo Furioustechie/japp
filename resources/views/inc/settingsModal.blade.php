@@ -151,6 +151,11 @@
                         <input type="text" name="rename_status" class="form-control" required>
                         <div class="help-block with-errors"></div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label" for="title">Expire In Days:</label>
+                        <input type="number" name="rename_expire_in_days" class="form-control" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="submit" name="rename_status_submit" data-dismiss="modal"
@@ -457,11 +462,16 @@
                 <br>
                 <div class="col-md-12 ">
                     <div class="form-group">
-                        <label for="sentence_name" class="bmd-label-floating text-success ">New Status</label>
+                        <label for="status_name" class="bmd-label-floating text-success ">New Status</label>
                         <input type="text" name="status_name" class="form-control" required>
                     </div>
                 </div>
-
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <label for="status_name" class="bmd-label-floating text-success ">Expires In Days</label>
+                        <input type="number" name="expire_in_days" class="form-control" required>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 

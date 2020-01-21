@@ -239,7 +239,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row animated onece">
+                    {{-- <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card card-stats hvr-grow-shadow">
                                 <div class="card-header card-header-success card-header-icon" data-toggle="tooltip" title="Total Number of Appeals for All Prisons">
@@ -313,7 +313,7 @@
                                 </div>
                             </div></a>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="container-fluid">
                     <div class="row">
                             {{-- <div class="main-timeline"> --}}
@@ -897,11 +897,11 @@
         dom: 'lBfrtip',
         buttons: [
 
-            { extend: 'pdf', title: 'Bangladesh Jail', className: 'btn btn-success',
-                customize: function (doc) {
-                    doc.content[1].table.widths = 
-                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-                } },
+            // { extend: 'pdf', title: 'Bangladesh Jail', className: 'btn btn-success',
+            //     customize: function (doc) {
+            //         doc.content[1].table.widths = 
+            //             Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+            //     } },
                 { extend: 'excel',title: 'Bangladesh Jail', className: 'btn btn-danger', },
             { extend: 'print',title: 'Bangladesh Jail', className: 'btn btn-warning', },
             

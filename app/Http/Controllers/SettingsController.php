@@ -163,7 +163,7 @@ class SettingsController extends Controller
 
     public function getStatusData()
     {
-        $statusName = DB::table('status')->select('id', 'status_name')->get();
+        $statusName = DB::table('status')->select('id', 'status_name', 'expire_in_days')->get();
         return Datatables::of($statusName)
             ->addColumn('action', function ($statusName) {
                 return '<a href="#" data-toggle="modal" data-target="#edit_statusName"  data-id="'.$statusName->id.'" class="edit_statusName"><i class="material-icons">edit</i></a> '
@@ -269,6 +269,7 @@ class SettingsController extends Controller
           //
           $update_status_name = Status::find($id);
           $update_status_name->status_name = $request->input('rename_status');
+          $update_status_name->expire_in_days = $request->input('rename_expire_in_days');
           $update_status_name->created_at = date('Y-m-d h:i:s');
           $update_status_name->updated_at = date('Y-m-d h:i:s');
 
@@ -498,6 +499,7 @@ class SettingsController extends Controller
                     DB::table('status')->insert([
                         [
                         'status_name'  => $request->input('status_name'),
+                        'expire_in_days' => $request->input('expire_in_days'),
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);

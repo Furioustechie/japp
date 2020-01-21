@@ -565,7 +565,8 @@ var url = "/editsettings_Status"
         columns: [
             { data: 'id', name: 'id' },
             { data: 'status_name', name: 'status_name' },
-            {data: 'action', name: 'action', orderable: false, searchable: false}
+            { data: 'expire_in_days', name: 'expire_in_days' },
+            { data: 'action', name: 'action', orderable: false, searchable: false}
         ]
 
     });
@@ -635,11 +636,13 @@ var url = "/editsettings_Status"
                         
                                         var id = $(this).data('id');
                                     /* var name = $(this).parent("td").prev("td").prev("td").text();*/
-                                        var name = $(this).parent("td").prev("td").text();
+                                        var name = $(this).parent("td").prev("td").prev("td").text();
+                                        var expire_in_days = $(this).parent("td").prev("td").text();
                         
                         
                                         $("#edit_statusName").find("input[name='rename_status']").val(name);
-                                    
+                                        $("#edit_statusName").find("input[name='rename_expire_in_days']").val(expire_in_days);
+
                                         $("#edit_statusName").find(".edit-id").val(id);
                         
                         
@@ -656,7 +659,8 @@ var url = "/editsettings_Status"
                                                             });
                                     
                                         var name = $("#edit_statusName").find("input[name='rename_status']").val();
-                        
+                                        var expire_in_days = $("#edit_statusName").find("input[name='rename_expire_in_days']").val();
+
                         
                         
                                         var id = $("#edit_statusName").find(".edit-id").val();
@@ -671,10 +675,11 @@ var url = "/editsettings_Status"
                                         data: {
                                             "id":id,
                                             "rename_status": name,
-                                    
+                                            "rename_expire_in_days": expire_in_days,
                                             "_method": 'POST',
                                                         
                                             },
+                                            
                                             success: function (data) {
                                             
                                                 swal("Done!","It was succesfully updated!","success");

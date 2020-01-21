@@ -35,7 +35,7 @@
                                                           
                                                           $total=$totalrow[0]->status_count;
                                                         // print_r($totalrow);
-                                                        $current_state = $total;
+                                                          $current_state = $total;
                                                           $total= $total+1;
                                                               
                                                               @$date1 = date_create(@$last_state[0]->updated_at);
@@ -62,9 +62,13 @@
         
         
                                                           @if($item)
-        
+                                                            @php 
+                                                             // $testval =  DB::select('select * from testoverdue');
+                                                            @endphp
                                                             
-                                                                @if(($mydate > 10 ) AND ($struct->stateno == 'todo'))
+                                                                {{-- @if(($mydate > 10 ) AND ($struct->stateno == 'todo')) --}}
+                                                                @if(($appeal->overdue ='yes' ) AND ($struct->stateno == 'todo'))
+
                                                                 <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
                                                                 title="{{ $pp->status_name }}"></li>
                                                                 @else
@@ -74,7 +78,7 @@
                                                             
                                                           @else
                                                          
-                                                          @if(($mydate > 10 ) AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
+                                                          @if(($appeal->overdue ='yes' ) AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
                                                           <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
                                                                           title="{{ $pp->status_name }}"></li>
                                                             @else
@@ -219,7 +223,7 @@
                                                    
                                                     @else
                                                     
-                                                    @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red')AND (@$last_state[0]->state != 'todo') )
+                                                    @if(($appeal->overdue ='yes' ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red')AND (@$last_state[0]->state != 'todo') )
                                                     <li class="complete">
                                                             <a href="#" class="text-warning">{{ $pp->status_name }}
                                                             <i class="ico fa fa-exclamation-circle" style="color:orange"></i>

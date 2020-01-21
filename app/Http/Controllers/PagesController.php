@@ -82,7 +82,7 @@ class PagesController extends Controller
         //$countAppeals = $totalAppeals->count();
         //$lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at  AND DATE_SUB(NOW(), INTERVAL 1 MONTH)');
         //$overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
-        $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM testoverdue WHERE statusid !=10 AND overdue = "yes" ');
 
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved,max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
@@ -203,11 +203,12 @@ foreach($totalByStatus as $byStatus){
     $appDetails_allRecords = DB::table('all_appeals')->orderBy('id', 'desc')->paginate(10);
 
 
-    $overdue_hc = DB::table('overdue_hc')
+    //$overdue_hc = DB::table('overdue_hc')
+    $overdue_hc = DB::table('testoverdue')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-    ->Where('overdue_hc.mydate', '>', 10 )
-    ->Where('overdue_hc.statusid', '!=', 10 )
-    ->Where('overdue_hc.states', '!=', 'red' )
+    ->Where('testoverdue.overdue', '=', 'yes' )
+    ->Where('testoverdue.statusid', '!=', 10 )
+    ->Where('testoverdue.states', '!=', 'red' )
     ->paginate(5);
 
     $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
@@ -292,8 +293,13 @@ foreach($totalByStatus as $byStatus){
         $appeals = Appeal::all();
 
         $totalAppeals = Newappeal::where('id', '>', 0)->get();
+        //$countAppeals = $totalAppeals->count();
+        
         $countAppeals = $totalAppeals->count();
-        $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
+
+        //$overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
+
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM testoverdue WHERE statusid !=10 AND overdue = "yes"');
 
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved, max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
@@ -401,10 +407,12 @@ foreach($totalByStatus as $byStatus){
           INNER JOIN prisoner ON na.prisonerid  = prisoner.id');
 
 
-    $overdue_hc = DB::table('overdue_hc')
+    //$overdue_hc = DB::table('overdue_hc')
+    $overdue_hc = DB::table('testoverdue')
+
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-    ->where('overdue_hc.mydate', '>', 10 )
-    ->Where('overdue_hc.statusid', '!=', 10 )
+    ->where('testoverdue.overdue', '=', 'yes' )
+    ->Where('testoverdue.statusid', '!=', 10 )
     ->paginate(5)
     ->setPageName('other_page');
 
@@ -474,10 +482,11 @@ foreach($totalByStatus as $byStatus){
     
      if($request->ajax() )
      {
-        $overdue_hc = DB::table('overdue_hc')
+        //$overdue_hc = DB::table('overdue_hc')
+        $overdue_hc = DB::table('testoverdue')
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-        ->where('overdue_hc.mydate', '>', 10 )
-        ->where('overdue_hc.statusid', '!=', 10 )
+        ->where('testoverdue.overdue', '=', 'yes' )
+        ->where('testoverdue.statusid', '!=', 10 )
         ->paginate(5);
       return view('inc_hc.overdue', compact('overdue_hc'))->render();
      }

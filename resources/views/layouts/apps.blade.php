@@ -197,7 +197,7 @@ a:hover .spanRight{
                     <div class="row animated onece">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card card-stats hvr-grow-shadow"> <a href="#" ><span class="spanLeft" style="color: green;">..</span>
-                                <div class="card-header card-header-success card-header-icon" data-toggle="tooltip" title="Total Number of Appeals for All Prisons">
+                                <div class="card-header card-header-success card-header-icon" data-toggle="tooltip" title="{{ __('labels.TopBox1') }}">
                                     <div class="card-icon">
                                         <i class="material-icons">check_circle</i>
                                     </div>
@@ -214,7 +214,7 @@ a:hover .spanRight{
                         </div> 
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="datespan" >
-                                <div class="card-header card-header-warning card-header-icon" data-toggle="tooltip" title="No action has taken since last status update for a given period of time">
+                                <div class="card-header card-header-warning card-header-icon" data-toggle="tooltip" title="{{ __('labels.TopBox2') }}">
                                     <div class="card-icon">
                                         <i class="material-icons">error</i>
                                     </div>
@@ -230,7 +230,7 @@ a:hover .spanRight{
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="ccNotFound">
-                                <div class="card-header card-header-danger card-header-icon" data-toggle="tooltip" title="Appeal is rejected or marked as incomplete by HCJAS">
+                                <div class="card-header card-header-danger card-header-icon" data-toggle="tooltip" title="{{ __('labels.TopBox3') }}">
                                     <div class="card-icon">
                                         <i class="material-icons">cancel</i>
                                     </div>
@@ -246,7 +246,7 @@ a:hover .spanRight{
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats hvr-grow-shadow"><a href="#" id="justUpdate">
-                                <div class="card-header card-header-info card-header-icon" data-toggle="tooltip" title="Number of appeals resolved till to date">
+                                <div class="card-header card-header-info card-header-icon" data-toggle="tooltip" title="{{ __('labels.TopBox4') }}">
                                     <div class="card-icon">
                                         <i class="material-icons">
                                             flag
@@ -1085,7 +1085,7 @@ $(document).one('click','.JustClick', function(e){
          $(document).one('click','.courts_submit', function() { 
              
                 var prison_name = $(app).find('select.prison_name option:selected').val();
-                var status_name = $(app).find('select.myselection_hc_all option:selected').val();
+                var status_name = $(app).find('select.myselection_due option:selected').val();
                 var state = $(app).find('select.state option:selected').val();
                 var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
                 var japp_no = $(app).find('input[name="japp_no"]').val();
@@ -1095,13 +1095,13 @@ $(document).one('click','.JustClick', function(e){
                 var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_name + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant +'&japp_no='+ japp_no ;
                 console.log(dataString)
             $.ajax({
+                        //url: "/updateTest/"+appeal_id,
                         url: "/updateTest/"+appeal_id,
                         type: 'POST',
                         //dataType: 'application/json',
                         data: dataString,
                         success: function (data) {
                             Swal({
-                                
                                 html: data,
                             })
                             //$('.editapp').modal('hide');
