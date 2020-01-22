@@ -300,7 +300,8 @@ foreach($totalByStatus as $byStatus){
         //$overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
 
         $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM testoverdue WHERE statusid !=10 AND overdue = "yes"');
-
+       
+        //->paginate(5);
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved, max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
         $PendingForAction = DB::select('SELECT id, date_of_sentence,datatotakeaction.caseno,name FROM datatotakeaction');

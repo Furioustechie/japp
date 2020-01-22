@@ -95,7 +95,7 @@
                                                       </ol>
                                                   </td>
                                                   <td class="td-actions text-center">
-                                                      <a href="#" class="editapp" id="#editapp" data-toggle="modal" data-target="#edit_due_appeals_{{$appeal->id}}"><i class="material-icons">remove_red_eye</i>
+                                                      <a href="#" class="editapp_due" id="#editapp_due" data-toggle="modal" data-target="#edit_due_appeals_{{$appeal->id}}"><i class="material-icons">remove_red_eye</i>
                                                       </a>
                                                       {{-- <a href="#" data-toggle="modal" data-target="#edit_appeal"  data-id="{{ $appeal->id }}" class="edit_appeal"><i class="material-icons">remove_red_eye</i></a></td> --}}
                                               
@@ -117,7 +117,7 @@
                                               
                                                        ?>
                                                     <div class="modal fade edt" id="edit_due_appeals_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
-                                                     <form  method="POST" id="all_record" class="all_record" name="all_record" action="appeals/update/{{ $appeal->id }}" enctype="multipart/form-data">
+                                                     <form  method="POST" id="all_record" class="all_record" name="all_record" action="updateTest/{{ $appeal->id }}" enctype="multipart/form-data">
                                                       @csrf
                                                             <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
