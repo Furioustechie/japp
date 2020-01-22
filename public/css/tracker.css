@@ -1,0 +1,88 @@
+/* CHANGE COLOR HERE */ 
+ol.etapier li.done {
+    border-color: yellowgreen ;
+  }
+  /* CHANGE COLOR HERE */ 
+  ol.etapier li.yellowgreen:before {
+      background-color: yellowgreen;
+      border-color: yellowgreen;
+  }
+  ol.etapier li.red:before {
+    background-color: red;
+    border-color: red;
+}
+ol.etapier li.orange:before {
+    background-color: orange;
+    border-color: orange;
+}
+  
+  ol.etapier {
+      display: table;
+      list-style-type: none;
+      margin: 0 auto 20px auto;
+      padding: 0;
+      table-layout: fixed;
+      width: 100%;
+  }
+  ol.etapier a {
+      display: table-cell;
+      text-align: center;
+      white-space: nowrap;
+      position: relative;
+  }
+  ol.etapier a li {
+      display: block;
+      text-align: center;
+      white-space: nowrap;
+      position: relative;
+  }
+  ol.etapier li {
+      display: table-cell;
+      text-align: center;
+      padding-bottom: 20px;
+      white-space: nowrap;
+      position: relative;
+  }
+  
+  ol.etapier li a {
+      color: inherit;
+  }
+  
+  ol.etapier li {
+      color: silver; 
+      border-bottom: 4px solid silver;
+  }
+  ol.etapier li.done {
+      color: black;
+  }
+  
+  ol.etapier li:before {
+      position: absolute;
+      bottom: -11px;
+      left: 50%;
+      margin-left: -7.5px;
+  
+      color: white;
+      height: 18px;
+      width: 18px;
+      line-height: 18px;
+      border: 2px solid silver;
+      border-radius: 15px;
+      
+  }
+  ol.etapier li.yellowgreen:before {
+      content: ' \2714';
+      color: white;
+      }
+    ol.etapier li.red:before {
+    content: ' \1F5D9';
+    color: white;
+    }
+    ol.etapier li.orange:before {
+        content: ' \0021';
+        color: white;
+        }
+  ol.etapier li.todo:before {
+      content: " " ;
+      background-color: white;
+  }
