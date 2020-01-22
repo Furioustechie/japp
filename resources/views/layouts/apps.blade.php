@@ -1275,75 +1275,74 @@ $(document).one('click','.JustClick', function(e){
             });
        
         </script> 
-
 <script>
-$(document).ready(function(){
-
-$(document).on('click','.editapp_due', function() {
-    var app = $(this).attr('data-target');
-    var appeal_id = $(app).find('input[name="appeal_id"]').val();
-    var case_no = $(app).find('input[name="case_no"]').val();
-    var courts_submit = $(app).find('#courts_submit').val();
-    var prisoner_name = $(app).find('input[name="prisoner_name"]').val();
-    var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
-
-    var dataStr = 'appeal_id='+ appeal_id;
+    $(document).ready(function(){
+    
+    $(document).on('click','.editapp_due', function() {
+        var app = $(this).attr('data-target');
+        var appeal_id = $(app).find('input[name="appeal_id"]').val();
+        var case_no = $(app).find('input[name="case_no"]').val();
+        var courts_submit = $(app).find('#courts_submit').val();
+        var prisoner_name = $(app).find('input[name="prisoner_name"]').val();
+        var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
+    
+        var dataStr = 'appeal_id='+ appeal_id;
+         
      
- 
-$(document).one('click','.JustClick', function(e){
-        var appeals_id = appeal_id;
-        e.preventDefault(); // default action is stopped here
-             $.ajax({
-                        url: "/prisonHistory/"+appeals_id,
-                        type: 'POST',
-                        //dataType: 'application/json',
-                        data: dataStr,
-                        cache: false,
-                        success: function (data) {
-                            Swal({
-                                title:'Prison History',
-                                type: 'info',
-                                html: data,
-                            })
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            swal("Error!", "Check your input,Please!", "error");
-                        }
+    $(document).one('click','.JustClick', function(e){
+            var appeals_id = appeal_id;
+            e.preventDefault(); // default action is stopped here
+                 $.ajax({
+                            url: "/prisonHistory/"+appeals_id,
+                            type: 'POST',
+                            //dataType: 'application/json',
+                            data: dataStr,
+                            cache: false,
+                            success: function (data) {
+                                Swal({
+                                    title:'Prison History',
+                                    type: 'info',
+                                    html: data,
+                                })
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                swal("Error!", "Check your input,Please!", "error");
+                            }
+                        });
                     });
-                });
-         $(document).one('click','.courts_submit', function() { 
-             
-                var prison_name = $(app).find('select.prison_name option:selected').val();
-                var status_name = $(app).find('select.myselection_due option:selected').val();
-                var state = $(app).find('select.state option:selected').val();
-                var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
-                var japp_no = $(app).find('input[name="japp_no"]').val();
-                // if(state != ''){
-                //     alert('Empty');
-                // }
-                var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_name + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant +'&japp_no='+ japp_no ;
-                console.log(dataString)
-            $.ajax({
-                        //url: "/updateTest/"+appeal_id,
-                        url: "/updateTest/"+appeal_id,
-                        type: 'POST',
-                        //dataType: 'application/json',
-                        data: dataString,
-                        success: function (data) {
-                            Swal({
-                                html: data,
-                            })
-                            //$('.editapp').modal('hide');
-                        },
-                        
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            swal("Error!", "Check your input and remarks,Please!", "error");
-                            //window.location.reload();
-                            //$('.editapp').modal('hide');
-                        }
-                  });
+             $(document).one('click','.courts_submit', function() { 
                  
+                    var prison_name = $(app).find('select.prison_name option:selected').val();
+                    var status_name = $(app).find('select.myselection_due option:selected').val();
+                    var state = $(app).find('select.state option:selected').val();
+                    var rejectgrant = $(app).find('input[name="rejectgrant"]').val();
+                    var japp_no = $(app).find('input[name="japp_no"]').val();
+                    // if(state != ''){
+                    //     alert('Empty');
+                    // }
+                    var dataString = 'appeal_id='+ appeal_id + '&case_no='+ case_no + '&prisoner_name='+ prisoner_name + '&status_id='+ status_name + '&state='+ state + '&prison_name='+ prison_name + '&courts_submit='+ courts_submit +'&rejectgrant='+ rejectgrant +'&japp_no='+ japp_no ;
+                    console.log(dataString)
+                $.ajax({
+                            //url: "/updateTest/"+appeal_id,
+                            url: "/updateTest/"+appeal_id,
+                            type: 'POST',
+                            //dataType: 'application/json',
+                            data: dataString,
+                            success: function (data) {
+                                Swal({
+                                    html: data,
+                                })
+                                //$('.editapp').modal('hide');
+                            },
+                            
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                swal("Error!", "Check your input and remarks,Please!", "error");
+                                //window.location.reload();
+                                //$('.editapp').modal('hide');
+                            }
+                      });
+                     
+            });
         });
     });
-});
-</script>
+    </script>

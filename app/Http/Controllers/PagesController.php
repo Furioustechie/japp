@@ -82,7 +82,7 @@ class PagesController extends Controller
         //$countAppeals = $totalAppeals->count();
         //$lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at  AND DATE_SUB(NOW(), INTERVAL 1 MONTH)');
         //$overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
-        $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM testoverdue WHERE statusid !=10 AND overdue = 1 ');
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM testoverdue WHERE statusid !=10 AND overdue = "yes" ');
 
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved,max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
@@ -206,7 +206,7 @@ foreach($totalByStatus as $byStatus){
     //$overdue_hc = DB::table('overdue_hc')
     $overdue_hc = DB::table('testoverdue')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-    ->Where('testoverdue.overdue', '=', 1 )
+    ->Where('testoverdue.overdue', '=', 'yes' )
     ->Where('testoverdue.statusid', '!=', 10 )
     ->Where('testoverdue.states', '!=', 'red' )
     ->paginate(5);
@@ -226,7 +226,7 @@ foreach($totalByStatus as $byStatus){
     
     //$myvar = $request->id;
     $Details_appeal = DB::table('all_appeals')->where('id','=', $notify_appeal_id )->get();
-    
+        $due_all = DB::select('select * from testoverdue');
 
     // dd($Details_appeal);
 
@@ -260,8 +260,9 @@ foreach($totalByStatus as $byStatus){
         $send['appDetails_allRecords']=$appDetails_allRecords;
         $send['Details_appeal']=$Details_appeal;
         $send['notify_appeal_id']=$notify_appeal_id;
+        $send['due_all']=$due_all;
 
-
+//dd($due_all[0]->mydate);
         $send['user'] = User::find(1);
        // User::find(1)->notify(new jappNotification);
       
@@ -299,8 +300,9 @@ foreach($totalByStatus as $byStatus){
 
         //$overdue_count = DB::select('SELECT count(id) as totalAppeal FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
 
-        $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM testoverdue WHERE statusid !=10 AND overdue = 1');
-
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal FROM testoverdue WHERE statusid !=10 AND overdue = "yes"');
+       
+        //->paginate(5);
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved, max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
         $PendingForAction = DB::select('SELECT id, date_of_sentence,datatotakeaction.caseno,name FROM datatotakeaction');
@@ -411,7 +413,7 @@ foreach($totalByStatus as $byStatus){
     $overdue_hc = DB::table('testoverdue')
 
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-    ->where('testoverdue.overdue', '=', 1 )
+    ->where('testoverdue.overdue', '=', 'yes' )
     ->Where('testoverdue.statusid', '!=', 10 )
     ->paginate(5)
     ->setPageName('other_page');
@@ -474,8 +476,7 @@ foreach($totalByStatus as $byStatus){
         // function filterByStatus(Request $request){
         //     $status_id = 1;
         //     $appDetails_allRecords = DB::table('filterByStatus')->where('maxStatus','=',$status_id);
-        //  
-           //echo 'Return From Controller';
+        //     //echo 'Return From Controller';
 
         // }
     function fetch_data_ForOverdue(Request $request)
@@ -486,7 +487,7 @@ foreach($totalByStatus as $byStatus){
         //$overdue_hc = DB::table('overdue_hc')
         $overdue_hc = DB::table('testoverdue')
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
-        ->where('testoverdue.overdue', '=', 1 )
+        ->where('testoverdue.overdue', '=', 'yes' )
         ->where('testoverdue.statusid', '!=', 10 )
         ->paginate(5);
       return view('inc_hc.overdue', compact('overdue_hc'))->render();

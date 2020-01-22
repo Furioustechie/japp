@@ -761,7 +761,7 @@ class AppealsController extends Controller
          ->where('testoverdue.prison_id', '=', $prison_id)
          ->where('testoverdue.states', '!=', 'red')
          ->Where('testoverdue.statusid', '!=', 10)
-         ->Where('testoverdue.overdue', '=', 1)
+         ->Where('testoverdue.overdue', '=', 'yes')
          //->Where('testoverdue.mydate', '>', 10)
          ->paginate(5);
 
@@ -827,7 +827,7 @@ class AppealsController extends Controller
         ->where('testoverdue.prison_id', $prison_id)
         ->where('testoverdue.states','!=', 'red')
         //->where('overdue_hc.mydate', '>', 10 )
-        ->where('testoverdue.overdue', '=', 1 )
+        ->where('testoverdue.oversue', '=', 'yes' )
         ->Where('testoverdue.statusid', '!=', 10 )
         ->paginate(5);
             return view('inc_prison.thisYearData', compact('overdue_prison'))->render();

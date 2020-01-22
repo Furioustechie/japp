@@ -117,7 +117,7 @@
                                               
                                                        ?>
                                                     <div class="modal fade edt" id="edit_due_appeals_{{$appeal->id}}" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
-                                                     <form  method="POST" id="all_record" class="all_record" name="all_record" action="appeals/update/{{ $appeal->id }}" enctype="multipart/form-data">
+                                                     <form  method="POST" id="all_record" class="all_record" name="all_record" action="updateTest/{{ $appeal->id }}" enctype="multipart/form-data">
                                                       @csrf
                                                             <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
@@ -259,7 +259,7 @@
                                                             <span class="col-md-10 offset-sm-1 border border-info">
                                                             <div class="card">
                                                             <div class="card-header bg-info">
-                                                            <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus_due{{ $appeal->id }}" > Do you want to Update?</a>
+                                                            <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus_due{{ $appeal->id }}" > Click Here To Update</a>
                                                             </div>
                                                             <div class="card-body">
                                                             <div id="updateStatus_due{{ $appeal->id }}" class="panel-collapse collapse">
