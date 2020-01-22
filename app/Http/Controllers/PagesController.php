@@ -226,7 +226,7 @@ foreach($totalByStatus as $byStatus){
     
     //$myvar = $request->id;
     $Details_appeal = DB::table('all_appeals')->where('id','=', $notify_appeal_id )->get();
-    
+        $due_all = DB::select('select * from testoverdue');
 
     // dd($Details_appeal);
 
@@ -260,8 +260,9 @@ foreach($totalByStatus as $byStatus){
         $send['appDetails_allRecords']=$appDetails_allRecords;
         $send['Details_appeal']=$Details_appeal;
         $send['notify_appeal_id']=$notify_appeal_id;
+        $send['due_all']=$due_all;
 
-
+//dd($due_all[0]->mydate);
         $send['user'] = User::find(1);
        // User::find(1)->notify(new jappNotification);
       

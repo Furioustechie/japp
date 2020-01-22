@@ -11,6 +11,7 @@
       </thead>
  
   <tbody style="white-space: nowrap;">
+
             @if(count($appDetails_allRecords) > 0)
             @foreach($appDetails_allRecords as $appeal)
     <tr>
@@ -32,8 +33,13 @@
                                                 FROM status AS S');
 
                                                
+                                                //$last_state =  DB::select('select * from overdue_hc where id="'.$appeal->id.'"');
                                                 $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
-                                            
+                                                $overall_due = DB::select('select * from testoverdue where id = "'.$appeal->id.'"');
+                                                
+                                                //dd($dtt[0]->overdue);
+                                                
+                                                
                                                 $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
                                                 
                                                 $total=$totalrow[0]->status_count;
@@ -67,7 +73,7 @@
                                                 @if($item)
 
                                                   
-                                                      @if(($mydate > 10 ) AND ($struct->stateno == 'todo'))
+                                                      @if((@$overall_due[0]->overdue == 'yes' ) AND ($struct->stateno == 'todo'))
                                                       <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
                                                       title="{{ $pp->status_name }}"></li>
                                                       @else
@@ -77,7 +83,7 @@
                                                   
                                                 @else
                                                
-                                                @if(($mydate > 10 ) AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
+                                                @if((@$overall_due[0]->overdue == 'yes') AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
                                                 <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
                                                                 title="{{ $pp->status_name }}"></li>
                                                   @else
@@ -233,7 +239,7 @@ $appealStatus = DB::select('SELECT S.status_name, IFNULL((SELECT statusid FROM a
      
       @else
       
-      @if(($mydate > 10 ) AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
+      @if((@$overall_due[0]->overdue == 'yes' ) AND ($total == $loop->iteration) AND ((@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))) 
               <li class="complete">
               <a href="#" class="text-warning">{{ $pp->status_name }}
               <i class="ico fa fa-exclamation-circle" style="color:orange"></i>

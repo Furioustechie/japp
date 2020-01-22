@@ -259,7 +259,7 @@
                                                             <span class="col-md-10 offset-sm-1 border border-info">
                                                             <div class="card">
                                                             <div class="card-header bg-info">
-                                                            <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus_due{{ $appeal->id }}" > Do you want to Update?</a>
+                                                            <a id="mycollapse" class="font-weight-bold" data-toggle="collapse" style="color:white" href="#updateStatus_due{{ $appeal->id }}" > Click Here To Update</a>
                                                             </div>
                                                             <div class="card-body">
                                                             <div id="updateStatus_due{{ $appeal->id }}" class="panel-collapse collapse">
