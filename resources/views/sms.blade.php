@@ -118,10 +118,48 @@
                      </div>
               </form>
         </div>   
-       
+      
+      
         {{  $valuesMedian }}
       <br>
+      <table class="table">
+        <thead>
+          <tr>
+           
+            <th scope="col">Status</th>
+            <th scope="col">Percentage</th>
+            <th scope="col">Deviation</th>
+            <th scope="col">Median</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          @php
+          $total = DB::table('newappeals')->count();
+         // $deviation = DB::Select('select std(mydate) as dv from median where statusid=2');
 
+          @endphp
+          <?php foreach($status as $st){
+              $median = DB::table('median')->where('statusid','=',$st->id)->get();
+              $count = DB::table('median')->where('statusid','=',$st->id)->count();
+              $deviation = DB::Select("select std(mydate) as dv from median where statusid= $st->id");
+
+
+              $medianCollection = collect($median);
+              $valuesMedian = $medianCollection->median('mydate');
+
+              $percentage =  round($count / $total * 100); // Count of appealsttuas is divided by Total number of appeals
+              ?>
+          <tr>
+            <th scope="row">  {{ $st->status_name }}</th>
+            <th scope="row">{{ $percentage }} %</th>
+            <th scope="row">{{ round($deviation[0]->dv) }}</th>
+            <th scope="row">{{ $valuesMedian }}</th>
+
+          </tr>
+        <?php }?>
+        </tbody>
+      </table>
     </div>  
   <!-- JavaScripts Styles    -->
   @include('inc.scriptstyle')

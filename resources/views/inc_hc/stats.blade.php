@@ -749,11 +749,50 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="card border-primary ">
-                                <div class="card-header card-header-default">
-                                    <div class="ct-chart" id="barchart"></div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary  hvr-underline-from-center">
+                                    <h4 class="card-title" style="font-color:black;">Aggregate Analysis Per Milestone<span class="pull-right"></span></h4>
+                                    <p class="card-category"></p>
                                 </div>
+                                <div class="card-body table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Sl.</th>
+                                        <th scope="col">Milestone</th>
+                                        <th scope="col">Percentage</th>
+                                        <th scope="col">Deviation (?)</th>
+                                        <th scope="col">Median (?)</th>
+                                       
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      @php
+                                      $total = DB::table('newappeals')->count();
+                                     // $deviation = DB::Select('select std(mydate) as dv from median where statusid=2');
+                            
+                                      @endphp
+                                      <?php foreach($status_name as $st){
+                                          $median = DB::table('median')->where('statusid','=',$st->id)->get();
+                                          $count = DB::table('median')->where('statusid','=',$st->id)->count();
+                                          $deviation = DB::Select("select std(mydate) as dv from median where statusid= $st->id");
+                                          $medianCollection = collect($median);
+                                          $valuesMedian = $medianCollection->median('mydate');
+                            
+                                          $percentage =  round($count / $total * 100); // Count of appealsttuas is divided by Total number of appeals
+                                          ?>
+                                      <tr>
+                                        <th scope="row">  {{ $st->id }}</th>
+                                        <th scope="row">  {{ $st->status_name }}</th>
+                                        <th scope="row">{{ $percentage }} %</th>
+                                        <th scope="row">{{ round($deviation[0]->dv) }}</th>
+                                        <th scope="row">{{ $valuesMedian }}</th>
+                            
+                                      </tr>
+                                    <?php }?>
+                                    </tbody>
+                                  </table>
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">access_time</i> campaign sent 2 days ago
@@ -763,7 +802,7 @@
                         </div>
                     </div>
 
-                    
+                   
 
                         <!-----Block for All Application Deatils ------->
 

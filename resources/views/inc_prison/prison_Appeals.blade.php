@@ -87,6 +87,9 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
               AS statusid,IFNULL((SELECT remarks FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$appeal->id.'"),"Nothing") 
               AS remarks, (SELECT state FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$appeal->id.'") as stateno,(SELECT updated_at FROM appealstatus WHERE statusid=S.id AND newappeals_id="'.$appeal->id.'") as status_updated_at
                   FROM status AS S');
+
+            $overall_due_in_prison = DB::select('select * from testoverdue where id = "'.$appeal->id.'"');
+
             @endphp
             
                   @foreach($status_name as $pp)
@@ -125,7 +128,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                  
                   @else
                   
-                      @if((@$mydate > 10 ) AND (@$appealotal == @$loop->iteration) AND (@$last_state[0]->state != 'red') )
+                      @if((@$overall_due_in_prison[0]->overdue == 'yes') AND (@$appealotal == @$loop->iteration) AND (@$last_state[0]->state != 'red') )
                           <li class="complete">
                           <a href="#" class="text-warning">{{ $pp->status_name }}
                           <i class="ico fa fa-exclamation-circle" style="color:orange"></i>

@@ -330,7 +330,8 @@
                                                                     $last_state =  DB::select('select * from appealstatus where newappeals_id="'.$appeal->id.'" order by statusid desc limit 1');
                                                                     
                                                                     $totalrow =  DB::select('select COUNT(*) as status_count from appealstatus where newappeals_id="'.$appeal->id.'"');
-                                                                    
+                                                                    $overall_due_in_prison = DB::select('select * from testoverdue where id = "'.$appeal->id.'"');
+
                                                                     $total=$totalrow[0]->status_count;
                                                                   // print_r($totalrow);
                                                                     $total= $total+1;
@@ -361,7 +362,7 @@
                                                                           <li class="{{ $struct->stateno }}" id="test" style="border-color:{{ $struct->stateno }};" data-toggle="tooltip" data-placement="top"
                                                                             title="{{ $pp->status_name }}"></li>
                                                                     @else
-                                                                    @if(($mydate > 10 ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))
+                                                                    @if((@$overall_due_in_prison[0]->overdue == 'yes' ) AND ($total == $loop->iteration) AND (@$last_state[0]->state != 'red') AND (@$last_state[0]->state != 'todo'))
                                                                     <li class="orange" id="test" style="border-color:orange;" data-toggle="tooltip" data-placement="top"
                                                                                     title="{{ $pp->status_name }}"></li>
                                                                       @else

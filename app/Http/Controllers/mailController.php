@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Appealstatus;
+use App\Status;
 use DB;
 
 class mailController extends Controller
@@ -27,14 +28,38 @@ class mailController extends Controller
     }
     public function firesms(){
 
-        $query = Appealstatus::all();
-        
-        $median = DB::table('median')->get();
-        $medianCollection = collect($median);
-        // $valuesMedian = $medianCollection->avg('diffrence');
-        $valuesMedian = $medianCollection->median('diffrence');
+        $status = Status::all();
+        $a = array('StatusName','Median');
+      foreach($status as $k=>$st)
+       {
+        $median = DB::table('median')->where('statusid','=',$st->id)->get();
+         $medianCollection = collect($median);
+        $valuesMedian = $medianCollection->median('mydate');
+        $a[]=array('StatusName'=>$st->status_name,'Median'=>$valuesMedian);
+       }
+//dd($a);
+      // echo $a; exit;
 
+
+
+
+
+
+        //  $median = DB::table('median')->where('statusid','=',$st->id)->get();
+        //  $medianCollection = collect($median);
+       // dd( $medianCollection );
+        // $valuesMedian = $medianCollection->avg('diffrence');
+
+
+
+        //$valuesMedian = $medianCollection->median('mydate');
+       //dd( $valuesMedian );
         $send['valuesMedian'] =  $valuesMedian;
+        $send['status'] =  $status;
+        $send['median'] =  $median;
+        $send['a'] =  $a;
+
+
 
         return view('sms',$send);
     }
