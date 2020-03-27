@@ -19,6 +19,11 @@
 {{session('error')}}
 </div>
 @endif
+@if(session('warning'))
+<div class="alert alert-warning text-center" role="alert">
+{{session('error')}}
+</div>
+@endif
 <!-- Javascript for fade out messages -->
 <script>
 window.setTimeout(function() {

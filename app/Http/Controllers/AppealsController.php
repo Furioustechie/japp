@@ -303,9 +303,10 @@ class AppealsController extends Controller
         User::find($applToUser->appeals_to_courtid)->notify(new jappNotification($arr));
         //$appeal->save();  Eloquant Insert
         //$this->notify(new jappNotification());
+
         /*-----------------End of Notification From Prison To High Court--------------------------------------- */
         //Toastr::success('Success!', 'New appeal has been sumitted successfully');
-                        return redirect('prisonDashboard')->with('success', 'New appeal has been sumitted successfully'); //submit application
+        return redirect('prisonDashboard')->with('success', 'New appeal has been sumitted successfully'); //submit application
     }
 
     /**

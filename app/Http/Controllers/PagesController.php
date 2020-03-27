@@ -612,5 +612,9 @@ foreach($totalByStatus as $byStatus){
 
     //return view('inc_hc.stats',$send);
  }
+ public function med (){
+    
+
+ }
     
 }

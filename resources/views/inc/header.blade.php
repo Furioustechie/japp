@@ -25,7 +25,7 @@
          //echo $value;
         ?>
         <ul class="navbar-nav">
-            @if(auth()->user()->user_type=='admin')
+            @if(auth()->user()->user_type == 'admin')
             <ul class="navbar-nav">
               @if($value =='bn')
                 <li class="nav-item en">

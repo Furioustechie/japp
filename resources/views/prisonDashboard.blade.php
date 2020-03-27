@@ -50,7 +50,11 @@
         .table-filter-container {
                 text-align: left;
             }
-                    
+        .logo-normal {
+            animation-duration: 3s;
+            animation-delay: 2s;
+            animation-iteration-count: infinite;
+            }           
     </style>
     <script>
             
@@ -102,6 +106,8 @@
                     $('.show_resolved').hide(); 
                         }); 
             });
+
+            
     </script>
 </head>
 
@@ -114,7 +120,7 @@
         Tip 2: you can also add an image using data-image tag
         -->
             <div class="logo">
-                <a href="#" class="simple-text logo-normal"><img src="{{URL::asset('assets/img/logo.png')}}">{{ __('labels.logo_title') }}</a>
+                <a href="#" class="simple-text logo-normal animated flipInX"><img src="{{URL::asset('assets/img/logo.png')}}">{{ __('labels.logo_title') }}</a>
             </div>
             <div class="sidebar-wrapper">
                 <!-- Side Navbar -->

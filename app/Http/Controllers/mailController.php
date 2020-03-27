@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Appealstatus;
 use DB;
+use App\Status;
 
 class mailController extends Controller
 {
@@ -29,12 +30,16 @@ class mailController extends Controller
 
         $query = Appealstatus::all();
         
-        $median = DB::table('median')->get();
+        $median = DB::table('median')->where('statusid','=', 5)->get();
         $medianCollection = collect($median);
+       // dd($medianCollection);
         // $valuesMedian = $medianCollection->avg('diffrence');
-        $valuesMedian = $medianCollection->median('diffrence');
-
+        $valuesMedian = $medianCollection->median('mydate');
+        $status = status::all();
         $send['valuesMedian'] =  $valuesMedian;
+        $send['status'] =  $status;
+        $send['median'] =  $median;
+
 
         return view('sms',$send);
     }

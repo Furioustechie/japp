@@ -28,7 +28,7 @@
     &copy;
     <script>
       document.write(new Date().getFullYear())
-    </script>, All Rights Reserved <i class="material-icons">favorite</i> To
-    <a href="" target="_blank">Bangladesh XYZ Authority.
+    </script>, All Rights Reserved <!-- <i class="material-icons">copyright</i> --> To
+    <a href="" target="_blank">Bangladesh Prison Authority.
   </div>
 </div>

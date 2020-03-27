@@ -118,8 +118,17 @@
                      </div>
               </form>
         </div>   
-       
+       @foreach($status as $st)
+          <div> {{ $st->status_name }} </div>
+        
+          @foreach($median as $md)
+          @if($st->id == $md->statusid)
+
         {{  $valuesMedian }}
+        @endif
+        @endforeach
+
+        @endforeach
       <br>
 
     </div>  
