@@ -20,7 +20,7 @@
     "gulp-open": "^3.0.1",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "laravel-mix": "^2.0",
     "lodash": "^4.17.15",
     "popper.js": "^1.15.0",
