@@ -181,7 +181,7 @@
       </span>
 
       <span class="col-md-5  border border-info" >
-      <legend class="modal-title w-100 font-weight-bold" style="color:black">Application Progress</legend><br>
+      <legend class="modal-title w-100 font-weight-bold" style="color:black">Application Pgress</legend><br>
       <div class="col-md-12">
       <div class="form-group">
       <div class="bs-vertical-wizard" >
