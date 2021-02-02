@@ -11,6 +11,7 @@
       </thead>
  
   <tbody style="white-space: nowrap;">
+
             @if(count($appDetails_allRecords) > 0)
             @foreach($appDetails_allRecords as $appeal)
     <tr>

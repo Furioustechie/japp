@@ -4,12 +4,15 @@
 <head>
   @include('inc.style')
   
-  <style>
+
+    <style>
   span.mycus-class2 {
     color: red;
 }
-  </style>
-  
+.dataTables_wrapper .dataTables_processing {
+background-color:yellowgreen;
+}
+</style>
 </head>
 
 <body class="">
@@ -169,10 +172,10 @@
                          </div>
                          <div class="tab-pane" id="uaccount">
                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add_accountName"  data-id="add_accountName">{{ __('labels.Add_New_User') }}</button>     
-                           <table id="dataTableuaccount" class="table table-hover table-light table-condensed text-md-left" style="width:100%">
+                           <table id="dataTableuaccount" class="table table-hover table-light table-condensed text-md-left" style="width:100%;border: 1px solid purple">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <thead class="text-primary">
+                                            <thead class="text-primary" >
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Name</th>
@@ -180,7 +183,6 @@
                                                     <th>Phone</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
-                                                    <th>Actions</th>
                                             </tr>
                                         </thead>
                                         

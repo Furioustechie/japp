@@ -12,7 +12,10 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- Fonts -->
-    
+   
+
+    <link href="{{URL::asset('css/particles.css')}}" rel="stylesheet" />
+
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
@@ -26,10 +29,10 @@
 
 #slider {
    background: transparent;
-   /* border: 5px solid #eaeaea; */
-   /* box-shadow: 1px 1px 5px rgba(0,0,0,0.7); */
+/*    border: 5px solid #eaeaea; 
+   box-shadow: 1px 1px 5px rgba(0,0,0,0.7);  */
    height: 320px;
-   width: 680px;
+   width: 100%;
    margin: 40px auto 0px;
    overflow: visible;
    position: relative;
@@ -49,7 +52,7 @@
 }
 
 #slider li {
-   width: 680px;  /* Width Image */
+   width: 100%;  /* Width Image */
    height: 320px; /* Height Image */
    position: absolute;
    top: -325px; /* Original Position - Outside of the Slider */
@@ -131,8 +134,8 @@
 
 .progress-bar {
    position: relative;
-   top: -5px;
-   width: 680px;
+   top: -10px;
+   width: 100%;
    height: 5px;
    background: #000;
    animation: fullexpand 25s ease-out infinite;
@@ -187,9 +190,16 @@
 #slider: hover .progress-bar {
    animation-play-state: paused;
 }
+
+
+/* ---- particles.js container ---- */
+
+
+
     </style>
 </head>
 <body>
+<div id="particles-js"></div>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -251,53 +261,63 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <main class="py-4">
+        <div class="container">
+         <div id="content-slider">
+            <div id="slider">  <!-- Slider container -->
+               <div id="mask" style="text-align:center;">  <!-- Mask -->
+
+               <ul>
+               <li id="first" class="firstanimation">  <!-- ID for tooltip and class for animation -->
+               <a href="#"> <img src="{{URL::asset('assets/img/bdg.png')}}" style="height:150px;text-align:center;"  alt="Bangladesh Govt."/> </a>
+               <div class="tooltip"> <h1>Ganaprajatantri Bangladesh Sarkar</h1> </div>
+               </li>
+
+               <li id="second" class="secondanimation">
+               <a href="#"> <img src="{{URL::asset('assets/img/sc.png')}}" style="height:150px;text-align:center;" alt="Bangladesh SC"/> </a>
+               <div class="tooltip"> <h1>Supreme Court of Bangladesh</h1> </div>
+               </li>
+
+               <li id="third" class="thirdanimation">
+               <a href="#"> <img src="{{URL::asset('assets/img/bdj.png')}}" style="height:150px;text-align:center;" alt="Bangladesh Jail"/> </a>
+               <div class="tooltip"> <h1>Bangladesh Jail</h1> </div>
+               </li>
+
+               <li id="fourth" class="fourthanimation">
+               <a href="#"> <img src="{{URL::asset('assets/img/FCDO_UK_RGB.png')}}" style="height:150px;text-align:center;" alt="Foreign, Commonwealth & Development Office"/> </a>
+               <div class="tooltip"> <h1>UK Aid</h1> </div>
+               </li>
+
+               <li id="fifth" class="fifthanimation">
+               <a href="#"> <img src="{{URL::asset('assets/img/giz.png')}}" style="height:150px; width:500px;text-align:center;" alt="GIZ"/> </a>
+               <div class="tooltip"> <h1>GIZ</h1> </div>
+               </li>
+               </ul>
+
+               </div>  <!-- End Mask -->
+               <div class="progress-bar"></div> <br> <!-- Progress Bar -->
+               <div class="text-default w-100 font-weight-bold " id="ProjTitle" style="color:Black;text-align:center;">@lang('labels.project_name')</div>  <!-- Progress Bar -->
+            </div>  <!-- End Slider Container -->
+         </div>
+      </div>
+        </main>
     </div>
-    <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-    <div class="container">
-   <div id="content-slider">
-      <div id="slider">  <!-- Slider container -->
-         <div id="mask" style="text-align:center;">  <!-- Mask -->
 
-         <ul>
-         <li id="first" class="firstanimation">  <!-- ID for tooltip and class for animation -->
-         <a href="#"> <img src="{{URL::asset('assets/img/bdg.png')}}" style="height:150px;text-align:center;"  alt="Bangladesh Govt."/> </a>
-         <div class="tooltip"> <h1>Ganaprajatantri Bangladesh Sarkar</h1> </div>
-         </li>
+   
 
-         <li id="second" class="secondanimation">
-         <a href="#"> <img src="{{URL::asset('assets/img/sc.png')}}" style="height:150px;text-align:center;" alt="Bangladesh SC"/> </a>
-         <div class="tooltip"> <h1>Supreme Court of Bangladesh</h1> </div>
-         </li>
-
-         <li id="third" class="thirdanimation">
-         <a href="#"> <img src="{{URL::asset('assets/img/bdj.png')}}" style="height:150px;text-align:center;" alt="Bangladesh Jail"/> </a>
-         <div class="tooltip"> <h1>Bangladesh Jail</h1> </div>
-         </li>
-
-         <li id="fourth" class="fourthanimation">
-         <a href="#"> <img src="{{URL::asset('assets/img/dml.png')}}" style="height:150px;text-align:center;" alt="UK aid"/> </a>
-         <div class="tooltip"> <h1>UK Aid</h1> </div>
-         </li>
-
-         <li id="fifth" class="fifthanimation">
-         <a href="#"> <img src="{{URL::asset('assets/img/giz.png')}}" style="height:150px; width:500px;text-align:center;" alt="GIZ"/> </a>
-         <div class="tooltip"> <h1>GIZ</h1> </div>
-         </li>
-         </ul>
-
-         </div>  <!-- End Mask -->
-         <div class="progress-bar"></div> <br> <!-- Progress Bar -->
-         <div class="text-default w-100 font-weight-bold" style="color:Black;text-align:center;">Jail Appeal Application Tracking Tool</div>  <!-- Progress Bar -->
-      </div>  <!-- End Slider Container -->
-   </div>
-</div>
-
+<script src="{{URL::asset('js/particles.js')}}"></script>
+    <script src="{{URL::asset('js/parti-app.js')}}"></script>
 </body>
+<!-- <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script type="text/javascript">
+	
+var typed = new Typed('#ProjTitle', {
+  strings: ["Jail Appeal Application Tracking Tool", "Jail Appeal Application Tracking Tool"],
+  typeSpeed: 50,
+  backspeed:0,
+  loop: true,
+  smartBackspace: true
+}); -->
+
+</script>
 </html>

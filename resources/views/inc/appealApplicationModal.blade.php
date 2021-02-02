@@ -31,7 +31,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="bmd-label-floating text-info" style="font-size: 14px;">{{ __('labels.prison_Name') }} *</label>
-                                    <input type="text"  value="{{ Auth::user()->prison->name }}" class="form-control" readonly>
+                                    <input type="text"  id="prison_name" value="{{ Auth::user()->prison->name }}" class="form-control" readonly>
                                     <input type="hidden" name="prison_id"  value="{{ Auth::user()->prison->id }}" class="form-control">
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="Gender" class="bmd-label-floating text-info">{{ __('labels.gender') }} *</label>
-                                    <select class="browser-default custom-select" name="prisoner_gender" required>
+                                    <select class="browser-default custom-select" name="prisoner_gender" id="prisoner_gender" required> <!--id field added -->
                                         <option selected value="">Please Select..</option>
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
@@ -61,7 +61,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="bmd-label-floating text-info">{{ __('labels.appeals_ToCourt') }} *</label>
-                                    <select class="browser-default custom-select" name="appeals_to_court" required>
+                                    <select class="browser-default custom-select" name="appeals_to_court" id="appeals_to_court" required>
                                         <option hidden value="">Please Select ..</option>
                                         <option value="3">High Court</option>
                                         <option value="2" disabled>Sentencing Court</option>
@@ -119,7 +119,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="bmd-label-floating text-info">{{ __('labels.sentence_Type') }} *</label>
-                                    <select class="browser-default custom-select" name="sentencetype" required>
+                                    <select class="browser-default custom-select" name="sentencetype" id="sentencetype" required>
                                         <option selected value="">Please Select..</option>
                                         @foreach ($sents_name as $sentenceid)
                                         <option value="{{ $sentenceid->id }}">{{ $sentenceid->sentence_name }}</option>
@@ -139,14 +139,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-info">{{ __('labels.conviction_time') }} *</label>
-                                    <input type="date" name="convictiondate" class="form-control">
+                                    <input type="date" name="convictiondate" id="convictiondate" class="form-control">
                                     <!-- <input type="text" name="convictiondate" class="datepicker">  -->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-info">{{ __('labels.dateOf_appeal') }} *</label>
-                                    <input type="date" name="dateofappeal" class="form-control">
+                                    <input type="date" name="dateofappeal" id="dateofappeal" class="form-control">
                                 </div>
                             </div>
     
@@ -236,6 +236,7 @@
                         Notification</button> --}}
                     <a href="#"><button type="button" class="btn btn-warning pull-right" data-dismiss="modal">{{ __('labels.close') }}</button></a>
                     <button type="submit" class="btn btn-success pull-right" name="submit" id="submit_appeal" value="submit"><i class="material-icons">send</i> {{ __('labels.submit') }}</button>
+                    <button type="button" class="btn btn-success pull-right" name="review_btn" id="review_appeal" value="Process"><i class="material-icons">sync</i>Process</button>
 
                     <div class="clearfix"></div>
                 </form>

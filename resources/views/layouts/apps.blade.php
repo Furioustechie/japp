@@ -94,7 +94,9 @@ a:hover .spanRight{
     background-color:red;
    
 }
-
+body{
+    font-family: 'Do Hyeon', cursive;
+}
         </style>
         <script>
         $(document).ready(function(){

@@ -82,7 +82,7 @@ class PagesController extends Controller
         //$countAppeals = $totalAppeals->count();
         //$lastYearAppeals = DB::select('SELECT count(id) as totalAppeal FROM newappeals WHERE created_at  AND DATE_SUB(NOW(), INTERVAL 1 MONTH)');
         //$overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM overdue_hc WHERE statusid !=10 AND mydate > 10');
-        $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM testoverdue WHERE statusid !=10 AND overdue = "yes" ');
+        $overdue_count = DB::select('SELECT count(id) as totalAppeal, min(mydate) as maxDay FROM testoverdue WHERE statusid !=10 AND overdue = "yes" AND states != "red"');
 
         $appealResolved = DB::select('SELECT count(statusid) as totalAppealResolved,max(updated_at) as maxDate FROM appealstatus WHERE statusid = (SELECT id FROM status ORDER BY id DESC limit 1)');
         $overDue = DB::select('SELECT vid FROM takeaction');
@@ -204,11 +204,11 @@ foreach($totalByStatus as $byStatus){
 
 
     //$overdue_hc = DB::table('overdue_hc')
-    $overdue_hc = DB::table('testoverdue')
+  $overdue_hc = DB::table('testoverdue')
     ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
     ->Where('testoverdue.overdue', '=', 'yes' )
     ->Where('testoverdue.statusid', '!=', 10 )
-    ->Where('testoverdue.states', '!=', 'red' )
+    ->Where('testoverdue.states', '!=', 'red' ) //newly added
     ->paginate(5);
 
     $incompleteApplication_ForHC = DB::table('pendingforcc_prison')
@@ -489,6 +489,7 @@ foreach($totalByStatus as $byStatus){
         ->select('id', 'prison_id', 'prison_name','prisoner_name','case_no','act_name', 'court_name')
         ->where('testoverdue.overdue', '=', 'yes' )
         ->where('testoverdue.statusid', '!=', 10 )
+        ->Where('testoverdue.states', '!=', 'red' ) //newly adeed
         ->paginate(5);
       return view('inc_hc.overdue', compact('overdue_hc'))->render();
      }
@@ -521,8 +522,7 @@ foreach($totalByStatus as $byStatus){
     function fetch_data_allRecords(request $request)
     {
      if($request->ajax())
-     {
-        $sort_by = $request->get('sortby');
+     {$sort_by = $request->get('sortby');
         $sort_type = $request->get('sorttype');
            $query = $request->get('query');
            $query = str_replace(" ", "%", $query);

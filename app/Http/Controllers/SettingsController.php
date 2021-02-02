@@ -179,17 +179,11 @@ class SettingsController extends Controller
         $accountName = DB::table('users')->select('id', 'name', 'email', 'phone','status')->get();
         return Datatables::of($accountName)
             ->addColumn('action', function ($accountName) {
-                return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$accountName->id.'" class="edit_accountName"><i class="material-icons">edit</i></a> '
-                .'<a href="#" class="accountNameDelete delete" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>'.'<a href="#" data-toggle="modal" data-target="#edit_accountStatus"  data-id="'.$accountName->id.'" class="edit_accountStatus"><i class="material-icons">vpn_key</i></a>';
+                return '<a href="#" data-toggle="modal" data-target="#edit_accountName"  data-id="'.$accountName->id.'" class="edit_accountName text-success"><i class="material-icons">edit</i></a> |'
+                .'<a href="#" class="accountNameDelete delete text-danger" data-id="'.$accountName->id.'"><i class="material-icons">delete</i></a>|'.'<a href="#" data-toggle="modal" data-target="#edit_accountStatus"  data-id="'.$accountName->id.'" class="edit_accountStatus"><i class="material-icons">vpn_key</i></a>';
             })
-            ->addColumn('actions', function($row){
-   
-                $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-
-                 return $btn;
-         })
             ->editColumn('id', 'ID: {{$id}}')
-            ->rawColumns(['delete' => 'delete','action' => 'action', 'actions'])
+            ->rawColumns(['delete' => 'delete','action' => 'action'])
             ->make(true);
     }
 
@@ -396,10 +390,10 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    Alert::success('success','Sentence Added Successfully');
+                    alert()->success('success','Sentence Added Successfully');
                     return redirect('editsettings');
                         }else{
-                            Alert::error('Error','Sentence Name Already Exists');
+                            alert()->error('Error','Sentence Name Already Exists');
                             return redirect('editsettings');
                         }
             }
@@ -420,12 +414,13 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    Alert::success('success','Offence Title Added Successfully');
+                    //Alert::success('success','Offence Title Added Successfully');
+                    alert()->success('success','Offence Title Added Successfully');
                     return redirect('editsettings');
             }
            
         else{
-            Alert::error('Error','Offence Title Already Exists');
+            alert()->error('Error','Offence Title Already Exists');
             return redirect('editsettings');
         }
         }
@@ -448,12 +443,12 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    Alert::success('success','Prison Name Added Successfully');
-                    return redirect('editsettings')->with('success','Prison Name Added');
+                    alert()->success('success','Prison Name Added Successfully');
+                    return redirect('editsettings');
             }
            
         else{
-            Alert::success('error','Prison Name Already Exists');
+            alert()->error('error','Prison Name Already Exists');
             return redirect('editsettings');
         }
         }
@@ -475,12 +470,12 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    Alert::success('success','Court Name Added Successfully');
+                    alert()->success('success','Court Name Added Successfully');
                     return redirect('editsettings');
             }
            
         else{
-            Alert::success('error','Court Name Already Exists');
+            alert()->error('error','Court Name Already Exists');
             return redirect('editsettings');
         }
         }
@@ -503,11 +498,13 @@ class SettingsController extends Controller
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')]
                     ]);
-                    return redirect('editsettings')->with('success','Status Added');
+                    alert()->success('success','Status Added');
+                    return redirect('editsettings');
             }
            
         else{
-            return redirect('editsettings')->with('error','Already Exists');
+            alert()->error('error','Already Exists');
+            return redirect('editsettings');
         }
         }
 
@@ -541,7 +538,7 @@ class SettingsController extends Controller
             'created_at' => date('Y-m-d h:i:s'),
             'updated_at' => date('Y-m-d h:i:s')
         ]);
-            Alert::success('success', 'User Added Successdully');
+            alert()->success('success', 'User Added Successdully');
             // Toastr::success('Success!', 'New User Added Successdully');
         //}
         return redirect('/editsettings');

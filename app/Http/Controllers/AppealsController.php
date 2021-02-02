@@ -828,7 +828,7 @@ class AppealsController extends Controller
         ->where('testoverdue.prison_id', $prison_id)
         ->where('testoverdue.states','!=', 'red')
         //->where('overdue_hc.mydate', '>', 10 )
-        ->where('testoverdue.oversue', '=', 'yes' )
+        ->where('testoverdue.overdue', '=', 'yes' )
         ->Where('testoverdue.statusid', '!=', 10 )
         ->paginate(5);
             return view('inc_prison.thisYearData', compact('overdue_prison'))->render();
@@ -964,8 +964,10 @@ class AppealsController extends Controller
         
         foreach ($appDetail as $row) {
             
-            $showlog = DB::select('SELECT * FROM notifications WHERE appeal_id="'.$row->id.'" ORDER BY updated_at');  
-                       
+           //$showlog = DB::select('SELECT * FROM notifications WHERE appeal_id="'.$row->id.'" ORDER BY updated_at'); 
+           $showlog = DB::table('notifications')->where('appeal_id',$row->id)->paginate(5); 
+        
+            
             $output .= '';
             //echo '<form>';
             echo '<span class="col-md-5 offset-sm-1 border border-primary">';
@@ -1108,6 +1110,7 @@ echo '</span>';
             }
             echo '
             </div>
+            '.$showlog->links().'
             </div>
            </div>';
 

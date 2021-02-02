@@ -269,6 +269,7 @@ $ddd = DB::select('SELECT doctype.docname, documents.filename
                               <hr>
                               @endforeach
                             </div>
+                            
                           </div>
                         </div>
                         <button type="button" class="btn btn-warning pull-right" data-dismiss="modal">Close</button>

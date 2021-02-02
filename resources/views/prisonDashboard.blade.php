@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-{{-- <html lang="{{ app()->getLocale() }}"> --}}
 <head>
     <!-- CSS Style Sheet -->
     @include('inc.style')
@@ -54,8 +53,77 @@
             animation-duration: 3s;
             animation-delay: 2s;
             animation-iteration-count: infinite;
-            }           
+            }  
+             
     </style>
+    <script>
+    function getVal(){
+        var myval = document.getElementById("x").value;
+
+    }
+    $(document).ready(function(){
+        $('#submit_appeal').hide();
+        
+        $('#review_appeal').click(function(){
+            var prisoner_no = document.getElementsByName('prisoner_no');
+            var prisoner_name = document.getElementsByName('prisoner_name');
+            var caseno = document.getElementsByName('caseno');
+            var prison_name = document.getElementById('prison_name').value;
+            var prisoner_gender = document.getElementById('prisoner_gender');
+            var sentencingDistrict = document.getElementById('sentencingDistrict');
+            var appeals_to_court = document.getElementById('appeals_to_court');
+            var sentencingcourt = document.getElementById('sentencingcourt');
+            var completeSentence = document.getElementById('completeSentence').innerHTML;
+            var sentencetype = document.getElementById('sentencetype');
+            var convictiondate = document.getElementById('convictiondate').value;
+            var dateofappeal = document.getElementById('dateofappeal').value;
+
+
+            var selectedText_gender = prisoner_gender.options[prisoner_gender.selectedIndex].text;
+            var selectedText_district = sentencingDistrict.options[sentencingDistrict.selectedIndex].text;
+            var selectedText_appealCourt = appeals_to_court.options[appeals_to_court.selectedIndex].text;
+            var selectedText_sentenceCourt = sentencingcourt.options[sentencingcourt.selectedIndex].text;
+            var selectedText_sentenceDuration = sentencetype.options[sentencetype.selectedIndex].text;
+
+
+
+            console.log(completeSentence); // displays "INPUT"
+
+            Swal.fire({
+                title: '<strong>You are going to submit below information</u></strong>',
+                icon: 'info',
+                width: 750,
+                html:
+                '<table class="table table-sm"><tr><td class="text-left"><label class="bmd-label-floating text-info">Prisoner No: </label></td><td class="text-left">'+prisoner_no[0].value+'</td>' +
+                    '<td class="text-left"><label class="bmd-label-floating text-info">Prisoner Name: </label></td><td class="text-left">'+prisoner_name[0].value+'</td></tr>' +
+                    '<tr><td class="text-left"><label class="bmd-label-floating text-info">Case NO: </label></td><td class="text-left">'+caseno[0].value+'</td>' +
+                    '<td class="text-left"><label class="bmd-label-floating text-info">Prison Name: </label></td><td class="text-left">'+prison_name+'</td></tr>' +
+                    '<tr><td class="text-left"><label class="bmd-label-floating text-info">Prisoner Gender: </label></td><td class="text-left">'+selectedText_gender+'</td>' +
+                    '<td class="text-left"><label class="bmd-label-floating text-info">Sentencing Court District: </label></td><td class="text-left">'+selectedText_district+'</td></tr>'+
+                    '<tr><td class="text-left"><label class="bmd-label-floating text-info">Appeals Court: </label></td><td class="text-left">'+selectedText_appealCourt+'</td>' +
+                    '<td class="text-left"><label class="bmd-label-floating text-info">Sentencing Court: </label></td><td class="text-left">'+selectedText_sentenceCourt+'</td></tr>'+
+                    '<tr><td class="text-left"><label class="bmd-label-floating text-info">Sentence: </label></td><td class="text-left">SomethingNEW</td>' +
+                    '<td class="text-left"><label class="bmd-label-floating text-info">Sentence Duration: </label></td><td class="text-left">'+selectedText_sentenceDuration+'</td></tr>'+
+                    '<tr><td class="text-left"><label class="bmd-label-floating text-info">Conviction Date: </label></td><td class="text-left">'+convictiondate+'</td>' +
+                    '<td class="text-left"><label class="bmd-label-floating text-info">Date of Appeal: </label></td><td class="text-left">'+dateofappeal+'</td></tr>'+
+                    '<tr><td colspan="4"><label class="bmd-label-floating text-info">Offence Type: </label>'+completeSentence+'</td></tr></table>',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Great!',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText:
+                    '<i class="fa fa-thumbs-down"></i>',
+                cancelButtonAriaLabel: 'Thumbs down',
+                footer: '<a href>PLEASE !! Cross-check with your BJ Form Information!</a>'
+                })
+            $('#submit_appeal').show();
+            $('#review_appeal').hide();
+        })
+
+    });
+    </script>
     <script>
             
             $(document).ready(function(){
@@ -926,7 +994,18 @@ $.fn.dataTable.ext.search.push(
         </script>
       @include('sweet::alert')
  
+      <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+      <script type="text/javascript">
+	
+var typed = new Typed('#projectTitle', {
+  strings: ["Jail Appeal Application Tracking Tool", "Jail Appeal Application Tracking Tool"],
+  typeSpeed: 50,
+  backspeed:0,
+  loop: true,
+  smartBackspace: true
+});
 
-   
+</script>
+
 </body>
 </html>

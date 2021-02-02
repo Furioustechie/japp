@@ -6,10 +6,6 @@
         <div class="col-md-8">
             <div class="card">
 
-
-
-                
-
                 <div class="card-header" > {{ __('labels.login') }}</div>
 
                 <div class="card-body" style="background: radial-gradient(grey, white);">
@@ -74,3 +70,4 @@
     </div>
 </div>
 @endsection
+

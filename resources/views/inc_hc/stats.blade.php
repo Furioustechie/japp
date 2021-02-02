@@ -33,7 +33,7 @@
         div.show_justUpdate {        /* this will hide div with id div_id_name */
                 display:none;
                 }   
-                .zoom {
+        .zoom {
           transition: transform .2s;
           width: '100%';
           height: '100%';
@@ -46,7 +46,6 @@
           transform: scale(1.5); 
         }
 
-                   
           </style>
 <style>
 :root{
@@ -174,44 +173,47 @@
 
      .timeline-year:after{ width: 100%; }
 }
-          </style>
+</style>
 </head>
-
         <script>
-        $(document).ready(function(){
-            $('#seeAll').click(function() {
-                $('.show_All').show();
-                $('.show_total').hide();
-                $('.show_resolved').hide();          
-                 });
-            $('#datespan').click(function() {
-                $('.show_ccNotFound').hide();
-                $('.show_justUpdate').hide();
-                $('.show_datespan').show();  
-                    });
-           $('#ccNotFound').click(function() {
-                $('.show_datespan').hide();
-                $('.show_justUpdate').hide(); 
-                $('.show_ccNotFound').show(); 
-                    });
-           $('#justUpdate').click(function() {
-                $('.show_datespan').hide();
-                $('.show_ccNotFound').hide(); 
-                $('.show_justUpdate').show(); 
-                    });
-           $('#close_datespan').click(function() {
-                $('.show_datespan').hide();
-                    });   
-           $('#close_ccNotFound').click(function() {
-                $('.show_ccNotFound').hide(); 
-                    });   
-           $('#close_justUpdate').click(function() {
-                $('.show_justUpdate').hide(); 
-                    }); 
+        // $(document).ready(function(){
+        //     $('#seeAll').click(function() {
+        //         $('.show_All').show();
+        //         $('.show_total').hide();
+        //         $('.show_resolved').hide();          
+        //          });
+        //     $('#datespan').click(function() {
+        //         $('.show_ccNotFound').hide();
+        //         $('.show_justUpdate').hide();
+        //         $('.show_datespan').show();  
+        //             });
+        //    $('#ccNotFound').click(function() {
+        //         $('.show_datespan').hide();
+        //         $('.show_justUpdate').hide(); 
+        //         $('.show_ccNotFound').show(); 
+        //             });
+        //    $('#justUpdate').click(function() {
+        //         $('.show_datespan').hide();
+        //         $('.show_ccNotFound').hide(); 
+        //         $('.show_justUpdate').show(); 
+        //             });
+        //    $('#close_datespan').click(function() {
+        //         $('.show_datespan').hide();
+        //             });   
+        //    $('#close_ccNotFound').click(function() {
+        //         $('.show_ccNotFound').hide(); 
+        //             });   
+        //    $('#close_justUpdate').click(function() {
+        //         $('.show_justUpdate').hide(); 
+        //             }); 
                
-        });
+        // });
         </script>
-
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
+    </script>
 <body class="">
       
     @include('inc.modals')
@@ -222,11 +224,7 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo">
-                <a href="#" class="simple-text logo-normal animated onece slideInLeft"><img src="{{URL::asset('assets/img/logo.png')}}">{{ __('labels.logo_title') }}</a>
-
-
-            </div>
+         @include('inc.logo')
             <div class="sidebar-wrapper">
                 <!-- Side Navbar -->
                 @include('inc.sidenav')
@@ -749,11 +747,57 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="card border-primary ">
-                                <div class="card-header card-header-default">
-                                    <div class="ct-chart" id="barchart"></div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary  hvr-underline-from-center">
+                                    <h4 class="card-title" style="font-color:black;">Aggregate Analysis Per Milestone<span class="pull-right"></span></h4>
+                                    <p class="card-category"></p>
                                 </div>
+                                <div class="card-body table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead >
+                                      <tr>
+                                        <th scope="col" style="font-weight: bold !important;">Sl.</th>
+                                        <th scope="col" style="font-weight: bold !important;" data-toggle="tooltip" title="Number of milestone that an appeal should pass through">Milestone</th>
+                                        <th scope="col" style="font-weight: bold !important;" data-toggle="tooltip" title="The amount of appeal passed through each milestone">Percentage (Out of Total Appeal = {{ $count }} )</th>
+                                        <th scope="col" style="font-weight: bold !important;" data-toggle="tooltip" title="consumption of days for an appeal to passed through a milestone ">Median</th>
+                                        {{-- <th scope="col" data-toggle="tooltip" title="This is tool tip">Mean (?)</th>
+                                        <th scope="col" data-toggle="tooltip" title="This is tool tip">Std. Deviation (?)</th> --}}
+
+                                       
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      @php
+                                      $total = DB::table('newappeals')->count();
+                                     // $deviation = DB::Select('select std(mydate) as dv from median where statusid=2');
+                            
+                                      @endphp
+                                      <?php foreach($status_name as $st){
+                                          $median = DB::table('median')->where('statusid','=',$st->id)->get();
+                                          $count = DB::table('median')->where('statusid','=',$st->id)->count();
+                                          $deviation = DB::Select("select std(mydate) as dv from median where statusid= $st->id");
+                                          $medianCollection = collect($median);
+                                          $valuesMedian = $medianCollection->median('mydate');
+                                          $valuesAvg = $medianCollection->avg('mydate');
+                                           if(!empty($count) && !empty($total)){
+                                            $percentage =  round($count / $total * 100); // Count of appealsttuas is divided by Total number of appeals
+                                           }else{
+                                            $percentage = 0;
+                                           }
+                                          ?>
+                                      <tr>
+                                        <th scope="row" >  {{ $st->id }}</th>
+                                        <th scope="row">  {{ $st->status_name }}</th>
+                                        <th scope="row">{{ $percentage }} %</th>
+                                        <th scope="row">{{ $valuesMedian }}</th>
+                                        {{-- <th scope="row">{{ round($valuesAvg) }}</th> 
+                                        <th scope="row">{{ round($deviation[0]->dv) }}</th> --}}
+                            
+                                      </tr>
+                                    <?php }?>
+                                    </tbody>
+                                  </table>
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">access_time</i> campaign sent 2 days ago
@@ -763,7 +807,7 @@
                         </div>
                     </div>
 
-                    
+                   
 
                         <!-----Block for All Application Deatils ------->
 

@@ -31,64 +31,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Prisoner's Profile</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
-                  <p class="d-lg-none d-md-block">
-                    Stats
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Account
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      @include('inc.header')
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
@@ -99,8 +42,10 @@
                   <h4 class="card-title">Application Form</h4>
                   <p class="card-category">Complete your application</p>
                 </div>
+                
                 <div class="card-body">
                 <form action="{{url('appeals')}}" method="POST" enctype="multipart/form-data">
+                  
                     <div class="row">  
                         <div class="col-md-6">
                             <div class="form-group" >
@@ -169,16 +114,16 @@
                                           <label class="bmd-label-floating">Sentence Type</label>
                                           <select class="browser-default custom-select" name="sentencetype">
                                               <option selected>Please Select..</option>
-                                              <option value="1">Sentence Type 1</option>
-                                              <option value="2">Sentence Type 2</option>
-                                              <option value="3">Sentence Type 3</option>
+                                              <option value="1">Sentence 1</option>
+                                              <option value="2">Sentence 2</option>
+                                              <option value="3">Sentence 3</option>
                                              </select>
                                         </div>
                                       </div>
                                   <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating">Appeal To Court</label>
-                                          <select class="browser-default custom-select" name="appealcourt" > 
+                                          <select class="browser-default custom-select" name="appeals_to_court" > 
                                               <option hidden >Please Select ..</option>
                                               <option value="1">High Court</option>
                                               <option value="2">Sentencing Court</option>
@@ -254,10 +199,41 @@
                           <h5>Attached CC/Acknowledgement Letter</h5>
                         </label>
                       </div>
+                      <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox"  name="options" unchecked>
+                            <span class="form-check-sign">
+                              <span class="check" name="check"  data-toggle="modal" data-target="#privacy_policy"  data-id="privacy_policy"></span>
+                            </span>
+                            <h5>Accept Privacy and Policy</h5>
+                          </label>
+                        </div>
                       
-                    
                      <!-- Input File -->
-
+<!-- Central Modal Medium Warning -->
+<div class="modal fade" id="privacy_policy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#00bcd4;">
+          <h5 class="modal-title" id="exampleModalLabel">Privacy & Policy Warning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            We respect your privacy !<br>
+            Any personal information you provide to us including and similar to your name, address, 
+            telephone number and e-mail address will not be released, sold, 
+            or rented to any entities or individuals outside of our organization except as noted below.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">I Agree</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- Central Modal Medium Warning-->
 
 
                      <div class="row">
@@ -274,15 +250,17 @@
                            </div>
                            
                            <div class="form-group">
-                            <div class="progress" id="prgbar">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated"></div >
-                                <div class="percent">0%</div >
+                            <div class="progress">
+                              <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <span id="current-progress"></span>
+                              </div>
                             </div>
                     </div>
                      <!-- End Section -->
                      {{ csrf_field() }}
-                     
-                         <button type="submit" class="btn btn-success pull-center" name="submit" value="submit">SUBMIT APPLICATION</button>
+                     <!-- button to trigger the action -->
+                         {{-- <button class="btn btn-primary" onclick="md.showNotification('top','right')">Top Right Notification</button> --}}
+                         <button type="submit" class="btn btn-success pull-right" name="submit" value="submit">SUBMIT APPLICATION</button>
                      
                          <div class="clearfix"></div>
                   </form>
@@ -325,40 +303,24 @@
 
 </script>
  <script>
-  $('#prgbar').hide();
-                       $('input[type=file]').change(function() { 
-                       
-                       var bar = $('.progress-bar');
-                       var percent = $('.percent');
-                       var status = $('#status');
-                       
-                       $('form').ajaxForm({
-                           beforeSend: function() {
-                             $('#prgbar').show();
-                               status.empty();
-                               var percentVal = '0%';
-                               bar.width(percentVal);
-                               percent.html(percentVal);
-                           },
-                           uploadProgress: function(event, position, total, percentComplete) {
-                               var percentVal = percentComplete + '%';
-                               bar.width(percentVal);
-                               percent.html(percentVal);
-                           },
-                           complete: function(xhr) {
-                               status.html(xhr.responseText);
-                               var percentVal = '0%';
-                               //bar.width(percentVal);
-                               //percent.html(percentVal);
-                               //bar.hide();
-                               //alert('Success');
-                           }
-                       });
-                        //$('form').submit(); 
-                       }); 
+  $('.progress').hide();
+  $('input[type=file]').change(function() { 
+  $('.progress').show();
+  var current_progress = 0;
+  var interval = setInterval(function() {
+      current_progress += 10;
+      $("#dynamic")
+      .css("width", current_progress + "%")
+      .attr("aria-valuenow", current_progress)
+      .text(current_progress + "% Complete");
+      if (current_progress >= 100)
+          clearInterval(interval);
+  }, 1000);
+});
                        </script>
                         
-</body>
+     {!! Toastr::message() !!}
+   </body>
 
 </html>
 
