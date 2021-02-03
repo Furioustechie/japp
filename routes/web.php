@@ -170,6 +170,6 @@ Route::post('updatepasswd', 'SettingsController@updatepasswd');
 Route::any('/test','pdfController@test');
 
 
-
+// I am teting this route page to github
 
 

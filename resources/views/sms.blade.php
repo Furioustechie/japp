@@ -132,6 +132,24 @@
       <br>
 
     </div>  
+    <div class="container mt-5">
+    <h2 class="mb-4">Laravel 7|8 Yajra Datatables Example</h2>
+    <table class="table table-bordered yajra-datatable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Phone</th>
+                <th>DOB</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
   <!-- JavaScripts Styles    -->
   @include('inc.scriptstyle')
 </body>
